@@ -1,20 +1,22 @@
 // import { Aside, Main, Nav } from "@/components/layout";
 // import { ReactQueryProvider } from "@/providers";
 
-export default function RootLayout({
+import { Main, Nav } from "@/components/";
+
+export default function ServiceLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="flex flex-1">
-        {/* <ReactQueryProvider>
+    <div className="max-w-[1200px] h-screen mx-auto w-full">
+      <Nav />
+      <Main>{children}</Main>
+      {/* <ReactQueryProvider>
           <Aside />
           <Nav />
           <Main>{children}</Main>
         </ReactQueryProvider> */}
-      </div>
     </div>
   );
 }
