@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { SiteConfig } from "@/../config";
+import "../globals.css";
+
+import { ReactQueryProvider } from "@/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,28 +12,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-export const metadata: Metadata = {
-  title: {
-    template: `%s - ${SiteConfig.title.default}`,
-    default: SiteConfig.title.default,
-  },
-  description: SiteConfig.subtitle,
-  openGraph: {
-    title: SiteConfig.title.default,
-    description: SiteConfig.subtitle,
-    siteName: "Designthou",
-    locale: "ko_KR",
-    type: "website",
-    url: SiteConfig.url,
-  },
-  // verification: {
-  //   google: process.env.NEXT_PUBLIC_GOOGLE_SEO,
-  //   other: {
-  //     "naver-site-verification": process.env.NEXT_PUBLIC_NAVER_SEO,
-  //   },
-  // },
-};
 
 export default function RootLayout({
   children,
@@ -70,7 +48,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="max-w-300 h-screen mx-auto w-full">
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </div>
       </body>
     </html>
   );

@@ -10,6 +10,7 @@ const route = {
     NEWS: "/news",
     FREE_SOURCE: "/sources",
     COMPETITION: "/competition",
+    TIPS: "/tips",
     SETTINGS: {
       SETTINGS: {
         ROOT: "/settings",
@@ -17,6 +18,13 @@ const route = {
       },
     },
     NOT_FOUND: "/*",
+  },
+  ADMIN: {
+    ROOT: "/admin",
+    DASHBOARD: "/admin/dashboard",
+    NEWS: "/admin/news",
+    COMPETITION: "/admin/competition",
+    TIPS: "/admin/tips",
   },
 };
 
