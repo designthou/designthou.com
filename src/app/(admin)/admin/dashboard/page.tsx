@@ -1,3 +1,10 @@
+import { GAReport } from "@/lib/ga4";
+
 export default function DashboardPage() {
-  return <div>Dashboard Page</div>;
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <GAReport />
+    </div>
+  );
 }

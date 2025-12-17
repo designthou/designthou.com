@@ -17,9 +17,9 @@ const ACCESS_GA_REPORT_URL =
 async function fetchGoogleAnalyticsReport(): Promise<GAReportResponse> {
   try {
     const tokenResponse = await axios.post(OAUTH_TOKEN_REQUEST_URL, {
-      client_id: process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID,
-      client_secret: process.env.NEXT_PUBLIC_OAUTH_CLIENT_SECRET,
-      refresh_token: process.env.NEXT_PUBLIC_OAUTH_REFRESH_TOKEN,
+      client_id: process.env.GA_OAUTH_CLIENT_ID,
+      client_secret: process.env.GA_OAUTH_CLIENT_SECRET,
+      refresh_token: process.env.GA_OAUTH_REFRESH_TOKEN,
       grant_type: "refresh_token",
     });
 
