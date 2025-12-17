@@ -4,6 +4,7 @@ import "../globals.css";
 import { SiteConfig } from "@/../config";
 import { Main, Nav } from "@/components";
 import { ReactQueryProvider } from "@/providers";
+import { GAProvider } from "@/lib/ga4";
 
 const inter = Inter({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -72,6 +73,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter} ${geistMono.variable} antialiased`}>
+        {process.env.NEXT_PUBLIC_GA4_ID ? (
+          <GAProvider gaId={process.env.NEXT_PUBLIC_GA4_ID} />
+        ) : null}
         <div className="max-w-300 h-screen mx-auto w-full">
           <ReactQueryProvider>
             <Nav />
