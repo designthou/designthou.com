@@ -2,13 +2,7 @@
 
 import { SquareUserRound } from "lucide-react";
 import { type GAReportRow, useGoogleAnalyticsReport } from "@/hooks";
-import {
-  dateOfToday,
-  monthOfToday,
-  todayStr,
-  yearOfToday,
-  yesterdayStr,
-} from "@/utils/date";
+import { todayStr, yesterdayStr } from "@/utils/date";
 
 export default function GoogleAnalyticsReport() {
   const { data } = useGoogleAnalyticsReport();
