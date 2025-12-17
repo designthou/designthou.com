@@ -42,7 +42,7 @@ export default function GoogleAnalyticsReport() {
         <SquareUserRound size={18} />
         <span>사용자 이용 현황</span>
       </h3>
-      <div className="grid grid-cols-1 p-4 border border-muted rounded-md sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 p-4 border border-muted rounded-md sm:grid-cols-2">
         <div className="flex flex-col gap-3">
           <span className="inline-block p-1.5 w-fit bg-black text-white border border-muted rounded-lg">
             Today
