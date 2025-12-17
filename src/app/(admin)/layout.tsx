@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { Metadata } from "next";
 import "../globals.css";
-
 import { ReactQueryProvider } from "@/providers";
 
 const geistSans = Geist({
@@ -12,6 +12,11 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+export const metadata: Metadata = {
+  title: "Designthou - Admin",
+  description: "Designthou Admin Page",
+};
 
 export default function RootLayout({
   children,
