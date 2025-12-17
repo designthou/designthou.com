@@ -1,9 +1,5 @@
-import { Loader } from "lucide-react";
+import { LayoutLoader } from "@/components";
 
 export default function Loading() {
-  return (
-    <div className="ui-flex-center w-full h-full">
-      <Loader className="animtate-spin" />
-    </div>
-  );
+  return <LayoutLoader />;
 }

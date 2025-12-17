@@ -1,10 +1,12 @@
 "use client";
 
+import { SquareUserRound } from "lucide-react";
 import { type GAReportRow, useGoogleAnalyticsReport } from "@/hooks";
 import {
   dateOfToday,
   monthOfToday,
   todayStr,
+  yearOfToday,
   yesterdayStr,
 } from "@/utils/date";
 
@@ -20,7 +22,7 @@ export default function GoogleAnalyticsReport() {
 
   const getThisWeekVisitors = (data: GAReportRow[], index: number) =>
     data
-      .map(({ metricValues }) => metricValues)
+      ?.map(({ metricValues }) => metricValues)
       .map((metricValue) => metricValue[index].value)
       .reduce((prev, curr) => +prev + +curr, 0);
 
@@ -35,50 +37,64 @@ export default function GoogleAnalyticsReport() {
   ];
 
   return (
-    <div>
-      <h2>Designthou</h2>
-      <div>
-        {`${monthOfToday}`} <span>월</span> {`${dateOfToday}`} <span>일</span>
-      </div>
-      <div>
-        <h3>사용자 이용 현황</h3>
-        <div>
-          <div>
-            <h6>Today</h6>
-            <ul>
-              <li>
-                <span>방문자</span>
-                <span>{todayActiveUsers}</span>
-              </li>
-              <li>
-                <span>홈페이지 클릭</span>
-                <span>{todayHomePageClicks}</span>
-              </li>
-              <li>
-                <span>세션</span>
-                <span>{todayStayUsers}</span>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h6>This Week</h6>
-            <ul>
-              <li>
-                <span>방문자</span>
-                <span>{thisWeekActiveUsers}</span>
-              </li>
-              <li>
-                <span>홈페이지 클릭</span>
-                <span>{thisWeekHomePageClicks}</span>
-              </li>
-              <li>
-                <span>세션</span>
-                <span>{thisWeekStayUsers}</span>
-              </li>
-            </ul>
-          </div>
+    <div className="flex flex-col gap-6 mt-6 w-full">
+      <h3 className="flex items-center gap-2 font-semibold">
+        <SquareUserRound size={18} />
+        <span>사용자 이용 현황</span>
+      </h3>
+      <div className="grid grid-cols-1 p-4 border border-muted rounded-md sm:grid-cols-2">
+        <div className="flex flex-col gap-3">
+          <span className="inline-block p-1.5 w-fit bg-black text-white border border-muted rounded-lg">
+            Today
+          </span>
+          <ul className="flex flex-col gap-3">
+            <li className="flex items-center gap-3">
+              <span>방문자</span>
+              <span className="py-1.5 px-3bg-light text-gray-600 rounded-lg">
+                {todayActiveUsers}
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span>홈페이지 클릭</span>
+              <span className="py-1.5 px-3 bg-light text-gray-600 rounded-lg">
+                {todayHomePageClicks}
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span>세션</span>
+              <span className="py-1.5 px-3 bg-light text-gray-600 rounded-lg">
+                {todayStayUsers}
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div className="flex flex-col gap-3">
+          <span className="inline-block p-1.5 w-fit bg-black text-white border border-muted rounded-lg">
+            This Week
+          </span>
+          <ul className="flex flex-col gap-3">
+            <li className="flex items-center gap-3">
+              <span>방문자</span>
+              <span className="py-1.5 px-3bg-light text-gray-600 rounded-lg">
+                {thisWeekActiveUsers}
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span>홈페이지 클릭</span>
+              <span className="py-1.5 px-3bg-light text-gray-600 rounded-lg">
+                {thisWeekHomePageClicks}
+              </span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span>세션</span>
+              <span className="py-1.5 px-3bg-light text-gray-600 rounded-lg">
+                {thisWeekStayUsers}
+              </span>
+            </li>
+          </ul>
         </div>
       </div>
+
       <div>
         <p>
           * <span>세션</span>은 한 사용자(특정 id 소유)가 홈페이지에 진입하여{" "}

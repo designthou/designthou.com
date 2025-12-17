@@ -1,3 +1,4 @@
+import { AdminMain, AdminNav, Aside } from "@/components";
 import React from "react";
 
 export default function AdminLayout({
@@ -5,5 +6,13 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="flex flex-1 min-h-screen">AdminLayout{children}</div>;
+  return (
+    <div className="flex flex-col min-h-screen">
+      <div className="flex flex-1">
+        <Aside />
+        <AdminNav />
+        <AdminMain>{children}</AdminMain>
+      </div>
+    </div>
+  );
 }

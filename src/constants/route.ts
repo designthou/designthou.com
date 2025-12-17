@@ -11,12 +11,13 @@ const route = {
     FREE_SOURCE: "/sources",
     COMPETITION: "/competition",
     TIPS: "/tips",
+
     SETTINGS: {
-      SETTINGS: {
-        ROOT: "/settings",
-        MYACCOUNT_PROFILE: "/settings/myaccount/profile",
-      },
+      ROOT: "/settings",
+      MYACCOUNT_PROFILE: "/settings/myaccount/profile",
+      SUBSCRIPTION: "/settings/myaccount/subscription",
     },
+
     NOT_FOUND: "/*",
   },
   ADMIN: {
