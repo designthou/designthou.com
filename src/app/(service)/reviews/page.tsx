@@ -59,7 +59,7 @@ export default async function ReviewsPage() {
                 <div className="flex gap-6">
                   <div className="w-12 h-12 rounded-full bg-gradient-indigo-gray-100" />
                   <div className="flex flex-col gap-1">
-                    <span className="py-1.5 px-3 text-sm bg-blue-200 font-semibold rounded-lg">
+                    <span className="py-1.5 px-3 text-sm text-center bg-blue-200 font-semibold rounded-lg">
                       {noticeReview?.username}
                     </span>
 
@@ -117,7 +117,7 @@ export default async function ReviewsPage() {
                           <div className="flex gap-4">
                             <div className="w-12 h-12 rounded-full bg-gradient-orange-100" />
                             <div className="flex flex-col gap-1">
-                              <span className="py-1.5 px-3 bg-gray-100 text-sm text-gray-600 font-semibold rounded-lg">
+                              <span className="py-1.5 px-3 bg-gray-100 text-sm text-center text-gray-600 font-semibold rounded-lg">
                                 {username}
                               </span>
                               <span className="inline-block p-1.5 text-xs text-gray-500 rounded-lg">
