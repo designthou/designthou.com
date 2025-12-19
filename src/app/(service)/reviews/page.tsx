@@ -12,7 +12,6 @@ export default async function ReviewsPage() {
     .from("online_course_reviews")
     .select("*")
     .order("created_at", { ascending: false });
-  console.log(reviews);
 
   const noticeReview = reviews?.find((review) => review.notice);
 
@@ -37,20 +36,20 @@ export default async function ReviewsPage() {
                 )}
               >
                 <div className="font-semibold text-lg">
-                  {noticeReview.title}
+                  {noticeReview?.title}
                 </div>
 
                 <div
                   className="max-w-[300px]"
                   dangerouslySetInnerHTML={{
-                    __html: sanitizeHtml(noticeReview.content),
+                    __html: sanitizeHtml(noticeReview?.content),
                   }}
                 />
 
                 <div className="flex items-center gap-2">
                   <span className="font-medium">Views</span>{" "}
                   <span className="inline-block py-1.5 px-3 font-bold rounded-md">
-                    {noticeReview.view_count}
+                    {noticeReview?.view_count}
                   </span>
                 </div>
 
@@ -59,13 +58,13 @@ export default async function ReviewsPage() {
                   <div className="flex flex-col gap-3">
                     <div>
                       <span className="py-1.5 px-3 text-sm font-semibold rounded-lg">
-                        {noticeReview.username}
+                        {noticeReview?.username}
                       </span>{" "}
                       님
                     </div>
                     <span className="inline-block py-1.5 px-3 w-fit text-sm rounded-lg">
                       {convertSupabaseDateToShortHumanReadable(
-                        noticeReview.created_at,
+                        noticeReview?.created_at,
                       )}
                     </span>
                   </div>
