@@ -11,7 +11,7 @@ const route = {
     FREE_SOURCE: "/sources",
     COMPETITION: "/competition",
     TIPS: "/tips",
-
+    REVIEWS: "/reviews",
     SETTINGS: {
       ROOT: "/settings",
       MYACCOUNT_PROFILE: "/settings/myaccount/profile",
