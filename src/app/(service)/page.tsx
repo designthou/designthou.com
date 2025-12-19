@@ -17,14 +17,14 @@ export default async function HomePage() {
 
   return (
     <section className="flex flex-col justify-items-center gap-12 p-4 bg-white">
-      <p className="flex items-center gap-3 py-6 px-3 bg-gray-100 text-sm text-gray-600 font-semibold rounded-lg border border-gray-200 sm:text-base">
+      <p className="flex items-center gap-3 py-6 px-3 bg-muted text-sm text-gray-600 font-semibold rounded-lg border border-gray-100">
         <Construction size={21} />
         현재 디자인도우 플랫폼은 리뉴얼 중입니다. <br />
         플랫폼 정비 후, 올해 안으로 재오픈 예정입니다.
       </p>
       <div>
-        <h2 className="text-lg font-bold">재정비 진도율</h2>
-        <Progress value={15} className="w-full" />
+        <h2 className="mb-3 text-lg font-bold">재정비 진도율 - 20%</h2>
+        <Progress value={18} className="w-full" />
       </div>
 
       <div>

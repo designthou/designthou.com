@@ -1,9 +1,9 @@
+import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components";
 import { convertSupabaseDateToShortHumanReadable } from "@/lib/supabase/convertSupabaseDateToHumanReadable";
 import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
 import sanitizeHtml from "@/utils/sanitizeHtml";
-import React from "react";
 
 export default async function ReviewsPage() {
   const supabase = await createClient();
@@ -17,8 +17,11 @@ export default async function ReviewsPage() {
 
   return (
     <section className="p-4 bg-light rounded-lg">
-      <h2 className="text-lg font-bold">Reviews</h2>
-      <Tabs defaultValue="online-course">
+      <div className="flex justify-between">
+        <h2 className="text-lg font-bold">Reviews</h2>
+        <span className="font-black font-mono text-2xl">{reviews?.length}</span>
+      </div>
+      <Tabs defaultValue="online-course" className="mt-3">
         <TabsList>
           <TabsTrigger value="online-course">Online Course</TabsTrigger>
           <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
@@ -27,20 +30,20 @@ export default async function ReviewsPage() {
           <TabsContent
             key={idx}
             value={tab}
-            className="grid grid-cols-1 gap-3  items-start sm:grid-cols-3"
+            className="grid grid-cols-1 gap-3 items-start sm:grid-cols-3"
           >
             {
               <div
-                className={cn(
-                  "flex flex-col shrink-0 w-full gap-4 p-4 border border-gray-100 bg-gradient-gray-100 rounded-xl",
-                )}
+                className={
+                  "flex flex-col shrink-0 w-full gap-4 p-4 bg-blue-50 text-gray-800 border border-gray-100 rounded-xl shadow-md"
+                }
               >
-                <div className="font-semibold text-lg">
+                <div className="text-base font-semibold sm:text-lg">
                   {noticeReview?.title}
                 </div>
 
                 <div
-                  className="max-w-[300px]"
+                  className="text-sm max-w-[300px] md:text-base"
                   dangerouslySetInnerHTML={{
                     __html: sanitizeHtml(noticeReview?.content),
                   }}
@@ -54,15 +57,13 @@ export default async function ReviewsPage() {
                 </div>
 
                 <div className="flex gap-6">
-                  <div className="w-10 h-10 rounded-full bg-gradient-indigo-gray-100" />
-                  <div className="flex flex-col gap-3">
-                    <div>
-                      <span className="py-1.5 px-3 text-sm font-semibold rounded-lg">
-                        {noticeReview?.username}
-                      </span>{" "}
-                      님
-                    </div>
-                    <span className="inline-block py-1.5 px-3 w-fit text-sm rounded-lg">
+                  <div className="w-12 h-12 rounded-full bg-gradient-indigo-gray-100" />
+                  <div className="flex flex-col gap-1">
+                    <span className="py-1.5 px-3 text-sm bg-blue-200 font-semibold rounded-lg">
+                      {noticeReview?.username}
+                    </span>
+
+                    <span className="inline-block p-1.5 text-xs rounded-lg">
                       {convertSupabaseDateToShortHumanReadable(
                         noticeReview?.created_at,
                       )}
@@ -73,7 +74,7 @@ export default async function ReviewsPage() {
             }
             {reviews
               ?.filter((review) => !review.title.includes("Re"))
-              ?.filter((review) => review.category === tab)
+              ?.filter((review) => review.category === tab && !review.notice)
               .sort((prev, curr) => curr.view_count - prev.view_count)
               .map(
                 ({
@@ -90,15 +91,17 @@ export default async function ReviewsPage() {
                     {!is_secret && (
                       <div
                         className={cn(
-                          "flex flex-col shrink-0 w-full gap-4 p-4 border border-gray-100 bg-white rounded-xl",
+                          "flex flex-col shrink-0 w-full gap-4 p-4 bg-white border border-gray-100 rounded-xl",
                           notice ? "bg-gradient-orange-100" : "",
                         )}
                       >
-                        <div className="font-semibold text-lg">{title}</div>
+                        <div className="text-base font-semibold sm:text-lg">
+                          {title}
+                        </div>
 
                         {!is_secret && (
                           <div
-                            className="max-w-[300px]"
+                            className="text-sm max-w-[300px] md:text-base"
                             dangerouslySetInnerHTML={{
                               __html: sanitizeHtml(content),
                             }}
@@ -111,16 +114,13 @@ export default async function ReviewsPage() {
                           </span>
                         </div>
                         {!is_secret && (
-                          <div className="flex justify-between gap-6">
-                            <div className="w-10 h-10 rounded-full bg-gradient-orange-100" />
-                            <div className="flex flex-col gap-3">
-                              <div>
-                                <span className="py-1.5 px-3 bg-gray-100 text-sm text-gray-600 font-semibold rounded-lg">
-                                  {username}
-                                </span>{" "}
-                                님
-                              </div>
-                              <span className="inline-block py-1.5 px-3 w-fit text-sm bg-light text-gray-500 rounded-lg">
+                          <div className="flex gap-4">
+                            <div className="w-12 h-12 rounded-full bg-gradient-orange-100" />
+                            <div className="flex flex-col gap-1">
+                              <span className="py-1.5 px-3 bg-gray-100 text-sm text-gray-600 font-semibold rounded-lg">
+                                {username}
+                              </span>
+                              <span className="inline-block p-1.5 text-xs text-gray-500 rounded-lg">
                                 {convertSupabaseDateToShortHumanReadable(
                                   created_at,
                                 )}

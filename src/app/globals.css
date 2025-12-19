@@ -287,7 +287,7 @@
   }
 
   .bg-gradient-gray-100 {
-    @apply bg-radial-[at_50%_75%] from-gray-100 via-gray-300 to-gray-50 to-90%;
+    @apply bg-radial-[at_20%_75%] from-gray-100 via-gray-300 to-gray-50 to-90%;
   }
 
   .bg-gradient-gray-200 {

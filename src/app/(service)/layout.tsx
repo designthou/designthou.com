@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { SiteConfig } from "@/../config";
-import { Main, Nav } from "@/components";
+import { Main, Nav, ScrollToTopButton } from "@/components";
 import { ReactQueryProvider } from "@/providers";
 import { GAProvider } from "@/lib/ga4";
 
@@ -80,6 +80,7 @@ export default function RootLayout({
           <ReactQueryProvider>
             <Nav />
             <Main>{children}</Main>
+            <ScrollToTopButton />
           </ReactQueryProvider>
         </div>
       </body>

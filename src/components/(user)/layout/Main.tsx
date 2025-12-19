@@ -3,5 +3,9 @@ export default function Main({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <main className="w-full bg-white">{children}</main>;
+  return (
+    <main className="mt-[var(--global-layout-nav-height)] w-full bg-white sm:mt-0">
+      {children}
+    </main>
+  );
 }
