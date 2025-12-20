@@ -71,6 +71,10 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=0"
         />
+        <meta
+          name="google-site-verification"
+          content={process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_ID}
+        />
       </head>
       <body className={`${inter} ${geistMono.variable} antialiased`}>
         {process.env.NEXT_PUBLIC_GA4_ID ? (
