@@ -1,0 +1,5 @@
+User-agent: *
+allow: /
+disallow: /private/
+disallow: /admin/
+sitemap: https://designthou.com/sitemap.xml
