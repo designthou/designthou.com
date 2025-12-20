@@ -33,12 +33,12 @@ export const metadata: Metadata = {
     type: "website",
     url: SiteConfig.url,
   },
-  // verification: {
-  //   google: process.env.NEXT_PUBLIC_GOOGLE_SEO,
-  //   other: {
-  //     "naver-site-verification": process.env.NEXT_PUBLIC_NAVER_SEO,
-  //   },
-  // },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_ID,
+    other: {
+      "naver-site-verification": "d40d03ef9270913b96ad108a57d72246fdfc73e8",
+    },
+  },
 };
 
 export default function RootLayout({
@@ -70,10 +70,6 @@ export default function RootLayout({
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=0"
-        />
-        <meta
-          name="google-site-verification"
-          content={process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_ID}
         />
       </head>
       <body className={`${inter} ${geistMono.variable} antialiased`}>
