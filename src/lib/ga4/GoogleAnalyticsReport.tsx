@@ -116,7 +116,7 @@ export default function GoogleAnalyticsReport() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3">
         <div className="grid grid-cols-1 gap-4 p-4 border border-muted rounded-lg">
           <h4 className="ui-flex-center-between font-semibold">
             <div className="text-sm whitespace-normal sm:whitespace-nowrap">
@@ -146,8 +146,10 @@ export default function GoogleAnalyticsReport() {
           </ChartContainer>
         </div>
         <div className="grid grid-cols-1 gap-4 p-4 border border-muted rounded-lg">
-          <h4 className="ui-flex-center-between font-semibold text-sm whitespace-normal sm:whitespace-nowrap">
-            {yearOfToday}년 최근 3개월 주차별 방문자 / 클릭 / 세션 현황
+          <h4 className="ui-flex-center-between font-semibold">
+            <span className="text-sm whitespace-normal sm:whitespace-nowrap">
+              {yearOfToday}년 주차별 방문자 / 클릭 / 세션 현황
+            </span>
             <span className="inline-block muted-gray-label text-xs">
               Weekly
             </span>
@@ -173,8 +175,8 @@ export default function GoogleAnalyticsReport() {
         <div className="grid grid-cols-1 gap-4 p-4 border border-muted rounded-lg">
           <h4 className="ui-flex-center-between font-semibold">
             <div className="text-sm whitespace-normal sm:whitespace-nowrap">
-              <span className="font-bold underline">{yearOfToday}년</span> 월별
-              방문자 / 클릭 / 세션 현황
+              <span className="font-bold">{yearOfToday}년</span> 월별 방문자 /
+              클릭 / 세션 현황
             </div>
             <span className="inline-block muted-gray-label text-xs">
               Monthly
@@ -188,7 +190,9 @@ export default function GoogleAnalyticsReport() {
                 tickLine={false}
                 tickMargin={10}
                 axisLine={false}
-                tickFormatter={(value) => value + " week"}
+                tickFormatter={(value) =>
+                  value.slice(0, 4) + "/" + value.slice(4)
+                }
               />
               <ChartTooltip content={<ChartTooltipContent />} />
               <ChartLegend content={<ChartLegendContent />} />

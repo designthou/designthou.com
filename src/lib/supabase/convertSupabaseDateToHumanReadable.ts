@@ -10,12 +10,14 @@ function convertSupabaseDateToHumanReadable(date: string) {
   } as const;
 
   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-    parsedDate
+    parsedDate,
   );
   return formattedDate;
 }
 
 function convertSupabaseDateToShortHumanReadable(date: string) {
+  if (!date) return "";
+
   const parsedDate = new Date(date);
   const options = {
     year: "numeric",
@@ -24,7 +26,7 @@ function convertSupabaseDateToShortHumanReadable(date: string) {
   } as const;
 
   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-    parsedDate
+    parsedDate,
   );
   return formattedDate;
 }

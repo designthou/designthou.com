@@ -20,11 +20,13 @@ const getChartData = (
   dimensionValues: string[],
   metricValues: GAReportRow["metricValues"][],
 ) =>
-  dimensionValues.map((dimensionValue, idx) => ({
-    name: dimensionValue,
-    visitor: +metricValues[idx][0].value,
-    click: +metricValues[idx][1].value,
-    session: +metricValues[idx][2].value,
-  }));
+  dimensionValues
+    .map((dimensionValue, idx) => ({
+      name: dimensionValue,
+      visitor: +metricValues[idx][0].value,
+      click: +metricValues[idx][1].value,
+      session: +metricValues[idx][2].value,
+    }))
+    .sort((prev, curr) => +prev.name - +curr.name);
 
 export { chartConfig, getChartData };

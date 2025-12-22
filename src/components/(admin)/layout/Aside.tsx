@@ -38,7 +38,7 @@ export default function Aside() {
         className={`fixed flex-col left-0 hidden py-2 h-full w-14 max-h-screen bg-white overflow-y-auto overflow-x-hidden border-muted border-r md:sticky md:flex lg:w-56 lg:p-3`}
       >
         <div className="flex h-full flex-col justify-between gap-2 lg:gap-4">
-          <header className="flex justify-between items-center min-h-9">
+          <header className="ui-flex-center-between min-h-9">
             <h1
               className={cn(
                 "ui-flex-center text-white rounded-lg transition-colors",

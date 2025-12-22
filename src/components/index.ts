@@ -1,4 +1,4 @@
 export * from "./(admin)";
-export * from "./(user)";
+export * from "./(service)";
 export * from "./common";
 export * from "./ui";

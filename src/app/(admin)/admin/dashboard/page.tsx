@@ -36,7 +36,7 @@ export default function DashboardPage() {
       </div>
       <div className="flex flex-col gap-3 mt-4 p-4 bg-light rounded-lg">
         <div className="flex items-center gap-2 text-xs text-gray-700 font-semibold">
-          <Asterisk size={15} />
+          <Asterisk size={15} className="min-w-4" />
           <p>
             <span>세션</span>은 한 사용자(특정 id 소유)가 홈페이지에 진입하여{" "}
             <span>특정 시간</span> 동안 머무르고 활동을 멈춘 이후, 다시 진입한
@@ -44,7 +44,7 @@ export default function DashboardPage() {
           </p>
         </div>
         <div className="flex items-center gap-2 text-xs text-gray-700 font-semibold">
-          <Asterisk size={15} />
+          <Asterisk size={15} className="min-w-4" />
           <p>
             <span>특정 시간</span>이란 30분을 의미합니다.
           </p>

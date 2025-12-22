@@ -53,7 +53,7 @@ export default function Nav() {
         <MotionBlock onClick={toggle} className="rounded-lg">
           <Link
             href={route.SERVICE.REVIEWS}
-            className="flex justify-between items-center px-3 w-full min-h-15 rounded-lg font-medium cursor-pointer active:bg-light"
+            className="ui-flex-center-between px-3 w-full min-h-15 rounded-lg font-medium cursor-pointer active:bg-light"
           >
             <span>Reviews</span>
             <ArrowRightIcon size={20} />

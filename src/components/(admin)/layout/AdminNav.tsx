@@ -16,7 +16,7 @@ export default function Nav() {
         id="layout-nav"
         className={`fixed flex justify-center w-full pt-3 px-3 ${isSideNavOpen ? "bg-white" : ""} z-40 md:hidden`}
       >
-        <div className="flex justify-between items-center flex-1 w-full px-4 py-3 min-h-[var(--global-layout-nav-height)] border border-muted rounded-xl bg-white backdrop-blur-lg">
+        <div className="ui-flex-center-between flex-1 w-full px-4 py-3 min-h-[var(--global-layout-nav-height)] border border-muted rounded-xl bg-white backdrop-blur-lg">
           <h1
             className="ui-flex-center text-lg font-black text-white bg-gradient-gray-200 rounded-lg transition-colors hover:bg-light"
             onClick={() => setIsSideNavOpen(false)}
@@ -50,7 +50,7 @@ export default function Nav() {
         <MotionBlock onClick={toggle} className="rounded-lg">
           <Link
             href={route.ADMIN.NEWS}
-            className="flex justify-between items-center px-3 w-full min-h-15 rounded-lg font-medium cursor-pointer active:bg-light"
+            className="ui-flex-center-between px-3 w-full min-h-15 rounded-lg font-medium cursor-pointer active:bg-light"
           >
             <span>News</span>
             <ArrowRightIcon size={20} />
@@ -59,7 +59,7 @@ export default function Nav() {
         <MotionBlock onClick={toggle} className="rounded-lg">
           <Link
             href={route.ADMIN.COMPETITION}
-            className="flex justify-between items-center px-3 w-full min-h-15 font-medium rounded-lg cursor-pointer active:bg-light"
+            className="ui-flex-center-between px-3 w-full min-h-15 font-medium rounded-lg cursor-pointer active:bg-light"
           >
             Competition
             <ArrowRightIcon size={20} />
@@ -68,7 +68,7 @@ export default function Nav() {
         <MotionBlock onClick={toggle} className="rounded-lg">
           <Link
             href={route.ADMIN.TIPS}
-            className="flex justify-between items-center px-3 w-full min-h-15 font-medium rounded-lg cursor-pointer active:bg-light"
+            className="ui-flex-center-between px-3 w-full min-h-15 font-medium rounded-lg cursor-pointer active:bg-light"
           >
             Youtube Tips
             <ArrowRightIcon size={20} />

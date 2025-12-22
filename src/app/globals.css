@@ -274,6 +274,10 @@
     @apply px-3 py-1.5 bg-muted text-muted-foreground rounded-lg;
   }
 
+  .bg-gradient-orange-50 {
+    @apply bg-radial-[at_40%_60%] from-orange-100 via-red-300 to-orange-100;
+  }
+
   .bg-gradient-orange-100 {
     @apply bg-radial-[at_20%_80%] from-orange-200 via-red-400 to-orange-50;
   }

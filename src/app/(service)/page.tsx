@@ -1,24 +1,23 @@
 import Image from "next/image";
-import { Construction, Sparkle } from "lucide-react";
+import { Activity, Sparkle } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
   AspectRatio,
+  HomeReviewList,
   Progress,
+  Skeleton,
 } from "@/components";
 import RhinoClassImage from "/public/rhino_class.webp";
+import React from "react";
 
 export default async function HomePage() {
-  // const supabase = await createClient();
-  // const { data } = await supabase.from('documents').select('*');
-  // console.log(data);
-
   return (
     <section className="flex flex-col justify-items-center gap-12 p-4 bg-white">
-      <p className="flex items-center gap-3 py-6 px-3 bg-muted text-sm text-gray-600 font-semibold rounded-lg border border-gray-100">
-        <Construction size={21} />
+      <p className="flex items-center gap-3 py-6 px-3 bg-gradient-gray-100 text-sm text-gray-600 font-semibold rounded-lg border border-gray-100">
+        <Activity size={21} />
         현재 디자인도우 플랫폼은 리뉴얼 중입니다. <br />
         플랫폼 정비 후, 올해 안으로 재오픈 예정입니다.
       </p>
@@ -80,6 +79,20 @@ export default async function HomePage() {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+      </div>
+      <div>
+        <h2 className="mb-3 text-lg font-bold">실시간 수강후기</h2>
+        <React.Suspense
+          fallback={
+            <div className="grid grid-cols-1 gap-4 w-full sm:grid-cols-2 md:grid-cols-4">
+              {Array.from({ length: 4 }, (_, idx) => (
+                <Skeleton key={idx} className="w-full min-h-91" />
+              ))}
+            </div>
+          }
+        >
+          <HomeReviewList />
+        </React.Suspense>
       </div>
       <AspectRatio ratio={16 / 9} className="bg-muted rounded-lg">
         <Image

@@ -24,7 +24,7 @@ export default async function NewsPage() {
         {tabsTrigger.map((tabTrigger) => (
           <TabsContent key={tabTrigger} value={tabTrigger}>
             <React.Suspense fallback={<Loading />}>
-              <NewsList value={tabTrigger} />
+              <NewsList year={tabTrigger} />
             </React.Suspense>
           </TabsContent>
         ))}

@@ -14,10 +14,10 @@ import {
 import { Sparkle } from "lucide-react";
 
 interface NewsListProps {
-  value: string;
+  year: string;
 }
 
-export default function NewsList({ value }: NewsListProps) {
+export default function NewsList({ year }: NewsListProps) {
   const { calculatedTotalPage } = useGetPaginationInfo({
     queryKey: queryKey.ADMIN.NEWS_LIST_PAGE_INFO,
     queryFn: getNewsListPageInfo,
@@ -27,7 +27,7 @@ export default function NewsList({ value }: NewsListProps) {
 
   const { data, hasNextPage, fetchNextPage, isLoading } =
     useSuspenseInfiniteQuery({
-      queryKey: queryKey.ADMIN.NEWS_LIST_BY_PAGE,
+      queryKey: [...queryKey.ADMIN.NEWS_LIST_BY_PAGE, year],
       queryFn: ({ pageParam }) =>
         getNewsListByPage(pageParam, NEWS_LIST_PAGE_SIZE),
       initialPageParam: 1,
@@ -52,17 +52,16 @@ export default function NewsList({ value }: NewsListProps) {
   const news = data.pages
     .flat()
     .filter(
-      ({ created_at }) => `${new Date(created_at).getFullYear()}` === value,
+      ({ created_at }) => `${new Date(created_at).getFullYear()}` === year,
     );
 
   return (
     <>
-      {" "}
       <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {news?.length === 0 && (
           <Wip
             icon={<Sparkle size={18} />}
-            message={`Empty Data on ${value} year`}
+            message={`Empty Data on ${year} year`}
           />
         )}
         {news?.map((article) => (
