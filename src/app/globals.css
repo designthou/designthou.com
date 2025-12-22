@@ -225,6 +225,10 @@
     @apply flex justify-center items-center;
   }
 
+  .ui-flex-center-between {
+    @apply flex justify-between items-center;
+  }
+
   .min-h-svh {
     min-height: 100svh;
   }
@@ -264,6 +268,10 @@
 
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background-color: rgba(100, 100, 100, 0.5);
+  }
+
+  .muted-gray-label {
+    @apply px-3 py-1.5 bg-muted text-muted-foreground rounded-lg;
   }
 
   .bg-gradient-orange-100 {

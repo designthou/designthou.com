@@ -35,27 +35,74 @@ export async function GET() {
       );
     }
 
-    const reportResponse = await axios.post(
-      `${ACCESS_GA_REPORT_URL}/${process.env.NEXT_PUBLIC_GA4_PROPERTY_ID}:runReport`,
-      {
-        dimensions: [{ name: "date" }],
-        metrics: [
-          { name: "activeUsers" },
-          { name: "screenPageViews" },
-          { name: "sessions" },
-        ],
-        dateRanges: [{ startDate: "7daysAgo", endDate: "today" }],
-        keepEmptyRows: true,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
+    const [fetchDailyReport, fetchWeeklyReport, fetchMonthlyReport] =
+      await Promise.all([
+        await axios.post(
+          `${ACCESS_GA_REPORT_URL}/${process.env.NEXT_PUBLIC_GA4_PROPERTY_ID}:runReport`,
+          {
+            dimensions: [{ name: "date" }],
+            metrics: [
+              { name: "activeUsers" },
+              { name: "screenPageViews" },
+              { name: "sessions" },
+            ],
+            dateRanges: [{ startDate: "30daysAgo", endDate: "today" }],
+            keepEmptyRows: true,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        ),
+        await axios.post(
+          `${ACCESS_GA_REPORT_URL}/${process.env.NEXT_PUBLIC_GA4_PROPERTY_ID}:runReport`,
+          {
+            dimensions: [{ name: "week" }],
+            metrics: [
+              { name: "activeUsers" },
+              { name: "screenPageViews" },
+              { name: "sessions" },
+            ],
+            dateRanges: [{ startDate: "90daysAgo", endDate: "today" }],
+            keepEmptyRows: true,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        ),
+        await axios.post(
+          `${ACCESS_GA_REPORT_URL}/${process.env.NEXT_PUBLIC_GA4_PROPERTY_ID}:runReport`,
+          {
+            dimensions: [{ name: "yearMonth" }],
+            metrics: [
+              { name: "activeUsers" },
+              { name: "screenPageViews" },
+              { name: "sessions" },
+            ],
+            dateRanges: [{ startDate: "365daysAgo", endDate: "today" }],
+            keepEmptyRows: true,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        ),
+      ]);
 
-    if (reportResponse.status === 200) {
-      return NextResponse.json(reportResponse.data);
+    if (
+      fetchDailyReport.status === 200 &&
+      fetchWeeklyReport.status === 200 &&
+      fetchMonthlyReport.status === 200
+    ) {
+      return NextResponse.json({
+        daily: fetchDailyReport.data,
+        weekly: fetchWeeklyReport.data,
+        monthly: fetchMonthlyReport.data,
+      });
     }
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {

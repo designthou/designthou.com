@@ -1,23 +1,39 @@
-import { useEffect, useRef } from "react";
+import React from "react";
 
-const useInfiniteScroll = (callback: () => void) => {
-  const targetRef = useRef<HTMLDivElement | null>(null);
+const defaultOptions: IntersectionObserverInit = {
+  root: null,
+  threshold: 0.5,
+  rootMargin: "100px",
+};
 
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
+const useInfiniteScroll = <T extends HTMLElement>({
+  callback,
+  isLoading = false,
+  hasNextPage = true,
+  options = defaultOptions,
+}: {
+  callback: () => void;
+  isLoading?: boolean;
+  hasNextPage?: boolean;
+  options?: IntersectionObserverInit;
+}) => {
+  const targetRef = React.useRef<T | null>(null);
+
+  React.useEffect(() => {
+    if (!targetRef.current || !hasNextPage) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !isLoading) {
         callback();
       }
-    });
+    }, options);
 
-    if (targetRef.current) {
-      observer.observe(targetRef.current);
-    }
+    observer.observe(targetRef.current);
 
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [isLoading, hasNextPage, options]);
 
   return targetRef;
 };

@@ -3,8 +3,12 @@
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import { LayoutList, MonitorPlay, Newspaper, Search } from "lucide-react";
+import designthouSVG from "@/public/favicon.svg";
 import { Button } from "@/components";
-import { route } from "@/constants";
+import { route, screenSize } from "@/constants";
+import { useMediaQuery } from "@/hooks";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const links = [
   {
@@ -26,7 +30,8 @@ const links = [
 
 export default function Aside() {
   const segment = useSelectedLayoutSegment();
-
+  const isLGDown = useMediaQuery(screenSize.MAX_LG);
+  console.log(isLGDown);
   return (
     <div className="relative">
       <aside
@@ -34,15 +39,29 @@ export default function Aside() {
       >
         <div className="flex h-full flex-col justify-between gap-2 lg:gap-4">
           <header className="flex justify-between items-center min-h-9">
-            <h1 className="inline-flex justify-center item-center py-1.5 px-2">
+            <h1
+              className={cn(
+                "ui-flex-center text-white rounded-lg transition-colors",
+                isLGDown ? "" : "bg-gradient-gray-200",
+              )}
+            >
               <Link
                 href={route.ADMIN.DASHBOARD}
-                className="text-sm font-black text-center lg:text-lg"
+                className="p-1.5 text-sm font-black text-center hover:bg-light lg:text-lg"
               >
-                Designthou
+                {isLGDown ? (
+                  <Image src={designthouSVG} alt="Designthou" priority />
+                ) : (
+                  <span> Designthou</span>
+                )}
               </Link>
             </h1>
-            <Button type="button" variant="ghost" size="icon-sm">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              className="hidden lg:inline-block"
+            >
               <Search size={18} className="text-gray-900" />
             </Button>
           </header>

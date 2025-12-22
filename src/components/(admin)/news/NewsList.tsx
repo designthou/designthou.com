@@ -25,24 +25,29 @@ export default function NewsList({ value }: NewsListProps) {
     pageSize: NEWS_LIST_PAGE_SIZE,
   });
 
-  const { data, hasNextPage, fetchNextPage } = useSuspenseInfiniteQuery({
-    queryKey: queryKey.ADMIN.NEWS_LIST_BY_PAGE,
-    queryFn: ({ pageParam }) =>
-      getNewsListByPage(pageParam, NEWS_LIST_PAGE_SIZE),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, __, lastPageParam) => {
-      const currentPageSize = lastPage?.length ?? 0;
+  const { data, hasNextPage, fetchNextPage, isLoading } =
+    useSuspenseInfiniteQuery({
+      queryKey: queryKey.ADMIN.NEWS_LIST_BY_PAGE,
+      queryFn: ({ pageParam }) =>
+        getNewsListByPage(pageParam, NEWS_LIST_PAGE_SIZE),
+      initialPageParam: 1,
+      getNextPageParam: (lastPage, __, lastPageParam) => {
+        const currentPageSize = lastPage?.length ?? 0;
 
-      if (currentPageSize && lastPageParam < calculatedTotalPage) {
-        return lastPageParam + 1;
-      }
+        if (currentPageSize && lastPageParam < calculatedTotalPage) {
+          return lastPageParam + 1;
+        }
 
-      return undefined; // explicit return
-    },
-    staleTime: staleTime.ADMIN.NEWS_LIST.ALL_WITH_PAGINATION,
+        return undefined; // explicit return
+      },
+      staleTime: staleTime.ADMIN.NEWS_LIST.ALL_WITH_PAGINATION,
+    });
+
+  const targetRef = useInfiniteScroll<HTMLDivElement>({
+    callback: fetchNextPage,
+    isLoading,
+    hasNextPage,
   });
-
-  const targetRef = useInfiniteScroll(fetchNextPage);
 
   const news = data.pages
     .flat()
@@ -51,35 +56,38 @@ export default function NewsList({ value }: NewsListProps) {
     );
 
   return (
-    <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
-      {news?.length === 0 && (
-        <Wip
-          icon={<Sparkle size={18} />}
-          message={`Empty Data on ${value} year`}
-        />
-      )}
-      {news?.map((article) => (
-        <li
-          key={article.id}
-          className="flex items-center bg-light border border-muted rounded-lg"
-        >
-          <Link
-            href={article.url}
-            target="_blank"
-            className="p-3 w-full h-full"
+    <>
+      {" "}
+      <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        {news?.length === 0 && (
+          <Wip
+            icon={<Sparkle size={18} />}
+            message={`Empty Data on ${value} year`}
+          />
+        )}
+        {news?.map((article) => (
+          <li
+            key={article.id}
+            className="flex items-center bg-light border border-muted rounded-lg"
           >
-            <div className="font-bold">{article.title}</div>
-            <div>
-              {convertSupabaseDateToShortHumanReadable(article.created_at)}
-            </div>
-          </Link>
-        </li>
-      ))}
+            <Link
+              href={article.url}
+              target="_blank"
+              className="p-3 w-full h-full"
+            >
+              <div className="font-bold">{article.title}</div>
+              <div>
+                {convertSupabaseDateToShortHumanReadable(article.created_at)}
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ul>
       {hasNextPage && (
-        <div ref={targetRef} className="w-full h-20">
+        <div ref={targetRef} className="ui-flex-center h-32">
           <AnimateLoader />
         </div>
       )}
-    </ul>
+    </>
   );
 }

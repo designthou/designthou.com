@@ -10,7 +10,7 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div>
+    <div className="flex flex-col justify-items-center gap-3 p-4">
       <h2 className="text-lg font-bold">문제가 발생했습니다</h2>
       <p>{error.message}</p>
       <Button onClick={() => reset()}>RETRY</Button>

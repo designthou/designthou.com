@@ -6,7 +6,15 @@ interface GAReportRow {
 }
 
 interface GAReportResponse {
-  rows: GAReportRow[];
+  daily: {
+    rows: GAReportRow[];
+  };
+  weekly: {
+    rows: GAReportRow[];
+  };
+  monthly: {
+    rows: GAReportRow[];
+  };
 }
 
 const useGoogleAnalyticsReport = () => {

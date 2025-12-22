@@ -42,6 +42,7 @@
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-hook-form": "^7.68.0",
+    "recharts": "2.15.4",
     "sanitize-html": "^2.17.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
