@@ -1,14 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
-import { LayoutList, MonitorPlay, Newspaper, Search } from "lucide-react";
+import {
+  House,
+  LayoutList,
+  MonitorPlay,
+  Newspaper,
+  Search,
+} from "lucide-react";
 import designthouSVG from "@/public/favicon.svg";
 import { Button } from "@/components";
 import { route, screenSize } from "@/constants";
 import { useMediaQuery } from "@/hooks";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
 
 const links = [
   {
@@ -37,30 +42,27 @@ export default function Aside() {
       <aside
         className={`fixed flex-col left-0 hidden py-2 h-full w-14 max-h-screen bg-white overflow-y-auto overflow-x-hidden border-muted border-r md:sticky md:flex lg:w-56 lg:p-3`}
       >
-        <div className="flex h-full flex-col justify-between gap-2 lg:gap-4">
-          <header className="ui-flex-center-between min-h-9">
-            <h1
-              className={cn(
-                "ui-flex-center text-white rounded-lg transition-colors",
-                isLGDown ? "" : "bg-gradient-gray-200",
-              )}
-            >
+        <div className="flex flex-col justify-between gap-2 h-full lg:gap-4">
+          <header className="flex justify-center items-center min-h-9 lg:justify-between">
+            <h1 className={"ui-flex-center text-black"}>
               <Link
                 href={route.ADMIN.DASHBOARD}
-                className="p-1.5 text-sm font-black text-center hover:bg-light lg:text-lg"
+                className="inline-flex items-center gap-0 text-center hover:bg-light lg:gap-1 lg:text-lg"
               >
-                {isLGDown ? (
-                  <Image src={designthouSVG} alt="Designthou" priority />
-                ) : (
-                  <span> Designthou</span>
-                )}
+                <Image
+                  src={designthouSVG}
+                  alt="Designthou"
+                  width={36}
+                  height={36}
+                  priority
+                />
               </Link>
             </h1>
             <Button
               type="button"
               variant="ghost"
               size="icon-sm"
-              className="hidden lg:inline-block"
+              className="hidden lg:inline-flex"
             >
               <Search size={18} className="text-gray-900" />
             </Button>
@@ -84,6 +86,15 @@ export default function Aside() {
               </Link>
             ))}
           </nav>
+        </div>
+
+        <div className="px-2 lg:px-0">
+          <Button type="button" className="mb-2 w-full font-bold" asChild>
+            <Link href={route.SERVICE.ROOT} target="_blank">
+              <span className="hidden lg:inline">사용자 홈</span>
+              <House size={18} />
+            </Link>
+          </Button>
         </div>
 
         <small className="text-default mx-3 mb-2 mt-1 hidden text-[0.5rem] opacity-50 lg:block">

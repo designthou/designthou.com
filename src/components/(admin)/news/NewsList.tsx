@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { Sparkle } from "lucide-react";
 import { useGetPaginationInfo, useInfiniteScroll } from "@/hooks";
 import { AnimateLoader, Wip } from "@/components";
 import { queryKey, staleTime } from "@/constants";
@@ -11,7 +12,6 @@ import {
   getNewsListByPage,
   getNewsListPageInfo,
 } from "@/lib/supabase";
-import { Sparkle } from "lucide-react";
 
 interface NewsListProps {
   year: string;
@@ -52,7 +52,7 @@ export default function NewsList({ year }: NewsListProps) {
   const news = data.pages
     .flat()
     .filter(
-      ({ created_at }) => `${new Date(created_at).getFullYear()}` === year,
+      ({ created_at }) => `${new Date(created_at).getFullYear()}` === year
     );
 
   return (
@@ -82,7 +82,7 @@ export default function NewsList({ year }: NewsListProps) {
           </li>
         ))}
       </ul>
-      {hasNextPage && (
+      {hasNextPage && news.length !== 0 && (
         <div ref={targetRef} className="ui-flex-center h-32">
           <AnimateLoader />
         </div>

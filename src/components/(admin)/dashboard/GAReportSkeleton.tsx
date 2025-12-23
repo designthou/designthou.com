@@ -8,7 +8,7 @@ export default function GAReportSkeleton() {
         <Skeleton className="h-36 w-full" />
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-3">
-        {Array.from({ length: 4 }, (_, idx) => (
+        {Array.from({ length: 3 }, (_, idx) => (
           <Skeleton key={idx} className="h-60 w-full" />
         ))}
       </div>

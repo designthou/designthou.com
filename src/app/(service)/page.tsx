@@ -22,8 +22,8 @@ export default async function HomePage() {
         플랫폼 정비 후, 올해 안으로 재오픈 예정입니다.
       </p>
       <div>
-        <h2 className="mb-3 text-lg font-bold">재정비 진도율 - 20%</h2>
-        <Progress value={18} className="w-full" />
+        <h2 className="mb-3 text-lg font-bold">재정비 진도율 - 25%</h2>
+        <Progress value={25} className="w-full" />
       </div>
 
       <div>

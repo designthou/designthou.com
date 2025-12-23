@@ -2,7 +2,7 @@ import { createClient } from "../client";
 
 const TABLE = "news";
 
-const NEWS_LIST_PAGE_SIZE = 10;
+const NEWS_LIST_PAGE_SIZE = 12;
 
 const getNewsListPageInfo = async () => {
   const supabase = createClient();

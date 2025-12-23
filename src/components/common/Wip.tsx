@@ -13,12 +13,12 @@ export default function Wip({
   return (
     <div
       className={cn(
-        `flex items-center gap-3 px-6 py-3 w-full text-white bg-gradient-orange-100 rounded-full`,
+        `flex items-center gap-3 px-6 py-3 w-full min-h-24 text-white bg-gradient-orange-100 rounded-lg`,
         className
       )}
     >
       <span>{icon}</span>
-      <p className="font-medium text-xs sm:text-sm">{message}</p>
+      <p className="font-semibold text-xs sm:text-sm">{message}</p>
     </div>
   );
 }

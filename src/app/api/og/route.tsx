@@ -13,19 +13,15 @@ export async function GET(request: Request) {
     }
 
     const imageUrl = new URL("/og-background2.png", request.url).toString();
-
+    console.log(imageUrl);
     return new ImageResponse(
       <div
         style={{
           position: "relative",
-          width: "1200px",
-          height: "630px",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: 80,
-          background: "#fff",
-          fontWeight: 700,
+          height: "100%",
+          width: "100%",
+          backgroundColor: "black",
         }}
       >
         {/* Background Image Layer */}
@@ -46,16 +42,16 @@ export async function GET(request: Request) {
         <div
           style={{
             display: "flex",
+            justifyContent: "flex-start",
+            textShadow: "2px 2px 8px rgba(0,0,0,0.8)",
             fontSize: 64,
             fontWeight: 700,
             lineHeight: 1.2,
-            color: "#fff",
+            color: "#000",
             textAlign: "left",
             wordBreak: "keep-all",
             letterSpacing: "-0.03em",
             marginBottom: 8,
-            justifyContent: "flex-start",
-            textShadow: "2px 2px 8px rgba(0,0,0,0.8)",
             width: "100%",
           }}
         >
@@ -69,14 +65,14 @@ export async function GET(request: Request) {
           "Content-Type": "image/png",
           "Cache-Control": "public, max-age=36000",
         },
-      },
+      }
     );
   } catch (e: unknown) {
     return new Response(
       `Failed to generate the image: ${e instanceof Error ? e.message : "Unknown error"}`,
       {
         status: 500,
-      },
+      }
     );
   }
 }
