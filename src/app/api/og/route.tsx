@@ -12,7 +12,7 @@ export async function GET(request: Request) {
       return new Response("Missing title", { status: 400 });
     }
 
-    const imageUrl = new URL("/og-background.webp", request.url).toString();
+    const imageUrl = new URL("/og-background2.png", request.url).toString();
 
     return new ImageResponse(
       <div
@@ -66,7 +66,8 @@ export async function GET(request: Request) {
         width: 1200,
         height: 630,
         headers: {
-          "Cache-Control": "public, max-age=31536000, immutable",
+          "Content-Type": "image/png",
+          "Cache-Control": "public, max-age=36000",
         },
       },
     );

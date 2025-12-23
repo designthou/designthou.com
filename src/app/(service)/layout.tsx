@@ -34,7 +34,10 @@ export const metadata: Metadata = {
     url: SiteConfig.url,
     images: [
       {
-        url: "https://designthou.com/api/og?title=designthou&v=3",
+        url: "https://designthou.com/api/og?title=designthou&kakao=1",
+        width: 1200,
+        height: 630,
+        type: "image/png",
       },
     ],
   },
@@ -42,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SiteConfig.title.default,
     description: "Designthou - Spatial Content Platform",
-    images: [`/api/og?title=designthou`],
+    images: ["https://designthou.com/api/og?title=designthou&twitter=1"],
   },
   icons: {
     icon: "/apple-touch-icon.png",
