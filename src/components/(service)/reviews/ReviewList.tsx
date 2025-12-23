@@ -110,7 +110,7 @@ export default function ReviewList({ category }: ReviewListProps) {
 
             <span className="inline-block p-1.5 text-xs rounded-lg">
               {convertSupabaseDateToShortHumanReadable(
-                noticeReview?.created_at,
+                noticeReview?.created_at
               )}
             </span>
           </div>
@@ -132,7 +132,7 @@ export default function ReviewList({ category }: ReviewListProps) {
               <div
                 className={cn(
                   "flex flex-col justify-between shrink-0 w-full gap-6 p-4 bg-white rounded-lg",
-                  notice ? "bg-gradient-orange-100" : "",
+                  notice ? "bg-gradient-orange-100" : ""
                 )}
               >
                 <div className="flex flex-col gap-4">
@@ -169,9 +169,9 @@ export default function ReviewList({ category }: ReviewListProps) {
               </div>
             )}
           </React.Fragment>
-        ),
+        )
       )}
-      {hasNextPage && (
+      {hasNextPage && reviews.length !== 0 && (
         <div ref={targetRef} className="ui-flex-center h-32">
           <AnimateLoader />
         </div>
