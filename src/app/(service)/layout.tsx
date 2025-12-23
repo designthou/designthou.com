@@ -32,6 +32,24 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     type: "website",
     url: SiteConfig.url,
+    images: [
+      {
+        url: "https://designthou.com/api/og?title=designthou",
+      },
+    ],
+  },
+  icons: {
+    icon: "/apple-touch-icon.png",
+    shortcut: "/apple-touch-icon.png",
+    apple: "/apple-touch-icon.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_ID,

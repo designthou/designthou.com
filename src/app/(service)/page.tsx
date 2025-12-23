@@ -1,4 +1,5 @@
 import Image from "next/image";
+import React from "react";
 import { Activity, Sparkle } from "lucide-react";
 import {
   Accordion,
@@ -10,8 +11,7 @@ import {
   Progress,
   Skeleton,
 } from "@/components";
-import RhinoClassImage from "/public/rhino_class.webp";
-import React from "react";
+import RhinoClassImage from "/public/og-background.webp";
 
 export default async function HomePage() {
   return (
