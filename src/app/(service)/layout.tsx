@@ -38,6 +38,12 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: SiteConfig.title.default,
+    description: "Designthou - Spatial Content Platform",
+    images: [`/api/og?title=designthou`],
+  },
   icons: {
     icon: "/apple-touch-icon.png",
     shortcut: "/apple-touch-icon.png",

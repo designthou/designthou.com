@@ -1,5 +1,7 @@
 import React from "react";
 import { ImageResponse } from "next/og";
+import ogImage from "@/public/og-background.webp";
+import Image from "next/image";
 
 export const runtime = "edge";
 
@@ -11,20 +13,6 @@ export async function GET(request: Request) {
     if (!title) {
       return new Response("Missing title", { status: 400 });
     }
-
-    const protocol = request.headers.get("x-forwarded-proto") || "http";
-    const host = request.headers.get("host");
-    const baseUrl = `${protocol}://${host}`;
-
-    const ogBackgroundImageName = "og-background.webp";
-    const imageUrl = `${baseUrl}/${ogBackgroundImageName}`;
-
-    const imageRes = await fetch(imageUrl);
-    if (!imageRes.ok) {
-      throw new Error(`Failed to fetch image: ${imageUrl}`);
-    }
-    const imageBuffer = await imageRes.arrayBuffer();
-    const imageBase64 = Buffer.from(imageBuffer).toString("base64");
 
     return new ImageResponse(
       <div
@@ -40,9 +28,9 @@ export async function GET(request: Request) {
         }}
       >
         {/* Background Image Layer */}
-        <img
+        <Image
           alt={title}
-          src={`data:image/jpeg;base64,${imageBase64}`}
+          src={ogImage}
           style={{
             position: "absolute",
             top: 0,
