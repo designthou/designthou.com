@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     url: SiteConfig.url,
     images: [
       {
-        url: "https://designthou.com/api/og?title=designthou",
+        url: "https://designthou.com/api/og?title=designthou&v=3",
       },
     ],
   },

@@ -1,7 +1,5 @@
 import React from "react";
 import { ImageResponse } from "next/og";
-import ogImage from "@/public/og-background.webp";
-import Image from "next/image";
 
 export const runtime = "edge";
 
@@ -14,9 +12,12 @@ export async function GET(request: Request) {
       return new Response("Missing title", { status: 400 });
     }
 
+    const imageUrl = new URL("/og-background.webp", request.url).toString();
+
     return new ImageResponse(
       <div
         style={{
+          position: "relative",
           width: "1200px",
           height: "630px",
           display: "flex",
@@ -28,9 +29,9 @@ export async function GET(request: Request) {
         }}
       >
         {/* Background Image Layer */}
-        <Image
+        <img
           alt={title}
-          src={ogImage}
+          src={imageUrl}
           style={{
             position: "absolute",
             top: 0,
