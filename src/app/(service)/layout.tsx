@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "../globals.css";
-import { SiteConfig } from "@/../config";
-import { Main, Nav, ScrollToTopButton } from "@/components";
+import { SiteConfig } from "@/app/config";
+import { Footer, Main, Nav, ScrollToTopButton } from "@/components";
 import { ReactQueryProvider } from "@/providers";
 import { GAProvider } from "@/lib/ga4";
 
@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: `%s - ${SiteConfig.title.default}`,
+    template: `%s`,
     default: SiteConfig.title.default,
   },
   description: SiteConfig.subtitle,
@@ -103,10 +103,11 @@ export default function RootLayout({
         {process.env.NEXT_PUBLIC_GA4_ID ? (
           <GAProvider gaId={process.env.NEXT_PUBLIC_GA4_ID} />
         ) : null}
-        <div className="max-w-300 h-screen mx-auto w-full">
+        <div className="h-screen mx-auto w-full">
           <ReactQueryProvider>
             <Nav />
             <Main>{children}</Main>
+            <Footer />
             <ScrollToTopButton />
           </ReactQueryProvider>
         </div>

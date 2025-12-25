@@ -8,16 +8,22 @@ const route = {
   SERVICE: {
     ROOT: "/",
     NEWS: "/news",
-    FREE_SOURCE: "/sources",
+    FREE_SOURCE: "/open-source",
     COMPETITION: "/competition",
     TIPS: "/tips",
     REVIEWS: "/reviews",
+    ONLINE_COURSE: "/online-course",
     SETTINGS: {
       ROOT: "/settings",
       MYACCOUNT_PROFILE: "/settings/myaccount/profile",
       SUBSCRIPTION: "/settings/myaccount/subscription",
     },
-
+    ABOUT: "/about",
+    NOTICE: "/notice",
+    FAQ: "/faq",
+    TERMS: "/terms",
+    PRIVACY: "/privacy",
+    SUPPORT: "/support",
     NOT_FOUND: "/*",
   },
   ADMIN: {

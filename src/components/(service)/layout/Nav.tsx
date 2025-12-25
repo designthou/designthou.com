@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 import { ArrowRightIcon, X } from "lucide-react";
+import designthouSVG from "@/public/favicon.svg";
 import { Button, Menu, MotionBlock } from "@/components";
 import { route } from "@/constants";
 
@@ -12,13 +14,24 @@ export default function Nav() {
 
   return (
     <>
-      <header className="fixed top-0 max-w-[1200px] mx-auto w-full h-[var(--global-layout-nav-height)] bg-white z-40 sm:static">
+      <header className="fixed top-0 mx-auto w-full h-[var(--global-layout-nav-height)] bg-white/30 backdrop-blur-sm z-40">
         <nav
           id="layout-nav"
-          className="flex flex-row justify-between items-center p-3 w-full bg-white"
+          className="flex flex-row justify-between items-center mx-auto p-3 max-w-300 w-full bg-white/30 backdrop-blur-sm"
         >
-          <h1 className="ui-flex-center text-lg font-black text-white bg-gradient-orange-100 rounded-lg">
-            <Link href={route.SERVICE.ROOT} className="p-1.5">
+          <h1 className="ui-flex-center text-white bg-gradient-orange-100 rounded-lg">
+            <Link
+              href={route.SERVICE.ROOT}
+              className="inline-flex items-center gap-2 p-1.5 text-center text-lg font-black"
+              aria-label="Go to Designthou Main Page"
+            >
+              <Image
+                src={designthouSVG}
+                alt="Designthou"
+                width={28}
+                height={28}
+                priority
+              />
               Designthou
             </Link>
           </h1>

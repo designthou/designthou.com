@@ -18,7 +18,7 @@ export default function Wip({
       )}
     >
       <span>{icon}</span>
-      <p className="font-semibold text-xs sm:text-sm">{message}</p>
+      <p className="font-semibold text-sm sm:text-base">{message}</p>
     </div>
   );
 }
