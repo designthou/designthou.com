@@ -13,7 +13,6 @@ export async function GET(request: Request) {
     }
 
     const imageUrl = new URL("/og-background2.png", request.url).toString();
-    console.log(imageUrl);
     return new ImageResponse(
       <div
         style={{

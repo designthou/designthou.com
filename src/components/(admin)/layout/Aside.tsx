@@ -12,8 +12,7 @@ import {
 } from "lucide-react";
 import designthouSVG from "@/public/favicon.svg";
 import { Button } from "@/components";
-import { route, screenSize } from "@/constants";
-import { useMediaQuery } from "@/hooks";
+import { route } from "@/constants";
 
 const links = [
   {
@@ -35,8 +34,7 @@ const links = [
 
 export default function Aside() {
   const segment = useSelectedLayoutSegment();
-  const isLGDown = useMediaQuery(screenSize.MAX_LG);
-  console.log(isLGDown);
+
   return (
     <div className="relative">
       <aside

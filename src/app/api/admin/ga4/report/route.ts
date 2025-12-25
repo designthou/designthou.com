@@ -31,7 +31,7 @@ export async function GET() {
     if (!accessToken) {
       return NextResponse.json(
         { message: "Access token 발급 실패" },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
@@ -53,7 +53,7 @@ export async function GET() {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
-          },
+          }
         ),
         await axios.post(
           `${ACCESS_GA_REPORT_URL}/${process.env.NEXT_PUBLIC_GA4_PROPERTY_ID}:runReport`,
@@ -71,7 +71,7 @@ export async function GET() {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
-          },
+          }
         ),
         await axios.post(
           `${ACCESS_GA_REPORT_URL}/${process.env.NEXT_PUBLIC_GA4_PROPERTY_ID}:runReport`,
@@ -89,7 +89,7 @@ export async function GET() {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
-          },
+          }
         ),
       ]);
 
@@ -109,7 +109,7 @@ export async function GET() {
       throw new GAError(
         `[GA API Error] ${error.response?.status} ${error.message}`,
         error.response?.status,
-        error.response?.data,
+        error.response?.data
       );
     }
 
