@@ -155,7 +155,7 @@ export default function ServiceOpenSourcePage() {
         </div>
 
         <div>
-          <h3>제10조 (ID 및 비밀번호 관리)</h3>
+          <h3 className="page-subtitle">제10조 (ID 및 비밀번호 관리)</h3>
           <ol>
             <li>ID 및 비밀번호 관리 책임은 회원에게 있습니다.</li>
             <li>제3자에게 이용하게 해서는 안 됩니다.</li>
