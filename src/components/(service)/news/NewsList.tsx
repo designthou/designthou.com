@@ -40,7 +40,7 @@ export default function NewsList({ year }: NewsListProps) {
               target="_blank"
               className="flex justify-between gap-4 p-3 w-full h-full"
             >
-              <div className="flex flex-col justify-between gap-4 w-full">
+              <div className="flex flex-col justify-between gap-4 w-full h-full">
                 <div className="font-bold">{title}</div>
                 <div className="ui-flex-center-between">
                   <span className="text-gray-700 text-xs sm:text-sm">
