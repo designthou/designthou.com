@@ -1,33 +1,48 @@
 import React from "react";
 import {
-  NewsList,
+  AdminNewsList,
+  Button,
+  Skeleton,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/components";
-import Loading from "../loading";
+import { triggers } from "@/constants";
+import { Plus } from "lucide-react";
 
 export default async function NewsPage() {
-  const tabsTrigger = ["2025", "2024"];
-
   return (
     <section className="flex-1 p-4 min-h-0 h-screen overflow-y-auto">
-      <Tabs defaultValue="2025">
-        <TabsList>
-          {tabsTrigger.map((tabTrigger) => (
-            <TabsTrigger key={tabTrigger} value={tabTrigger}>
-              {tabTrigger}
-            </TabsTrigger>
+      <Tabs defaultValue={triggers[0]}>
+        <div className="ui-flex-center-between">
+          <TabsList>
+            {triggers.map((trigger) => (
+              <TabsTrigger key={trigger} value={trigger}>
+                {trigger}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          <Button type="button" size="lg">
+            <Plus size={18} />
+            Add News
+          </Button>
+        </div>
+        <React.Suspense
+          fallback={
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+              {Array.from({ length: 16 }, (_, idx) => (
+                <Skeleton key={idx} className="h-23 w-full" />
+              ))}
+            </div>
+          }
+        >
+          {triggers.map((trigger) => (
+            <TabsContent key={trigger} value={trigger}>
+              <AdminNewsList year={trigger} />
+            </TabsContent>
           ))}
-        </TabsList>
-        {tabsTrigger.map((tabTrigger) => (
-          <TabsContent key={tabTrigger} value={tabTrigger}>
-            <React.Suspense fallback={<Loading />}>
-              <NewsList year={tabTrigger} />
-            </React.Suspense>
-          </TabsContent>
-        ))}
+        </React.Suspense>
       </Tabs>
     </section>
   );

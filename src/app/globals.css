@@ -321,6 +321,50 @@
   .bg-gradient-indigo-gray-200 {
     @apply bg-radial-[at_40%_80%] from-gray-300 via-gray-500 to-indigo-200;
   }
+
+  .liquid-glass {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .liquid-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.1) 40%,
+      rgba(255, 255, 255, 0.05)
+    );
+
+    pointer-events: none;
+  }
+
+  .liquid-glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+
+    background-image: url("/noise.png");
+    opacity: 0.04;
+
+    pointer-events: none;
+  }
+
+  .outlined-text {
+    color: white;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);
+  }
 }
 
 @layer base {

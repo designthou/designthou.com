@@ -10,12 +10,7 @@ import {
   ChartLegendContent,
 } from "@/components";
 import { type GAReportRow, useGoogleAnalyticsReport } from "@/hooks";
-import {
-  monthOfToday,
-  todayStr,
-  yearOfToday,
-  yesterdayStr,
-} from "@/utils/date";
+import { todayStr, yearOfToday, yesterdayStr } from "@/utils/date";
 import { chartConfig, getChartData } from "@/utils/chart";
 import { getDimensionValues, getMetricValues } from "./util";
 
@@ -120,10 +115,8 @@ export default function GoogleAnalyticsReport() {
         <div className="grid grid-cols-1 gap-4 p-4 border border-muted rounded-lg">
           <h4 className="ui-flex-center-between font-semibold">
             <div className="text-sm whitespace-normal sm:whitespace-nowrap">
-              <span>
-                {yearOfToday}년 {monthOfToday}월
-              </span>{" "}
-              <span>일별 방문자 / 클릭 / 세션 현황</span>
+              <span>최근 한 달</span>{" "}
+              <span>일일 방문자 / 클릭 / 세션 현황</span>
             </div>
             <span className="inline-block muted-gray-label text-xs">Daily</span>
           </h4>

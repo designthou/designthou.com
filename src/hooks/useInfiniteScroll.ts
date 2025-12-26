@@ -6,7 +6,7 @@ const defaultOptions: IntersectionObserverInit = {
   rootMargin: "100px",
 };
 
-const useInfiniteScroll = <T extends HTMLElement>({
+export default function useInfiniteScroll<T extends HTMLElement>({
   callback,
   isLoading = false,
   hasNextPage = true,
@@ -16,7 +16,7 @@ const useInfiniteScroll = <T extends HTMLElement>({
   isLoading?: boolean;
   hasNextPage?: boolean;
   options?: IntersectionObserverInit;
-}) => {
+}) {
   const targetRef = React.useRef<T | null>(null);
 
   React.useEffect(() => {
@@ -36,6 +36,4 @@ const useInfiniteScroll = <T extends HTMLElement>({
   }, [isLoading, hasNextPage, options]);
 
   return targetRef;
-};
-
-export default useInfiniteScroll;
+}

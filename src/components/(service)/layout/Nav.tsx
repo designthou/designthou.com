@@ -1,17 +1,36 @@
 "use client";
 
 import Link from "next/link";
+import { useSelectedLayoutSegment } from "next/navigation";
 import Image from "next/image";
 import React from "react";
 import { ArrowRightIcon, X } from "lucide-react";
 import designthouSVG from "@/public/favicon.svg";
 import { Button, Menu, MotionBlock } from "@/components";
 import { route } from "@/constants";
+import { cn } from "@/lib/utils";
+
+const navigations = [
+  {
+    title: "News",
+    to: route.SERVICE.NEWS,
+  },
+  {
+    title: "Tips",
+    to: route.SERVICE.TIPS,
+  },
+
+  {
+    title: "Reviews",
+    to: route.SERVICE.REVIEWS,
+  },
+] as const;
 
 export default function Nav() {
   const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
   const toggle = () => setIsSideNavOpen((isSideNavOpen) => !isSideNavOpen);
 
+  const segment = useSelectedLayoutSegment();
   return (
     <>
       <header className="fixed top-0 mx-auto w-full h-[var(--global-layout-nav-height)] bg-white/30 backdrop-blur-sm z-40">
@@ -35,12 +54,22 @@ export default function Nav() {
               Designthou
             </Link>
           </h1>
-          <Link
-            href={route.SERVICE.REVIEWS}
-            className="hidden p-2 font-medium rounded-lg transition-colors hover:bg-gray-50 active:bg-muted sm:inline-block"
-          >
-            Reviews
-          </Link>
+          <div className="ui-flex-center-between gap-4">
+            {navigations.map((navigation) => (
+              <Link
+                key={navigation.title}
+                href={navigation.to}
+                className={cn(
+                  "hidden p-2 font-medium text-gray-700 rounded-lg transition-all hover:opacity-90 active:bg-muted sm:inline-block",
+                  route.SERVICE.ROOT + segment === navigation.to
+                    ? "bg-primary font-semibold text-white"
+                    : "bg-white hover:bg-muted",
+                )}
+              >
+                {navigation.title}
+              </Link>
+            ))}
+          </div>
           <Button
             type="button"
             size="icon-lg"
@@ -63,15 +92,21 @@ export default function Nav() {
           isSideNavOpen ? "max-h-full" : "max-h-0"
         } px-3 w-full bg-white z-20 overflow-hidden transition-[max-height] duration-200 ease-[cubic-bezier(0.22, 1, 0.36, 1)] md:hidden`}
       >
-        <MotionBlock onClick={toggle} className="rounded-lg">
-          <Link
-            href={route.SERVICE.REVIEWS}
-            className="ui-flex-center-between px-3 w-full min-h-15 rounded-lg font-medium cursor-pointer active:bg-light"
+        {navigations.map((navigation) => (
+          <MotionBlock
+            key={navigation.title}
+            onClick={toggle}
+            className="rounded-lg"
           >
-            <span>Reviews</span>
-            <ArrowRightIcon size={20} />
-          </Link>
-        </MotionBlock>
+            <Link
+              href={navigation.to}
+              className="ui-flex-center-between px-3 w-full min-h-15 rounded-lg font-medium cursor-pointer active:bg-light"
+            >
+              <span>{navigation.title}</span>
+              <ArrowRightIcon size={20} />
+            </Link>
+          </MotionBlock>
+        ))}
       </div>
       <div
         id="layout-overlay"

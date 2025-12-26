@@ -3,7 +3,7 @@ import { throttle } from "es-toolkit";
 
 const WAIT_TIME = 300;
 
-const useScroll = () => {
+export default function useScroll() {
   const [pageYOffset, setPageYOffset] = useState(0);
 
   const handleScroll = throttle(() => {
@@ -19,6 +19,4 @@ const useScroll = () => {
   }, []);
 
   return pageYOffset;
-};
-
-export default useScroll;
+}

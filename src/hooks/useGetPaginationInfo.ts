@@ -10,12 +10,12 @@ interface UseGetPaginationInfo {
 
 const DEFAULT_STALE_TIME = 1000 * 3;
 
-const useGetPaginationInfo = ({
+export default function useGetPaginationInfo({
   queryKey,
   queryFn,
   staleTime = DEFAULT_STALE_TIME,
   pageSize,
-}: UseGetPaginationInfo) => {
+}: UseGetPaginationInfo) {
   const { data: pageInfo } = useSuspenseQuery({
     queryKey,
     queryFn,
@@ -28,6 +28,4 @@ const useGetPaginationInfo = ({
     pageInfo,
     calculatedTotalPage,
   };
-};
-
-export default useGetPaginationInfo;
+}

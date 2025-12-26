@@ -6,6 +6,7 @@ import {
   convertSupabaseDateToShortHumanReadable,
   getAllReviewList,
 } from "@/lib/supabase";
+import { generateGradient } from "@/utils/seedGradient";
 
 export default function HomeReviewList() {
   const {
@@ -29,7 +30,10 @@ export default function HomeReviewList() {
             dangerouslySetInnerHTML={{ __html: content }}
           />
           <div className="flex gap-4">
-            <div className="w-12 h-12 rounded-full bg-gradient-orange-100" />
+            <div
+              className="w-12 h-12 rounded-full"
+              style={{ background: generateGradient(content) }}
+            />
             <div className="flex flex-col gap-1">
               <span className="py-1.5 px-3 bg-gray-100 text-sm text-center text-gray-600 font-semibold rounded-lg">
                 {username}

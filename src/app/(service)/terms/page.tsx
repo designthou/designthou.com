@@ -1,6 +1,4 @@
 import { Metadata } from "next";
-import { Sparkle } from "lucide-react";
-import { Wip } from "@/components";
 import { SiteConfig } from "@/app/config";
 
 export const metadata: Metadata = {

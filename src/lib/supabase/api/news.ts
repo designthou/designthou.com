@@ -1,4 +1,5 @@
 import { createClient } from "../client";
+import { type News } from "../schema";
 
 const TABLE = "news";
 
@@ -18,11 +19,24 @@ const getNewsListPageInfo = async () => {
   return data;
 };
 
-const getNewsListByPage = async (pageParam: number, pageSize: number) => {
+const getNewsListByPage = async ({
+  pageParam,
+  pageSize,
+  year,
+}: {
+  pageParam: number;
+  pageSize: number;
+  year: string;
+}): Promise<News[]> => {
   const supabase = createClient();
+
+  const start = `${year}-01-01T00:00:00.000Z`;
+  const end = `${Number(year) + 1}-01-01T00:00:00.000Z`;
   const { data, error } = await supabase
     .from(TABLE)
     .select("*")
+    .gte("created_at", start)
+    .lt("created_at", end)
     .order("created_at", { ascending: false })
     .range((pageParam - 1) * pageSize, pageParam * pageSize - 1);
 

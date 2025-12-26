@@ -71,15 +71,17 @@ export default function Aside() {
                 href={to}
                 key={to}
                 className={`ui-flex-center gap-0 py-1.5 px-2 min-h-9 ${
-                  to === route.SERVICE.ROOT + segment ? "bg-muted" : "bg-white"
+                  to === route.ADMIN.ROOT + "/" + segment
+                    ? "bg-muted"
+                    : "bg-white"
                 } text-gray-800 font-medium rounded-md hover:bg-muted active:bg-gray-200 transition-colors lg:gap-2 lg:justify-between`}
               >
                 <div className="ui-flex-center gap-2">
                   {icon}
                   <span className="hidden lg:inline">{title}</span>
                 </div>
-                {to === route.SERVICE.ROOT + segment && (
-                  <div className="hidden mr-2 w-1.5 h-1.5 rounded-full bg-black lg:inline-block" />
+                {to === route.ADMIN.ROOT + "/" + segment && (
+                  <div className="hidden mr-2 w-1.5 h-1.5 rounded-full bg-gradient-orange-100 lg:inline-block" />
                 )}
               </Link>
             ))}

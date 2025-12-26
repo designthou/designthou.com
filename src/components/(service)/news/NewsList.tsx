@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Edit, Sparkle, X } from "lucide-react";
-import { AnimateLoader, Button, Wip } from "@/components";
+import { Sparkle } from "lucide-react";
+import { AnimateLoader, Wip } from "@/components";
 import { useInfiniteScroll, useNewsList } from "@/hooks";
 import { convertSupabaseDateToShortHumanReadable } from "@/lib/supabase";
+import { generateGradient } from "@/utils/seedGradient";
 
 interface NewsListProps {
   year: string;
@@ -29,7 +30,7 @@ export default function NewsList({ year }: NewsListProps) {
             message={`Empty Data on ${year} year`}
           />
         )}
-        {newsList?.map(({ id, title, url, category, created_at }) => (
+        {newsList?.map(({ id, url, title, category, created_at }) => (
           <li
             key={id}
             className="flex items-center bg-light border border-muted rounded-lg"
@@ -37,20 +38,10 @@ export default function NewsList({ year }: NewsListProps) {
             <Link
               href={url}
               target="_blank"
-              className="flex flex-col gap-4 p-3 w-full h-full"
+              className="flex justify-between gap-4 p-3 w-full h-full"
             >
-              <div className="flex flex-col justify-between gap-4 w-full h-full">
-                <div className="flex justify-between gap-4">
-                  <div className="font-bold">{title}</div>
-                  <div className="flex justify-end gap-2">
-                    <Button type="button" size="icon-sm" variant="ghost">
-                      <Edit size={21} />
-                    </Button>
-                    <Button type="button" size="icon-sm" variant="ghost">
-                      <X size={21} />
-                    </Button>
-                  </div>
-                </div>
+              <div className="flex flex-col justify-between gap-4 w-full">
+                <div className="font-bold">{title}</div>
                 <div className="ui-flex-center-between">
                   <span className="text-gray-700 text-xs sm:text-sm">
                     {convertSupabaseDateToShortHumanReadable(created_at)}
@@ -60,6 +51,10 @@ export default function NewsList({ year }: NewsListProps) {
                   </span>
                 </div>
               </div>
+              <div
+                className="aspect-4/3 p-4 min-w-[50px] max-h-[50px] rounded-full sm:min-w-[100px] sm:max-h-none sm:rounded-lg"
+                style={{ background: generateGradient(url) }}
+              />
             </Link>
           </li>
         ))}

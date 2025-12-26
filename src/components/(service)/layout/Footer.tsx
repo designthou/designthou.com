@@ -89,8 +89,8 @@ export default async function Footer() {
                 <Link href={route.SERVICE.ABOUT}>About</Link>
                 <Link href={route.SERVICE.NOTICE}>Notice</Link>
                 <Link href={route.SERVICE.FAQ}>FAQ</Link>
-                <Link href={route.SERVICE.PRIVACY}>Privacy</Link>
-                <Link href={route.SERVICE.TERMS}>Terms</Link>
+                <Link href={route.SERVICE.PRIVACY}>Privacy Policy</Link>
+                <Link href={route.SERVICE.TERMS}>Terms of Service</Link>
                 <Link href={route.SERVICE.SUPPORT}>Support</Link>
               </div>
             </div>
