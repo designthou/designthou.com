@@ -36,7 +36,7 @@ export default function NewsList({ year }: NewsListProps) {
             className="flex items-center bg-light border border-muted rounded-lg"
           >
             <Link
-              href={id}
+              href={url}
               target="_blank"
               className="flex justify-between gap-4 p-3 w-full h-full"
             >
