@@ -1,5 +1,6 @@
 import sanitizeHtmlServer from "@/utils/sanitizeHtml";
 import { createClient } from "../client";
+import { type Review } from "../schema";
 
 const TABLE = "online_course_reviews";
 
@@ -19,7 +20,7 @@ const getReviewListPageInfo = async () => {
   return data;
 };
 
-const getAllReviewList = async () => {
+const getReviewsTotalCount = async () => {
   const supabase = createClient();
   const { data, error } = await supabase.from(TABLE).select("*");
 
@@ -27,22 +28,33 @@ const getAllReviewList = async () => {
     throw new Error(error.message);
   }
 
-  return {
-    data: data
-      ?.map((review) => ({
-        ...review,
-        content: sanitizeHtmlServer(review.content),
-      }))
-      .filter((review) => review.category === "portfolio"),
-    totalCount: data.length,
-  };
+  return data.length;
+};
+
+const getPortfolioReviewList = async () => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select("*")
+    .order("created_at", { ascending: false })
+    .eq("category", "portfolio")
+    .limit(6);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data?.map((review) => ({
+    ...review,
+    content: sanitizeHtmlServer(review.content),
+  }));
 };
 
 const getReviewListByPage = async (
   pageParam: number,
   pageSize: number,
-  category: string,
-) => {
+  category: string
+): Promise<Review[]> => {
   const supabase = createClient();
 
   const { data, error } = await supabase
@@ -78,7 +90,8 @@ const getNoticeReview = async () => {
 export {
   REVIEW_LIST_PAGE_SIZE,
   getReviewListPageInfo,
-  getAllReviewList,
+  getReviewsTotalCount,
+  getPortfolioReviewList,
   getReviewListByPage,
   getNoticeReview,
 };

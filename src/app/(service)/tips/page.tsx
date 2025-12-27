@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { Sparkle } from "lucide-react";
+import React from "react";
 import { SiteConfig } from "@/app/config";
-import { AnimateLoader, Wip } from "@/components";
+import { AnimateLoader, Skeleton, TipList } from "@/components";
 
 export const metadata: Metadata = {
   title: SiteConfig.title.OPEN_SOURCE,
@@ -13,11 +13,11 @@ const YoutubeVideo = dynamic(
   () => import("@/components/(service)/tips/YoutubeVideo"),
   {
     loading: () => (
-      <div className="ui-flex-center min-h-50 bg-muted rounded-lg sm:min-h-130">
+      <div className="ui-flex-center min-h-50 bg-muted rounded-lg sm:min-h-90 md:min-h-130 lg:min-h-160">
         <AnimateLoader />
       </div>
     ),
-  },
+  }
 );
 
 export default function ServiceTipsPage() {
@@ -26,11 +26,19 @@ export default function ServiceTipsPage() {
       <h2 className="page-title">Youtube Tips</h2>
       <div className="mt-8">
         <YoutubeVideo />
-        <Wip
-          icon={<Sparkle size={20} />}
-          message="Multiple Youtube Tips will be uploaded soon!"
-          className="mt-8 bg-none border border-dashed text-primary"
-        />
+        <div className="mt-8">
+          <React.Suspense
+            fallback={
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {Array.from({ length: 10 }, (_, idx) => (
+                  <Skeleton key={idx} className="h-80 w-full" />
+                ))}
+              </div>
+            }
+          >
+            <TipList />
+          </React.Suspense>
+        </div>
       </div>
     </section>
   );

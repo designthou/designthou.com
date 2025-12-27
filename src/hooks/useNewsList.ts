@@ -7,11 +7,19 @@ import {
 import { queryKey, staleTime } from "@/constants";
 import { useGetPaginationInfo } from ".";
 
-export default function useNewsList({ year }: { year: string }) {
+export default function useNewsList({
+  target,
+  year,
+}: {
+  target: "service" | "admin";
+  year: string;
+}) {
   const { calculatedTotalPage } = useGetPaginationInfo({
-    queryKey: queryKey.ADMIN.NEWS_LIST_PAGE_INFO,
+    queryKey:
+      queryKey[target === "service" ? "SERVICE" : "ADMIN"].NEWS_LIST_PAGE_INFO,
     queryFn: getNewsListPageInfo,
-    staleTime: staleTime.ADMIN.NEWS_LIST.PAGE_INFO,
+    staleTime:
+      staleTime[target === "service" ? "SERVICE" : "ADMIN"].NEWS_LIST.PAGE_INFO,
     pageSize: NEWS_LIST_PAGE_SIZE,
   });
 

@@ -12,7 +12,7 @@ interface NewsListProps {
 
 export default function NewsList({ year }: NewsListProps) {
   const { newsList, hasNewsList, hasNextPage, fetchNextPage, isLoading } =
-    useNewsList({ year });
+    useNewsList({ target: "admin", year });
 
   const targetRef = useInfiniteScroll<HTMLDivElement>({
     callback: fetchNextPage,

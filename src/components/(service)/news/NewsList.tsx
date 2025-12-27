@@ -13,7 +13,7 @@ interface NewsListProps {
 
 export default function NewsList({ year }: NewsListProps) {
   const { newsList, hasNewsList, hasNextPage, fetchNextPage, isLoading } =
-    useNewsList({ year });
+    useNewsList({ target: "service", year });
 
   const targetRef = useInfiniteScroll<HTMLDivElement>({
     callback: fetchNextPage,
@@ -36,7 +36,7 @@ export default function NewsList({ year }: NewsListProps) {
             className="flex items-center bg-light border border-muted rounded-lg"
           >
             <Link
-              href={url}
+              href={id}
               target="_blank"
               className="flex justify-between gap-4 p-3 w-full h-full"
             >
@@ -51,10 +51,12 @@ export default function NewsList({ year }: NewsListProps) {
                   </span>
                 </div>
               </div>
-              <div
-                className="aspect-4/3 p-4 min-w-[50px] max-h-[50px] rounded-full sm:min-w-[100px] sm:max-h-none sm:rounded-lg"
-                style={{ background: generateGradient(url) }}
-              />
+              <div className="flex justify-center h-full">
+                <div
+                  className="p-4 w-[50px] h-[50px] rounded-full sm:w-[100px] sm:h-[100px] sm:rounded-xl"
+                  style={{ background: generateGradient(url) }}
+                />
+              </div>
             </Link>
           </li>
         ))}

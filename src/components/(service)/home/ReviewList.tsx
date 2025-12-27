@@ -4,22 +4,20 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { queryKey, staleTime } from "@/constants";
 import {
   convertSupabaseDateToShortHumanReadable,
-  getAllReviewList,
+  getPortfolioReviewList,
 } from "@/lib/supabase";
 import { generateGradient } from "@/utils/seedGradient";
 
 export default function HomeReviewList() {
-  const {
-    data: { data },
-  } = useSuspenseQuery({
-    queryKey: queryKey.SERVICE.REVIEW_TOTAL_COUNT,
-    queryFn: getAllReviewList,
-    staleTime: staleTime.SERVICE.REVIEW_LIST.TOTAL_COUNT,
+  const { data } = useSuspenseQuery({
+    queryKey: queryKey.SERVICE.PORTFOLIO_REVIEWS,
+    queryFn: getPortfolioReviewList,
+    staleTime: staleTime.SERVICE.REVIEW_LIST.PORTFOLIO,
   });
 
   return (
     <div className="flex gap-4 w-full overflow-x-auto scrollbar-thin ">
-      {data.slice(0, 6).map(({ title, content, username, created_at }, idx) => (
+      {data.map(({ title, content, username, created_at }, idx) => (
         <div
           key={idx}
           className="flex flex-col justify-between gap-4 p-4 min-h-90 min-w-[300px] border border-muted rounded-lg sm:min-w-[350px]"

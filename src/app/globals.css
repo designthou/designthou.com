@@ -365,6 +365,11 @@
     color: white;
     -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);
   }
+
+  .aspect-video-frame,
+  .aspect-video {
+    @apply rounded-lg;
+  }
 }
 
 @layer base {

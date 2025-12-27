@@ -1,77 +1,30 @@
 "use client";
 
 import React from "react";
-import {
-  useSuspenseInfiniteQuery,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
 import { AnimateLoader } from "@/components";
-import { useGetPaginationInfo, useInfiniteScroll } from "@/hooks";
-import {
-  convertSupabaseDateToShortHumanReadable,
-  getAllReviewList,
-  getNoticeReview,
-  getReviewListByPage,
-  getReviewListPageInfo,
-  REVIEW_LIST_PAGE_SIZE,
-} from "@/lib/supabase";
+import { useInfiniteScroll, useReviewList } from "@/hooks";
+import { convertSupabaseDateToShortHumanReadable } from "@/lib/supabase";
 import { cn } from "@/lib/utils";
 import sanitizeHtml from "@/utils/sanitizeHtml";
-import { queryKey, staleTime } from "@/constants";
 
 interface ReviewListProps {
   category: "online-course" | "portfolio";
 }
 
 export default function ReviewList({ category }: ReviewListProps) {
-  const { calculatedTotalPage } = useGetPaginationInfo({
-    queryKey: queryKey.SERVICE.REVIEW_LIST_PAGE_INFO,
-    queryFn: getReviewListPageInfo,
-    staleTime: staleTime.SERVICE.REVIEW_LIST.PAGE_INFO,
-    pageSize: REVIEW_LIST_PAGE_SIZE,
-  });
-
   const {
-    data: { totalCount },
-  } = useSuspenseQuery({
-    queryKey: queryKey.SERVICE.REVIEW_TOTAL_COUNT,
-    queryFn: getAllReviewList,
-    staleTime: staleTime.SERVICE.REVIEW_LIST.TOTAL_COUNT,
-  });
-
-  const { data: noticeReview } = useSuspenseQuery({
-    queryKey: queryKey.SERVICE.NOTICE_REVIEW,
-    queryFn: getNoticeReview,
-    staleTime: staleTime.SERVICE.REVIEW_LIST.NOTICE,
-  });
-
-  const { data, hasNextPage, fetchNextPage, isLoading } =
-    useSuspenseInfiniteQuery({
-      queryKey: [...queryKey.SERVICE.REVIEW_LIST_BY_PAGE, category],
-      queryFn: ({ pageParam }) =>
-        getReviewListByPage(pageParam, REVIEW_LIST_PAGE_SIZE, category),
-      initialPageParam: 1,
-      getNextPageParam: (lastPage, __, lastPageParam) => {
-        const currentPageSize = lastPage?.length ?? 0;
-
-        if (currentPageSize && lastPageParam < calculatedTotalPage) {
-          return lastPageParam + 1;
-        }
-
-        return undefined; // explicit return
-      },
-      staleTime: staleTime.SERVICE.REVIEW_LIST.ALL_WITH_PAGINATION,
-    });
-
+    reviews,
+    hasNextPage,
+    fetchNextPage,
+    isLoading,
+    noticeReview,
+    totalCount,
+  } = useReviewList({ category });
   const targetRef = useInfiniteScroll<HTMLDivElement>({
     callback: fetchNextPage,
     isLoading,
     hasNextPage,
   });
-
-  const reviews = data.pages
-    .flat()
-    ?.filter((review) => !review.title.includes("Re") && !review.notice);
 
   return (
     <>
