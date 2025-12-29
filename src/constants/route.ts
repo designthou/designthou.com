@@ -30,8 +30,11 @@ const route = {
     ROOT: "/admin",
     DASHBOARD: "/admin/dashboard",
     NEWS: "/admin/news",
+    FREE_SOURCE: "/admin/open-source",
     COMPETITION: "/admin/competition",
     TIPS: "/admin/tips",
+    REVIEWS: "/admin/reviews",
+    ONLINE_COURSE: "/admin/online-course",
   },
 };
 
