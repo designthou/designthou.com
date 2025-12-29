@@ -99,7 +99,7 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=0"
         />
       </head>
-      <body className={`${inter} ${geistMono.variable} antialiased`}>
+      <body className={`${inter.variable} ${geistMono.variable} antialiased`}>
         {process.env.NEXT_PUBLIC_GA4_ID ? (
           <GAProvider gaId={process.env.NEXT_PUBLIC_GA4_ID} />
         ) : null}
