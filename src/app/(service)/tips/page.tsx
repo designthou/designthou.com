@@ -17,13 +17,18 @@ const YoutubeVideo = dynamic(
         <AnimateLoader />
       </div>
     ),
-  }
+  },
 );
 
 export default function ServiceTipsPage() {
   return (
     <section className="p-4 max-w-300">
-      <h2 className="page-title">Youtube Tips</h2>
+      <div className="flex flex-col justify-center gap-4 py-8 px-4 w-full text-center bg-light rounded-lg border border-muted">
+        <h2 className="page-title">Youtube Tips</h2>
+        <p className="text-center outlined-text font-bold text-lg sm:text-xl lg:text-2xl">
+          Meet our beneficial work tips
+        </p>
+      </div>
       <div className="mt-8">
         <YoutubeVideo />
         <div className="mt-8">

@@ -19,18 +19,13 @@ export const metadata: Metadata = {
 export default function ServiceNewsPage() {
   return (
     <section className="p-4 max-w-300">
-      <h2 className="page-title">News</h2>
-      <div className="relative grid grid-cols-50 gap-0 mt-4 w-full rounded-lg sm:grid-cols-100">
-        {Array.from({ length: 1200 }, (_, idx) => (
-          <div
-            key={idx}
-            className="w-3 h-3 border border-gray-300 rounded-md"
-          />
-        ))}
-        <p className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full text-center outlined-text font-bold text-2xl sm:text-4xl lg:text-6xl">
+      <div className="flex flex-col justify-center gap-4 py-8 px-4 w-full text-center bg-light rounded-lg border border-muted">
+        <h2 className="page-title">News</h2>
+        <p className="text-center outlined-text font-bold text-lg sm:text-xl lg:text-2xl">
           Meet our selected news
         </p>
       </div>
+
       <div className="mt-8">
         <Tabs defaultValue={triggers[0]}>
           <TabsList>
@@ -45,7 +40,7 @@ export default function ServiceNewsPage() {
             fallback={
               <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                 {Array.from({ length: 12 }, (_, idx) => (
-                  <Skeleton key={idx} className="h-23 w-full" />
+                  <Skeleton key={idx} className="h-28 w-full sm:h-31" />
                 ))}
               </div>
             }
