@@ -8,7 +8,10 @@ import {
   LayoutList,
   MonitorPlay,
   Newspaper,
+  Palette,
   Search,
+  SquareChartGantt,
+  Youtube,
 } from "lucide-react";
 import designthouSVG from "@/public/favicon.svg";
 import { Button } from "@/components";
@@ -16,9 +19,19 @@ import { route } from "@/constants";
 
 const links = [
   {
+    title: "Reviews",
+    to: route.ADMIN.REVIEWS,
+    icon: <SquareChartGantt size={18} />,
+  },
+  {
     title: "News",
     to: route.ADMIN.NEWS,
-    icon: <Newspaper size={18} className="text-gray-900" />,
+    icon: <Newspaper size={18} />,
+  },
+  {
+    title: "Youtube Tips",
+    to: route.ADMIN.TIPS,
+    icon: <Youtube size={18} />,
   },
   {
     title: "Competitons",
@@ -26,8 +39,13 @@ const links = [
     icon: <LayoutList size={18} />,
   },
   {
-    title: "Youtube Tips",
-    to: route.ADMIN.TIPS,
+    title: "Open Source",
+    to: route.ADMIN.FREE_SOURCE,
+    icon: <Palette size={18} />,
+  },
+  {
+    title: "Online Course",
+    to: route.ADMIN.ONLINE_COURSE,
     icon: <MonitorPlay size={18} />,
   },
 ] as const;
@@ -38,7 +56,7 @@ export default function Aside() {
   return (
     <div className="relative">
       <aside
-        className={`fixed flex-col left-0 hidden py-2 h-full w-14 max-h-screen bg-white overflow-y-auto overflow-x-hidden border-muted border-r md:sticky md:flex lg:w-56 lg:p-3`}
+        className={`fixed flex-col left-0 hidden py-2 h-full w-14 max-h-screen bg-white overflow-y-auto overflow-x-hidden border-muted border-r sm:sticky sm:flex lg:w-56 lg:p-3`}
       >
         <div className="flex flex-col justify-between gap-2 h-full lg:gap-4">
           <header className="flex justify-center items-center min-h-9 lg:justify-between">
@@ -65,7 +83,7 @@ export default function Aside() {
               <Search size={18} className="text-gray-900" />
             </Button>
           </header>
-          <nav className="flex flex-col flex-1 gap-2 md:px-2 lg:px-0">
+          <nav className="flex flex-col flex-1 gap-2 sm:px-2 lg:px-0">
             {links.map(({ title, to, icon }) => (
               <Link
                 href={to}
@@ -89,8 +107,13 @@ export default function Aside() {
         </div>
 
         <div className="px-2 lg:px-0">
-          <Button type="button" className="mb-2 w-full font-bold" asChild>
-            <Link href={route.SERVICE.ROOT} target="_blank">
+          <Button
+            type="button"
+            size="default"
+            className="mb-2 w-full font-bold"
+            asChild
+          >
+            <Link href={route.SERVICE.ROOT} target="_blank" className="text-sm">
               <span className="hidden lg:inline">사용자 홈</span>
               <House size={18} />
             </Link>

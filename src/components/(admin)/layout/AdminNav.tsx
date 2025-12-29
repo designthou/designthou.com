@@ -14,7 +14,7 @@ export default function Nav() {
     <>
       <nav
         id="layout-nav"
-        className={`fixed flex justify-center w-full pt-3 px-3 ${isSideNavOpen ? "bg-white" : ""} z-40 md:hidden`}
+        className={`fixed flex justify-center w-full pt-3 px-3 ${isSideNavOpen ? "bg-white" : ""} z-40 sm:hidden`}
       >
         <div className="ui-flex-center-between flex-1 w-full px-4 py-3 min-h-[var(--global-layout-nav-height)] border border-muted rounded-xl bg-white backdrop-blur-lg">
           <h1
@@ -80,7 +80,7 @@ export default function Nav() {
         onClick={toggle}
         className={`fixed top-0 ${isSideNavOpen ? "left-0" : "slide-out-to-bottom-full"} right-0 bottom-0 h-full bg-muted ${
           isSideNavOpen ? "opacity-80" : "opacity-0"
-        } z-10 transition-opacity will-change-transform duration-300 ease-[cubic-bezier(0.22, 1, 0.36, 1)] cursor-pointer md:hidden`}
+        } z-10 transition-opacity will-change-transform duration-300 ease-[cubic-bezier(0.22, 1, 0.36, 1)] cursor-pointer sm:hidden`}
       />
     </>
   );
