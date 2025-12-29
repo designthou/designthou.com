@@ -1,7 +1,7 @@
 import { Wip } from "@/components";
 import { Sparkle } from "lucide-react";
 
-export default function CompetitionPage() {
+export default function AdminCompetitionPage() {
   return (
     <section className="p-4">
       <Wip

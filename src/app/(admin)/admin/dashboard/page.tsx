@@ -16,7 +16,7 @@ const GAReport = dynamic(() => import("@/lib/ga4/GoogleAnalyticsReport"), {
   loading: () => <GAReportSkeleton />,
 });
 
-export default function DashboardPage() {
+export default function AdminDashboardPage() {
   return (
     <section className="p-4 min-h-0 flex-1 overflow-y-auto">
       <div className="ui-flex-center-between">
