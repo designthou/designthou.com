@@ -1,7 +1,7 @@
 import React from "react";
 import {
+  AddNewsContext,
   AdminNewsList,
-  Button,
   Skeleton,
   Tabs,
   TabsContent,
@@ -9,12 +9,11 @@ import {
   TabsTrigger,
 } from "@/components";
 import { triggers } from "@/constants";
-import { Plus } from "lucide-react";
 
-export default async function NewsPage() {
+export default function AdminNewsPage() {
   return (
     <section className="flex-1 p-4 min-h-0 h-screen overflow-y-auto">
-      <Tabs defaultValue={triggers[0]}>
+      <Tabs defaultValue={triggers[0]} className="gap-4">
         <div className="ui-flex-center-between">
           <TabsList>
             {triggers.map((trigger) => (
@@ -23,10 +22,7 @@ export default async function NewsPage() {
               </TabsTrigger>
             ))}
           </TabsList>
-          <Button type="button" size="lg">
-            <Plus size={18} />
-            Add News
-          </Button>
+          <AddNewsContext />
         </div>
         <React.Suspense
           fallback={

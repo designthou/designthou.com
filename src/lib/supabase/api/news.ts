@@ -31,7 +31,7 @@ const getNewsListByPage = async ({
   const supabase = createClient();
 
   const start = `${year}-01-01T00:00:00.000Z`;
-  const end = `${Number(year) + 1}-01-01T00:00:00.000Z`;
+  const end = `${+year + 1}-01-01T00:00:00.000Z`;
   const { data, error } = await supabase
     .from(TABLE)
     .select("*")
@@ -47,4 +47,26 @@ const getNewsListByPage = async ({
   return data;
 };
 
-export { NEWS_LIST_PAGE_SIZE, getNewsListPageInfo, getNewsListByPage };
+const addNews = async (data: Omit<News, "id">) => {
+  const supabase = createClient();
+  return await supabase.from(TABLE).insert(data).select();
+};
+
+const updateNews = async ({ data }: { data: News }) => {
+  const supabase = createClient();
+  return await supabase.from(TABLE).update(data).eq("id", data.id).select();
+};
+
+const deleteNews = async ({ id }: { id: string }) => {
+  const supabase = createClient();
+  return await supabase.from(TABLE).delete().eq("id", id);
+};
+
+export {
+  NEWS_LIST_PAGE_SIZE,
+  getNewsListPageInfo,
+  getNewsListByPage,
+  addNews,
+  updateNews,
+  deleteNews,
+};
