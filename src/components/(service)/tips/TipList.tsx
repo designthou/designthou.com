@@ -40,8 +40,8 @@ export default function TipList() {
                   width={500}
                   height={300}
                   placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOsqQcAAX0A/RBYaRQAAAAASUVORK5CYII="
-                  className="aspect-[5/2.8] object-cover"
+                  blurDataURL="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM8Uw8AAh0BTZud3BwAAAAASUVORK5CYII="
+                  className="aspect-[5/2.8] rounded-lg object-cover"
                 />
               ) : (
                 <div
