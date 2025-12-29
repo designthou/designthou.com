@@ -41,7 +41,7 @@ export default function Nav() {
           <h1 className="ui-flex-center text-white bg-gradient-orange-100 rounded-lg">
             <Link
               href={route.SERVICE.ROOT}
-              className="inline-flex items-center gap-2 p-1.5 text-center text-lg font-black"
+              className="inline-flex items-center gap-2 p-1.5 text-center text-lg font-black font-mono"
               aria-label="Go to Designthou Main Page"
             >
               <Image
