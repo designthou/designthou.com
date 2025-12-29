@@ -16,10 +16,10 @@ import RhinoClassImage from "/public/og-background.webp";
 export default async function HomePage() {
   return (
     <section className="flex flex-col justify-items-center gap-12 p-4 bg-white">
-      <p className="flex items-center gap-3 py-6 px-3 bg-gradient-gray-100 text-sm text-gray-600 font-semibold rounded-lg border border-gray-100">
+      <p className="flex items-center gap-3 py-6 px-3 bg-light text-sm text-gray-700 font-semibold rounded-lg border border-gray-100">
         <Activity size={21} />
         현재 디자인도우 플랫폼은 리뉴얼 중입니다. <br />
-        플랫폼 정비 후, 올해 안으로 재오픈 예정입니다.
+        플랫폼 내부 시스템 정비 후, 2026년 1월 중으로 재오픈 예정입니다.
       </p>
       <div>
         <h2 className="mb-3 font-bold">재정비 진도율 - 45%</h2>
@@ -45,6 +45,11 @@ export default async function HomePage() {
               <p>
                 기존에 제공하던 건축 관련 뉴스, 공모전, 일러스트/캐드 소스,
                 다양한 팁 영상 등의 컨텐츠를 순차적으로 제공할 예정입니다.
+              </p>
+              <p>
+                예정되어 있던 2025년중으로 작업이 마무리 될 예정이었으나, 결제
+                시스템 등의 정비를 위해 <strong>2026년 1월 중</strong>으로
+                완료될 예정입니다.
               </p>
             </AccordionContent>
           </AccordionItem>
