@@ -65,7 +65,7 @@ export default function AddNewsForm({
     },
   });
 
-  const { mutate, isMutating } = useAddNewsMutation(closeForm);
+  const { mutate, isPending } = useAddNewsMutation(closeForm);
   const onSubmit = async (values: AddNewsFormSchema) => {
     const now = new Date().toISOString();
     mutate({ ...values, created_at: now, updated_at: now });
@@ -137,7 +137,7 @@ export default function AddNewsForm({
         />
 
         <Button type="submit" size="lg">
-          {isMutating ? <AnimateLoader /> : "Submit"}
+          {isPending ? <AnimateLoader /> : "Submit"}
         </Button>
       </form>
     </Form>
