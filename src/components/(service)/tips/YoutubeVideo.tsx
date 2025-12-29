@@ -21,22 +21,31 @@ export default function Video({
   const videoId = getYouTubeId(url);
 
   return (
-    <YouTube
-      videoId={videoId!}
-      style={{ borderRadius: "64px" }}
-      opts={{
-        width: "100%",
-        height: "100%",
-        playerVars: {
-          autoplay: 0,
-          modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
-        },
-      }}
-      iframeClassName="aspect-video-iframe"
-      className="aspect-video"
-      onEnd={(e) => {
-        e.target.stopVideo(0);
-      }}
-    />
+    <div
+      id="ytb-wrapper"
+      className="w-full aspect-video rounded-xl overflow-hidden"
+    >
+      <YouTube
+        videoId={videoId!}
+        style={{ borderRadius: "64px" }}
+        opts={{
+          width: "100%",
+          height: "100%",
+          playerVars: {
+            autoplay: 0,
+            modestbranding: 1, // 컨트롤 바에 youtube 로고를 표시하지 않음
+            rel: 0, // 영상 종료 후 관련 영상 숨김
+            showinfo: 0, // (deprecated지만 일부 환경에서 영향)
+            fs: 0, // 전체화면 버튼 숨김
+            iv_load_policy: 3, // 영상 내 정보 카드 숨김
+          },
+        }}
+        iframeClassName="aspect-video-iframe"
+        className="aspect-video"
+        onEnd={(e) => {
+          e.target.stopVideo(0);
+        }}
+      />
+    </div>
   );
 }
