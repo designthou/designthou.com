@@ -3,16 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
-import {
-  House,
-  LayoutList,
-  MonitorPlay,
-  Newspaper,
-  Palette,
-  Search,
-  SquareChartGantt,
-  Youtube,
-} from "lucide-react";
+import { House } from "lucide-react";
 import designthouSVG from "@/public/favicon.svg";
 import { Button } from "@/components";
 import { linkWithRoutes, route } from "@/constants";

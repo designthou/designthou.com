@@ -1,10 +1,10 @@
+import Link from "next/link";
 import dynamic from "next/dynamic";
+import { ArrowLeft, ArrowUpRight, Download } from "lucide-react";
 import { AnimateLoader, Button } from "@/components";
 import { createClient } from "@/lib/supabase/server";
-import Link from "next/link";
 import { convertSupabaseDateToShortHumanReadable } from "@/lib/supabase";
 import { route } from "@/constants";
-import { ArrowLeft, ArrowUpRight, Download, SquareDashed } from "lucide-react";
 
 const YoutubeVideo = dynamic(
   () => import("@/components/(service)/tips/YoutubeVideo"),
