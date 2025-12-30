@@ -1,25 +1,17 @@
-import { queryKey, staleTime } from "@/constants";
-import useGetPaginationInfo from "./useGetPaginationInfo";
-import {
-  getNoticeReview,
-  getReviewListByPage,
-  getReviewListPageInfo,
-  getReviewsTotalCount,
-  REVIEW_LIST_PAGE_SIZE,
-} from "@/lib/supabase";
 import {
   useSuspenseInfiniteQuery,
   useSuspenseQuery,
 } from "@tanstack/react-query";
+import { queryKey, staleTime } from "@/constants";
+import {
+  getNoticeReview,
+  getReviewListByPage,
+  getReviewsTotalCount,
+  REVIEW_LIST_PAGE_SIZE,
+} from "@/lib/supabase";
 import { Review } from "@/lib/supabase/schema";
 
 export default function useReviewList({ category }: { category: string }) {
-  const { calculatedTotalPage } = useGetPaginationInfo({
-    queryKey: queryKey.SERVICE.REVIEW_LIST_PAGE_INFO,
-    queryFn: getReviewListPageInfo,
-    staleTime: staleTime.SERVICE.REVIEW_LIST.PAGE_INFO,
-    pageSize: REVIEW_LIST_PAGE_SIZE,
-  });
   const { data: totalCount } = useSuspenseQuery({
     queryKey: queryKey.SERVICE.REVIEW_TOTAL_COUNT,
     queryFn: getReviewsTotalCount,
@@ -38,14 +30,9 @@ export default function useReviewList({ category }: { category: string }) {
       queryFn: ({ pageParam }) =>
         getReviewListByPage(pageParam, REVIEW_LIST_PAGE_SIZE, category),
       initialPageParam: 1,
-      getNextPageParam: (lastPage, __, lastPageParam) => {
-        const currentPageSize = lastPage?.length ?? 0;
-
-        if (currentPageSize && lastPageParam < calculatedTotalPage) {
-          return lastPageParam + 1;
-        }
-
-        return undefined;
+      getNextPageParam: (lastPage, allPages) => {
+        const isLastPage = lastPage.length < REVIEW_LIST_PAGE_SIZE;
+        return isLastPage ? undefined : allPages.length + 1;
       },
       select: (data): Review[] =>
         data.pages

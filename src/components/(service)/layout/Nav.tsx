@@ -54,19 +54,19 @@ export default function Nav() {
               Designthou
             </Link>
           </h1>
-          <div className="ui-flex-center-between gap-4">
-            {navigations.map((navigation) => (
+          <div className="ui-flex-center-between gap-2">
+            {navigations.map(({ title, to }) => (
               <Link
-                key={navigation.title}
-                href={navigation.to}
+                key={title}
+                href={to}
                 className={cn(
-                  "hidden p-2 font-medium text-gray-700 rounded-lg transition-all hover:opacity-90 active:bg-muted sm:inline-block",
-                  route.SERVICE.ROOT + segment === navigation.to
+                  "hidden px-4 py-2 font-medium text-gray-700 rounded-full transition-all hover:opacity-90 active:bg-muted sm:inline-block",
+                  route.SERVICE.ROOT + segment === to
                     ? "bg-primary font-semibold text-white"
                     : "bg-white hover:bg-muted",
                 )}
               >
-                {navigation.title}
+                {title}
               </Link>
             ))}
           </div>

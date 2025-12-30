@@ -47,6 +47,22 @@ const getNewsListByPage = async ({
   return data;
 };
 
+const getRecentNewsList = async () => {
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select("*")
+    .order("created_at", { ascending: false })
+    .range(0, 5);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
 const addNews = async (data: Omit<News, "id">) => {
   const supabase = createClient();
   return await supabase.from(TABLE).insert(data).select();
@@ -66,6 +82,7 @@ export {
   NEWS_LIST_PAGE_SIZE,
   getNewsListPageInfo,
   getNewsListByPage,
+  getRecentNewsList,
   addNews,
   updateNews,
   deleteNews,

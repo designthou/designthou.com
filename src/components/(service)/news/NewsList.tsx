@@ -13,7 +13,7 @@ interface NewsListProps {
 
 export default function NewsList({ year }: NewsListProps) {
   const { newsList, hasNewsList, hasNextPage, fetchNextPage, isLoading } =
-    useNewsList({ target: "service", year });
+    useNewsList({ year });
 
   const targetRef = useInfiniteScroll<HTMLDivElement>({
     callback: fetchNextPage,
@@ -38,6 +38,7 @@ export default function NewsList({ year }: NewsListProps) {
             <Link
               href={url}
               target="_blank"
+              rel="noopenner noreferrer"
               className="flex justify-between gap-4 p-3 w-full h-full"
             >
               <div className="flex flex-col justify-between gap-4 w-full h-full">

@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { ArrowRightIcon, X } from "lucide-react";
 import { MotionBlock, Button, Menu } from "@/components";
-import { route } from "@/constants";
+import { linkWithRoutes, route } from "@/constants";
 
 export default function Nav() {
   const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
@@ -47,33 +47,17 @@ export default function Nav() {
           isSideNavOpen ? "max-h-full" : "max-h-0"
         } px-3 w-full bg-white z-20 overflow-hidden transition-[max-height] duration-200 ease-[cubic-bezier(0.22, 1, 0.36, 1)] md:hidden`}
       >
-        <MotionBlock onClick={toggle} className="rounded-lg">
-          <Link
-            href={route.ADMIN.NEWS}
-            className="ui-flex-center-between px-3 w-full min-h-15 rounded-lg font-medium cursor-pointer active:bg-light"
-          >
-            <span>News</span>
-            <ArrowRightIcon size={20} />
-          </Link>
-        </MotionBlock>
-        <MotionBlock onClick={toggle} className="rounded-lg">
-          <Link
-            href={route.ADMIN.COMPETITION}
-            className="ui-flex-center-between px-3 w-full min-h-15 font-medium rounded-lg cursor-pointer active:bg-light"
-          >
-            Competition
-            <ArrowRightIcon size={20} />
-          </Link>
-        </MotionBlock>
-        <MotionBlock onClick={toggle} className="rounded-lg">
-          <Link
-            href={route.ADMIN.TIPS}
-            className="ui-flex-center-between px-3 w-full min-h-15 font-medium rounded-lg cursor-pointer active:bg-light"
-          >
-            Youtube Tips
-            <ArrowRightIcon size={20} />
-          </Link>
-        </MotionBlock>
+        {linkWithRoutes.map(({ title, to }) => (
+          <MotionBlock key={title} onClick={toggle} className="rounded-lg">
+            <Link
+              href={to}
+              className="ui-flex-center-between px-3 w-full min-h-15 rounded-lg font-medium cursor-pointer active:bg-light"
+            >
+              <span>{title}</span>
+              <ArrowRightIcon size={20} />
+            </Link>
+          </MotionBlock>
+        ))}
       </div>
       <div
         id="layout-overlay"

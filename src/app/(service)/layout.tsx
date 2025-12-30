@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { SiteConfig } from "@/app/config";
-import { Footer, Main, Nav, ScrollToTopButton } from "@/components";
+import {
+  Footer,
+  KakaoOpenChat,
+  Main,
+  Nav,
+  ScrollToTopButton,
+} from "@/components";
 import { ReactQueryProvider } from "@/providers";
 import { GAProvider } from "@/lib/ga4";
 
@@ -108,6 +114,7 @@ export default function RootLayout({
             <Nav />
             <Main>{children}</Main>
             <Footer />
+            <KakaoOpenChat />
             <ScrollToTopButton />
           </ReactQueryProvider>
         </div>

@@ -1,19 +1,31 @@
 import Image from "next/image";
 import React from "react";
-import { Activity, Sparkle } from "lucide-react";
+import { Activity, ArrowRight, Sparkle } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
   AspectRatio,
+  GradientIndicator,
+  HomeNewsList,
   HomeReviewList,
+  LinkifyButton,
   Progress,
   Skeleton,
 } from "@/components";
 import RhinoClassImage from "/public/og-background.webp";
+import { createClient } from "@/lib/supabase/server";
+import { route } from "@/constants";
 
 export default async function HomePage() {
+  const supabase = await createClient();
+  const { data: newsList } = await supabase
+    .from("news")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .range(0, 5);
+
   return (
     <section className="flex flex-col justify-items-center gap-12 p-4 bg-white">
       <p className="flex items-center gap-3 py-6 px-3 bg-light text-sm text-gray-700 font-semibold rounded-lg border border-gray-100">
@@ -22,12 +34,14 @@ export default async function HomePage() {
         플랫폼 내부 시스템 정비 후, 2026년 1월 중으로 재오픈 예정입니다.
       </p>
       <div>
-        <h2 className="mb-3 font-bold">재정비 진도율 - 45%</h2>
-        <Progress value={40} className="w-full" />
+        <h2 className="mb-3 font-bold">재정비 진도율 - 50%</h2>
+        <Progress value={50} className="w-full" />
       </div>
 
       <div>
-        <h2 className="text-lg font-bold">Q & A</h2>
+        <h3 className="flex items-center gap-2 text-lg font-bold">
+          <GradientIndicator /> Q & A
+        </h3>
         <Accordion
           type="single"
           collapsible
@@ -85,8 +99,32 @@ export default async function HomePage() {
           </AccordionItem>
         </Accordion>
       </div>
-      <div>
-        <h2 className="mb-3 text-lg font-bold">실시간 수강후기</h2>
+      <div className="flex flex-col gap-4">
+        <div className="ui-flex-center-between">
+          <h3 className="flex items-center gap-2 text-lg font-bold">
+            <GradientIndicator />
+            실시간 건축 / 공간 뉴스
+          </h3>
+          <LinkifyButton
+            title={"더보기"}
+            href={route.SERVICE.NEWS}
+            icon={<ArrowRight size={18} />}
+          />
+        </div>
+        <HomeNewsList newsList={newsList ?? []} />
+      </div>
+      <div className="flex flex-col gap-4">
+        <div className="ui-flex-center-between">
+          <h3 className="flex items-center gap-2 text-lg font-bold">
+            <GradientIndicator />
+            실시간 수강후기
+          </h3>
+          <LinkifyButton
+            title={"더보기"}
+            href={route.SERVICE.REVIEWS}
+            icon={<ArrowRight size={18} />}
+          />
+        </div>
         <React.Suspense
           fallback={
             <div className="grid grid-cols-1 gap-4 w-full sm:grid-cols-2 md:grid-cols-4">

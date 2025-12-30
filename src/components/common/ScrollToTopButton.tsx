@@ -3,6 +3,7 @@
 import { useScroll } from "@/hooks";
 import { ArrowUp } from "lucide-react";
 import { Button } from "@/components";
+import { cn } from "@/lib/utils";
 
 const topPositionToStartShowing = 300;
 
@@ -13,7 +14,10 @@ export default function ScrollToTopButton() {
     <Button
       type="button"
       size="lg"
-      className={`${pageYOffset >= topPositionToStartShowing ? "fixed bottom-8 right-4 h-[48px] z-20" : "hidden"}`}
+      className={cn(
+        "rounded-full",
+        `${pageYOffset >= topPositionToStartShowing ? "fixed bottom-8 right-4 h-12 z-20" : "hidden"}`,
+      )}
       onClick={() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}
