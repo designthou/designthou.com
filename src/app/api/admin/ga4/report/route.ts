@@ -1,18 +1,6 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 
-class GAError extends Error {
-  status?: number;
-  data?: unknown;
-
-  constructor(message: string, status?: number, data?: unknown) {
-    super(message);
-    this.name = "GAError";
-    this.status = status;
-    this.data = data;
-  }
-}
-
 const OAUTH_TOKEN_REQUEST_URL = "https://accounts.google.com/o/oauth2/token";
 const ACCESS_GA_REPORT_URL =
   "https://analyticsdata.googleapis.com/v1beta/properties";
@@ -25,13 +13,13 @@ export async function GET() {
       refresh_token: process.env.GA_OAUTH_REFRESH_TOKEN,
       grant_type: "refresh_token",
     });
-
+    console.log(tokenResponse);
     const accessToken = tokenResponse.data.access_token;
 
     if (!accessToken) {
       return NextResponse.json(
         { message: "Access token 발급 실패" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -53,7 +41,7 @@ export async function GET() {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
-          }
+          },
         ),
         await axios.post(
           `${ACCESS_GA_REPORT_URL}/${process.env.NEXT_PUBLIC_GA4_PROPERTY_ID}:runReport`,
@@ -71,7 +59,7 @@ export async function GET() {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
-          }
+          },
         ),
         await axios.post(
           `${ACCESS_GA_REPORT_URL}/${process.env.NEXT_PUBLIC_GA4_PROPERTY_ID}:runReport`,
@@ -89,7 +77,7 @@ export async function GET() {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
-          }
+          },
         ),
       ]);
 
@@ -106,17 +94,26 @@ export async function GET() {
     }
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      throw new GAError(
-        `[GA API Error] ${error.response?.status} ${error.message}`,
-        error.response?.status,
-        error.response?.data
+      console.error("GA API ERROR", {
+        status: error.response?.status,
+        data: error.response?.data,
+      });
+
+      return NextResponse.json(
+        {
+          message: "[GA4] API Error",
+          status: error.response?.status,
+          data: error.response?.data,
+        },
+        { status: error.response?.status ?? 500 },
       );
     }
 
-    if (error instanceof Error) {
-      throw new GAError(`[Unknown Error] ${error.message}`);
-    }
+    console.error("UNKNOWN [GA4] ERROR", error);
 
-    throw new GAError("Unknown GA Report Error happened");
+    return NextResponse.json(
+      { message: "Unknown [GA4] Error" },
+      { status: 500 },
+    );
   }
 }
