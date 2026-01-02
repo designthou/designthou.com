@@ -1,4 +1,4 @@
-const triggers = ["2025", "2024"];
+const triggers = ["2026", "2025", "2024"];
 
 const newsCategoryList = [
   "architecture",
