@@ -1,12 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { MotionBlock } from "@/components";
-import { News } from "@/lib/supabase/schema";
-import { convertSupabaseDateToShortHumanReadable } from "@/lib/supabase";
+import {
+  convertSupabaseDateToShortHumanReadable,
+  getRecentNewsList,
+} from "@/lib/supabase";
 import { generateGradient } from "@/utils/seedGradient";
+import { queryKey, staleTime } from "@/constants";
 
-export default function HomeNewsList({ newsList }: { newsList: News[] }) {
+export default function HomeNewsList() {
+  const { data: newsList } = useSuspenseQuery({
+    queryKey: queryKey.SERVICE.RECENT_NEWS,
+    queryFn: getRecentNewsList,
+    staleTime: staleTime.SERVICE.NEWS_LIST.RECENT,
+  });
   return (
     <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
       {newsList?.map(({ id, title, url, category, created_at }) => (

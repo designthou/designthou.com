@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { Activity, ArrowRight, Sparkle } from "lucide-react";
+import RhinoClassImage from "/public/og-background.webp";
 import {
   Accordion,
   AccordionContent,
@@ -14,18 +15,9 @@ import {
   Progress,
   Skeleton,
 } from "@/components";
-import RhinoClassImage from "/public/og-background.webp";
-import { createClient } from "@/lib/supabase/server";
 import { route } from "@/constants";
 
 export default async function HomePage() {
-  const supabase = await createClient();
-  const { data: newsList } = await supabase
-    .from("news")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .range(0, 5);
-
   return (
     <section className="flex flex-col justify-items-center gap-12 p-4 bg-white">
       <p className="flex items-center gap-3 py-6 px-3 bg-light text-sm text-gray-700 font-semibold rounded-lg border border-gray-100">
@@ -111,7 +103,17 @@ export default async function HomePage() {
             icon={<ArrowRight size={18} />}
           />
         </div>
-        <HomeNewsList newsList={newsList ?? []} />
+        <React.Suspense
+          fallback={
+            <div className="grid grid-cols-1 gap-4 w-full sm:grid-cols-2">
+              {Array.from({ length: 6 }, (_, idx) => (
+                <Skeleton key={idx} className="w-full min-h-32" />
+              ))}
+            </div>
+          }
+        >
+          <HomeNewsList />
+        </React.Suspense>
       </div>
       <div className="flex flex-col gap-4">
         <div className="ui-flex-center-between">

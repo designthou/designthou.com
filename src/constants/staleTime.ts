@@ -9,6 +9,7 @@ const staleTime = {
     NEWS_LIST: {
       PAGE_INFO: ONE_SECOND * 60 * 60,
       ALL_WITH_PAGINATION: ONE_SECOND * 120,
+      RECENT: ONE_SECOND * 60 * 60,
     },
     REVIEW_LIST: {
       PAGE_INFO: ONE_SECOND * 60 * 60,

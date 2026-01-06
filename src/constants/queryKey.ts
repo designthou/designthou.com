@@ -4,6 +4,7 @@ const queryKey = {
     TIP_LIST_BY_PAGE: ["tips", "pagination"],
     NEWS_LIST_PAGE_INFO: ["news", "pageInfo"],
     NEWS_LIST_BY_PAGE: ["news", "pagination"],
+    RECENT_NEWS: ["news", "recent"],
     NOTICE_REVIEW: ["notice_review"],
     PORTFOLIO_REVIEWS: ["reviews", "portfolio"],
     REVIEW_TOTAL_COUNT: ["reviews", "totalCount"],

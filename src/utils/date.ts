@@ -83,6 +83,24 @@ const formatByISOKoreanTime = (targetDate: Date | string): string => {
   return formattedDate;
 };
 
+const formatDateUS = (date?: Date) => {
+  if (!date) {
+    return "";
+  }
+  return date.toLocaleDateString("en-US", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+};
+
+const isValidDate = (date?: Date) => {
+  if (!date) {
+    return false;
+  }
+  return !isNaN(date.getTime());
+};
+
 const translateNumberIntoMonth = (month: number) => months[month]; // ['Jan', 'Feb', 'Mar'][number]
 const getMonthIndexFromMonths = (option: Month | null) =>
   months.findIndex((month) => month === option);
@@ -121,6 +139,8 @@ export {
   formatDate,
   formatByKoreanTime,
   formatByISOKoreanTime,
+  formatDateUS,
+  isValidDate,
   translateNumberIntoMonth,
   getMonthIndexFromMonths,
   getDateFromString,

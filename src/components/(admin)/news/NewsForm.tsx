@@ -1,10 +1,10 @@
 "use client";
 
-import z from "zod";
 import { useForm } from "react-hook-form";
 import {
   AnimateLoader,
   Button,
+  DatePicker,
   Form,
   FormControl,
   FormField,
@@ -22,53 +22,67 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
 import { newsCategoryList } from "@/constants";
-import { useAddNewsMutation } from "@/hooks";
+import { useAddNewsMutation, useEditNewsMutation } from "@/hooks";
+import { newsFormSchema, NewsFormSchema } from "./schema";
+import { isEqual } from "es-toolkit";
+import { toast } from "sonner";
 
-type AddNewsFormSchema = z.infer<typeof addNewsFormSchema>;
-
-const addNewsFormSchema = z.object({
-  title: z.string().min(1, {
-    message: "제목은 최소 한 글자 이상이어야 합니다.",
-  }),
-  url: z.string().superRefine((val, ctx) => {
-    try {
-      const url = new URL(val);
-      if (url.protocol !== "https:") {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: `"https://"로 시작하는 url 만 가능합니다.`,
-        });
-      }
-    } catch {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "유효하지 않는 URL 입니다.",
-      });
-    }
-  }),
-  category: z.string().nonempty("카테고리를 선택해 주세요"),
-});
-
-export default function AddNewsForm({
+export default function NewsForm({
+  type,
+  formData,
   closeForm,
   className,
 }: {
+  type: "add" | "edit";
+  formData?: NewsFormSchema & { id: string };
   closeForm: () => void;
   className?: string;
 }) {
-  const form = useForm<AddNewsFormSchema>({
-    resolver: zodResolver(addNewsFormSchema),
-    defaultValues: {
-      title: "",
-      url: "",
-      category: "architecture",
-    },
+  const form = useForm<NewsFormSchema>({
+    resolver: zodResolver(newsFormSchema),
+    defaultValues:
+      type === "add"
+        ? {
+            title: "",
+            url: "",
+            category: "architecture",
+            created_at: new Date(),
+          }
+        : {
+            ...formData,
+          },
   });
 
-  const { mutate, isPending } = useAddNewsMutation(closeForm);
-  const onSubmit = async (values: AddNewsFormSchema) => {
+  const { mutate: add, isPending: isAddPending } =
+    useAddNewsMutation(closeForm);
+  const { mutate: edit, isPending: isEditPending } =
+    useEditNewsMutation(closeForm);
+
+  const onSubmit = async (values: NewsFormSchema) => {
     const now = new Date().toISOString();
-    mutate({ ...values, created_at: now, updated_at: now });
+
+    if (type === "add") {
+      add({
+        ...values,
+        created_at: values.created_at.toISOString(),
+        updated_at: now,
+      });
+      return;
+    }
+
+    if (type === "edit" && formData) {
+      if (isEqual(formData, { ...values, id: formData.id })) {
+        return toast.warning("변경사항이 없습니다.");
+      }
+
+      edit({
+        id: formData.id,
+        ...values,
+        created_at: values.created_at.toISOString(),
+        updated_at: now,
+      });
+      return;
+    }
   };
 
   return (
@@ -82,7 +96,7 @@ export default function AddNewsForm({
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              <FormLabel className="font-semibold">Title</FormLabel>
               <FormControl>
                 <Input placeholder="제목" {...field} />
               </FormControl>
@@ -96,11 +110,10 @@ export default function AddNewsForm({
           name="url"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>URL</FormLabel>
+              <FormLabel className="font-semibold">URL</FormLabel>
               <FormControl>
                 <Input placeholder="https://designthou.com" {...field} />
               </FormControl>
-
               <FormMessage />
             </FormItem>
           )}
@@ -110,7 +123,7 @@ export default function AddNewsForm({
           name="category"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-semibold">코 스</FormLabel>
+              <FormLabel className="font-semibold">Course</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger className="w-full cursor-pointer">
@@ -136,8 +149,27 @@ export default function AddNewsForm({
           )}
         />
 
+        <FormField
+          control={form.control}
+          name="created_at"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <DatePicker date={field.value} setDate={field.onChange} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <Button type="submit" size="lg">
-          {isPending ? <AnimateLoader /> : "Submit"}
+          {isAddPending || isEditPending ? (
+            <AnimateLoader />
+          ) : type === "add" ? (
+            "Submit"
+          ) : (
+            "Edit"
+          )}
         </Button>
       </form>
     </Form>

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Plus } from "lucide-react";
+import { Edit } from "lucide-react";
 import {
   Button,
   Dialog,
@@ -23,8 +23,13 @@ import {
 } from "@/components";
 import { useIsClient, useMediaQuery } from "@/hooks";
 import { screenSize } from "@/constants";
+import { NewsFormSchema } from "./schema";
 
-export default function AddNewsContext() {
+export default function EditNewsContext({
+  data,
+}: {
+  data: NewsFormSchema & { id: string };
+}) {
   const isDesktop = useMediaQuery(screenSize.MIN_MD);
   const [isContextOpen, setIsContextOpen] = React.useState(false);
   const mounted = useIsClient();
@@ -32,44 +37,52 @@ export default function AddNewsContext() {
   const closeForm = () => setIsContextOpen(false);
   const toggle = (open: boolean) => setIsContextOpen(open);
 
-  if (!mounted) return <Skeleton className="w-30 h-9 bg-muted rounded-lg" />;
+  if (!mounted) return <Skeleton className="w-8 h-8 bg-muted rounded-lg" />;
 
   return (
     <>
       {isDesktop ? (
         <Dialog open={isContextOpen} onOpenChange={toggle}>
           <DialogTrigger asChild>
-            <Button type="button">
-              <Plus size={18} />
-              Add News
+            <Button type="button" size="icon-sm" variant="ghost">
+              <Edit size={18} />
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle className="text-lg">뉴스 추가</DialogTitle>
+              <DialogTitle>뉴스 편집</DialogTitle>
               <DialogDescription className="hidden">
-                Adding news Dialog 입니다.
+                Editing news Dialog 입니다.
               </DialogDescription>
             </DialogHeader>
-            <NewsForm type="add" closeForm={closeForm} className="py-4" />
+            <NewsForm
+              type="edit"
+              formData={data}
+              closeForm={closeForm}
+              className="py-4"
+            />
           </DialogContent>
         </Dialog>
       ) : (
         <Drawer open={isContextOpen} onOpenChange={toggle}>
           <DrawerTrigger asChild>
-            <Button variant="default">
-              <Plus size={18} />
-              Add News
+            <Button type="button" size="icon-sm" variant="ghost">
+              <Edit size={18} />
             </Button>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
-              <DrawerTitle className="text-left">뉴스 추가</DrawerTitle>
+              <DrawerTitle className="text-left">뉴스 편집</DrawerTitle>
               <DrawerDescription className="hidden">
-                Adding news Drawer
+                Editing news Drawer
               </DrawerDescription>
             </DrawerHeader>
-            <NewsForm type="add" closeForm={closeForm} className="px-4" />
+            <NewsForm
+              type="edit"
+              formData={data}
+              closeForm={closeForm}
+              className="px-4"
+            />
             <DrawerFooter className="pt-2">
               <DrawerClose asChild>
                 <Button type="button" variant="outline">

@@ -1,10 +1,15 @@
 "use client";
 
-import Link from "next/link";
-import { Edit, Sparkle, X } from "lucide-react";
-import { AnimateLoader, Button, Wip } from "@/components";
+import { Edit, Sparkle } from "lucide-react";
+import {
+  AnimateLoader,
+  Button,
+  DeleteNewsAlertDialog,
+  Wip,
+} from "@/components";
 import { useInfiniteScroll, useNewsList } from "@/hooks";
 import { convertSupabaseDateToShortHumanReadable } from "@/lib/supabase";
+import EditNewsContext from "./EditNewsContext";
 
 interface NewsListProps {
   year: string;
@@ -34,21 +39,21 @@ export default function NewsList({ year }: NewsListProps) {
             key={id}
             className="flex items-center bg-light border border-muted rounded-lg"
           >
-            <Link
-              href={url}
-              target="_blank"
-              className="flex flex-col gap-4 p-3 w-full h-full"
-            >
+            <div className="flex flex-col gap-4 p-3 w-full h-full">
               <div className="flex flex-col justify-between gap-4 w-full h-full">
                 <div className="flex justify-between gap-4">
                   <div className="font-bold">{title}</div>
                   <div className="flex justify-end gap-2">
-                    <Button type="button" size="icon-sm" variant="ghost">
-                      <Edit size={21} />
-                    </Button>
-                    <Button type="button" size="icon-sm" variant="ghost">
-                      <X size={21} />
-                    </Button>
+                    <EditNewsContext
+                      data={{
+                        id,
+                        title,
+                        url,
+                        category,
+                        created_at: new Date(created_at),
+                      }}
+                    />
+                    <DeleteNewsAlertDialog id={id} />
                   </div>
                 </div>
                 <div className="ui-flex-center-between">
@@ -60,7 +65,7 @@ export default function NewsList({ year }: NewsListProps) {
                   </span>
                 </div>
               </div>
-            </Link>
+            </div>
           </li>
         ))}
       </ul>

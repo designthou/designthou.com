@@ -1,4 +1,5 @@
 export { default as AnimateLoader } from "./AnimateLoader";
+export { default as DatePicker } from "./DatePicker";
 export { default as GradientIndicator } from "./GradientIndicator";
 export { default as KakaoOpenChat } from "./KakaoOpenChat";
 export { default as LayoutLoader } from "./LayoutLoader";
