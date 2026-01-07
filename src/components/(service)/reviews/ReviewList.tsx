@@ -12,14 +12,9 @@ interface ReviewListProps {
 }
 
 export default function ReviewList({ category }: ReviewListProps) {
-  const {
-    reviews,
-    hasNextPage,
-    fetchNextPage,
-    isLoading,
-    noticeReview,
-    totalCount,
-  } = useReviewList({ category });
+  const { reviews, hasNextPage, fetchNextPage, isLoading, noticeReview } =
+    useReviewList({ category });
+
   const targetRef = useInfiniteScroll<HTMLDivElement>({
     callback: fetchNextPage,
     isLoading,
@@ -28,9 +23,6 @@ export default function ReviewList({ category }: ReviewListProps) {
 
   return (
     <>
-      <span className="absolute top-6 right-6 font-black text-4xl">
-        {totalCount}
-      </span>
       <div
         className={
           "flex flex-col shrink-0 w-full gap-4 p-4 bg-blue-50 text-gray-800 rounded-lg"
@@ -41,7 +33,7 @@ export default function ReviewList({ category }: ReviewListProps) {
         </div>
 
         <div
-          className="text-sm sm:text-[15px]"
+          className="text-sm text-gray-700 sm:text-[15px]"
           dangerouslySetInnerHTML={{
             __html: sanitizeHtml(noticeReview?.content),
           }}
@@ -63,7 +55,7 @@ export default function ReviewList({ category }: ReviewListProps) {
 
             <span className="inline-block p-1.5 text-xs rounded-lg">
               {convertSupabaseDateToShortHumanReadable(
-                noticeReview?.created_at
+                noticeReview?.created_at,
               )}
             </span>
           </div>
@@ -85,7 +77,7 @@ export default function ReviewList({ category }: ReviewListProps) {
               <div
                 className={cn(
                   "flex flex-col justify-between shrink-0 w-full gap-6 p-4 bg-white rounded-lg",
-                  notice ? "bg-gradient-orange-100" : ""
+                  notice ? "bg-gradient-orange-100" : "",
                 )}
               >
                 <div className="flex flex-col gap-4">
@@ -94,25 +86,24 @@ export default function ReviewList({ category }: ReviewListProps) {
                   </div>
 
                   <div
-                    className="text-sm sm:text-[15px]"
+                    className="text-sm text-gray-700 sm:text-[15px]"
                     dangerouslySetInnerHTML={{
                       __html: sanitizeHtml(content),
                     }}
                   />
                 </div>
 
-                <div className="flex flex-col gap-4">
-                  <div className="inline-flex items-center gap-2 py-1.5 px-3 w-fit bg-black text-white text-sm rounded-lg">
-                    <span className="font-medium">Views</span>{" "}
-                    <span className="font-bold">{view_count}</span>
-                  </div>
-
-                  <div className="flex gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-orange-100" />
-                    <div className="flex flex-col gap-1">
-                      <span className="py-1.5 px-3 bg-gray-100 text-sm text-center text-gray-600 font-semibold rounded-lg">
-                        {username}
-                      </span>
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-orange-100" />
+                  <div className="flex flex-col gap-1">
+                    <span className="py-1.5 px-3 w-fit bg-gray-100 text-sm text-center text-gray-600 font-semibold rounded-lg">
+                      {username}
+                    </span>
+                    <div className="flex items-center gap-4">
+                      <div className="inline-flex items-center gap-2 p-1.5 w-fit text-gray-700 text-xs rounded-lg">
+                        <span className="font-medium">Views</span>
+                        <span className="font-bold">{view_count}</span>
+                      </div>
                       <span className="inline-block p-1.5 text-xs text-gray-500 rounded-lg">
                         {convertSupabaseDateToShortHumanReadable(created_at)}
                       </span>
@@ -122,7 +113,7 @@ export default function ReviewList({ category }: ReviewListProps) {
               </div>
             )}
           </React.Fragment>
-        )
+        ),
       )}
       {hasNextPage && reviews.length !== 0 && (
         <div ref={targetRef} className="ui-flex-center h-32">

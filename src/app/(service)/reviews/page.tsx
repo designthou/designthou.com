@@ -6,17 +6,19 @@ import {
   TabsTrigger,
   ReviewList,
   Skeleton,
+  AddReviewContext,
 } from "@/components";
 
 export default async function ReviewListPage() {
   const tabsTrigger = ["online-course", "portfolio"] as const;
 
   return (
-    <section className="relative p-4 bg-light rounded-lg">
+    <section className="p-4 bg-light rounded-lg">
       <div className="flex justify-between">
         <h2 className="text-lg font-bold">Reviews</h2>
+        <AddReviewContext />
       </div>
-      <Tabs defaultValue="online-course" className="mt-3">
+      <Tabs defaultValue="online-course" className="">
         <TabsList>
           {tabsTrigger.map((tabTrigger) => (
             <TabsTrigger key={tabTrigger} value={tabTrigger}>

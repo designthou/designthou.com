@@ -1,12 +1,7 @@
 "use client";
 
-import { Edit, Sparkle } from "lucide-react";
-import {
-  AnimateLoader,
-  Button,
-  DeleteNewsAlertDialog,
-  Wip,
-} from "@/components";
+import { Sparkle } from "lucide-react";
+import { AnimateLoader, DeleteNewsAlertDialog, Wip } from "@/components";
 import { useInfiniteScroll, useNewsList } from "@/hooks";
 import { convertSupabaseDateToShortHumanReadable } from "@/lib/supabase";
 import EditNewsContext from "./EditNewsContext";

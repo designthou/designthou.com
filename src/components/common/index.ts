@@ -7,4 +7,6 @@ export { default as LinkifyButton } from "./LinkifyButton";
 export { default as Menu } from "./Menu";
 export { default as MotionBlock } from "./MotionBlock";
 export { default as ScrollToTopButton } from "./ScrollToTopButton";
+export { default as TipTapEditor } from "./TipTapEditor";
+export { default as TipTapMenubar } from "./TipTapMenubar";
 export { default as Wip } from "./Wip";
