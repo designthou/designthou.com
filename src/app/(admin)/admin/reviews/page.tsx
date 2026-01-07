@@ -13,11 +13,13 @@ export default function AdminReviewsPage() {
   const tabsTrigger = ["online-course", "portfolio"] as const;
 
   return (
-    <section className="flex-1 p-4 h-screen overflow-y-auto">
+    <section className="relative flex-1 p-4">
       <div className="flex justify-between">
-        <h2 className="text-lg font-bold">Reviews</h2>
+        <h2 className="text-lg font-bold hidden" aria-label="Review Page Title">
+          Reviews
+        </h2>
       </div>
-      <Tabs defaultValue="online-course" className="mt-3">
+      <Tabs defaultValue="online-course">
         <TabsList>
           {tabsTrigger.map((tabTrigger) => (
             <TabsTrigger key={tabTrigger} value={tabTrigger}>
@@ -27,9 +29,9 @@ export default function AdminReviewsPage() {
         </TabsList>
         <React.Suspense
           fallback={
-            <div className="grid grid-cols-1 gap-3">
-              {Array.from({ length: 10 }, (_, idx) => (
-                <Skeleton key={idx} className="h-39 w-full sm:h-16" />
+            <div className="grid grid-cols-1 gap-1">
+              {Array.from({ length: 20 }, (_, idx) => (
+                <Skeleton key={idx} className="w-full h-9" />
               ))}
             </div>
           }

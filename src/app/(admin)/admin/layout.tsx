@@ -1,5 +1,5 @@
-import { AdminMain, AdminNav, Aside } from "@/components";
 import React from "react";
+import { AdminMain, AdminNav, Aside } from "@/components";
 
 export default function AdminLayout({
   children,
