@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "../globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { SiteConfig } from "@/app/config";
 import {
   Footer,
@@ -118,6 +119,7 @@ export default function RootLayout({
             <ScrollToTopButton />
           </ReactQueryProvider>
         </div>
+        <Analytics />
       </body>
     </html>
   );
