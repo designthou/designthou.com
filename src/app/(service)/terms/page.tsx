@@ -6,9 +6,12 @@ export const metadata: Metadata = {
   description: SiteConfig.description.TERMS,
 };
 
-export default function ServiceOpenSourcePage() {
+export default function ServiceTermsPage() {
   return (
-    <section className="mx-auto p-4 max-w-200 border-gray-200 border-dashed border-l border-r">
+    <section
+      id=""
+      className="mx-auto p-4 max-w-200 border-gray-200 border-dashed border-l border-r"
+    >
       <h2 className="page-title">Terms Of Service(이용약관)</h2>
       <div className="flex flex-col gap-12 mt-8">
         <div>
@@ -33,17 +36,17 @@ export default function ServiceOpenSourcePage() {
               설정한 가상의 영업장을 말하며, 사이버몰을 운영하는 사업자의
               의미로도 사용합니다.
               <p>
-                현재 회사가 운영하는 사이트는
+                현재 회사가 운영하는 사이트는{" "}
                 <strong>https://designthou.com</strong>이며, 모바일 웹 서비스를
                 포함합니다.
               </p>
             </li>
-            <li>
+            <li className="mt-4">
               <strong>회원</strong>이란 사이트에 개인정보를 제공하여 회원등록을
               한 자로서, 사이트의 정보를 지속적으로 제공받으며 서비스를 계속
               이용할 수 있는 자를 말합니다.
             </li>
-            <li>
+            <li className="mt-4">
               <strong>비밀번호</strong>란 회원의 동일성 확인과 권익 및
               비밀보호를 위하여 회원이 설정하여 사이트에 등록한 영문과 숫자의
               조합을 말합니다.
@@ -96,13 +99,15 @@ export default function ServiceOpenSourcePage() {
             </li>
             <li>
               회사는 다음 각 호에 해당하는 경우 가입을 거부할 수 있습니다.
-              <ul>
-                <li>이전에 회원자격을 상실한 경우</li>
-                <li>허위 정보 기재 또는 기재 누락</li>
-                <li>만 14세 미만</li>
-                <li>동일한 전자우편주소로 중복 가입</li>
-                <li>부정한 목적의 이용</li>
-                <li>기타 약관 또는 법령 위반</li>
+              <ul className="ml-4 my-4">
+                <li className="list-decimal">이전에 회원자격을 상실한 경우</li>
+                <li className="list-decimal">허위 정보 기재 또는 기재 누락</li>
+                <li className="list-decimal">만 14세 미만</li>
+                <li className="list-decimal">
+                  동일한 전자우편주소로 중복 가입
+                </li>
+                <li className="list-decimal">부정한 목적의 이용</li>
+                <li className="list-decimal">기타 약관 또는 법령 위반</li>
               </ul>
             </li>
             <li>
@@ -118,8 +123,10 @@ export default function ServiceOpenSourcePage() {
         <div>
           <h3 className="page-subtitle">제6조 (개인정보의 변경)</h3>
           <p>회원은 언제든지 개인정보를 열람하고 수정할 수 있습니다.</p>
+        </div>
 
-          <h2>제7조 (개인정보의 보호)</h2>
+        <div>
+          <h3 className="page-subtitle">제7조 (개인정보의 보호)</h3>
           <ol>
             <li>회사는 관계법령에 따라 회원의 개인정보를 보호합니다.</li>
             <li>개인정보처리방침을 제정하여 사이트에 게시합니다.</li>
@@ -167,12 +174,12 @@ export default function ServiceOpenSourcePage() {
             회원은 관계법령 및 약관을 준수해야 하며, 다음 행위를 해서는 안
             됩니다.
           </p>
-          <ul>
-            <li>허위 정보 등록</li>
-            <li>타인 정보 도용</li>
-            <li>저작권 침해</li>
-            <li>음란·폭력적 내용 게시</li>
-            <li>영리 목적 무단 이용</li>
+          <ul className="ml-4 my-4">
+            <li className="list-decimal">허위 정보 등록</li>
+            <li className="list-decimal">타인 정보 도용</li>
+            <li className="list-decimal">저작권 침해</li>
+            <li className="list-decimal">음란·폭력적 내용 게시</li>
+            <li className="list-decimal">영리 목적 무단 이용</li>
           </ul>
         </div>
 
@@ -181,11 +188,11 @@ export default function ServiceOpenSourcePage() {
           <p>
             회사는 다음에 해당하는 게시물을 사전 통지 없이 삭제할 수 있습니다.
           </p>
-          <ul>
-            <li>명예훼손</li>
-            <li>불법·음란물</li>
-            <li>저작권 침해</li>
-            <li>상업 광고</li>
+          <ul className="ml-4 my-4">
+            <li className="list-decimal">명예훼손</li>
+            <li className="list-decimal">불법·음란물</li>
+            <li className="list-decimal">저작권 침해</li>
+            <li className="list-decimal">상업 광고</li>
           </ul>
         </div>
 
