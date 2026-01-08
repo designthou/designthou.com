@@ -14,7 +14,7 @@ export default function Aside() {
   return (
     <div className="relative">
       <aside
-        className={`fixed flex-col left-0 hidden py-2 h-full w-14 max-h-screen bg-white overflow-y-auto overflow-x-hidden border-muted border-r sm:sticky sm:flex lg:w-56 lg:p-3`}
+        className={`fixed flex-col top-0 left-0 hidden py-2 h-full w-14 max-h-screen bg-white overflow-y-auto overflow-x-hidden border-muted border-r sm:sticky sm:flex lg:w-56 lg:p-3`}
       >
         <div className="flex flex-col justify-between gap-2 h-full lg:gap-4">
           <header className="flex justify-center items-center min-h-9 lg:justify-between">

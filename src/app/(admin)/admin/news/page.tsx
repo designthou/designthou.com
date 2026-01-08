@@ -12,7 +12,7 @@ import { triggers } from "@/constants";
 
 export default function AdminNewsPage() {
   return (
-    <section className="flex-1 p-4 min-h-0 h-screen overflow-y-auto">
+    <section className="p-4">
       <Tabs defaultValue={triggers[0]} className="gap-4">
         <div className="ui-flex-center-between">
           <TabsList>

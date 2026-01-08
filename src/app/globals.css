@@ -467,6 +467,17 @@
       border-top: 1px solid var(--gray-2);
       margin: 2rem 0;
     }
+
+    p > div[data-node="image"] img {
+      display: inline-block;
+      min-width: 300px;
+      max-width: 300px;
+      height: auto;
+
+      @media screen and (min-width: 640px) {
+        max-width: 500px;
+      }
+    }
   }
 }
 

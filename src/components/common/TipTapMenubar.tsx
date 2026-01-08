@@ -19,8 +19,12 @@ import {
   Underline,
 } from "lucide-react";
 import { Button } from "@/components";
+import { toast } from "sonner";
+import React from "react";
+import { uploadImageInTextEditor } from "@/lib/supabase";
+import { useLoading } from "@/hooks";
 
-// const DEFAULT_FILE_SIZE = 3 * 1024 * 1024;
+const DEFAULT_FILE_SIZE = 3 * 1024 * 1024;
 
 export default function MenuBar({ editor }: { editor: Editor }) {
   const editorState = useEditorState({
@@ -47,47 +51,48 @@ export default function MenuBar({ editor }: { editor: Editor }) {
         isOrderedList: ctx.editor.isActive("orderedList") ?? false,
         isCodeBlock: ctx.editor.isActive("codeBlock") ?? false,
         isBlockquote: ctx.editor.isActive("blockquote") ?? false,
+        isUnderline: ctx.editor.isActive("underline") ?? false,
+        canUnderline: ctx.editor.can().chain().toggleUnderline().run() ?? false,
         canUndo: ctx.editor.can().chain().undo().run() ?? false,
         canRedo: ctx.editor.can().chain().redo().run() ?? false,
       };
     },
   });
 
+  const { isLoading, Loading, startTransition } = useLoading();
+
+  const handleUploadPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const imageFiles = e.target.files;
+
+    if (imageFiles === null) return;
+
+    const imageFile = imageFiles[0];
+    const currentImageFileSize = imageFile.size ?? 0;
+
+    if (currentImageFileSize > DEFAULT_FILE_SIZE) {
+      return toast.warning("업로드 가능한 이미지 용량은 3MB 입니다");
+    }
+
+    try {
+      const imageUrl = await startTransition(
+        uploadImageInTextEditor({ imageFile })
+      );
+
+      if (!imageUrl) {
+        throw new Error("Return Image Url Error");
+      }
+
+      editor.commands.setImage({
+        src: `https://${process.env.NEXT_PUBLIC_SUPABASE_REMOTE_IMAGE_HOSTNAME}/storage/v1/object/public/${imageUrl}`,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   if (!editor) {
     return null;
   }
-
-  // const handleUploadPhoto = async (e) => {
-  //   const imageFiles = e.target.files;
-
-  //   if (imageFiles === null) return;
-
-  //   const imageFile = imageFiles[0];
-  //   const currentImageFileSize = imageFile.size ?? 0;
-
-  //   if (currentImageFileSize > DEFAULT_FILE_SIZE) {
-  //     return notificationActions?.dispatchNotification({
-  //       status: "warn",
-  //       message: "업로드 가능한 이미지 용량은 3MB 입니다",
-  //     });
-  //   }
-
-  //   setIsImageLoading(true);
-
-  //   try {
-  //     const imageUrl = await uploadImageInTextEditor(imageFile);
-
-  //     if (!imageUrl) {
-  //       throw Error({ message: "Return Image Url Error" });
-  //     }
-
-  //     editor.commands.setImage({ src: imageUrl });
-  //   } catch (error) {
-  //     console.error(error);
-  //   } finally {
-  //     setIsImageLoading(false);
-  //   }
-  // };
 
   return (
     <div className="flex flex-wrap items-center gap-2 px-3 py-1.5 border-b border-b-gray-200">
@@ -135,6 +140,11 @@ export default function MenuBar({ editor }: { editor: Editor }) {
         type="button"
         variant="ghost"
         size="icon-sm"
+        className={
+          editorState.isUnderline
+            ? "bg-black text-white hover:bg-gray-800 hover:text-white"
+            : ""
+        }
         onClick={() => editor.chain().focus().toggleUnderline().run()}
       >
         <Underline size={16} />
@@ -275,12 +285,21 @@ export default function MenuBar({ editor }: { editor: Editor }) {
           id="image_upload"
           accept="image/*"
           className="hidden"
-          // onChange={(e) => {
-          //   handleUploadPhoto(e);
-          //   e.target.value = ""; // 중복 데이터 예외 처리
-          // }}
+          onChange={(e) => {
+            handleUploadPhoto(e);
+            console.log("here");
+            e.target.value = ""; // 중복 데이터 예외 처리
+          }}
         />
       </Button>
+      {isLoading && (
+        <div
+          id="imageUploadOverlay"
+          className="absolute top-0 left-0 right-0 bottom-0 ui-flex-center bg-muted rounded-lg z-10"
+        >
+          <Loading />
+        </div>
+      )}
     </div>
   );
 }

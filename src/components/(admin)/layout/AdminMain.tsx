@@ -11,12 +11,14 @@ export default function Main({
   const targetRef = React.useRef<HTMLElement | null>(null);
 
   return (
-    <main
-      ref={targetRef}
-      className="grid grid-rows-[1fr] w-full h-screen overflow-y-auto pt-[calc(var(--global-layout-padding)+var(--global-layout-nav-height))] pb-4 bg-white sm:pt-0"
-    >
-      {children}
-      <ScrollToBlockTopButton targetRef={targetRef} />
-    </main>
+    <div className="flex flex-1 flex-col w-0">
+      <main
+        ref={targetRef}
+        className="relative flex-1 pb-8 pt-[calc(var(--global-layout-padding)+var(--global-layout-nav-height))] w-full bg-white z-0 sm:pt-0"
+      >
+        {children}
+        <ScrollToBlockTopButton targetRef={targetRef} />
+      </main>
+    </div>
   );
 }

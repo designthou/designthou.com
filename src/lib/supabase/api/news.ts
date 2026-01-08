@@ -1,14 +1,13 @@
 import { createClient } from "../client";
 import { type News } from "../schema";
-
-const TABLE = "news";
+import { TABLES } from "../tables";
 
 const NEWS_LIST_PAGE_SIZE = 12;
 
 const getNewsListPageInfo = async () => {
   const supabase = createClient();
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(TABLES.NEWS)
     .select("*")
     .explain({ format: "json", analyze: true });
 
@@ -33,7 +32,7 @@ const getNewsListByPage = async ({
   const start = `${year}-01-01T00:00:00.000Z`;
   const end = `${+year + 1}-01-01T00:00:00.000Z`;
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(TABLES.NEWS)
     .select("*")
     .gte("created_at", start)
     .lt("created_at", end)
@@ -51,7 +50,7 @@ const getRecentNewsList = async () => {
   const supabase = createClient();
 
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(TABLES.NEWS)
     .select("*")
     .order("created_at", { ascending: false })
     .range(0, 5);
@@ -65,17 +64,21 @@ const getRecentNewsList = async () => {
 
 const addNews = async (data: Omit<News, "id">) => {
   const supabase = createClient();
-  return await supabase.from(TABLE).insert(data).select();
+  return await supabase.from(TABLES.NEWS).insert(data).select();
 };
 
 const updateNews = async ({ data }: { data: News }) => {
   const supabase = createClient();
-  return await supabase.from(TABLE).update(data).eq("id", data.id).select();
+  return await supabase
+    .from(TABLES.NEWS)
+    .update(data)
+    .eq("id", data.id)
+    .select();
 };
 
 const deleteNews = async ({ id }: { id: string }) => {
   const supabase = createClient();
-  return await supabase.from(TABLE).delete().eq("id", id);
+  return await supabase.from(TABLES.NEWS).delete().eq("id", id);
 };
 
 export {

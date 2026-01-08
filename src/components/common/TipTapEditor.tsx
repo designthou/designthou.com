@@ -1,13 +1,22 @@
 "use client";
 
-import { useEditor, EditorContent, Content } from "@tiptap/react";
+import React from "react";
+import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { TextStyleKit } from "@tiptap/extension-text-style";
+import Underline from "@tiptap/extension-underline";
 import Image from "@tiptap/extension-image";
-
 import { TipTapMenubar } from ".";
 
-export default function TiptapEditor({ content }: { content: Content }) {
+interface TipTapEditorProps {
+  content: string;
+  onContentChange: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function TiptapEditor({
+  content,
+  onContentChange,
+}: TipTapEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -16,6 +25,7 @@ export default function TiptapEditor({ content }: { content: Content }) {
         },
       }),
       TextStyleKit,
+      Underline,
       Image.configure({
         inline: true,
         allowBase64: true,
@@ -28,11 +38,10 @@ export default function TiptapEditor({ content }: { content: Content }) {
     content,
     // place the cursor in the editor after initialization
     autofocus: true,
-    // onUpdate: ({ editor }) => {
-    // const newContent = editor.getHTML();
-    // if (newContent.includes) onContentChange(newContent);
-    // setLocalEditorContent(newContent);
-    // },
+    onUpdate: ({ editor }) => {
+      const newContent = editor.getHTML();
+      onContentChange(newContent);
+    },
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
   });
@@ -42,9 +51,11 @@ export default function TiptapEditor({ content }: { content: Content }) {
   }
 
   return (
-    <div className="flex flex-col mx-auto w-[calc(100%-32px)] border border-gray-200 bg-white rounded-lg sm:w-full">
-      <TipTapMenubar editor={editor} />
-      <EditorContent editor={editor} className="p-3" />
+    <div className="flex flex-col flex-1 min-h-0 mx-auto w-full">
+      <div className="relative border border-gray-200 bg-white rounded-lg sm:w-full">
+        <TipTapMenubar editor={editor} />
+        <EditorContent editor={editor} />
+      </div>
     </div>
   );
 }

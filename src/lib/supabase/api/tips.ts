@@ -1,14 +1,13 @@
 import { createClient } from "../client";
 import { Tip } from "../schema";
-
-const TABLE = "youtube_tips";
+import { TABLES } from "../tables";
 
 const TIP_LIST_PAGE_SIZE = 9;
 
 const getTipListPageInfo = async () => {
   const supabase = createClient();
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(TABLES.TIPS)
     .select("*")
     .explain({ format: "json", analyze: true });
 
@@ -26,7 +25,7 @@ const getTipListByPage = async (
   const supabase = createClient();
 
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(TABLES.TIPS)
     .select("*")
     .order("created_at", { ascending: false })
     .range((pageParam - 1) * pageSize, pageParam * pageSize - 1);
