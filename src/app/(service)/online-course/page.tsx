@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: SiteConfig.title.ONLINE_COURSE,
     images: [
       {
-        url: `${SiteConfig.url}/og/static?title=${encodeURIComponent(SiteConfig.title.ONLINE_COURSE)}`,
+        url: `${SiteConfig.url}/og/static`,
         width: 1200,
         height: 630,
       },

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import React from "react";
+import { SiteConfig } from "@/app/config";
 import {
   Tabs,
   TabsContent,
@@ -9,7 +10,6 @@ import {
   Skeleton,
   AddReviewContext,
 } from "@/components";
-import { SiteConfig } from "@/app/config";
 
 export const metadata: Metadata = {
   title: SiteConfig.title.REVIEWS,
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: SiteConfig.title.REVIEWS,
     images: [
       {
-        url: `${SiteConfig.url}/og/static?title=${encodeURIComponent(SiteConfig.title.REVIEWS)}`,
+        url: `${SiteConfig.url}/og/static`,
         width: 1200,
         height: 630,
       },
