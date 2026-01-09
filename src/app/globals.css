@@ -210,11 +210,11 @@
   }
 
   ::-moz-selection {
-    @apply bg-black text-white;
+    @apply bg-gray-300 text-gray-700;
   }
 
   ::selection {
-    @apply bg-black text-white;
+    @apply bg-gray-300 text-gray-700;
   }
 
   .bg-light {
@@ -371,7 +371,7 @@
   }
 
   .tiptap {
-    @apply p-3 min-h-[50dvh] max-h-[60dvh] w-full h-full whitespace-nowrap border-none bg-white overflow-y-auto focus:outline-none;
+    @apply p-3 min-h-[30dvh] max-h-[40dvh] w-full h-full whitespace-nowrap border-none bg-white text-[16px] rounded-lg overflow-y-auto focus:outline-none sm:min-h-[50dvh] sm:max-h-[60dvh];
     :first-child {
       margin-top: 0;
     }
@@ -478,14 +478,5 @@
         max-width: 500px;
       }
     }
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }

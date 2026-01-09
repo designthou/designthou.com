@@ -105,7 +105,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=0"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
         />
         <meta name="robots" content="index, follow" />
         <Script

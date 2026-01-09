@@ -41,13 +41,13 @@ export default function useDeleteNewsMutation(handler?: () => void) {
         toast.error("뉴스를 삭제하는 데 에러가 발생했습니다.");
         queryClient.setQueryData(
           queryKey.ADMIN.NEWS_LIST_BY_PAGE,
-          context?.previousData,
+          context?.previousData
         );
       }
     },
     onSuccess() {
       handler?.();
-      console.log("here");
+
       toast.success("뉴스를 성공적으로 삭제했습니다.");
     },
     onSettled() {

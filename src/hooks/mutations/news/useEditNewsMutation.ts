@@ -14,8 +14,8 @@ const edit =
       ...oldData,
       pages: oldData.pages.map((page) =>
         page.map((item) =>
-          item.id === id ? { ...item, title, url, category, updated_at } : item,
-        ),
+          item.id === id ? { ...item, title, url, category, updated_at } : item
+        )
       ),
     };
   };
@@ -45,13 +45,13 @@ export default function useEditNewsMutation(handler?: () => void) {
         toast.error("뉴스를 업데이트 하는 데 에러가 발생했습니다.");
         queryClient.setQueryData(
           queryKey.ADMIN.NEWS_LIST_BY_PAGE,
-          context?.previousData,
+          context?.previousData
         );
       }
     },
     onSuccess() {
       handler?.();
-      console.log("here");
+
       toast.success("뉴스를 성공적으로 업데이트 했습니다.");
     },
     onSettled() {

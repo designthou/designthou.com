@@ -10,6 +10,7 @@ import {
   Skeleton,
   AddReviewContext,
 } from "@/components";
+import { reviewsCategoryList as tabsTrigger } from "@/constants";
 
 export const metadata: Metadata = {
   title: SiteConfig.title.REVIEWS,
@@ -28,8 +29,6 @@ export const metadata: Metadata = {
 };
 
 export default async function ReviewListPage() {
-  const tabsTrigger = ["online-course", "portfolio"] as const;
-
   return (
     <section className="p-4 bg-light rounded-lg">
       <div className="flex justify-between">

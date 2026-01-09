@@ -287,7 +287,7 @@ export default function MenuBar({ editor }: { editor: Editor }) {
           className="hidden"
           onChange={(e) => {
             handleUploadPhoto(e);
-            console.log("here");
+
             e.target.value = ""; // 중복 데이터 예외 처리
           }}
         />

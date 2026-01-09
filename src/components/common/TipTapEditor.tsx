@@ -9,13 +9,14 @@ import Image from "@tiptap/extension-image";
 import { TipTapMenubar } from ".";
 
 interface TipTapEditorProps {
-  content: string;
-  onContentChange: React.Dispatch<React.SetStateAction<string>>;
+  value: string;
+  onChange: (value: string) => void;
 }
 
 export default function TiptapEditor({
-  content,
-  onContentChange,
+  value,
+  onChange,
+  ...props
 }: TipTapEditorProps) {
   const editor = useEditor({
     extensions: [
@@ -35,12 +36,10 @@ export default function TiptapEditor({
         },
       }),
     ],
-    content,
-    // place the cursor in the editor after initialization
-    autofocus: true,
+    content: value,
+
     onUpdate: ({ editor }) => {
-      const newContent = editor.getHTML();
-      onContentChange(newContent);
+      onChange(editor.getHTML() === "<p></p>" ? "" : editor.getHTML());
     },
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
@@ -51,10 +50,10 @@ export default function TiptapEditor({
   }
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 mx-auto w-full">
+    <div className="flex flex-col flex-1 min-h-0 mx-auto w-full rounded-lg">
       <div className="relative border border-gray-200 bg-white rounded-lg sm:w-full">
         <TipTapMenubar editor={editor} />
-        <EditorContent editor={editor} />
+        <EditorContent editor={editor} {...props} />
       </div>
     </div>
   );
