@@ -4,12 +4,46 @@ export const runtime = "edge";
 
 export async function GET() {
   return new ImageResponse(
-    <div tw="flex flex-col w-full h-full items-center justify-center">
-      <div tw="flex flex-col md:flex-row w-full py-12 px-4 md:items-center justify-between p-8">
-        <h1 tw="flex flex-col text-4xl font-bold tracking-tight text-center">
-          Youtube Tips
-        </h1>
-      </div>
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        background: `
+            radial-gradient(
+              circle at 20% 80%,
+              #fed7aa 0%,
+              #f87171 45%,
+              #fff7ed 100%
+            )
+          `,
+      }}
+    >
+      <h1
+        style={{
+          fontSize: 72,
+          fontWeight: 900,
+          color: "#fff",
+          letterSpacing: "-0.03em",
+          textAlign: "center",
+        }}
+      >
+        Youtube Tips
+      </h1>
+
+      <p
+        style={{
+          marginTop: 16,
+          fontSize: 28,
+          fontWeight: 500,
+          color: "#fff",
+        }}
+      >
+        Meet our highly qualified contents
+      </p>
     </div>,
     {
       width: 1200,

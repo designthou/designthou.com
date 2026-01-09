@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     url: SiteConfig.url,
     images: [
       {
-        url: `https://designthou.com/og-background2.png`,
+        url: `https://designthou.com/designthou.png`,
         width: 1200,
         height: 630,
         type: "image/png",
