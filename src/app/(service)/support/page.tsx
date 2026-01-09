@@ -3,8 +3,19 @@ import { SupportForm } from "@/components";
 import { SiteConfig } from "@/app/config";
 
 export const metadata: Metadata = {
-  title: SiteConfig.title.OPEN_SOURCE,
-  description: SiteConfig.description.OPEN_SOURCE,
+  title: SiteConfig.title.SUPPORT,
+  description: SiteConfig.description.SUPPORT,
+  openGraph: {
+    title: SiteConfig.title.SUPPORT,
+    description: SiteConfig.title.SUPPORT,
+    images: [
+      {
+        url: `${SiteConfig.url}/og/static`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function ServiceSupportPage() {

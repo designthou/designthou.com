@@ -4,8 +4,19 @@ import { Wip } from "@/components";
 import { SiteConfig } from "@/app/config";
 
 export const metadata: Metadata = {
-  title: SiteConfig.title.ABOUT,
+  title: SiteConfig.title.COMPETITION,
   description: SiteConfig.description.COMPETITION,
+  openGraph: {
+    title: SiteConfig.title.COMPETITION,
+    description: SiteConfig.title.COMPETITION,
+    images: [
+      {
+        url: `${SiteConfig.url}/og/static`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function ServiceCompetitionPage() {

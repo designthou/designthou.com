@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import React from "react";
 import {
   Tabs,
@@ -8,6 +9,23 @@ import {
   Skeleton,
   AddReviewContext,
 } from "@/components";
+import { SiteConfig } from "@/app/config";
+
+export const metadata: Metadata = {
+  title: SiteConfig.title.REVIEWS,
+  description: SiteConfig.description.REVIEWS,
+  openGraph: {
+    title: SiteConfig.title.REVIEWS,
+    description: SiteConfig.title.REVIEWS,
+    images: [
+      {
+        url: `${SiteConfig.url}/og/static`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+};
 
 export default async function ReviewListPage() {
   const tabsTrigger = ["online-course", "portfolio"] as const;

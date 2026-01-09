@@ -6,6 +6,17 @@ import { SiteConfig } from "@/app/config";
 export const metadata: Metadata = {
   title: SiteConfig.title.NOTICE,
   description: SiteConfig.description.NOTICE,
+  openGraph: {
+    title: SiteConfig.title.NOTICE,
+    description: SiteConfig.title.NOTICE,
+    images: [
+      {
+        url: `${SiteConfig.url}/og/static`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function ServiceNoticePage() {

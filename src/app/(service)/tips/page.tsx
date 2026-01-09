@@ -5,8 +5,19 @@ import { SiteConfig } from "@/app/config";
 import { AnimateLoader, Skeleton, TipList } from "@/components";
 
 export const metadata: Metadata = {
-  title: SiteConfig.title.OPEN_SOURCE,
-  description: SiteConfig.description.OPEN_SOURCE,
+  title: SiteConfig.title.TIPS,
+  description: SiteConfig.description.TIPS,
+  openGraph: {
+    title: SiteConfig.title.TIPS,
+    description: SiteConfig.title.TIPS,
+    images: [
+      {
+        url: `${SiteConfig.url}/og/static`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 const YoutubeVideo = dynamic(
@@ -17,7 +28,7 @@ const YoutubeVideo = dynamic(
         <AnimateLoader />
       </div>
     ),
-  },
+  }
 );
 
 export default function ServiceTipsPage() {

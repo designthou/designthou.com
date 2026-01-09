@@ -14,6 +14,17 @@ import { triggers } from "@/constants";
 export const metadata: Metadata = {
   title: SiteConfig.title.NEWS,
   description: SiteConfig.description.NEWS,
+  openGraph: {
+    title: SiteConfig.title.NEWS,
+    description: SiteConfig.title.NEWS,
+    images: [
+      {
+        url: `${SiteConfig.url}/og/static`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function ServiceNewsPage() {

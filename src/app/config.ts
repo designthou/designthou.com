@@ -11,6 +11,8 @@ export const SiteConfig = {
     COMPETITION: "Designthou | Competition",
     OPEN_SOURCE: "Designthou | Open Source",
     ONLINE_COURSE: "Designthou | Online Course",
+    REVIEWS: "Designthou | Reviews",
+    TIPS: "Designthou | Youtube Tips",
     ABOUT: "Designthou | About",
     NOTICE: "Designthou | Notice",
     FAQ: "Designthou | FAQ",
@@ -29,6 +31,9 @@ export const SiteConfig = {
       "Spatial Open Content Platform | This is Designthou's Open Source Page",
     ONLINE_COURSE:
       "Spatial Open Content Platform | This is Designthou's Online Course Page",
+    REVIEWS:
+      "Spatial Open Content Platform | This is Designthou's Live Reviews Page",
+    TIPS: "Spatial Open Content Platform | This is Designthou's Youtube Tips Page",
     ABOUT: "Spatial Open Content Platform | This is Designthou's About Page",
     NOTICE: "Spatial Open Content Platform | This is Designthou's Notice Page",
     FAQ: "Spatial Open Content Platform | This is Designthou's FAQ Page",

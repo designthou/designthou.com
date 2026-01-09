@@ -6,6 +6,17 @@ import { SiteConfig } from "@/app/config";
 export const metadata: Metadata = {
   title: SiteConfig.title.FAQ,
   description: SiteConfig.description.FAQ,
+  openGraph: {
+    title: SiteConfig.title.FAQ,
+    description: SiteConfig.title.FAQ,
+    images: [
+      {
+        url: `${SiteConfig.url}/og/static`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function ServiceFAQPage() {

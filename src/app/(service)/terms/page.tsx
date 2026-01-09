@@ -4,6 +4,17 @@ import { SiteConfig } from "@/app/config";
 export const metadata: Metadata = {
   title: SiteConfig.title.TERMS,
   description: SiteConfig.description.TERMS,
+  openGraph: {
+    title: SiteConfig.title.TERMS,
+    description: SiteConfig.title.TERMS,
+    images: [
+      {
+        url: `${SiteConfig.url}/og/static`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function ServiceTermsPage() {

@@ -14,7 +14,7 @@ const YoutubeVideo = dynamic(
         <AnimateLoader />
       </div>
     ),
-  },
+  }
 );
 
 export default async function TipVideoPage({

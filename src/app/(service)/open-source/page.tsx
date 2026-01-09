@@ -6,6 +6,17 @@ import { SiteConfig } from "@/app/config";
 export const metadata: Metadata = {
   title: SiteConfig.title.OPEN_SOURCE,
   description: SiteConfig.description.OPEN_SOURCE,
+  openGraph: {
+    title: SiteConfig.title.OPEN_SOURCE,
+    description: SiteConfig.title.OPEN_SOURCE,
+    images: [
+      {
+        url: `${SiteConfig.url}/og/static`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function ServiceOpenSourcePage() {

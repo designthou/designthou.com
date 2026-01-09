@@ -4,6 +4,17 @@ import { SiteConfig } from "@/app/config";
 export const metadata: Metadata = {
   title: SiteConfig.title.PRIVACY,
   description: SiteConfig.description.PRIVACY,
+  openGraph: {
+    title: SiteConfig.title.PRIVACY,
+    description: SiteConfig.title.PRIVACY,
+    images: [
+      {
+        url: `${SiteConfig.url}/og/static`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
 };
 
 export default function ServicePrivacyPage() {
