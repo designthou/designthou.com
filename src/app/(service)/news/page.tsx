@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: SiteConfig.title.NEWS,
     images: [
       {
-        url: `${SiteConfig.url}/og/static`,
+        url: `${SiteConfig.url}/og/static?title=${encodeURIComponent(SiteConfig.title.NEWS)}`,
         width: 1200,
         height: 630,
       },
