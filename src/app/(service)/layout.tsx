@@ -12,6 +12,7 @@ import {
 } from "@/components";
 import { ReactQueryProvider } from "@/providers";
 import { GAProvider } from "@/lib/ga4";
+import Script from "next/script";
 
 const inter = Inter({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -104,6 +105,13 @@ export default function RootLayout({
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=0"
+        />
+        <meta name="robots" content="index, follow" />
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_CLIENT_ID}`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
         />
       </head>
       <body className={`${inter.variable} ${geistMono.variable} antialiased`}>
