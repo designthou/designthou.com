@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLogin } from "@/hooks";
 import {
   Form,
   FormControl,
@@ -15,10 +17,9 @@ import {
   Input,
   loginSchema,
   type LoginSchema,
+  AnimateLoader,
 } from "@/components";
 import { route } from "@/constants";
-import { createClient } from "@/lib/supabase/client";
-import { toast } from "sonner";
 
 export default function LoginForm() {
   const form = useForm<LoginSchema>({
@@ -28,29 +29,28 @@ export default function LoginForm() {
       password: "",
     },
   });
+
   const router = useRouter();
+  const { mutate: signup, isPending } = useLogin();
 
   const onSubmit = async (values: LoginSchema) => {
     const { email, password } = values;
-    try {
-      const supabase = createClient();
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
 
-      if (error) {
-        throw new Error(error.message);
-      }
+    signup(
+      { email, password },
+      {
+        onSuccess: () => {
+          toast.success("로그인 성공");
+          router.push(route.ADMIN.ROOT);
+          router.refresh();
+        },
 
-      if (data) {
-        toast.success("성공적으로 로그인");
-        router.push("/admin");
-        router.refresh();
-      }
-    } catch (e) {
-      console.error(e);
-    }
+        onError: (error) => {
+          console.log(error);
+          toast.error(error?.message);
+        },
+      },
+    );
   };
 
   return (
@@ -69,7 +69,7 @@ export default function LoginForm() {
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="hello@skevv.app"
+                    placeholder="hello-designthou@gmail.com"
                     {...field}
                   />
                 </FormControl>
@@ -96,19 +96,23 @@ export default function LoginForm() {
                   </Button>
                 </div>
                 <FormControl>
-                  <Input type="password" placeholder="*******" {...field} />
+                  <Input type="password" placeholder="********" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button type="submit" variant="default" size="lg">
-            Login
+            {isPending ? <AnimateLoader /> : "Login"}
           </Button>
         </form>
       </Form>
 
-      <Button asChild variant="link" className="mx-auto text-center">
+      <Button
+        asChild
+        variant="link"
+        className="mx-auto text-center transition-all"
+      >
         <Link href={route.AUTH.SIGNUP}>Do you need to register?</Link>
       </Button>
     </div>

@@ -75,7 +75,7 @@ export default function MenuBar({ editor }: { editor: Editor }) {
 
     try {
       const imageUrl = await startTransition(
-        uploadImageInTextEditor({ imageFile })
+        uploadImageInTextEditor({ imageFile }),
       );
 
       if (!imageUrl) {
@@ -83,7 +83,7 @@ export default function MenuBar({ editor }: { editor: Editor }) {
       }
 
       editor.commands.setImage({
-        src: `https://${process.env.NEXT_PUBLIC_SUPABASE_REMOTE_IMAGE_HOSTNAME}/storage/v1/object/public/${imageUrl}`,
+        src: `https://${process.env.NEXT_PUBLIC_SUPABASE_HOSTNAME}/storage/v1/object/public/${imageUrl}`,
       });
     } catch (error) {
       console.error(error);

@@ -1,20 +1,10 @@
+"use client";
+
 import { LogoutButton } from "@/components";
-import { route } from "@/constants";
-import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
+import { useAuthStore } from "@/stores";
 
-export default async function AdminRootPage() {
-  // 로그인 전이면 redirect('/admin/login'), 로그인 후면 redirect('/admin/dashboard') -> middleware로 page.jsx 화면 그리기 전에 확인
-  // redirect(route.ADMIN.DASHBOARD);
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect(route.AUTH.LOGIN);
-  }
+export default function AdminRootPage() {
+  const user = useAuthStore(({ user }) => user);
 
   return (
     <div className="ui-flex-center flex-col gap-8 mt-8">

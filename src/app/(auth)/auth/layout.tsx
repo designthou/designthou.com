@@ -24,10 +24,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: SiteConfig.title.LOGIN,
+  title: SiteConfig.title.AUTH,
   description: SiteConfig.subtitle,
   openGraph: {
-    title: SiteConfig.title.LOGIN,
+    title: SiteConfig.title.AUTH,
     description: SiteConfig.subtitle,
     siteName: "Designthou",
     locale: "ko_KR",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: SiteConfig.title.LOGIN,
+    title: SiteConfig.title.AUTH,
     description: "Designthou - Spatial Content Platform",
     images: ["https://designthou.com/api/og?title=designthou&twitter=1"],
   },

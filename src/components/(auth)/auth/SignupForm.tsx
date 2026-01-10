@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -15,10 +16,10 @@ import {
   Input,
   SignUpSchema,
   signUpSchema,
+  AnimateLoader,
 } from "@/components";
+import { useSignup } from "@/hooks";
 import { route } from "@/constants";
-import { createClient } from "@/lib/supabase/client";
-import { toast } from "sonner";
 
 export default function SignupForm() {
   const form = useForm<SignUpSchema>({
@@ -30,55 +31,36 @@ export default function SignupForm() {
       nickname: "",
     },
   });
+
   const router = useRouter();
+
+  const { mutate: signup, isPending } = useSignup();
 
   const onSubmit = async (values: SignUpSchema) => {
     const { email, password, nickname } = values;
-    try {
-      const supabase = createClient();
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: "http://localhost:3000/signup/confirm",
-          data: {
-            nickname,
-          },
+
+    signup(
+      { email, password, nickname },
+      {
+        onSuccess() {
+          form.reset();
+          toast.success("이메일을 확인해 주세요. 인증 후 로그인 가능합니다.");
+
+          router.push(route.AUTH.LOGIN);
+          router.refresh();
         },
-      });
-
-      if (!error) {
-        form.reset();
-        toast.success("이메일을 확인해 주세요. 인증 후 로그인 가능합니다.");
-
-        const { error } = await supabase.from("users").insert({
-          email,
-          nickname,
-          display_name: nickname,
-          user_login: "email",
-          user_registered: new Date().toISOString(),
-        });
-
-        if (error) {
-          throw new Error(error.message);
-        }
-
-        router.push(route.AUTH.LOGIN);
-        router.refresh();
-      } else {
-        // TODO: 닉네임 검증
-        if (error.message.includes("already registered")) {
-          form.setError("email", {
-            message: "이미 가입된 이메일입니다",
-          });
-
-          throw error;
-        }
-      }
-    } catch (e) {
-      console.error(e);
-      toast.error("회원가입이 불가능합니다.");
-    }
+        onError(error) {
+          if (error.message.includes("already registered")) {
+            form.setError("email", {
+              message: "이미 가입된 이메일입니다",
+            });
+            toast.error("이미 가입된 이메일입니다.");
+          } else {
+            toast.error(error.message);
+          }
+        },
+      },
+    );
   };
 
   return (
@@ -97,7 +79,7 @@ export default function SignupForm() {
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="hello@gmail.com"
+                    placeholder="hello-designthou@gmail.com"
                     {...field}
                   />
                 </FormControl>
@@ -113,7 +95,7 @@ export default function SignupForm() {
                 <FormLabel>비밀번호</FormLabel>
 
                 <FormControl>
-                  <Input type="password" placeholder="*******" {...field} />
+                  <Input type="password" placeholder="********" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -127,7 +109,7 @@ export default function SignupForm() {
                 <FormLabel>비밀번호 확인</FormLabel>
 
                 <FormControl>
-                  <Input type="password" placeholder="*******" {...field} />
+                  <Input type="password" placeholder="********" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -147,7 +129,7 @@ export default function SignupForm() {
             )}
           />
           <Button type="submit" variant="default" size="lg">
-            가입하기
+            {isPending ? <AnimateLoader /> : "Sign Up"}
           </Button>
         </form>
       </Form>

@@ -19,6 +19,7 @@ export const SiteConfig = {
     TERMS: "Designthou | Terms",
     PRIVACY: "Designthou | Privacy",
     SUPPORT: "Designthou | Support",
+    AUTH: "Designthou | Auth",
     LOGIN: "Designthou | Login",
     SIGN_UP: "Designthou | Sign Up",
   },

@@ -2,36 +2,35 @@
 
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Button } from "@/components/ui";
+import { Button, AnimateLoader } from "@/components";
 import { route } from "@/constants";
-import { createClient } from "@/lib/supabase/client";
+import { useLogout } from "@/hooks";
+import { useAuthStore } from "@/stores";
 
 export default function LogoutButton() {
   const router = useRouter();
+  const resetUser = useAuthStore(({ resetUser }) => resetUser);
+
+  const { mutateAsync: logout, isPending } = useLogout();
+
   return (
     <Button
       type="button"
       onClick={async () => {
         try {
-          const supabase = createClient();
+          await logout();
 
-          // sign out from the current session only
-          const { error } = await supabase.auth.signOut({ scope: "local" });
+          toast.success("로그아웃 성공");
+          resetUser();
 
-          if (error) {
-            throw new Error(error.message);
-          }
-
-          toast.success("성공적으로 로그아웃하였습니다.");
           router.push(route.AUTH.LOGIN);
           router.refresh();
-        } catch (e) {
-          console.error(e);
+        } catch {
           toast.error("로그아웃에 문제가 발생하였습니다.");
         }
       }}
     >
-      로그아웃
+      {isPending ? <AnimateLoader /> : "Log Out"}
     </Button>
   );
 }
