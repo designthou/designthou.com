@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useLogin } from '@/hooks'
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useLogin } from '@/hooks';
 import {
 	Form,
 	FormControl,
@@ -18,8 +18,9 @@ import {
 	loginSchema,
 	type LoginSchema,
 	AnimateLoader,
-} from '@/components'
-import { route } from '@/constants'
+	PasswordInput,
+} from '@/components';
+import { route } from '@/constants';
 
 export default function LoginForm() {
 	const form = useForm<LoginSchema>({
@@ -28,38 +29,36 @@ export default function LoginForm() {
 			email: '',
 			password: '',
 		},
-	})
+	});
 
-	const router = useRouter()
-	const { mutate: signup, isPending } = useLogin()
+	const router = useRouter();
+	const { mutate: signup, isPending } = useLogin();
 
 	const onSubmit = async (values: LoginSchema) => {
-		const { email, password } = values
+		const { email, password } = values;
 
 		signup(
 			{ email, password },
 			{
 				onSuccess: () => {
-					toast.success('로그인 성공')
-					router.push(route.ADMIN.ROOT)
-					router.refresh()
+					toast.success('로그인 성공');
+					router.refresh();
+					router.push(route.ADMIN.ROOT);
 				},
 
 				onError: error => {
-					console.error(error)
-					toast.error(error?.message)
+					console.error(error);
+					form.resetField('password');
+					toast.error(error?.message);
 				},
 			},
-		)
-	}
+		);
+	};
 
 	return (
 		<div className="flex flex-col gap-4 mt-8 p-4 bg-white rounded-lg">
 			<Form {...form}>
-				<form
-					onSubmit={form.handleSubmit(onSubmit)}
-					className="flex flex-col gap-4 mt-8"
-				>
+				<form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 mt-8">
 					<FormField
 						control={form.control}
 						name="email"
@@ -67,11 +66,7 @@ export default function LoginForm() {
 							<FormItem>
 								<FormLabel>Email</FormLabel>
 								<FormControl>
-									<Input
-										type="email"
-										placeholder="hello-designthou@gmail.com"
-										{...field}
-									/>
+									<Input type="email" placeholder="hello-designthou@gmail.com" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -84,19 +79,12 @@ export default function LoginForm() {
 							<FormItem>
 								<div className="flex justify-between items-center">
 									<FormLabel>Password</FormLabel>
-									<Button
-										asChild
-										variant="link"
-										size="sm"
-										className="h-auto text-gray-500 text-center"
-									>
-										<Link href={route.AUTH.FORGOT_PASSWORD}>
-											Forgot Password?
-										</Link>
+									<Button asChild variant="link" size="sm" className="h-auto text-gray-500 text-center">
+										<Link href={route.AUTH.FORGOT_PASSWORD}>Forgot Password?</Link>
 									</Button>
 								</div>
 								<FormControl>
-									<Input type="password" placeholder="********" {...field} />
+									<PasswordInput placeholder="Password" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -108,13 +96,9 @@ export default function LoginForm() {
 				</form>
 			</Form>
 
-			<Button
-				asChild
-				variant="link"
-				className="mx-auto text-center transition-all"
-			>
+			<Button asChild variant="link" className="mx-auto text-center transition-all">
 				<Link href={route.AUTH.SIGNUP}>Do you need to register?</Link>
 			</Button>
 		</div>
-	)
+	);
 }

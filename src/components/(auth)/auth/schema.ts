@@ -1,7 +1,7 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-type LoginSchema = z.infer<typeof loginSchema>
-type SignUpSchema = z.infer<typeof signUpSchema>
+type LoginSchema = z.infer<typeof loginSchema>;
+type SignUpSchema = z.infer<typeof signUpSchema>;
 
 const loginSchema = z.object({
 	email: z.email({ message: 'Email is invalid' }),
@@ -11,7 +11,7 @@ const loginSchema = z.object({
 		.regex(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{7,18}$/, {
 			message: `올바른 비밀번호 형식을 입력해주세요 (숫자, 특수문자 포함)`,
 		}),
-})
+});
 
 const signUpSchema = z
 	.object({
@@ -30,7 +30,7 @@ const signUpSchema = z
 	.refine(({ confirmPassword, password }) => confirmPassword === password, {
 		path: ['confirmPassword'],
 		message: '패스워드가 일치하지 않습니다.',
-	})
+	});
 
-export type { LoginSchema, SignUpSchema }
-export { loginSchema, signUpSchema }
+export type { LoginSchema, SignUpSchema };
+export { loginSchema, signUpSchema };

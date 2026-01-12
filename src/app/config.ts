@@ -2,52 +2,45 @@
 // Config of Visitor Check on GA4
 
 export const SiteConfig = {
-  url: "https://designthou.com",
-  pathPrefix: "/",
-  title: {
-    default: "Designthou",
-    HOME: "Designthou | 디자인도우",
-    NEWS: "Designthou | News",
-    COMPETITION: "Designthou | Competition",
-    OPEN_SOURCE: "Designthou | Open Source",
-    ONLINE_COURSE: "Designthou | Online Course",
-    REVIEWS: "Designthou | Reviews",
-    TIPS: "Designthou | Youtube Tips",
-    ABOUT: "Designthou | About",
-    NOTICE: "Designthou | Notice",
-    FAQ: "Designthou | FAQ",
-    TERMS: "Designthou | Terms",
-    PRIVACY: "Designthou | Privacy",
-    SUPPORT: "Designthou | Support",
-    AUTH: "Designthou | Auth",
-    LOGIN: "Designthou | Login",
-    SIGN_UP: "Designthou | Sign Up",
-  },
-  subtitle:
-    "건축, 공간 디자이너를 위한 오픈 플랫폼! 디자인도우입니다. 이곳은 건축 디자인을 위한 열린 공간으로, 건축 공모전 소식, 무료 캐드 & 일러스트 오픈소스, 유용한 작업 팁을 자유롭게 얻어갈 수 있습니다.",
-  description: {
-    default: "Designthou | Spatial Open Content Platform.",
-    NEWS: "Spatial Open Content Platform | This is Designthou's News Page",
-    COMPETITION:
-      "Spatial Open Content Platform | This is Designthou's Competition Page",
-    OPEN_SOURCE:
-      "Spatial Open Content Platform | This is Designthou's Open Source Page",
-    ONLINE_COURSE:
-      "Spatial Open Content Platform | This is Designthou's Online Course Page",
-    REVIEWS:
-      "Spatial Open Content Platform | This is Designthou's Live Reviews Page",
-    TIPS: "Spatial Open Content Platform | This is Designthou's Youtube Tips Page",
-    ABOUT: "Spatial Open Content Platform | This is Designthou's About Page",
-    NOTICE: "Spatial Open Content Platform | This is Designthou's Notice Page",
-    FAQ: "Spatial Open Content Platform | This is Designthou's FAQ Page",
-    TERMS: "Spatial Open Content Platform | This is Designthou's Terms Page",
-    PRIVACY:
-      "Spatial Open Content Platform | This is Designthou's Privacy Page",
-    SUPPORT:
-      "Spatial Open Content Platform | This is Designthou's Support Page",
-    LOGIN: "Spatial Open Content Platform | This is Designthou's Login Page",
-    SIGN_UP:
-      "Spatial Open Content Platform | This is Designthou's Sign Up Page",
-  },
-  copyright: "© Designthou. ALL RIGHTS RESERVED",
+	url: 'https://designthou.com',
+	pathPrefix: '/',
+	title: {
+		default: 'Designthou',
+		HOME: 'Designthou | 디자인도우',
+		NEWS: 'News | Designthou',
+		COMPETITION: 'Competition | Designthou',
+		OPEN_SOURCE: 'Open Source | Designthou',
+		ONLINE_COURSE: 'Online Course | Designthou',
+		REVIEWS: 'Reviews | Designthou',
+		TIPS: 'Youtube Tips',
+		ABOUT: 'About | Designthou',
+		NOTICE: 'Notice | Designthou',
+		FAQ: 'FAQ | Designthou',
+		TERMS: 'Terms | Designthou',
+		PRIVACY: 'Privacy | Designthou',
+		SUPPORT: 'Support | Designthou',
+		AUTH: 'Auth | Designthou',
+		LOGIN: 'Login | Designthou',
+		SIGN_UP: 'Sign Up | Designthou',
+	},
+	subtitle:
+		'건축, 공간 디자이너를 위한 오픈 플랫폼! 디자인도우입니다. 이곳은 건축 디자인을 위한 열린 공간으로, 건축 공모전 소식, 무료 캐드 & 일러스트 오픈소스, 유용한 작업 팁을 자유롭게 얻어갈 수 있습니다.',
+	description: {
+		default: 'Designthou | Spatial Open Content Platform.',
+		NEWS: "Spatial Open Content Platform | This is Designthou's News Page",
+		COMPETITION: "Spatial Open Content Platform | This is Designthou's Competition Page",
+		OPEN_SOURCE: "Spatial Open Content Platform | This is Designthou's Open Source Page",
+		ONLINE_COURSE: "Spatial Open Content Platform | This is Designthou's Online Course Page",
+		REVIEWS: "Spatial Open Content Platform | This is Designthou's Live Reviews Page",
+		TIPS: "Spatial Open Content Platform | This is Designthou's Youtube Tips Page",
+		ABOUT: "Spatial Open Content Platform | This is Designthou's About Page",
+		NOTICE: "Spatial Open Content Platform | This is Designthou's Notice Page",
+		FAQ: "Spatial Open Content Platform | This is Designthou's FAQ Page",
+		TERMS: "Spatial Open Content Platform | This is Designthou's Terms Page",
+		PRIVACY: "Spatial Open Content Platform | This is Designthou's Privacy Page",
+		SUPPORT: "Spatial Open Content Platform | This is Designthou's Support Page",
+		LOGIN: "Spatial Open Content Platform | This is Designthou's Login Page",
+		SIGN_UP: "Spatial Open Content Platform | This is Designthou's Sign Up Page",
+	},
+	copyright: '© Designthou. ALL RIGHTS RESERVED',
 };

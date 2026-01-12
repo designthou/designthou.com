@@ -1,36 +1,38 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { Button, AnimateLoader } from "@/components";
-import { route } from "@/constants";
-import { useLogout } from "@/hooks";
-import { useAuthStore } from "@/stores";
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { Button, AnimateLoader } from '@/components';
+import { route } from '@/constants';
+import { useLogout } from '@/hooks';
+import { useAuthStore } from '@/stores';
 
 export default function LogoutButton() {
-  const router = useRouter();
-  const resetUser = useAuthStore(({ resetUser }) => resetUser);
+	const router = useRouter();
+	const resetUser = useAuthStore(({ resetUser }) => resetUser);
 
-  const { mutateAsync: logout, isPending } = useLogout();
+	const { mutateAsync: logout, isPending } = useLogout();
 
-  return (
-    <Button
-      type="button"
-      onClick={async () => {
-        try {
-          await logout();
+	return (
+		<Button
+			type="button"
+			variant="outline"
+			size="lg"
+			className="w-full"
+			onClick={async () => {
+				try {
+					await logout();
 
-          toast.success("로그아웃 성공");
-          resetUser();
+					toast.success('로그아웃 성공');
+					resetUser();
 
-          router.push(route.AUTH.LOGIN);
-          router.refresh();
-        } catch {
-          toast.error("로그아웃에 문제가 발생하였습니다.");
-        }
-      }}
-    >
-      {isPending ? <AnimateLoader /> : "Log Out"}
-    </Button>
-  );
+					router.refresh();
+					router.push(route.AUTH.LOGIN);
+				} catch {
+					toast.error('로그아웃에 문제가 발생하였습니다.');
+				}
+			}}>
+			{isPending ? <AnimateLoader /> : 'Log Out'}
+		</Button>
+	);
 }
