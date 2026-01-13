@@ -20,7 +20,7 @@ export default function AdminRootPage() {
 	return (
 		<div className="flex flex-col items-start gap-8 p-4 w-full h-full">
 			{user && (
-				<div className="flex flex-col gap-8 p-4 mx-auto w-full bg-light rounded-lg md:min-w-120">
+				<div className="flex flex-col gap-8 p-4 mx-auto w-full bg-light rounded-lg md:w-auto md:min-w-120">
 					<div className="flex items-center gap-4">
 						<div className="p-4 w-10 h-10 rounded-full" style={{ background: generateGradient(user.email!) }} />
 						<div className="flex flex-col gap-2">
