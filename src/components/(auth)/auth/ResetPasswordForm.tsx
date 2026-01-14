@@ -38,17 +38,15 @@ export default function ResetPasswordForm() {
 	const resetUser = useAuthStore(({ resetUser }) => resetUser);
 
 	React.useEffect(() => {
-		const loadSession = async () => {
-			const {
-				data: { session },
-			} = await supabase.auth.getSession();
-
+		const {
+			data: { subscription },
+		} = supabase.auth.onAuthStateChange((_event, session) => {
 			if (session?.user?.email) {
 				form.setValue('email', session.user.email);
 			}
-		};
+		});
 
-		loadSession();
+		return () => subscription.unsubscribe();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
