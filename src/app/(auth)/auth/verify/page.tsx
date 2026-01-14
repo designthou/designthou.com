@@ -13,36 +13,29 @@ export default function VerifyPage() {
 	const supabaseClient = createClient();
 
 	React.useEffect(() => {
-		const verifyUser = async () => {
-			try {
-				const {
-					data: { session },
-					error,
-				} = await supabaseClient.auth.getSession();
-				if (error || !session) {
-					toast.error('검증 오류 발생');
-					return;
-				}
-
-				// 서버에 POST 요청으로 users 테이블 insert
-				const res = await fetch('/api/auth/verify', {
+		const { data: listener } = supabaseClient.auth.onAuthStateChange((_event, session) => {
+			if (session?.user) {
+				fetch('/api/auth/verify', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ id: session?.user?.id, email: session?.user?.email, nickname: session?.user?.user_metadata.nickname }),
-				});
-
-				if (res.ok) {
-					router.refresh();
-					router.push(route.AUTH.LOGIN);
-					toast.success('성공적으로 검증 완료');
-				}
-			} catch (error) {
-				console.error(error);
-				toast.error('검증 오류 발생');
+					body: JSON.stringify({
+						id: session.user.id,
+						email: session.user.email,
+						nickname: session.user.user_metadata?.nickname,
+					}),
+				})
+					.then(() => {
+						router.refresh();
+						router.push(route.AUTH.LOGIN);
+						toast.success('검증 완료');
+					})
+					.catch(() => toast.error('검증 실패'));
 			}
-		};
+		});
 
-		verifyUser();
+		return () => {
+			listener.subscription.unsubscribe();
+		};
 	}, [supabaseClient, router]);
 
 	return (
