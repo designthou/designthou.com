@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 			email,
 			password,
 			options: {
-				emailRedirectTo: `${SiteConfig.url}/auth/login`,
+				emailRedirectTo: `${SiteConfig.url}/auth/verify`,
 				data: {
 					nickname,
 					display_name: nickname,
