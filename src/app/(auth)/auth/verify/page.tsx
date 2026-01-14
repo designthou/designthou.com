@@ -9,11 +9,12 @@ import { route } from '@/constants';
 
 export default function VerifyPage() {
 	const router = useRouter();
-
 	const supabaseClient = createClient();
 
 	React.useEffect(() => {
-		const { data: listener } = supabaseClient.auth.onAuthStateChange(async (_event, session) => {
+		const {
+			data: { subscription },
+		} = supabaseClient.auth.onAuthStateChange(async (_event, session) => {
 			if (session?.user) {
 				try {
 					console.log('authStateChange', session);
@@ -28,7 +29,7 @@ export default function VerifyPage() {
 					});
 
 					if (!response.ok) {
-						throw new Error(response.statusText);
+						throw new Error(await response.text());
 					}
 
 					toast.success('검증 성공');
@@ -42,7 +43,7 @@ export default function VerifyPage() {
 		});
 
 		return () => {
-			listener.subscription.unsubscribe();
+			subscription.unsubscribe();
 		};
 	}, [supabaseClient, router]);
 

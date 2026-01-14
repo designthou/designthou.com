@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 export async function POST(request: Request) {
 	try {
 		const { id, email, nickname } = await request.json();
 
-		const supabaseServer = await createClient();
-		const { data, error: createUserError } = await supabaseServer.from('users').insert({
+		const supabaseAdmin = createAdminClient();
+		const { data, error: createUserError } = await supabaseAdmin.from('users').insert({
 			id,
 			email,
 			nickname,
