@@ -14,6 +14,12 @@ export async function GET() {
 			return NextResponse.json({ error: '인증 정보 없음' }, { status: 401 });
 		}
 
+		const { data: existingUser } = await supabaseServer.from('users').select('id').eq('id', session?.user?.id).single();
+
+		if (existingUser) {
+			return NextResponse.json({ error: '사용자 존재' }, { status: 401 });
+		}
+
 		const supabaseAdmin = createAdminClient();
 		const { data, error: createUserError } = await supabaseAdmin.from('users').insert({
 			id: session?.user?.id,
