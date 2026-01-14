@@ -96,7 +96,6 @@ export default function RootLayout({
 					crossOrigin="anonymous"
 					strategy="afterInteractive"
 				/>
-				<Amplitude />
 			</head>
 			<body className={`${inter.variable} ${geistMono.variable} antialiased`}>
 				<div className="h-screen mx-auto w-full">
