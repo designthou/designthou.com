@@ -7,7 +7,6 @@ import { SiteConfig } from '@/app/config';
 import { Footer, KakaoOpenChat, Main, Nav, ScrollToTopButton } from '@/components';
 import { ReactQueryProvider } from '@/providers';
 import { GAProvider } from '@/lib/ga4';
-import { Amplitude } from '@/lib/amplitude';
 
 const inter = Inter({
 	weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],

@@ -20,6 +20,7 @@ export default function AuthProvider({ children }: Props) {
 		});
 
 		return () => subscription.unsubscribe();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [setUser]);
 
 	return <>{children}</>;
