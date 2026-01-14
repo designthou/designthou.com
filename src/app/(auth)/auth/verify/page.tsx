@@ -12,39 +12,42 @@ export default function VerifyPage() {
 	const supabaseClient = createClient();
 
 	React.useEffect(() => {
-		const {
-			data: { subscription },
-		} = supabaseClient.auth.onAuthStateChange(async (_event, session) => {
-			if (session?.user) {
-				try {
-					console.log('authStateChange', session);
-					const response = await fetch('/api/auth/verify', {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify({
-							id: session.user.id,
-							email: session.user.email,
-							nickname: session.user.user_metadata?.nickname,
-						}),
-					});
+		const verifyUser = async () => {
+			try {
+				const {
+					data: { session },
+					error,
+				} = await supabaseClient.auth.getSession();
 
-					if (!response.ok) {
-						throw new Error(await response.text());
-					}
-
-					toast.success('검증 성공');
-					router.refresh();
-					router.push(route.AUTH.LOGIN);
-				} catch (error) {
-					console.error(error);
-					toast.error('검증 실패');
+				if (error || !session?.user) {
+					toast.error('검증 오류 발생');
+					return;
 				}
-			}
-		});
 
-		return () => {
-			subscription.unsubscribe();
+				const response = await fetch('/api/auth/verify', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						id: session.user.id,
+						email: session.user.email,
+						nickname: session.user.user_metadata?.nickname,
+					}),
+				});
+
+				if (!response.ok) {
+					throw new Error(await response.text());
+				}
+
+				toast.success('검증 성공');
+				router.refresh();
+				router.push(route.AUTH.LOGIN);
+			} catch (err) {
+				console.error(err);
+				toast.error('검증 실패');
+			}
 		};
+
+		verifyUser();
 	}, [supabaseClient, router]);
 
 	return (
