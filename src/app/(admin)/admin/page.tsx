@@ -16,17 +16,22 @@ export default function AdminRootPage() {
 			</div>
 		);
 	}
-	console.log(user?.role);
+
 	return (
 		<div className="flex flex-col items-start gap-8 p-4 w-full h-full">
 			{user && (
 				<div className="flex flex-col gap-8 p-4 mx-auto w-full bg-light rounded-lg md:w-auto md:min-w-120">
-					<div className="flex items-center gap-4">
+					<div className="relative flex items-center gap-4">
 						<div className="p-4 w-10 h-10 rounded-full" style={{ background: generateGradient(user.email!) }} />
 						<div className="flex flex-col gap-2">
-							<span className="font-black">{user.user_metadata.nickname}</span>
+							<span className="font-black" aria-label="user nickname">
+								{user.user_metadata.nickname}
+							</span>
 							<span className="text-xs text-gray-700">{convertSupabaseDateToShortHumanReadable(user.last_sign_in_at!)} 에 로그인</span>
 						</div>
+						<span className="absolute top-4 right-4 px-2 py-1 text-xs bg-black text-white rounded-full" aria-label="user role">
+							{user?.user_metadata?.role}
+						</span>
 					</div>
 					<div className="flex items-center gap-2 text-gray-900 ">
 						<AtSign size="16" /> <span className="text-sm">{user.email}</span>
