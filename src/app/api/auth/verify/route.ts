@@ -26,7 +26,6 @@ export async function POST(request: Request) {
 		// 3. users 테이블 insert
 		const { error: createUserError } = await supabaseServer.from('users').insert({
 			id: user.id,
-			email: user.email,
 			nickname: user.user_metadata?.nickname,
 			display_name: user.user_metadata?.nickname,
 			user_login: 'email',
