@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
 		if (signupError?.status === 400 && signupError?.message.includes('already registered')) {
 			console.error(signupError.message);
-			throw signupError;
+			return NextResponse.json({ error: signupError?.message }, { status: 500 });
 		}
 
 		if (data) {

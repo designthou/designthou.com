@@ -1,24 +1,30 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 
-export async function POST(request: Request) {
+export async function GET() {
 	try {
-		const { id, email, nickname } = await request.json();
-
 		const supabaseServer = await createClient();
-		console.log(id, email, nickname);
+
+		const {
+			data: { user },
+		} = await supabaseServer.auth.getUser();
+
+		if (!user) {
+			return NextResponse.json({ error: '사용자 정보 없음' }, { status: 401 });
+		}
+
 		const { data, error: createUserError } = await supabaseServer.from('users').insert({
-			id,
-			email,
-			nickname,
-			display_name: nickname,
+			id: user?.id,
+			email: user?.email,
+			nickname: user?.user_metadata.nickname,
+			display_name: user?.user_metadata.nickname,
 			user_login: 'email',
 			user_registered: new Date().toISOString(),
 		});
 
 		if (createUserError) {
 			console.error(createUserError?.message);
-			throw new Error(createUserError?.message);
+			return NextResponse.json({ error: createUserError.message }, { status: 500 });
 		}
 
 		console.log(data);
