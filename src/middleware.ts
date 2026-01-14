@@ -5,18 +5,25 @@ import { route } from './constants';
 export async function middleware(request: NextRequest) {
 	const { supabaseResponse, user } = await updateSession(request);
 
-	const protectedRoutes = [route.ADMIN.ROOT];
-	const isProtected = protectedRoutes.some(route => request.nextUrl.pathname.startsWith(route));
+	const pathname = request.nextUrl.pathname;
 
-	const isAuthPage = request.nextUrl.pathname.startsWith(route.AUTH.ROOT);
+	const isPublicRoutes = [route.AUTH.RESET_PASSWORD, route.AUTH.SIGNUP_CONFIRM].some(path => pathname.startsWith(path));
 
-	if (user && isAuthPage) {
+	const isProtectedRoutes = pathname.startsWith(route.ADMIN.ROOT);
+
+	const isAuthRedirectRoutes = [route.AUTH.LOGIN, route.AUTH.SIGNUP].some(path => pathname.startsWith(path));
+
+	if (isPublicRoutes) {
+		return NextResponse.next();
+	}
+
+	if (user && isAuthRedirectRoutes) {
 		return NextResponse.redirect(new URL(route.ADMIN.ROOT, request.url), {
 			headers: supabaseResponse.headers,
 		});
 	}
 
-	if (!user && isProtected) {
+	if (!user && isProtectedRoutes) {
 		const redirectUrl = new URL(route.AUTH.LOGIN, request.url);
 
 		// add Set-Cookie option when update sessions
