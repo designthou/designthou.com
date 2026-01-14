@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
-import { Inter, Geist_Mono } from 'next/font/google';
 import '../globals.css';
+import { Inter, Geist_Mono } from 'next/font/google';
+import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/next';
 import { SiteConfig } from '@/app/config';
 import { Footer, KakaoOpenChat, Main, Nav, ScrollToTopButton } from '@/components';
-import { AmplitudeProvider, ReactQueryProvider } from '@/providers';
+import { ReactQueryProvider } from '@/providers';
 import { GAProvider } from '@/lib/ga4';
-import Script from 'next/script';
+import { Amplitude } from '@/lib/amplitude';
 
 const inter = Inter({
 	weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -95,7 +96,7 @@ export default function RootLayout({
 					crossOrigin="anonymous"
 					strategy="afterInteractive"
 				/>
-				<AmplitudeProvider />
+				<Amplitude />
 			</head>
 			<body className={`${inter.variable} ${geistMono.variable} antialiased`}>
 				<div className="h-screen mx-auto w-full">
