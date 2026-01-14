@@ -13,9 +13,11 @@ import {
 	ResetPasswordSchema,
 	resetPasswordSchema,
 } from '@/components';
+import { route } from '@/constants';
 import { createClient } from '@/lib/supabase/client';
 import { useAuthStore } from '@/stores';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -31,6 +33,7 @@ export default function ResetPasswordForm() {
 
 	const supabase = createClient();
 	const [isPending, setIsPending] = React.useState(false);
+	const router = useRouter();
 
 	const resetUser = useAuthStore(({ resetUser }) => resetUser);
 
@@ -62,6 +65,9 @@ export default function ResetPasswordForm() {
 			}
 
 			resetUser();
+
+			router.refresh();
+			router.push(route.AUTH.LOGIN);
 			toast.success('비밀번호 재설정 성공');
 		} catch (error) {
 			console.error(error);
@@ -115,7 +121,7 @@ export default function ResetPasswordForm() {
 				/>
 
 				<Button type="submit" variant="default" size="lg">
-					{isPending ? <AnimateLoader /> : 'Sign Up'}
+					{isPending ? <AnimateLoader /> : 'Update password'}
 				</Button>
 			</form>
 		</Form>
