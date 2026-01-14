@@ -95,6 +95,7 @@ export default function RootLayout({
 					crossOrigin="anonymous"
 					strategy="afterInteractive"
 				/>
+				<AmplitudeProvider />
 			</head>
 			<body className={`${inter.variable} ${geistMono.variable} antialiased`}>
 				<div className="h-screen mx-auto w-full">
@@ -108,7 +109,6 @@ export default function RootLayout({
 				</div>
 				{process.env.NEXT_PUBLIC_GA4_ID ? <GAProvider gaId={process.env.NEXT_PUBLIC_GA4_ID} /> : null}
 				<Analytics />
-				<AmplitudeProvider />
 			</body>
 		</html>
 	);
