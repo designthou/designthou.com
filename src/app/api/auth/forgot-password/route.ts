@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { route } from '@/constants';
 import { SiteConfig } from '@/app/config';
 
 export async function POST(request: Request) {
@@ -8,11 +7,10 @@ export async function POST(request: Request) {
 		const { email } = await request.json();
 		const supabase = await createClient();
 
-		const redirectUrl = new URL(route.AUTH.RESET_PASSWORD, SiteConfig.url);
-		redirectUrl.searchParams.set('email', email);
+		const redirectTo = `${SiteConfig.url}/auth/reset-password?email=${encodeURIComponent(email)}`;
 
 		const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-			redirectTo: redirectUrl.toString(),
+			redirectTo,
 		});
 
 		if (error) {
