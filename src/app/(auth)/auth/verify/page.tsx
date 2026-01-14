@@ -34,15 +34,20 @@ export default function VerifyPage() {
 					}),
 				});
 
+				const data = await response.json();
+
 				if (!response.ok) {
-					throw new Error(await response.text());
+					console.log('here', response);
+					throw { status: response.status, body: data };
 				}
+
+				console.log(data);
 
 				toast.success('검증 성공');
 				router.refresh();
 				router.push(route.AUTH.LOGIN);
-			} catch (err) {
-				console.error(err);
+			} catch (error) {
+				console.error(error);
 				toast.error('검증 실패');
 			}
 		};
