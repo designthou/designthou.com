@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { SiteConfig } from '@/app/config';
 import { createClient } from '@/lib/supabase/server';
+import { route } from '@/constants';
 
 export async function POST(request: Request) {
 	try {
@@ -11,7 +12,7 @@ export async function POST(request: Request) {
 			email,
 			password,
 			options: {
-				emailRedirectTo: `${SiteConfig.url}/auth/callback`,
+				emailRedirectTo: new URL(route.AUTH.CALLBACK, SiteConfig.url).toString(),
 				data: {
 					nickname,
 					display_name: nickname,
