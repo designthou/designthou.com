@@ -50,6 +50,7 @@ export default function SignupForm() {
 					router.push(route.AUTH.LOGIN);
 				},
 				onError(error) {
+					console.error(error);
 					if (error.message.includes('already registered')) {
 						form.setError('email', {
 							message: '이미 가입된 이메일입니다',
