@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,9 +23,12 @@ import { createClient } from '@/lib/supabase/client';
 import { useAuthStore } from '@/stores';
 
 export default function ResetPasswordForm() {
+	const searchParams = useSearchParams();
+
 	const form = useForm<ResetPasswordSchema>({
 		resolver: zodResolver(resetPasswordSchema),
 		defaultValues: {
+			email: searchParams.get('email') ?? '',
 			password: '',
 			confirmPassword: '',
 		},
@@ -38,17 +41,9 @@ export default function ResetPasswordForm() {
 	const resetUser = useAuthStore(({ resetUser }) => resetUser);
 
 	React.useEffect(() => {
-		const {
-			data: { subscription },
-		} = supabase.auth.onAuthStateChange((_event, session) => {
-			if (session?.user?.email) {
-				form.setValue('email', session.user.email);
-			}
-		});
-
-		return () => subscription.unsubscribe();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		const emailFromQuery = searchParams.get('email');
+		if (emailFromQuery) form.setValue('email', emailFromQuery);
+	}, [searchParams, form]);
 
 	const onSubmit = async (values: ResetPasswordSchema) => {
 		setIsPending(true);

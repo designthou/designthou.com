@@ -8,8 +8,11 @@ export async function POST(request: Request) {
 		const { email } = await request.json();
 		const supabase = await createClient();
 
+		const redirectUrl = new URL(route.AUTH.RESET_PASSWORD, SiteConfig.url);
+		redirectUrl.searchParams.set('email', email);
+
 		const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-			redirectTo: new URL(route.AUTH.RESET_PASSWORD, SiteConfig.url).toString(),
+			redirectTo: redirectUrl.toString(),
 		});
 
 		if (error) {
