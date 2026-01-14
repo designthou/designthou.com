@@ -6,6 +6,7 @@ export async function POST(request: Request) {
 		const { id, email, nickname } = await request.json();
 
 		const supabaseServer = await createClient();
+		console.log(id, email, nickname);
 		const { data, error: createUserError } = await supabaseServer.from('users').insert({
 			id,
 			email,
