@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import { SiteConfig } from '@/app/config';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 export async function POST(request: Request) {
 	try {
 		const { email, password, nickname } = await request.json();
 
-		const supabaseServer = await createClient();
-		const { data, error: signupError } = await supabaseServer.auth.signUp({
+		const supabaseAdmin = createAdminClient();
+		const { data, error: signupError } = await supabaseAdmin.auth.signUp({
 			email,
 			password,
 			options: {
