@@ -40,13 +40,13 @@ export default function LoginForm() {
 		signup(
 			{ email, password },
 			{
-				onSuccess: () => {
+				onSuccess() {
 					toast.success('로그인 성공');
 					router.refresh();
 					router.push(route.ADMIN.ROOT);
 				},
 
-				onError: error => {
+				onError(error) {
 					console.error(error);
 					form.resetField('password');
 					toast.error(error?.message);
