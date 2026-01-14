@@ -6,6 +6,7 @@ const route = {
 		FORGOT_PASSWORD: '/auth/forgot-password',
 		RESET_PASSWORD: '/auth/reset-password',
 		SIGNUP_CONFIRM: '/auth/signup/confirm',
+		CALLBACK: '/api/auth/callback',
 	},
 	SERVICE: {
 		ROOT: '/',
