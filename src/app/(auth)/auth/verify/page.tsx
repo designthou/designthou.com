@@ -46,7 +46,8 @@ export default function VerifyPage() {
 	}, [supabaseClient, router]);
 
 	return (
-		<div className="ui-flex-center w-full h-full">
+		<div className="ui-flex-center flex-col gap-4 w-full h-full">
+			<p className="text-center w-full">Verifying ...</p>
 			<AnimateLoader />
 		</div>
 	);
