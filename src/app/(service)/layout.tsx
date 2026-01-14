@@ -1,18 +1,12 @@
-import type { Metadata } from 'next'
-import { Inter, Geist_Mono } from 'next/font/google'
-import '../globals.css'
-import { Analytics } from '@vercel/analytics/next'
-import { SiteConfig } from '@/app/config'
-import {
-	Footer,
-	KakaoOpenChat,
-	Main,
-	Nav,
-	ScrollToTopButton,
-} from '@/components'
-import { ReactQueryProvider } from '@/providers'
-import { GAProvider } from '@/lib/ga4'
-import Script from 'next/script'
+import type { Metadata } from 'next';
+import { Inter, Geist_Mono } from 'next/font/google';
+import '../globals.css';
+import { Analytics } from '@vercel/analytics/next';
+import { SiteConfig } from '@/app/config';
+import { Footer, KakaoOpenChat, Main, Nav, ScrollToTopButton } from '@/components';
+import { AmplitudeProvider, ReactQueryProvider } from '@/providers';
+import { GAProvider } from '@/lib/ga4';
+import Script from 'next/script';
 
 const inter = Inter({
 	weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -20,12 +14,12 @@ const inter = Inter({
 	display: 'swap',
 	variable: '--font-inter',
 	preload: true,
-})
+});
 
 const geistMono = Geist_Mono({
 	variable: '--font-geist-mono',
 	subsets: ['latin'],
-})
+});
 
 export const metadata: Metadata = {
 	title: {
@@ -71,42 +65,29 @@ export const metadata: Metadata = {
 	verification: {
 		google: process.env.NEXT_PUBLIC_GOOGLE_SEARCH_CONSOLE_ID,
 		other: {
-			'naver-site-verification':
-				process.env.NEXT_PUBLIC_NAVER_SEARCH_CONSOLE_ID!,
+			'naver-site-verification': process.env.NEXT_PUBLIC_NAVER_SEARCH_CONSOLE_ID!,
 		},
 	},
-}
+};
 
 export default function RootLayout({
 	children,
 }: Readonly<{
-	children: React.ReactNode
+	children: React.ReactNode;
 }>) {
 	return (
 		<html lang="ko">
 			<head>
 				<link rel="icon" href="/favicon.ico" sizes="any" />
 				<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-				<link
-					rel="icon"
-					type="image/png"
-					href="/favicon-96x96.png"
-					sizes="96x96"
-				/>
+				<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
 				<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-				<link
-					rel="apple-touch-icon"
-					sizes="180x180"
-					href="/apple-touch-icon.png"
-				/>
+				<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 				<link rel="manifest" href="/site.webmanifest" />
 				<meta name="apple-mobile-web-app-title" content="Designthou" />
 				<meta name="msapplication-TileColor" content="ffffff" />
 				<meta name="theme-color" content="#ffffff" />
-				<meta
-					name="viewport"
-					content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
-				/>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
 				<meta name="robots" content="index, follow" />
 				<Script
 					async
@@ -125,11 +106,10 @@ export default function RootLayout({
 						<ScrollToTopButton />
 					</ReactQueryProvider>
 				</div>
-				{process.env.NEXT_PUBLIC_GA4_ID ? (
-					<GAProvider gaId={process.env.NEXT_PUBLIC_GA4_ID} />
-				) : null}
+				{process.env.NEXT_PUBLIC_GA4_ID ? <GAProvider gaId={process.env.NEXT_PUBLIC_GA4_ID} /> : null}
 				<Analytics />
+				<AmplitudeProvider />
 			</body>
 		</html>
-	)
+	);
 }
