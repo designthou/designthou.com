@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
 import { SiteConfig } from '@/app/config';
-import { route } from '@/constants';
-import { createAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
 
 export async function POST(request: Request) {
@@ -13,7 +11,7 @@ export async function POST(request: Request) {
 			email,
 			password,
 			options: {
-				emailRedirectTo: new URL(route.AUTH.CALLBACK, SiteConfig.url).toString(),
+				emailRedirectTo: `${SiteConfig.url}/auth/verify?email=${encodeURIComponent(email)}`,
 				data: {
 					nickname,
 					display_name: nickname,
@@ -24,21 +22,6 @@ export async function POST(request: Request) {
 		if (signupError?.status === 400 && signupError?.message.includes('already registered')) {
 			console.error(signupError.message);
 			throw signupError;
-		}
-
-		const supabaseAdmin = createAdminClient();
-		const { error: createUserError } = await supabaseAdmin.from('users').insert({
-			id: data?.user?.id,
-			email,
-			nickname,
-			display_name: nickname,
-			user_login: 'email',
-			user_registered: new Date().toISOString(),
-		});
-
-		if (createUserError) {
-			console.log(createUserError.message);
-			throw createUserError;
 		}
 
 		if (data) {
