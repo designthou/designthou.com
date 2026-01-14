@@ -6,7 +6,7 @@ export async function POST(request: Request) {
 		const { id, email, nickname } = await request.json();
 
 		const supabaseAdmin = createAdminClient();
-		const { error: createUserError } = await supabaseAdmin.from('users').insert({
+		const { data, error: createUserError } = await supabaseAdmin.from('users').insert({
 			id,
 			email,
 			nickname,
@@ -16,12 +16,14 @@ export async function POST(request: Request) {
 		});
 
 		if (createUserError) {
+			console.error(createUserError?.message);
 			throw new Error(createUserError?.message);
 		}
 
+		console.log(data);
 		return NextResponse.json({ ok: true });
 	} catch (error) {
 		console.error(error);
-		return NextResponse.json({ error: 'Insert failed' }, { status: 500 });
+		return NextResponse.json({ error: '사용자 추가 실패' }, { status: 500 });
 	}
 }

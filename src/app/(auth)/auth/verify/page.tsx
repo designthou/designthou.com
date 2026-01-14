@@ -4,8 +4,8 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
-import { route } from '@/constants';
 import { AnimateLoader } from '@/components';
+import { route } from '@/constants';
 
 export default function VerifyPage() {
 	const router = useRouter();
@@ -13,23 +13,31 @@ export default function VerifyPage() {
 	const supabaseClient = createClient();
 
 	React.useEffect(() => {
-		const { data: listener } = supabaseClient.auth.onAuthStateChange((_event, session) => {
+		const { data: listener } = supabaseClient.auth.onAuthStateChange(async (_event, session) => {
 			if (session?.user) {
-				fetch('/api/auth/verify', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({
-						id: session.user.id,
-						email: session.user.email,
-						nickname: session.user.user_metadata?.nickname,
-					}),
-				})
-					.then(() => {
-						router.refresh();
-						router.push(route.AUTH.LOGIN);
-						toast.success('검증 완료');
-					})
-					.catch(() => toast.error('검증 실패'));
+				try {
+					console.log('authStateChange', session);
+					const response = await fetch('/api/auth/verify', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							id: session.user.id,
+							email: session.user.email,
+							nickname: session.user.user_metadata?.nickname,
+						}),
+					});
+
+					if (!response.ok) {
+						throw new Error(response.statusText);
+					}
+
+					toast.success('검증 성공');
+					router.refresh();
+					router.push(route.AUTH.LOGIN);
+				} catch (error) {
+					console.error(error);
+					toast.error('검증 실패');
+				}
 			}
 		});
 
