@@ -20,24 +20,36 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
-export default function ResetPasswordForm({ email }: { email: string }) {
+export default function ResetPasswordForm() {
 	const form = useForm<ResetPasswordSchema>({
 		resolver: zodResolver(resetPasswordSchema),
 		defaultValues: {
-			email,
 			password: '',
 			confirmPassword: '',
 		},
 	});
 
+	const supabase = createClient();
 	const [isPending, setIsPending] = React.useState(false);
 
 	const resetUser = useAuthStore(({ resetUser }) => resetUser);
 
+	React.useEffect(() => {
+		const {
+			data: { subscription },
+		} = supabase.auth.onAuthStateChange(async (event, session) => {
+			if (event === 'SIGNED_IN') {
+				form.setValue('email', session?.user?.email ?? '');
+			}
+		});
+
+		return () => subscription.unsubscribe();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	const onSubmit = async (values: ResetPasswordSchema) => {
 		setIsPending(true);
 		try {
-			const supabase = createClient();
 			const { error: updateUserError } = await supabase.auth.updateUser({ password: values?.password });
 			if (updateUserError) {
 				throw new Error(updateUserError.message);
@@ -69,7 +81,7 @@ export default function ResetPasswordForm({ email }: { email: string }) {
 						<FormItem>
 							<FormLabel>이메일</FormLabel>
 							<FormControl>
-								<Input type="email" placeholder="hello-designthou@gmail.com" {...field} />
+								<Input type="email" placeholder="hello-designthou@gmail.com" disabled={true} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
