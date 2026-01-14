@@ -19,7 +19,7 @@ export default function VerifyPage() {
 				const data = await response.json();
 
 				if (!response.ok) {
-					const message = data?.error || '서버 오류';
+					const message = data?.error;
 					throw { status: response.status, message };
 				}
 

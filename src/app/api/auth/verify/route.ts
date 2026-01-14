@@ -6,18 +6,18 @@ export async function GET() {
 		const supabaseServer = await createClient();
 
 		const {
-			data: { user },
-		} = await supabaseServer.auth.getUser();
+			data: { session },
+		} = await supabaseServer.auth.getSession();
 
-		if (!user) {
-			return NextResponse.json({ error: '사용자 정보 없음' }, { status: 401 });
+		if (!session) {
+			return NextResponse.json({ error: '인증 정보 없음' }, { status: 401 });
 		}
 
 		const { data, error: createUserError } = await supabaseServer.from('users').insert({
-			id: user?.id,
-			email: user?.email,
-			nickname: user?.user_metadata.nickname,
-			display_name: user?.user_metadata.nickname,
+			id: session?.user?.id,
+			email: session?.user?.email,
+			nickname: session?.user?.user_metadata.nickname,
+			display_name: session?.user?.user_metadata.nickname,
 			user_login: 'email',
 			user_registered: new Date().toISOString(),
 		});
