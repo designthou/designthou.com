@@ -1,5 +1,10 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 import {
 	AnimateLoader,
 	Button,
@@ -16,11 +21,6 @@ import {
 import { route } from '@/constants';
 import { createClient } from '@/lib/supabase/client';
 import { useAuthStore } from '@/stores';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 
 export default function ResetPasswordForm() {
 	const form = useForm<ResetPasswordSchema>({
@@ -38,15 +38,17 @@ export default function ResetPasswordForm() {
 	const resetUser = useAuthStore(({ resetUser }) => resetUser);
 
 	React.useEffect(() => {
-		const {
-			data: { subscription },
-		} = supabase.auth.onAuthStateChange(async (event, session) => {
-			if (event === 'SIGNED_IN') {
-				form.setValue('email', session?.user?.email ?? '');
-			}
-		});
+		const loadSession = async () => {
+			const {
+				data: { session },
+			} = await supabase.auth.getSession();
 
-		return () => subscription.unsubscribe();
+			if (session?.user?.email) {
+				form.setValue('email', session.user.email);
+			}
+		};
+
+		loadSession();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

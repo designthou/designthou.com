@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 import { SiteConfig } from '@/app/config';
-import { createClient } from '@/lib/supabase/server';
 import { route } from '@/constants';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 export async function POST(request: Request) {
 	try {
+		const supabase = createAdminClient();
 		const { email, password, nickname } = await request.json();
-		const supabase = await createClient();
 
 		const { data, error: signupError } = await supabase.auth.signUp({
 			email,
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 			},
 		});
 
-		if (signupError?.message.includes('already registered')) {
+		if (signupError?.status === 400 && signupError?.message.includes('already registered')) {
 			console.error(signupError.message);
 			throw signupError;
 		}
