@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 export async function GET() {
 	try {
@@ -13,7 +14,8 @@ export async function GET() {
 			return NextResponse.json({ error: '인증 정보 없음' }, { status: 401 });
 		}
 
-		const { data, error: createUserError } = await supabaseServer.from('users').insert({
+		const supabaseAdmin = createAdminClient();
+		const { data, error: createUserError } = await supabaseAdmin.from('users').insert({
 			id: session?.user?.id,
 			nickname: session?.user?.user_metadata.nickname,
 			display_name: session?.user?.user_metadata.nickname,
