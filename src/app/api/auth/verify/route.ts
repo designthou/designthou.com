@@ -15,7 +15,6 @@ export async function GET() {
 
 		const { data, error: createUserError } = await supabaseServer.from('users').insert({
 			id: session?.user?.id,
-			email: session?.user?.email,
 			nickname: session?.user?.user_metadata.nickname,
 			display_name: session?.user?.user_metadata.nickname,
 			user_login: 'email',
