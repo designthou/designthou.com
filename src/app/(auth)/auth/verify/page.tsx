@@ -5,42 +5,34 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { AnimateLoader } from '@/components';
 import { route } from '@/constants';
-import { createClient } from '@/lib/supabase/client';
 
 export default function VerifyPage() {
 	const router = useRouter();
-	const supabase = createClient();
 
 	React.useEffect(() => {
 		const verifyUser = async () => {
 			try {
-				const {
-					data: { session },
-				} = await supabase.auth.getSession();
-
-				if (!session) {
-					toast.error('이메일 인증 완료 후 다시 시도해주세요.');
-					return;
-				}
-
-				// 서버 API 호출
-				const response = await fetch('/api/auth/verify', { method: 'POST' });
-
-				const data = await response.json();
+				// 서버 API 호출 (세션은 이미 callback에서 설정됨)
+				const response = await fetch('/api/auth/verify', {
+					method: 'POST',
+					credentials: 'include', // include cookie
+				});
 
 				if (!response.ok) {
-					const message = data?.error;
-					throw { status: response.status, message };
+					const data = await response.json();
+					throw new Error(data?.error || '검증 실패');
 				}
 
+				const data = await response.json();
 				console.log(data);
 
-				toast.success('검증 성공');
-				router.refresh();
+				toast.success('이메일 인증이 완료되었습니다!');
 				router.push(route.AUTH.LOGIN);
 			} catch (error) {
 				console.error(error);
-				toast.error('검증 실패');
+				toast.error(error instanceof Error ? error.message : '검증 실패');
+
+				router.push(route.AUTH.LOGIN);
 			}
 		};
 

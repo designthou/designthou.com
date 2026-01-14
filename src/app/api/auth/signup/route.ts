@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 			email,
 			password,
 			options: {
-				emailRedirectTo: `${SiteConfig.url}/auth/verify`,
+				emailRedirectTo: `${SiteConfig.url}/api/auth/callback`,
 				data: {
 					nickname,
 					display_name: nickname,
