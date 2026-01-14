@@ -1,22 +1,30 @@
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
-import { route } from "@/constants";
+'use client';
 
-export default async function ConfirmPage() {
-  const supabase = await createClient();
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { createClient } from '@/lib/supabase/client';
+import { route } from '@/constants';
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+export default function ConfirmPage() {
+	const router = useRouter();
 
-  if (user) {
-    redirect(route.ADMIN.ROOT);
-  }
+	React.useEffect(() => {
+		const supabase = createClient();
 
-  return (
-    <div className="flex flex-col items-center justify-center h-screen gap-4">
-      <h1 className="text-lg font-semibold">이메일 인증을 처리 중입니다</h1>
-      <p className="text-sm text-muted-foreground">잠시만 기다려 주세요...</p>
-    </div>
-  );
+		const {
+			data: { subscription },
+		} = supabase.auth.onAuthStateChange((_event, session) => {
+			if (session?.user) {
+				router.replace(route.ADMIN.ROOT);
+			}
+		});
+
+		return () => subscription.unsubscribe();
+	}, [router]);
+	return (
+		<div className="flex flex-col items-center justify-center h-screen gap-4">
+			<h1 className="text-lg font-semibold">이메일 인증을 처리 중입니다</h1>
+			<p className="text-sm text-muted-foreground">잠시만 기다려 주세요...</p>
+		</div>
+	);
 }
