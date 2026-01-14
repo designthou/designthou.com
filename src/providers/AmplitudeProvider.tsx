@@ -10,22 +10,35 @@ export default function AmplitudeProvider() {
 
 	return (
 		<>
-			<Script src="https://cdn.amplitude.com/libs/analytics-browser-2.11.1-min.js.gz" strategy="afterInteractive" />
-			<Script src="https://cdn.amplitude.com/libs/plugin-session-replay-browser-1.25.0-min.js.gz" strategy="afterInteractive" />
+			{/* Amplitude Loader Script */}
+			<Script src={`https://cdn.amplitude.com/Script/${AMPLITUDE_KEY}.js`} strategy="afterInteractive" />
+
+			{/* Init Script */}
 			<Script id="amplitude-init" strategy="afterInteractive">
 				{`
           if (window.amplitude && !window.__AMPLITUDE_INITIALIZED__) {
             window.__AMPLITUDE_INITIALIZED__ = true;
 
-            window.amplitude.add(
-              window.sessionReplay.plugin({ sampleRate: 1 })
-            );
+            if (window.sessionReplay) {
+              window.amplitude.add(
+                window.sessionReplay.plugin({ sampleRate: 1 })
+              );
+            }
 
             window.amplitude.init(
-              ${AMPLITUDE_KEY},
+              "${AMPLITUDE_KEY}",
               {
+                fetchRemoteConfig: true,
                 autocapture: {
-                  elementInteractions: true
+                  attribution: true,
+                  fileDownloads: true,
+                  formInteractions: true,
+                  pageViews: true,
+                  sessions: true,
+                  elementInteractions: true,
+                  networkTracking: true,
+                  webVitals: true,
+                  frustrationInteractions: true
                 }
               }
             );
