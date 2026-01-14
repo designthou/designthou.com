@@ -23,7 +23,7 @@ export default function ConfirmPage() {
 	}, [router]);
 	return (
 		<div className="flex flex-col items-center justify-center h-screen gap-4">
-			<h1 className="text-lg font-semibold">이메일 인증을 처리 중입니다</h1>
+			<h2 className="text-lg font-semibold">이메일 인증을 처리 중입니다</h2>
 			<p className="text-sm text-muted-foreground">잠시만 기다려 주세요...</p>
 		</div>
 	);

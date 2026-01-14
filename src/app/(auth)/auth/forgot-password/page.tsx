@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export default function ForgotPasswordPage() {
 	return (
 		<>
-			<h2 className="font-bold text-base text-center sm:text-2xl">Forgot password?</h2>
+			<h2 className="auth-page-title">Forgot password?</h2>
 			<ForgotPasswordForm />
 			<div className="mt-8 text-center">
 				<Button type="button" variant="link" asChild>

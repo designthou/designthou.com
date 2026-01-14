@@ -1,8 +1,16 @@
-export default function ResetPasswordPage() {
+import { ResetPasswordForm } from '@/components';
+import { createClient } from '@/lib/supabase/server';
+
+export default async function ResetPasswordPage() {
+	const supabase = await createClient();
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
+
 	return (
-		<div>
-			<h2>Reset Password</h2>
-			<form></form>
-		</div>
+		<>
+			<h2 className="auth-page-title">Reset Password</h2>
+			<ResetPasswordForm email={user?.email ?? ''} />
+		</>
 	);
 }
