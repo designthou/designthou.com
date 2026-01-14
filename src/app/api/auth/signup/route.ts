@@ -2,13 +2,14 @@ import { NextResponse } from 'next/server';
 import { SiteConfig } from '@/app/config';
 import { route } from '@/constants';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { createClient } from '@/lib/supabase/server';
 
 export async function POST(request: Request) {
 	try {
-		const supabase = createAdminClient();
 		const { email, password, nickname } = await request.json();
 
-		const { data, error: signupError } = await supabase.auth.signUp({
+		const supabaseServer = await createClient();
+		const { data, error: signupError } = await supabaseServer.auth.signUp({
 			email,
 			password,
 			options: {
@@ -25,7 +26,8 @@ export async function POST(request: Request) {
 			throw signupError;
 		}
 
-		const { error: createUserError } = await supabase.from('users').insert({
+		const supabaseAdmin = createAdminClient();
+		const { error: createUserError } = await supabaseAdmin.from('users').insert({
 			id: data?.user?.id,
 			email,
 			nickname,
