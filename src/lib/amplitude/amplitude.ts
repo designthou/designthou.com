@@ -1,4 +1,3 @@
-// app/_components/AmplitudeProvider.tsx
 'use client';
 
 import * as amplitude from '@amplitude/analytics-browser';
