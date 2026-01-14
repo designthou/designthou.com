@@ -15,12 +15,13 @@ import {
 	FormLabel,
 	FormMessage,
 	Input,
+	PasswordInput,
 	ResetPasswordSchema,
 	resetPasswordSchema,
 } from '@/components';
 import { route } from '@/constants';
-import { createClient } from '@/lib/supabase/client';
 import { useAuthStore } from '@/stores';
+import { useUpdateUser } from '@/hooks';
 
 export default function ResetPasswordForm() {
 	const searchParams = useSearchParams();
@@ -34,10 +35,9 @@ export default function ResetPasswordForm() {
 		},
 	});
 
-	const supabase = createClient();
-	const [isPending, setIsPending] = React.useState(false);
 	const router = useRouter();
 
+	const { mutate: updateUser, isPending } = useUpdateUser();
 	const resetUser = useAuthStore(({ resetUser }) => resetUser);
 
 	React.useEffect(() => {
@@ -46,30 +46,22 @@ export default function ResetPasswordForm() {
 	}, [searchParams, form]);
 
 	const onSubmit = async (values: ResetPasswordSchema) => {
-		setIsPending(true);
-		try {
-			const { error: updateUserError } = await supabase.auth.updateUser({ password: values?.password });
-			if (updateUserError) {
-				throw new Error(updateUserError.message);
-			}
+		updateUser(
+			{ password: values?.password },
+			{
+				onSuccess() {
+					resetUser();
 
-			const { error: signOutError } = await supabase.auth.signOut({ scope: 'local' });
-
-			if (signOutError) {
-				throw new Error(signOutError?.message);
-			}
-
-			resetUser();
-
-			router.refresh();
-			router.push(route.AUTH.LOGIN);
-			toast.success('비밀번호 재설정 성공');
-		} catch (error) {
-			console.error(error);
-			toast.error('오류 발생, 비밀번호 재설정 실패');
-		} finally {
-			setIsPending(false);
-		}
+					router.refresh();
+					router.push(route.AUTH.LOGIN);
+					toast.success('비밀번호 재설정 성공');
+				},
+				onError(error) {
+					console.error(error);
+					toast.error(error?.message || '오류 발생, 비밀번호 재설정 실패');
+				},
+			},
+		);
 	};
 
 	return (
@@ -95,7 +87,7 @@ export default function ResetPasswordForm() {
 						<FormItem>
 							<FormLabel>비밀번호</FormLabel>
 							<FormControl>
-								<Input type="password" placeholder="Password" {...field} />
+								<PasswordInput placeholder="Password" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -108,7 +100,7 @@ export default function ResetPasswordForm() {
 						<FormItem>
 							<FormLabel>비밀번호 확인</FormLabel>
 							<FormControl>
-								<Input type="password" placeholder="Password" {...field} />
+								<PasswordInput placeholder="Password" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>

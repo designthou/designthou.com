@@ -17,6 +17,7 @@ import {
 	SignUpSchema,
 	signUpSchema,
 	AnimateLoader,
+	PasswordInput,
 } from '@/components';
 import { useSignup } from '@/hooks';
 import { route } from '@/constants';
@@ -88,7 +89,7 @@ export default function SignupForm() {
 							<FormItem>
 								<FormLabel>비밀번호</FormLabel>
 								<FormControl>
-									<Input type="password" placeholder="Password" {...field} />
+									<PasswordInput placeholder="Password" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -101,7 +102,7 @@ export default function SignupForm() {
 							<FormItem>
 								<FormLabel>비밀번호 확인</FormLabel>
 								<FormControl>
-									<Input type="password" placeholder="Password" {...field} />
+									<PasswordInput placeholder="Password" {...field} />
 								</FormControl>
 								<FormMessage />
 							</FormItem>

@@ -16,7 +16,7 @@ export default function AdminRootPage() {
 			</div>
 		);
 	}
-
+	console.log(user?.role);
 	return (
 		<div className="flex flex-col items-start gap-8 p-4 w-full h-full">
 			{user && (

@@ -29,7 +29,6 @@ export async function POST() {
 			return NextResponse.json<ApiResponse>({ ok: false, error: '이메일 인증이 완료되지 않았습니다.' }, { status: 400 });
 		}
 
-		// 2. 이미 users 테이블에 존재하는지 확인
 		const { data: existingUser } = await supabaseServer.from('users').select('id').eq('id', user.id).maybeSingle();
 
 		if (existingUser) {
@@ -39,13 +38,13 @@ export async function POST() {
 			});
 		}
 
-		// 3. users 테이블 insert
 		const { error: createUserError } = await supabaseServer.from('users').insert({
 			id: user.id,
 			nickname: user.user_metadata?.nickname,
 			display_name: user.user_metadata?.nickname,
 			user_login: 'email',
 			user_registered: new Date().toISOString(),
+			role: 'user',
 		});
 
 		if (createUserError) {

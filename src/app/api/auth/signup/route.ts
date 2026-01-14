@@ -15,6 +15,7 @@ export async function POST(request: Request) {
 				data: {
 					nickname,
 					display_name: nickname,
+					role: 'user',
 				},
 			},
 		});
