@@ -5,16 +5,26 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { AnimateLoader } from '@/components';
 import { route } from '@/constants';
+import { createClient } from '@/lib/supabase/client';
 
 export default function VerifyPage() {
 	const router = useRouter();
+	const supabase = createClient();
 
 	React.useEffect(() => {
 		const verifyUser = async () => {
 			try {
-				const response = await fetch('/api/auth/verify', {
-					method: 'GET',
-				});
+				const {
+					data: { session },
+				} = await supabase.auth.getSession();
+
+				if (!session) {
+					toast.error('이메일 인증 완료 후 다시 시도해주세요.');
+					return;
+				}
+
+				// 서버 API 호출
+				const response = await fetch('/api/auth/verify', { method: 'POST' });
 
 				const data = await response.json();
 
