@@ -21,14 +21,14 @@ export async function POST(request: Request) {
 
 		if (signupError?.status === 400 && signupError?.message.includes('already registered')) {
 			console.error(signupError.message);
-			return NextResponse.json({ error: signupError?.message }, { status: 500 });
+			return NextResponse.json({ ok: false, error: signupError?.message }, { status: 500 });
 		}
 
 		if (data) {
-			return NextResponse.json({ ok: true });
+			return NextResponse.json({ ok: true, message: '이메일을 확인해주세요.' });
 		}
 	} catch (error) {
 		console.error('error', error);
-		return NextResponse.json({ error: '회원가입 실패' }, { status: 500 });
+		return NextResponse.json({ ok: false, error: '회원가입 실패' }, { status: 500 });
 	}
 }

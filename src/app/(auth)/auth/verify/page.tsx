@@ -12,19 +12,16 @@ export default function VerifyPage() {
 	React.useEffect(() => {
 		const verifyUser = async () => {
 			try {
-				// 서버 API 호출 (세션은 이미 callback에서 설정됨)
 				const response = await fetch('/api/auth/verify', {
 					method: 'POST',
 					credentials: 'include', // include cookie
 				});
 
-				if (!response.ok) {
-					const data = await response.json();
-					throw new Error(data?.error || '검증 실패');
-				}
-
 				const data = await response.json();
-				console.log(data);
+
+				if (!response.ok) {
+					throw new Error(data?.error || '검증에 실패했습니다.');
+				}
 
 				toast.success('이메일 인증이 완료되었습니다!');
 				router.push(route.AUTH.LOGIN);
@@ -40,9 +37,11 @@ export default function VerifyPage() {
 	}, [router]);
 
 	return (
-		<div className="ui-flex-center flex-col gap-4 w-full h-full">
-			<p className="text-center w-full">Verifying ...</p>
-			<AnimateLoader />
+		<div className="w-full h-full">
+			<div className="ui-flex-center flex-col gap-4 p-8 rounded-lg">
+				<p className="text-center text-gray-700 w-full">Verifying ...</p>
+				<AnimateLoader />
+			</div>
 		</div>
 	);
 }
