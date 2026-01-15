@@ -19,7 +19,7 @@ export default function AdminRootPage() {
 			<div className="ui-flex-center mx-auto p-4 w-full h-20 bg-light text-center font-bold text-2xl rounded-lg md:w-fit md:min-w-120">
 				{todayStr}
 			</div>
-			<div className="flex flex-col items-start gap-8 p-4 w-full h-full">
+			<div className="flex flex-col items-start gap-8 mt-4 w-full h-full">
 				{user && (
 					<div className="flex flex-col gap-8 p-4 mx-auto w-full bg-light rounded-lg md:w-auto md:min-w-120">
 						<div className="relative flex items-center gap-4">

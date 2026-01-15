@@ -15,7 +15,7 @@ export default function MyPage() {
 
 	return (
 		<section className="p-4">
-			<div className="flex flex-col items-start gap-8 p-4 w-full h-full">
+			<div className="flex flex-col items-start gap-8 w-full h-full">
 				{user && (
 					<div className="flex flex-col gap-8 p-4 mx-auto w-full bg-light rounded-lg md:w-auto md:min-w-120">
 						<div className="relative flex items-center gap-4">

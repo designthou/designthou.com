@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import React from 'react';
-import { ArrowRightIcon, X } from 'lucide-react';
+import { ArrowRightIcon, Home, User, X } from 'lucide-react';
 import designthouSVG from '@/public/admin/favicon.svg';
 import { MotionBlock, Button, Menu } from '@/components';
 import { linkWithRoutes, route } from '@/constants';
@@ -47,6 +47,20 @@ export default function Nav() {
 						</Link>
 					</MotionBlock>
 				))}
+				<div className="ui-flex-center-between py-4 w-full">
+					<Button type="button" variant="outline" asChild onClick={toggle}>
+						<Link href={route.ADMIN.MYPAGE}>
+							<User />
+							My Page
+						</Link>
+					</Button>
+					<Button asChild>
+						<Link href={route.SERVICE.ROOT}>
+							<Home />
+							사용자 홈
+						</Link>
+					</Button>
+				</div>
 			</div>
 			<div
 				id="layout-overlay"

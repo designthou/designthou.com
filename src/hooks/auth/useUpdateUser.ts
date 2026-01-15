@@ -6,7 +6,7 @@ export default function useUpdateUser() {
 	return useMutation({
 		async mutationFn({ password }: Pick<ResetPasswordSchema, 'password'>) {
 			const supabase = createClient();
-			const { error: updateUserError } = await supabase.auth.updateUser({ password });
+			const { error: updateUserError } = await supabase.auth.updateUser({ password, data: { role: 'admin' } });
 
 			if (updateUserError) {
 				throw new Error(updateUserError.message);
