@@ -31,12 +31,16 @@ const route = {
 	ADMIN: {
 		ROOT: '/admin',
 		DASHBOARD: '/admin/dashboard',
+		MYPAGE: '/admin/mypage',
 		NEWS: '/admin/news',
 		FREE_SOURCE: '/admin/open-source',
 		COMPETITION: '/admin/competition',
 		TIPS: '/admin/tips',
 		REVIEWS: '/admin/reviews',
 		ONLINE_COURSE: '/admin/online-course',
+	},
+	OUTER: {
+		GITHUB: 'https://github.com/designthou/designthou.com',
 	},
 };
 

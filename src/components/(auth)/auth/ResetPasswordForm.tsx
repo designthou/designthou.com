@@ -52,7 +52,6 @@ export default function ResetPasswordForm() {
 				onSuccess() {
 					resetUser();
 
-					router.refresh();
 					router.push(route.AUTH.LOGIN);
 					toast.success('비밀번호 재설정 성공');
 				},

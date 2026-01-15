@@ -42,7 +42,7 @@ export default function LoginForm() {
 			{
 				onSuccess() {
 					toast.success('로그인 성공');
-					router.refresh();
+
 					router.push(route.ADMIN.ROOT);
 				},
 

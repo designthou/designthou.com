@@ -9,13 +9,13 @@ export async function middleware(request: NextRequest) {
 
 	const isPublicRoutes = [route.AUTH.RESET_PASSWORD, route.AUTH.SIGNUP_CONFIRM].some(path => pathname.startsWith(path));
 
-	const isProtectedRoutes = pathname.startsWith(route.ADMIN.ROOT);
-
-	const isAuthRedirectRoutes = [route.AUTH.LOGIN, route.AUTH.SIGNUP].some(path => pathname.startsWith(path));
-
 	if (isPublicRoutes) {
 		return NextResponse.next();
 	}
+
+	const isProtectedRoutes = pathname.startsWith(route.ADMIN.ROOT);
+
+	const isAuthRedirectRoutes = [route.AUTH.LOGIN, route.AUTH.SIGNUP].some(path => pathname.startsWith(path));
 
 	if (user && isAuthRedirectRoutes) {
 		return NextResponse.redirect(new URL(route.ADMIN.ROOT, request.url), {

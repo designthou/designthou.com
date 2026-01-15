@@ -5,9 +5,8 @@ import { SiteConfig } from '@/app/config';
 import { AnimateLoaderWithText, GradientCircle, LogoutButton } from '@/components';
 import { convertSupabaseDateToShortHumanReadable } from '@/lib/supabase';
 import { useAuthStore } from '@/stores';
-import { todayStr } from '@/utils/date';
 
-export default function AdminRootPage() {
+export default function MyPage() {
 	const user = useAuthStore(({ user }) => user);
 
 	if (!user) {
@@ -16,9 +15,6 @@ export default function AdminRootPage() {
 
 	return (
 		<section className="p-4">
-			<div className="ui-flex-center mx-auto p-4 w-full h-20 bg-light text-center font-bold text-2xl rounded-lg md:w-fit md:min-w-120">
-				{todayStr}
-			</div>
 			<div className="flex flex-col items-start gap-8 p-4 w-full h-full">
 				{user && (
 					<div className="flex flex-col gap-8 p-4 mx-auto w-full bg-light rounded-lg md:w-auto md:min-w-120">

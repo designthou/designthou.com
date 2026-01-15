@@ -39,7 +39,6 @@ export default function ForgotPasswordForm() {
 			{
 				onSuccess() {
 					toast.success('비밀번호 재설정 이메일을 확인하세요!');
-					router.refresh();
 					router.push(route.ADMIN.ROOT);
 				},
 				onError(error) {

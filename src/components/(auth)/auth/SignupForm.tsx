@@ -47,7 +47,6 @@ export default function SignupForm() {
 					form.reset();
 					toast.success('이메일을 확인해 주세요. 인증 후 로그인 가능합니다.');
 
-					router.refresh();
 					router.push(route.AUTH.LOGIN);
 				},
 				onError(error) {
