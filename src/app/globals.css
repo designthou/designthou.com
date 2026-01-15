@@ -233,7 +233,7 @@
 	}
 
 	.page-title {
-		@apply font-black font-mono text-3xl sm:text-4xl;
+		@apply font-black font-mono text-2xl sm:text-4xl;
 	}
 
 	.page-subtitle {
