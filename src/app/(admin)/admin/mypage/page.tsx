@@ -27,7 +27,7 @@ export default function MyPage() {
 								<span className="text-xs text-gray-700">{convertSupabaseDateToShortHumanReadable(user.last_sign_in_at!)} 에 로그인</span>
 							</div>
 							<span className="absolute top-4 right-4 px-2 py-1 text-xs bg-black text-white rounded-full" aria-label="user role">
-								{user?.user_metadata?.role ?? 'admin'}
+								{user?.user_metadata?.role}
 							</span>
 						</div>
 						<div className="flex items-center gap-2 text-gray-900 ">
