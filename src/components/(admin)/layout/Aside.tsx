@@ -49,7 +49,7 @@ export default function Aside({ user }: { user: User | null }) {
 					</nav>
 				</div>
 
-				<div className="flex flex-col gap-2 px-1">
+				<div className="flex flex-col gap-1 px-1">
 					<div className="p-1 border border-muted rounded-lg">
 						<ProfileDropdown user={user} />
 					</div>
