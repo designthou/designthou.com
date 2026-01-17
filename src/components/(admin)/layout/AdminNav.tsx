@@ -6,7 +6,7 @@ import React from 'react';
 import { ArrowRightIcon, Home, User, X } from 'lucide-react';
 import designthouSVG from '@/public/admin/favicon.svg';
 import { MotionBlock, Button, Menu } from '@/components';
-import { linkWithRoutes, route } from '@/constants';
+import { linkWithManagableRoutes, linkWithRoutes, route } from '@/constants';
 
 export default function Nav() {
 	const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
@@ -40,14 +40,25 @@ export default function Nav() {
 				className={`fixed top-[calc(var(--global-layout-padding)+var(--global-layout-nav-height))] left-0 right-0 flex flex-col ${
 					isSideNavOpen ? 'max-h-full' : 'max-h-0'
 				} px-3 w-full bg-white z-20 overflow-hidden transition-[max-height] duration-200 ease-[cubic-bezier(0.22, 1, 0.36, 1)] md:hidden`}>
-				{linkWithRoutes.map(({ title, to }) => (
-					<MotionBlock key={title} onClick={toggle} className="rounded-lg">
-						<Link href={to} className="ui-flex-center-between px-3 w-full min-h-15 rounded-lg font-medium cursor-pointer active:bg-light">
-							<span>{title}</span>
-							<ArrowRightIcon size={20} />
-						</Link>
-					</MotionBlock>
-				))}
+				<div className="flex flex-col gap-1 h-[calc(100dvh-3*var(--global-layout-nav-height)))] overflow-y-auto">
+					{linkWithRoutes.map(({ title, to }) => (
+						<MotionBlock key={title} onClick={toggle} className="rounded-lg">
+							<Link href={to} className="ui-flex-center-between px-3 w-full min-h-15 rounded-lg font-medium cursor-pointer active:bg-light">
+								<span>{title}</span>
+								<ArrowRightIcon size={20} />
+							</Link>
+						</MotionBlock>
+					))}
+					<div className="w-full h-px bg-gray-200" />
+					{linkWithManagableRoutes.map(({ title, to }) => (
+						<MotionBlock key={title} onClick={toggle} className="rounded-lg">
+							<Link href={to} className="ui-flex-center-between px-3 w-full min-h-15 rounded-lg font-medium cursor-pointer active:bg-light">
+								<span>{title}</span>
+								<ArrowRightIcon size={20} />
+							</Link>
+						</MotionBlock>
+					))}
+				</div>
 				<div className="ui-flex-center-between py-4 w-full">
 					<Button type="button" variant="outline" asChild onClick={toggle}>
 						<Link href={route.ADMIN.MYPAGE}>
