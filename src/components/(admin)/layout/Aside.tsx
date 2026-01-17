@@ -7,7 +7,7 @@ import { House, Search } from 'lucide-react';
 import designthouSVG from '@/public/admin/favicon.svg';
 import { User } from '@supabase/supabase-js';
 import { Button, ProfileDropdown } from '@/components';
-import { linkWithRoutes, route } from '@/constants';
+import { linkWithManagableRoutes, linkWithRoutes, route } from '@/constants';
 
 export default function Aside({ user }: { user: User | null }) {
 	const segment = useSelectedLayoutSegment();
@@ -29,23 +29,50 @@ export default function Aside({ user }: { user: User | null }) {
 							<Search size={18} className="text-gray-900" />
 						</Button>
 					</header>
-					<nav className="flex flex-col flex-1 gap-2 sm:px-2 lg:px-0">
-						{linkWithRoutes.map(({ title, to, icon }) => (
-							<Link
-								href={to}
-								key={to}
-								className={`ui-flex-center gap-0 py-1.5 px-2 min-h-9 ${
-									to === route.ADMIN.ROOT + '/' + segment ? 'bg-muted' : 'bg-white'
-								} text-gray-800 font-medium rounded-md hover:bg-muted active:bg-gray-200 transition-colors lg:gap-2 lg:justify-between`}>
-								<div className="ui-flex-center gap-2">
-									{icon}
-									<span className="hidden lg:inline">{title}</span>
-								</div>
-								{to === route.ADMIN.ROOT + '/' + segment && (
-									<div className="hidden mr-2 w-1.5 h-1.5 rounded-full bg-gradient-orange-100 lg:inline-block" />
-								)}
-							</Link>
-						))}
+					<nav className="flex flex-col flex-1 gap-4 sm:px-2 lg:px-0">
+						<div className="flex flex-col gap-2">
+							<h2 className="hidden text-gray-600 text-xs lg:block">Applications</h2>
+							<div className="flex flex-col flex-1 gap-2 sm:px-2 lg:px-0">
+								{linkWithRoutes.map(({ title, to, icon }) => (
+									<Link
+										href={to}
+										key={to}
+										className={`ui-flex-center gap-0 py-1.5 px-2 min-h-9 ${
+											to === route.ADMIN.ROOT + '/' + segment ? 'bg-muted' : 'bg-white'
+										} text-gray-800 font-medium rounded-md hover:bg-muted active:bg-gray-200 transition-colors lg:gap-2 lg:justify-between`}>
+										<div className="ui-flex-center gap-2">
+											{icon}
+											<span className="hidden lg:inline">{title}</span>
+										</div>
+										{to === route.ADMIN.ROOT + '/' + segment && (
+											<div className="hidden mr-2 w-1.5 h-1.5 rounded-full bg-gradient-orange-100 lg:inline-block" />
+										)}
+									</Link>
+								))}
+							</div>
+						</div>
+						<div className="w-full h-px bg-gray-200" />
+						<div className="flex flex-col gap-2">
+							<h2 className="hidden text-gray-600 text-xs lg:block">Manage</h2>
+							<div className="flex flex-col flex-1 gap-2 sm:px-2 lg:px-0">
+								{linkWithManagableRoutes.map(({ title, to, icon }) => (
+									<Link
+										href={to}
+										key={to}
+										className={`ui-flex-center gap-0 py-1.5 px-2 min-h-9 ${
+											to === route.ADMIN.ROOT + '/' + segment ? 'bg-muted' : 'bg-white'
+										} text-gray-800 font-medium rounded-md hover:bg-muted active:bg-gray-200 transition-colors lg:gap-2 lg:justify-between`}>
+										<div className="ui-flex-center gap-2">
+											{icon}
+											<span className="hidden lg:inline">{title}</span>
+										</div>
+										{to === route.ADMIN.ROOT + '/' + segment && (
+											<div className="hidden mr-2 w-1.5 h-1.5 rounded-full bg-gradient-orange-100 lg:inline-block" />
+										)}
+									</Link>
+								))}
+							</div>
+						</div>
 					</nav>
 				</div>
 

@@ -11,21 +11,53 @@ export interface Database {
 					nickname: string;
 					display_name: string;
 					user_login: string;
-					user_registered: string;
+					user_registered_at: string;
 					role: string;
 				};
 				Insert: {
 					id: string;
 					nickname: string;
 					user_login?: string;
-					user_registered: string;
+					user_registered_at: string;
 					role: string;
 				};
 				Update: {
 					id: string;
 					nickname?: string;
 					user_login: string;
-					user_registered?: string;
+					user_registered_at?: string;
+				};
+				Delete: {
+					id: string;
+				};
+			};
+			legacy_users: {
+				Row: {
+					// the data expected from .select()
+					id: string;
+					email: string;
+					nickname: string;
+					display_name: string;
+					legacy_user_id: number;
+					user_login: string;
+					user_registered_at: string;
+				};
+				Insert: {
+					id: string;
+					email: string;
+					nickname: string;
+					display_name: string;
+					legacy_user_id: number;
+					user_login?: string;
+					user_registered_at: string;
+				};
+				Update: {
+					id: string;
+					email: string;
+					nickname?: string;
+					display_name?: string;
+					legacy_user_id?: number;
+					user_registered_at?: string;
 				};
 				Delete: {
 					id: string;

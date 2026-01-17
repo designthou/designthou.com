@@ -1,4 +1,4 @@
-import { LayoutDashboard, LayoutList, MonitorPlay, Newspaper, Palette, SquareChartGantt, Youtube } from 'lucide-react';
+import { LayoutDashboard, LayoutList, MonitorPlay, Newspaper, Palette, SquareChartGantt, User2, Youtube } from 'lucide-react';
 import route from './route';
 
 const linkWithRoutes = [
@@ -39,4 +39,12 @@ const linkWithRoutes = [
 	},
 ] as const;
 
-export { linkWithRoutes };
+const linkWithManagableRoutes = [
+	{
+		title: 'User List',
+		to: route.ADMIN.USERS,
+		icon: <User2 size={18} />,
+	},
+];
+
+export { linkWithRoutes, linkWithManagableRoutes };

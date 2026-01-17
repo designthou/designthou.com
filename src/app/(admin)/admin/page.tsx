@@ -18,10 +18,10 @@ export default function AdminRootPage() {
 
 	return (
 		<section className="flex flex-col gap-4 p-4">
-			<div className="ui-flex-center mx-auto p-4 w-full h-20 text-center font-bold text-2xl rounded-lg md:w-fit md:min-w-120">
-				{greetingMap[getTimePeriodByTimezone(timezone)]} , {user.user_metadata.nickname}
+			<div className="flex flex-col items-center gap-2 mx-auto p-4 w-full h-20 text-center font-black text-xl rounded-lg md:flex md:flex-row md:w-fit md:min-w-120 md:text-3xl">
+				<span>{greetingMap[getTimePeriodByTimezone(timezone)]}</span> <span>{user.user_metadata.nickname}</span>
 			</div>
-			<div className="ui-flex-center mx-auto p-4 w-full h-20 bg-light text-center font-bold text-2xl rounded-lg md:w-fit md:min-w-120">
+			<div className="ui-flex-center mx-auto p-4 w-full h-20 bg-light text-center font-bold text-xl rounded-lg md:w-fit md:min-w-120">
 				{todayStr.slice(0, 4) + '-' + todayStr.slice(4, 6) + '-' + todayStr.slice(6)}
 			</div>
 			<div className="flex flex-col items-start gap-8 w-full h-full">

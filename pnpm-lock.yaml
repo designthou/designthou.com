@@ -8,12 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@amplitude/analytics-browser':
-        specifier: ^2.33.2
-        version: 2.33.2
-      '@amplitude/analytics-node':
-        specifier: ^1.5.30
-        version: 1.5.30
       '@fxts/core':
         specifier: ^1.21.1
         version: 1.21.1
@@ -29,6 +23,9 @@ importers:
       '@radix-ui/react-aspect-ratio':
         specifier: ^1.1.8
         version: 1.1.8(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@radix-ui/react-checkbox':
+        specifier: ^1.3.3
+        version: 1.3.3(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@radix-ui/react-dialog':
         specifier: ^1.1.15
         version: 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -74,6 +71,9 @@ importers:
       '@tanstack/react-query-devtools':
         specifier: ^5.91.1
         version: 5.91.1(@tanstack/react-query@5.90.12(react@19.2.1))(react@19.2.1)
+      '@tanstack/react-table':
+        specifier: ^8.21.3
+        version: 8.21.3(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@tiptap/extension-image':
         specifier: ^3.15.1
         version: 3.15.1(@tiptap/core@3.15.1(@tiptap/pm@3.15.1))
@@ -210,33 +210,6 @@ packages:
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
-
-  '@amplitude/analytics-browser@2.33.2':
-    resolution: {integrity: sha512-TOVa3oqHQqKJbceMix+fucUvaAe70Mq3eMK2lANz3GHrry/xrzuc/M8HpxdSwDbR1XG6BGKrd4vHREc945z56g==}
-
-  '@amplitude/analytics-connector@1.6.4':
-    resolution: {integrity: sha512-SpIv0IQMNIq6SH3UqFGiaZyGSc7PBZwRdq7lvP0pBxW8i4Ny+8zwI0pV+VMfMHQwWY3wdIbWw5WQphNjpdq1/Q==}
-
-  '@amplitude/analytics-core@2.35.1':
-    resolution: {integrity: sha512-ZChD4oUtpbO6W5YhWZ0G9BbqVOx7DoX1+cPyAMFwFkglH6JrZCrKvUTrukhVpVB+wkLRRK1ZviN0PzP6mDaifw==}
-
-  '@amplitude/analytics-node@1.5.30':
-    resolution: {integrity: sha512-bGLWM6V1Xt84if07X+hNyXBkZIxGusM7NcP9FU9n/4KSjQnrUAWZB9safdr50K21WVfjE3PQCf4KDh6TkntA3Q==}
-
-  '@amplitude/plugin-autocapture-browser@1.18.4':
-    resolution: {integrity: sha512-D4BzLjTjT7+Q2TEA0US9THlKPDpukcyIkjknsa9jRhWyLhirnwKEnf5w3WhX+g2psfnq+zY0UjCboQ+WCDL0Zw==}
-
-  '@amplitude/plugin-network-capture-browser@1.7.4':
-    resolution: {integrity: sha512-en86lEWMNkQOPm64yYnBjOI3qyHxAmhKZF+zgxdxwHM4vOQ8M1ySxVitCyd0GJiLmdEHEWj0PWgPAVkkj7BjBQ==}
-
-  '@amplitude/plugin-page-url-enrichment-browser@0.5.10':
-    resolution: {integrity: sha512-lgp2uwz2UPXxJypYMgiQ5yHhoTIQ6QaZQu8yq//9sogkMkDt0ClybTYwRk3N1q/XVS1cR79vT68gtvzdLD62Lg==}
-
-  '@amplitude/plugin-page-view-tracking-browser@2.6.7':
-    resolution: {integrity: sha512-cSiKOAJkgqI/h3+rjVXVvegrK2cma9XPxtWnBvShGbmVzh+ekIUrKktUFLsmxxFzkY94VVsVWiSGovQsKa8RuA==}
-
-  '@amplitude/plugin-web-vitals-browser@1.1.5':
-    resolution: {integrity: sha512-6tcaSi5nM5pd6/bcMl90+LSR4cCsqFLP2SG9RUy+bHQN/DCh+Nzq1X+5a1St+MqX8Qr6s4q6YHbkIUcEMHo+Zg==}
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -671,6 +644,19 @@ packages:
 
   '@radix-ui/react-aspect-ratio@1.1.8':
     resolution: {integrity: sha512-5nZrJTF7gH+e0nZS7/QxFz6tJV4VimhQb1avEgtsJxvvIp5JilL+c58HICsKzPxghdwaDt48hEfPM1au4zGy+w==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
+  '@radix-ui/react-checkbox@1.3.3':
+    resolution: {integrity: sha512-wBbpv+NQftHDdG86Qc0pIyXk5IR3tM8Vd0nWLKDcX8nNn4nXFOFwsKuqw2okA/1D/mpaAkmuyndrPJTYDNZtFw==}
     peerDependencies:
       '@types/react': '*'
       '@types/react-dom': '*'
@@ -1261,6 +1247,17 @@ packages:
     peerDependencies:
       react: ^18 || ^19
 
+  '@tanstack/react-table@8.21.3':
+    resolution: {integrity: sha512-5nNMTSETP4ykGegmVkhjcS8tTLW6Vl4axfEGQN3v0zdHYbK4UfoqfPChclTrJ4EoK9QynqAu9oUf8VEmrpZ5Ww==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+
+  '@tanstack/table-core@8.21.3':
+    resolution: {integrity: sha512-ldZXEhOBb8Is7xLs01fR3YEc3DERiz5silj8tnGkFZytt1abEvl/GhUmCE0PMLaMPTa3Jk4HbKmRlHmu+gCftg==}
+    engines: {node: '>=12'}
+
   '@tiptap/core@3.15.1':
     resolution: {integrity: sha512-Sdp0AlTHJuZfMAuig1xaOFVc4CHT8p/ppeXdnW7WsJ/V2WJfAxslLrA1DWLg9XKH5Vh90Ck18LgtWP4kdg6L2g==}
     peerDependencies:
@@ -1490,9 +1487,6 @@ packages:
 
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
-
-  '@types/zen-observable@0.8.3':
-    resolution: {integrity: sha512-fbF6oTd4sGGy0xjHPKAt+eS2CrxJ3+6gQ3FGcBoIJR2TLAyCkCyI8JqZNy+FeON0AhVgNJoUumVoZQjBFUqHkw==}
 
   '@typescript-eslint/eslint-plugin@8.50.0':
     resolution: {integrity: sha512-O7QnmOXYKVtPrfYzMolrCTfkezCJS9+ljLdKW/+DCvRsc3UAz+sbH6Xcsv7p30+0OwUbeWfUDAQE0vpabZ3QLg==}
@@ -3333,9 +3327,6 @@ packages:
   w3c-keyname@2.2.8:
     resolution: {integrity: sha512-dpojBhNsCNN7T82Tm7k26A6G9ML3NkhDsnw9n/eoxSRlVBB4CEtIQ/KTCLI2Fwf3ataSXRhYFkQi3SlnFwPvPQ==}
 
-  web-vitals@5.1.0:
-    resolution: {integrity: sha512-ArI3kx5jI0atlTtmV0fWU3fjpLmq/nD3Zr1iFFlJLaqa5wLBkUSzINwBPySCX/8jRyjlmy1Volw1kz1g9XE4Jg==}
-
   which-boxed-primitive@1.1.1:
     resolution: {integrity: sha512-TbX3mj8n0odCBFVlY8AxkqcHASw3L60jIuF8jFP78az3C2YhmGvqbHBpAjTRH2/xqYunrJ9g1jSyjCjpoWzIAA==}
     engines: {node: '>= 0.4'}
@@ -3383,12 +3374,6 @@ packages:
   youtube-player@5.5.2:
     resolution: {integrity: sha512-ZGtsemSpXnDky2AUYWgxjaopgB+shFHgXVpiJFeNB5nWEugpW1KWYDaHKuLqh2b67r24GtP6HoSW5swvf0fFIQ==}
 
-  zen-observable-ts@1.1.0:
-    resolution: {integrity: sha512-1h4zlLSqI2cRLPJUHJFL8bCWHhkpuXkF+dbGkRaWjgDIG26DmzyshUMrdV/rL3UnR+mhaX4fRq8LPouq0MYYIA==}
-
-  zen-observable@0.8.15:
-    resolution: {integrity: sha512-PQ2PC7R9rslx84ndNBZB/Dkv8V8fZEpk83RLgXtYd0fwUgEjseMn1Dgajh2x6S8QbZAFa9p2qVCEuYZNgve0dQ==}
-
   zod-validation-error@4.0.2:
     resolution: {integrity: sha512-Q6/nZLe6jxuU80qb/4uJ4t5v2VEZ44lzQjPDhYJNztRQ4wyWc6VF3D3Kb/fAuPetZQnhS3hnajCf9CsWesghLQ==}
     engines: {node: '>=18.0.0'}
@@ -3419,55 +3404,6 @@ packages:
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}
-
-  '@amplitude/analytics-browser@2.33.2':
-    dependencies:
-      '@amplitude/analytics-core': 2.35.1
-      '@amplitude/plugin-autocapture-browser': 1.18.4
-      '@amplitude/plugin-network-capture-browser': 1.7.4
-      '@amplitude/plugin-page-url-enrichment-browser': 0.5.10
-      '@amplitude/plugin-page-view-tracking-browser': 2.6.7
-      '@amplitude/plugin-web-vitals-browser': 1.1.5
-      tslib: 2.8.1
-
-  '@amplitude/analytics-connector@1.6.4': {}
-
-  '@amplitude/analytics-core@2.35.1':
-    dependencies:
-      '@amplitude/analytics-connector': 1.6.4
-      tslib: 2.8.1
-      zen-observable-ts: 1.1.0
-
-  '@amplitude/analytics-node@1.5.30':
-    dependencies:
-      '@amplitude/analytics-core': 2.35.1
-      tslib: 2.8.1
-
-  '@amplitude/plugin-autocapture-browser@1.18.4':
-    dependencies:
-      '@amplitude/analytics-core': 2.35.1
-      tslib: 2.8.1
-
-  '@amplitude/plugin-network-capture-browser@1.7.4':
-    dependencies:
-      '@amplitude/analytics-core': 2.35.1
-      tslib: 2.8.1
-
-  '@amplitude/plugin-page-url-enrichment-browser@0.5.10':
-    dependencies:
-      '@amplitude/analytics-core': 2.35.1
-      tslib: 2.8.1
-
-  '@amplitude/plugin-page-view-tracking-browser@2.6.7':
-    dependencies:
-      '@amplitude/analytics-core': 2.35.1
-      tslib: 2.8.1
-
-  '@amplitude/plugin-web-vitals-browser@1.1.5':
-    dependencies:
-      '@amplitude/analytics-core': 2.35.1
-      tslib: 2.8.1
-      web-vitals: 5.1.0
 
   '@babel/code-frame@7.27.1':
     dependencies:
@@ -3886,6 +3822,22 @@ snapshots:
   '@radix-ui/react-aspect-ratio@1.1.8(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@radix-ui/react-primitive': 2.1.4(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react: 19.2.1
+      react-dom: 19.2.1(react@19.2.1)
+    optionalDependencies:
+      '@types/react': 19.2.7
+      '@types/react-dom': 19.2.3(@types/react@19.2.7)
+
+  '@radix-ui/react-checkbox@1.3.3(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+    dependencies:
+      '@radix-ui/primitive': 1.1.3
+      '@radix-ui/react-compose-refs': 1.1.2(@types/react@19.2.7)(react@19.2.1)
+      '@radix-ui/react-context': 1.1.2(@types/react@19.2.7)(react@19.2.1)
+      '@radix-ui/react-presence': 1.1.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@radix-ui/react-primitive': 2.1.3(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@radix-ui/react-use-controllable-state': 1.2.2(@types/react@19.2.7)(react@19.2.1)
+      '@radix-ui/react-use-previous': 1.1.1(@types/react@19.2.7)(react@19.2.1)
+      '@radix-ui/react-use-size': 1.1.1(@types/react@19.2.7)(react@19.2.1)
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
     optionalDependencies:
@@ -4466,6 +4418,14 @@ snapshots:
       '@tanstack/query-core': 5.90.12
       react: 19.2.1
 
+  '@tanstack/react-table@8.21.3(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+    dependencies:
+      '@tanstack/table-core': 8.21.3
+      react: 19.2.1
+      react-dom: 19.2.1(react@19.2.1)
+
+  '@tanstack/table-core@8.21.3': {}
+
   '@tiptap/core@3.15.1(@tiptap/pm@3.15.1)':
     dependencies:
       '@tiptap/pm': 3.15.1
@@ -4718,8 +4678,6 @@ snapshots:
   '@types/ws@8.18.1':
     dependencies:
       '@types/node': 20.19.27
-
-  '@types/zen-observable@0.8.3': {}
 
   '@typescript-eslint/eslint-plugin@8.50.0(@typescript-eslint/parser@8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)':
     dependencies:
@@ -6815,8 +6773,6 @@ snapshots:
 
   w3c-keyname@2.2.8: {}
 
-  web-vitals@5.1.0: {}
-
   which-boxed-primitive@1.1.1:
     dependencies:
       is-bigint: 1.1.0
@@ -6877,13 +6833,6 @@ snapshots:
       sister: 3.0.2
     transitivePeerDependencies:
       - supports-color
-
-  zen-observable-ts@1.1.0:
-    dependencies:
-      '@types/zen-observable': 0.8.3
-      zen-observable: 0.8.15
-
-  zen-observable@0.8.15: {}
 
   zod-validation-error@4.0.2(zod@4.2.1):
     dependencies:

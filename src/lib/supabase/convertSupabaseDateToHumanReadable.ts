@@ -1,37 +1,30 @@
 function convertSupabaseDateToHumanReadable(date: string) {
-  const parsedDate = new Date(date);
-  const options = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-  } as const;
+	const parsedDate = new Date(date);
+	const options = {
+		year: 'numeric',
+		month: 'numeric',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: 'numeric',
+		second: 'numeric',
+	} as const;
 
-  const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-    parsedDate,
-  );
-  return formattedDate;
+	const formattedDate = new Intl.DateTimeFormat('ko-KR', options).format(parsedDate);
+	return formattedDate;
 }
 
 function convertSupabaseDateToShortHumanReadable(date: string) {
-  if (!date) return "";
+	if (!date) return '';
 
-  const parsedDate = new Date(date);
-  const options = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-  } as const;
+	const parsedDate = new Date(date);
+	const options = {
+		year: 'numeric',
+		month: 'numeric',
+		day: 'numeric',
+	} as const;
 
-  const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-    parsedDate,
-  );
-  return formattedDate;
+	const formattedDate = new Intl.DateTimeFormat('ko-KR', options).format(parsedDate);
+	return formattedDate;
 }
 
-export {
-  convertSupabaseDateToHumanReadable,
-  convertSupabaseDateToShortHumanReadable,
-};
+export { convertSupabaseDateToHumanReadable, convertSupabaseDateToShortHumanReadable };

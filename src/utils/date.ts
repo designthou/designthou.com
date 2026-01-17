@@ -91,7 +91,7 @@ const greetingMap: Record<TimePeriod, string> = {
 	Morning: 'Good Morning ☀️',
 	Afternoon: 'Good Afternoon 🙂',
 	Evening: 'Good Evening 🌙',
-	'Late Night': 'Cheer up, Late Night',
+	'Late Night': 'Cheer up, Late Night ⭐️',
 };
 
 const getTimePeriodByTimezone = (timeZone: string, now: number = Date.now()): TimePeriod => {
