@@ -1,6 +1,6 @@
 import { createClient } from '../client';
-import { type LegacyUser } from '../schema';
-import { TABLES } from '../tables';
+import { TABLES } from '../tableMap';
+import { LegacyUser } from '../tableSchema';
 
 const getLegacyUserListByPage = async ({
 	pageParam,

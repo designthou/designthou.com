@@ -32,9 +32,9 @@ import {
 	TableRow,
 } from '@/components';
 import { convertSupabaseDateToShortHumanReadable } from '@/lib/supabase';
-import { LegacyUserSchema } from '@/types';
+import { LegacyUserViewSchema } from '@/types';
 
-export default function LegacyUserTable({ data }: { data: LegacyUserSchema[] }) {
+export default function LegacyUserTable({ data }: { data: LegacyUserViewSchema[] }) {
 	const [rowSelection, setRowSelection] = React.useState({});
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -44,7 +44,7 @@ export default function LegacyUserTable({ data }: { data: LegacyUserSchema[] }) 
 		pageSize: 20,
 	});
 
-	const columns: ColumnDef<LegacyUserSchema>[] = [
+	const columns: ColumnDef<LegacyUserViewSchema>[] = [
 		{
 			id: 'select',
 			header: ({ table }) => (

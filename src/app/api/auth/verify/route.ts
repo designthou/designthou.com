@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { TABLES } from '@/lib/supabase/tables';
+import { TABLES } from '@/lib/supabase/tableMap';
 
 export interface ApiResponse<T = unknown> {
 	ok: boolean;

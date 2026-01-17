@@ -1,40 +1,34 @@
-import { createClient } from "../client";
-import { Tip } from "../schema";
-import { TABLES } from "../tables";
+import { createClient } from '../client';
+import { Tip } from '../tableSchema';
+import { TABLES } from '../tableMap';
 
 const TIP_LIST_PAGE_SIZE = 9;
 
 const getTipListPageInfo = async () => {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from(TABLES.TIPS)
-    .select("*")
-    .explain({ format: "json", analyze: true });
+	const supabase = createClient();
+	const { data, error } = await supabase.from(TABLES.TIPS).select('*').explain({ format: 'json', analyze: true });
 
-  if (error) {
-    throw new Error(error.message);
-  }
+	if (error) {
+		throw new Error(error.message);
+	}
 
-  return data;
+	return data;
 };
 
-const getTipListByPage = async (
-  pageParam: number,
-  pageSize: number
-): Promise<Tip[]> => {
-  const supabase = createClient();
+const getTipListByPage = async (pageParam: number, pageSize: number): Promise<Tip[]> => {
+	const supabase = createClient();
 
-  const { data, error } = await supabase
-    .from(TABLES.TIPS)
-    .select("*")
-    .order("created_at", { ascending: false })
-    .range((pageParam - 1) * pageSize, pageParam * pageSize - 1);
+	const { data, error } = await supabase
+		.from(TABLES.TIPS)
+		.select('*')
+		.order('created_at', { ascending: false })
+		.range((pageParam - 1) * pageSize, pageParam * pageSize - 1);
 
-  if (error) {
-    throw new Error(error.message);
-  }
+	if (error) {
+		throw new Error(error.message);
+	}
 
-  return data;
+	return data;
 };
 
 export { TIP_LIST_PAGE_SIZE, getTipListPageInfo, getTipListByPage };

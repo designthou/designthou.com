@@ -32,9 +32,9 @@ import {
 	TableRow,
 } from '@/components';
 import { convertSupabaseDateToShortHumanReadable } from '@/lib/supabase';
-import { RegisteredUserSchema } from '@/types';
+import { RegisteredUserViewSchema } from '@/types';
 
-export default function RegisteredUserTable({ data }: { data: RegisteredUserSchema[] }) {
+export default function RegisteredUserTable({ data }: { data: RegisteredUserViewSchema[] }) {
 	const [rowSelection, setRowSelection] = React.useState({});
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -44,7 +44,7 @@ export default function RegisteredUserTable({ data }: { data: RegisteredUserSche
 		pageSize: 10,
 	});
 
-	const columns: ColumnDef<RegisteredUserSchema>[] = [
+	const columns: ColumnDef<RegisteredUserViewSchema>[] = [
 		{
 			id: 'select',
 			header: ({ table }) => (
