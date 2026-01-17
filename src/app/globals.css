@@ -244,6 +244,10 @@
 		@apply font-bold text-base text-center sm:text-2xl;
 	}
 
+	.sr-only {
+		@apply hidden;
+	}
+
 	.scrollbar-hide {
 		overflow: auto; /* 스크롤 가능 */
 

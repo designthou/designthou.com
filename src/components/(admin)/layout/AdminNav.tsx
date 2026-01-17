@@ -30,6 +30,7 @@ export default function Nav() {
 						className={`${isSideNavOpen ? 'bg-light' : 'bg-none'} rounded-full`}
 						onClick={toggle}>
 						{isSideNavOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+						<span className="sr-only">Toggle Menu</span>
 					</Button>
 				</div>
 			</nav>
