@@ -14,6 +14,7 @@ const route = {
 		COMPETITION: '/competition',
 		TIPS: '/tips',
 		REVIEWS: '/reviews',
+		QUESTION_BOARD: '/question-board',
 		ONLINE_COURSE: '/online-course',
 		SETTINGS: {
 			ROOT: '/settings',
