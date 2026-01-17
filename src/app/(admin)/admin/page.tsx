@@ -5,7 +5,7 @@ import { SiteConfig } from '@/app/config';
 import { AnimateLoaderWithText, GradientCircle, LogoutButton } from '@/components';
 import { convertSupabaseDateToShortHumanReadable } from '@/lib/supabase';
 import { useAuthStore } from '@/stores';
-import { todayStr } from '@/utils/date';
+import { getTimePeriodByTimezone, greetingMap, todayStr } from '@/utils/date';
 
 export default function AdminRootPage() {
 	const user = useAuthStore(({ user }) => user);
@@ -14,12 +14,17 @@ export default function AdminRootPage() {
 		return <AnimateLoaderWithText />;
 	}
 
+	const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
 	return (
-		<section className="p-4">
-			<div className="ui-flex-center mx-auto p-4 w-full h-20 bg-light text-center font-bold text-2xl rounded-lg md:w-fit md:min-w-120">
-				{todayStr}
+		<section className="flex flex-col gap-4 p-4">
+			<div className="ui-flex-center mx-auto p-4 w-full h-20 text-center font-bold text-2xl rounded-lg md:w-fit md:min-w-120">
+				{greetingMap[getTimePeriodByTimezone(timezone)]} , {user.user_metadata.nickname}
 			</div>
-			<div className="flex flex-col items-start gap-8 mt-4 w-full h-full">
+			<div className="ui-flex-center mx-auto p-4 w-full h-20 bg-light text-center font-bold text-2xl rounded-lg md:w-fit md:min-w-120">
+				{todayStr.slice(0, 4) + '-' + todayStr.slice(4, 6) + '-' + todayStr.slice(6)}
+			</div>
+			<div className="flex flex-col items-start gap-8 w-full h-full">
 				{user && (
 					<div className="flex flex-col gap-8 p-4 mx-auto w-full bg-light rounded-lg md:w-auto md:min-w-120">
 						<div className="relative flex items-center gap-4">
