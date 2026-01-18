@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 		url: SiteConfig.url,
 		images: [
 			{
-				url: `https://designthou.com/designthou.png`,
+				url: `${SiteConfig.url}/designthou.png`,
 				width: 1200,
 				height: 630,
 				type: 'image/png',
@@ -46,12 +46,12 @@ export const metadata: Metadata = {
 		card: 'summary_large_image',
 		title: SiteConfig.title.AUTH,
 		description: 'Designthou - Spatial Content Platform',
-		images: ['https://designthou.com/api/og?title=designthou&twitter=1'],
+		images: [`${SiteConfig.url}/designthou.png`],
 	},
 	icons: {
-		icon: '/apple-touch-icon.png',
-		shortcut: '/apple-touch-icon.png',
-		apple: '/apple-touch-icon.png',
+		icon: '/favicon/apple-touch-icon.png',
+		shortcut: '/favicon/apple-touch-icon.png',
+		apple: '/favicon/apple-touch-icon.png',
 	},
 	robots: {
 		index: true,
@@ -77,12 +77,12 @@ export default function RootLayout({
 	return (
 		<html lang="ko">
 			<head>
-				<link rel="icon" href="/favicon.ico" sizes="any" />
-				<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-				<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-				<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-				<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-				<link rel="manifest" href="/site.webmanifest" />
+				<link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+				<link rel="shortcut icon" type="image/x-icon" href="/favicon/favicon.ico" />
+				<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+				<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+				<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+				<link rel="manifest" href="/favicon/site.webmanifest" />
 				<meta name="apple-mobile-web-app-title" content="Designthou" />
 				<meta name="msapplication-TileColor" content="ffffff" />
 				<meta name="theme-color" content="#ffffff" />

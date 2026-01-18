@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import designthouSVG from '@/public/favicon.svg';
+import designthouSVG from '@/public/favicon/favicon.svg';
 import { route } from '@/constants';
 import { SiteConfig } from '../../../app/config';
 

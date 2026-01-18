@@ -5,7 +5,7 @@ import { useSelectedLayoutSegment } from 'next/navigation';
 import Image from 'next/image';
 import React from 'react';
 import { ArrowRightIcon, X } from 'lucide-react';
-import designthouSVG from '@/public/favicon.svg';
+import designthouSVG from '@/public/favicon/favicon.svg';
 import { Button, Menu, MotionBlock } from '@/components';
 import { route } from '@/constants';
 import { cn } from '@/lib/utils';
