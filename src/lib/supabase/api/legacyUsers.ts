@@ -1,5 +1,5 @@
 import { createClient } from '../client';
-import { TABLES } from '../tableMap';
+import { TABLE } from '../tableMap';
 import { LegacyUser } from '../tableSchema';
 
 const getLegacyUserListByPage = async ({
@@ -13,7 +13,7 @@ const getLegacyUserListByPage = async ({
 	const supabase = createClient();
 
 	const { data, error } = await supabase
-		.from(TABLES.LEGACY_USERS)
+		.from(TABLE.LEGACY_USERS)
 		.select('*')
 		.order('created_at', { ascending: false })
 		.range((pageParam - 1) * pageSize, pageParam * pageSize - 1);

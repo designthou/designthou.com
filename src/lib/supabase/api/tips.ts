@@ -1,12 +1,12 @@
 import { createClient } from '../client';
 import { Tip } from '../tableSchema';
-import { TABLES } from '../tableMap';
+import { TABLE } from '../tableMap';
 
 const TIP_LIST_PAGE_SIZE = 9;
 
 const getTipListPageInfo = async () => {
 	const supabase = createClient();
-	const { data, error } = await supabase.from(TABLES.TIPS).select('*').explain({ format: 'json', analyze: true });
+	const { data, error } = await supabase.from(TABLE.TIPS).select('*').explain({ format: 'json', analyze: true });
 
 	if (error) {
 		throw new Error(error.message);
@@ -19,7 +19,7 @@ const getTipListByPage = async (pageParam: number, pageSize: number): Promise<Ti
 	const supabase = createClient();
 
 	const { data, error } = await supabase
-		.from(TABLES.TIPS)
+		.from(TABLE.TIPS)
 		.select('*')
 		.order('created_at', { ascending: false })
 		.range((pageParam - 1) * pageSize, pageParam * pageSize - 1);

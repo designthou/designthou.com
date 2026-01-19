@@ -2,14 +2,14 @@ import sanitizeHtmlServer from '@/utils/sanitizeHtml';
 import { createClient } from '../client';
 import { type Review } from '../tableSchema';
 import { v4 as uuid } from 'uuid';
-import { TABLES } from '../tableMap';
+import { TABLE } from '../tableMap';
 import { STORAGE_BUCKETS } from '../storageBuckets';
 
 const REVIEW_LIST_PAGE_SIZE = 20;
 
 const getReviewListPageInfo = async () => {
 	const supabase = createClient();
-	const { data, error } = await supabase.from(TABLES.ONLINE_COURSE_REVIEWS).select('*').explain({ format: 'json', analyze: true });
+	const { data, error } = await supabase.from(TABLE.ONLINE_COURSE_REVIEWS).select('*').explain({ format: 'json', analyze: true });
 
 	if (error) {
 		throw new Error(error.message);
@@ -20,7 +20,7 @@ const getReviewListPageInfo = async () => {
 
 const getReviewsTotalCount = async () => {
 	const supabase = createClient();
-	const { data, error } = await supabase.from(TABLES.ONLINE_COURSE_REVIEWS).select('*');
+	const { data, error } = await supabase.from(TABLE.ONLINE_COURSE_REVIEWS).select('*');
 
 	if (error) {
 		throw new Error(error.message);
@@ -32,7 +32,7 @@ const getReviewsTotalCount = async () => {
 const getPortfolioReviewList = async () => {
 	const supabase = createClient();
 	const { data, error } = await supabase
-		.from(TABLES.ONLINE_COURSE_REVIEWS)
+		.from(TABLE.ONLINE_COURSE_REVIEWS)
 		.select('*')
 		.order('created_at', { ascending: false })
 		.eq('category', 'portfolio')
@@ -52,7 +52,7 @@ const getReviewListByPage = async (pageParam: number, pageSize: number, category
 	const supabase = createClient();
 
 	const { data, error } = await supabase
-		.from(TABLES.ONLINE_COURSE_REVIEWS)
+		.from(TABLE.ONLINE_COURSE_REVIEWS)
 		.select('*')
 		.eq('category', category)
 		.order('view_count', { ascending: false })
@@ -68,7 +68,7 @@ const getReviewListByPage = async (pageParam: number, pageSize: number, category
 
 const getNoticeReview = async () => {
 	const supabase = createClient();
-	const { data, error } = await supabase.from(TABLES.ONLINE_COURSE_REVIEWS).select().eq('notice', true).single();
+	const { data, error } = await supabase.from(TABLE.ONLINE_COURSE_REVIEWS).select().eq('notice', true).single();
 
 	if (error) {
 		throw new Error(error.message);
@@ -101,7 +101,7 @@ const uploadImageInTextEditor = async ({ imageFile }: { imageFile: File }) => {
 const addReview = async ({ data }: { data: Review }) => {
 	const supabase = createClient();
 
-	const { error: addReviewError } = await supabase.from(TABLES.ONLINE_COURSE_REVIEWS).insert(data).select();
+	const { error: addReviewError } = await supabase.from(TABLE.ONLINE_COURSE_REVIEWS).insert(data).select();
 
 	if (addReviewError) {
 		throw { error: addReviewError, message: 'Error to add review happens' };

@@ -1,14 +1,14 @@
 import React from 'react';
 import { TableWithTriggers } from '@/components';
 import { createClient } from '@/lib/supabase/server';
-import { TABLES } from '@/lib/supabase';
+import { TABLE } from '@/lib/supabase';
 
 export default async function UserListPage() {
 	const supabase = await createClient();
 
 	const [{ data: registeredUsers, error: registeredError }, { data: legacyUsers, error: legacyError }] = await Promise.all([
-		supabase.from(TABLES.USERS).select('*'),
-		supabase.from(TABLES.LEGACY_USERS).select('*'),
+		supabase.from(TABLE.USERS).select('*'),
+		supabase.from(TABLE.LEGACY_USERS).select('*'),
 	]);
 
 	if (registeredError) {

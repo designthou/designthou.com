@@ -1,4 +1,4 @@
-export const TABLES = {
+export const TABLE = {
 	NEWS: 'news',
 	ONLINE_COURSE_REVIEWS: 'online_course_reviews',
 	TIPS: 'youtube_tips',
