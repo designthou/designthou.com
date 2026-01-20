@@ -26,8 +26,8 @@ export default async function HomePage() {
 				플랫폼 내부 시스템 정비 후, 2026년 1월 중으로 재오픈 예정입니다.
 			</p>
 			<div>
-				<h2 className="mb-3 font-bold">재정비 진도율 - {65}%</h2>
-				<Progress value={65} className="w-full" />
+				<h2 className="mb-3 font-bold">재정비 진도율 - {70}%</h2>
+				<Progress value={70} className="w-full" />
 			</div>
 
 			<div>
