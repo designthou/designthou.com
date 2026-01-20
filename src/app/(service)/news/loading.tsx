@@ -1,5 +1,5 @@
-import { LayoutLoader } from "@/components";
+import { LayoutContainerLoader } from '@/components';
 
 export default function NewsLoading() {
-  return <LayoutLoader />;
+	return <LayoutContainerLoader />;
 }

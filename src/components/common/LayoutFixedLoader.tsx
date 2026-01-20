@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { Loader } from 'lucide-react';
 import React from 'react';
 
-export default function LayoutLoader({
+export default function LayoutFixedLoader({
 	className,
 	icon = <Loader className="animate-spin" size={18} />,
 }: {
