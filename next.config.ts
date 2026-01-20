@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
 				hostname: process.env.NEXT_PUBLIC_SUPABASE_HOSTNAME!,
 				pathname: '/storage/v1/object/public/**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'images.unsplash.com',
+				pathname: '/**',
+			},
 		],
 	},
 };
