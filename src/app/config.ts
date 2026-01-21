@@ -11,6 +11,7 @@ export const SiteConfig = {
 		COMPETITION: 'Competition | Designthou',
 		OPEN_SOURCE: 'Open Source | Designthou',
 		ONLINE_COURSE: 'Online Course | Designthou',
+		PRODUCTS: 'Online Course | Products | Designthou',
 		REVIEWS: 'Reviews | Designthou',
 		QUESTION_BOARD: 'Question Board | Designthou',
 		TIPS: 'Youtube Tips',
@@ -33,6 +34,7 @@ export const SiteConfig = {
 		COMPETITION: "Spatial Open Content Platform | This is Designthou's Competition Page",
 		OPEN_SOURCE: "Spatial Open Content Platform | This is Designthou's Open Source Page",
 		ONLINE_COURSE: "Spatial Open Content Platform | This is Designthou's Online Course Page",
+		PRODUCTS: "Spatial Open Content Platform | This is Designthou's Products` Page",
 		REVIEWS: "Spatial Open Content Platform | This is Designthou's Live Reviews Page",
 		QUESTION_BOARD: "Spatial Open Content Platform | This is Designthou's Question Board Page",
 		TIPS: "Spatial Open Content Platform | This is Designthou's Youtube Tips Page",
@@ -47,4 +49,8 @@ export const SiteConfig = {
 		FORGOT_PASSWORD: 'Spatial Open Content Platform | This is Designthou’s Forgot Password Page',
 	},
 	copyright: '© Designthou. ALL RIGHTS RESERVED',
+	author: {
+		name: 'Designthou',
+		url: 'https://designthou.com',
+	},
 };
