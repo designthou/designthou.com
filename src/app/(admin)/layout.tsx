@@ -21,7 +21,6 @@ export const metadata: Metadata = {
 		apple: '/admin/apple-touch-icon.png',
 	},
 	manifest: '/admin/site.webmanifest',
-	themeColor: '#ffffff',
 	appleWebApp: {
 		title: 'Designthou Admin',
 	},
