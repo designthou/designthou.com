@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from 'next/link';
 import Image, { type ImageProps } from 'next/image';
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
