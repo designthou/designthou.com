@@ -6,6 +6,7 @@ export { default as GradientIndicator } from './GradientIndicator';
 export { default as KakaoOpenChat } from './KakaoOpenChat';
 export { default as LayoutContainerLoader } from './LayoutContainerLoader';
 export { default as LayoutFixedLoader } from './LayoutFixedLoader';
+export * from './mdx';
 export { default as LinkifyButton } from './LinkifyButton';
 export { default as Menu } from './Menu';
 export { default as MotionBlock } from './MotionBlock';

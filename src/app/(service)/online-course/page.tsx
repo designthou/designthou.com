@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 import { Sparkle, Star } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import autocadThumb from '@/public/online-course/placeholder/autocad/thumbnail-1.png';
 import sketchupThumb from '@/public/online-course/placeholder/sketchup/thumbnail-1.png';
 import rhinoThumb from '@/public/online-course/placeholder/rhino/thumbnail-1.png';
 import { AspectRatio, Badge, Button, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Wip } from '@/components';
 import { SiteConfig } from '@/app/config';
-import Link from 'next/link';
 import { route } from '@/constants';
 import { monetizeWithSeparator } from '@/utils/currency';
 

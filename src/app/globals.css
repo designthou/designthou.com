@@ -84,6 +84,47 @@
 	--global-layout-padding: 12px;
 	--service-nav-height: 36px;
 	--windowOS-scrollbar-width: 6px;
+
+	/* keywords: let, const, return */
+	--sh-keyword: oklch(68.75% 0.17933 298.303);
+
+	/* strings: "text" */
+	--sh-string: oklch(0.78 0.16 85);
+
+	/* numbers: 123 */
+	--sh-number: oklch(0.72 0.14 35);
+
+	/* functions: foo() */
+	--sh-function: oklch(0.72 0.14 210);
+
+	/* class names: class Foo */
+	--sh-class: oklch(57.604% 0.22474 264.179);
+
+	/* comments: // comment */
+	--sh-comment: oklch(0.55 0.02 260);
+
+	/* operators: = => */
+	--sh-operator: oklch(0.78 0.02 260);
+
+	/* properties: obj.key */
+	--sh-property: oklch(0.78 0.02 260);
+
+	/* punctuation: {}, () */
+	--sh-punctuation: oklch(0.78 0.02 260);
+
+	/* types: string, React.FC */
+	--sh-type: oklch(0.74 0.12 300);
+
+	/* variables */
+	--sh-variable: oklch(0.78 0.02 260);
+
+	--sh-sign: oklch(37.353% 0.09219 152.328);
+
+	--sh-identifier: oklch(17.263% 0.07079 260.108);
+	--sh-background-soft: oklch(0.2 0.02 260);
+	--sh-selection: oklch(0.28 0.06 260);
+	--sh-entity: oklch(77.305% 0.15503 88.174);
+	--sh-jsxliterals: oklch(0.2 0.02 260);
 }
 
 .dark {
@@ -143,6 +184,7 @@
 			sans-serif;
 		word-break: keep-all;
 		-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+		outline-color: var(--ring);
 	}
 
 	html {
@@ -477,13 +519,151 @@
 			}
 		}
 	}
-}
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
+	.prose {
+		color: var(--primary);
 	}
-  body {
-    @apply bg-background text-foreground;
+
+	.prose a {
+		@apply mr-1 transition-all decoration-neutral-400 underline-offset-2 decoration-[0.1em];
+	}
+
+	.prose .anchor:after {
+		@apply text-neutral-300;
+	}
+
+	.prose *:hover > .anchor {
+		@apply visible;
+	}
+
+	.prose pre code {
+		@apply p-0 font-semibold font-mono;
+		border: initial;
+		line-height: 1.5;
+	}
+
+	.prose code span {
+		@apply font-medium;
+	}
+
+	.prose pre {
+		@apply bg-gray-100 rounded-lg border border-gray-200 py-2 px-3 text-sm overflow-x-auto;
+	}
+
+	.prose code {
+		@apply px-0.5 py-0.5 rounded-lg font-semibold;
+	}
+
+	.prose code .sh__line > .sh__token--identifier {
+		@apply font-medium;
+	}
+
+	.prose img {
+		/* Don't apply styles to next/image */
+		@apply m-0;
+	}
+
+	.prose p {
+		@apply my-4 text-black dark:text-neutral-200;
+	}
+
+	.prose h1 {
+		@apply text-2xl font-bold tracking-tight mt-6 mb-2;
+	}
+
+	.prose h2 {
+		@apply text-xl font-semibold tracking-tight mt-20 mb-2;
+	}
+
+	.prose h3 {
+		@apply text-lg font-semibold tracking-tight mt-8 mb-2;
+	}
+
+	.prose h4 {
+		@apply text-base font-medium tracking-tight mt-6 mb-2;
+	}
+
+	.prose strong {
+		@apply font-semibold;
+	}
+
+	.prose ul {
+		@apply list-disc pl-6;
+
+		li {
+			@apply list-disc;
+		}
+	}
+
+	.prose ol {
+		@apply list-disc pl-6;
+
+		li {
+			@apply list-decimal;
+		}
+	}
+
+	.prose ul > li,
+	.prose ol > li {
+		margin-top: 4px;
+	}
+
+	.prose > :first-child {
+		/* Override removing top margin, causing layout shift */
+		margin-top: 1.25em !important;
+		margin-bottom: 1.25em !important;
+	}
+
+	.prose p {
+		color: #000;
+	}
+
+	.prose > blockquote {
+		margin-top: 32px;
+		margin-bottom: 32px;
+		margin-left: 6px;
+		padding: 6px 24px;
+		border-left: 3px solid #000;
+		color: #000;
+		@apply bg-neutral-50;
+	}
+
+	ins {
+		padding: 4px 8px;
+		color: var(--color-white);
+		background-color: var(--color-blue-400);
+		border-radius: 8px;
+		transition: background 0.15s ease-in-out;
+	}
+
+	ins:hover {
+		background-color: var(--color-blue-300);
+	}
+
+	a {
+		-webkit-touch-callout: none;
+	}
+
+	/* Remove Safari input shadow on mobile */
+	input[type='text'],
+	input[type='email'] {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+	}
+
+	table {
+		display: block;
+		max-width: fit-content;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+
+	dd {
+		margin-bottom: 8px;
+	}
+
+	.title {
+		text-wrap: balance;
 	}
 }
