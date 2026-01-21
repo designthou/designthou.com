@@ -10,28 +10,41 @@ export async function middleware(request: NextRequest) {
 	const isPublicRoutes = [route.AUTH.RESET_PASSWORD, route.AUTH.SIGNUP_CONFIRM].some(path => pathname.startsWith(path));
 
 	if (isPublicRoutes) {
-		return NextResponse.next();
+		return supabaseResponse;
 	}
 
 	const isProtectedRoutes = pathname.startsWith(route.ADMIN.ROOT);
 
 	const isAuthRedirectRoutes = [route.AUTH.LOGIN, route.AUTH.SIGNUP].some(path => pathname.startsWith(path));
 
+	const role = user?.user_metadata?.role;
+	const isAdmin = role === 'admin';
+
 	if (user && isAuthRedirectRoutes) {
-		return NextResponse.redirect(new URL(route.ADMIN.ROOT, request.url), {
+		const destination = isAdmin ? route.ADMIN.ROOT : route.SERVICE.ROOT;
+
+		return NextResponse.redirect(new URL(destination, request.url), {
 			headers: supabaseResponse.headers,
 		});
 	}
 
-	if (!user && isProtectedRoutes) {
-		const redirectUrl = new URL(route.AUTH.LOGIN, request.url);
+	if (isProtectedRoutes) {
+		// 1) 비로그인 -> 로그인으로
+		if (!user) {
+			return NextResponse.redirect(new URL(route.AUTH.LOGIN, request.url), {
+				headers: supabaseResponse.headers,
+			});
+		}
 
-		// add Set-Cookie option when update sessions
-		// 1. Pass response header made by supabase
-		// 2. Pass updated cookie
-		return NextResponse.redirect(redirectUrl, {
-			headers: supabaseResponse.headers,
-		});
+		// 2) 로그인했지만 admin 아님 -> 접근 거부 페이지/홈으로
+		if (!isAdmin) {
+			return NextResponse.redirect(new URL(route.SERVICE.ROOT, request.url), {
+				headers: supabaseResponse.headers,
+			});
+		}
+
+		// 3) admin이면 통과
+		return supabaseResponse;
 	}
 
 	return supabaseResponse;
