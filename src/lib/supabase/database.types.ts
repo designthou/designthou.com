@@ -3,7 +3,7 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export interface Database {
 	public: {
 		Tables: {
-			users: {
+			profiles: {
 				Row: {
 					// the data expected from .select()
 					id: string;

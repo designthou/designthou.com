@@ -7,7 +7,7 @@ export default async function UserListPage() {
 	const supabase = await createClient();
 
 	const [{ data: registeredUsers, error: registeredError }, { data: legacyUsers, error: legacyError }] = await Promise.all([
-		supabase.from(TABLE.USERS).select('*'),
+		supabase.from(TABLE.PROFILES).select('*'),
 		supabase.from(TABLE.LEGACY_USERS).select('*'),
 	]);
 

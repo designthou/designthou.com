@@ -7,7 +7,7 @@ type ServiceDataType<T = TableRowData, D = Record<string, never>> = (T & D) | Pa
 
 type Tables = Database['public']['Tables'];
 
-type User = Tables['users']['Row'];
+type User = Tables['profiles']['Row'];
 type News = Tables['news']['Row'];
 type Review = Tables['online_course_reviews']['Row'];
 type Tip = Tables['youtube_tips']['Row'];
