@@ -2,30 +2,41 @@
 
 import fs from 'fs';
 import path from 'path';
+import matter from 'gray-matter';
 
 type Metadata = {
 	title: string;
 	publishedAt: string;
 	summary: string;
-	image?: string;
+	image: string;
+	tags?: string[];
+	published?: boolean;
+	category?: string;
+	template?: string;
 };
 
 function parseFrontmatter(fileContent: string) {
-	const frontmatterRegex = /---\s*([\s\S]*?)\s*---/;
-	const match = frontmatterRegex.exec(fileContent);
-	const frontMatterBlock = match![1];
-	const content = fileContent.replace(frontmatterRegex, '').trim();
-	const frontMatterLines = frontMatterBlock.trim().split('\n');
-	const metadata: Partial<Metadata> = {};
+	const { data, content } = matter(fileContent);
 
-	frontMatterLines.forEach(line => {
-		const [key, ...valueArr] = line.split(': ');
-		let value = valueArr.join(': ').trim();
-		value = value.replace(/^['"](.*)['"]$/, '$1'); // Remove quotes
-		metadata[key.trim() as keyof Metadata] = value;
-	});
+	const metadata: Metadata = {
+		title: data.title ?? '',
+		publishedAt: data.publishedAt ?? '',
+		summary: data.summary ?? '',
+		image: data.image ?? 'https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80',
+		category: data.category,
+		template: data.template,
+		published: typeof data.published === 'boolean' ? data.published : data.published === 'true',
+		tags: Array.isArray(data.tags)
+			? data.tags.map(String)
+			: typeof data.tags === 'string' && data.tags.length
+				? data.tags
+						.split(',')
+						.map(s => s.trim())
+						.filter(Boolean)
+				: [],
+	};
 
-	return { metadata: metadata as Metadata, content };
+	return { metadata, content: content.trim() };
 }
 
 function getMDXFiles(dir: fs.PathLike) {
@@ -41,6 +52,7 @@ function getMDXData(dir: fs.PathLike) {
 	const mdxFiles = getMDXFiles(dir);
 	return mdxFiles.map(file => {
 		const { metadata, content } = readMDXFile(path.join(dir as string, file));
+		console.log(metadata);
 		const slug = path.basename(file, path.extname(file));
 
 		return {

@@ -93,8 +93,8 @@ export default function ServiceOnlineCoursePage() {
 									src={image}
 									alt={`${title} thumbnail`}
 									fill
+									sizes="(max-width: 360px) 300px, (max-width: 640px) 600px, (max-width: 1024px) 1000px, 2000px"
 									placeholder="blur"
-									sizes=""
 									className="w-full h-full object-cover rounded-md"
 								/>
 							</AspectRatio>
@@ -124,6 +124,7 @@ export default function ServiceOnlineCoursePage() {
 								src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
 								alt="Photo by Drew Beamer"
 								fill
+								sizes="(max-width: 360px) 300px, (max-width: 640px) 600px, (max-width: 1024px) 1000px, 2000px"
 								className="w-full h-full rounded-lg object-cover dark:brightness-[0.2] grayscale"
 							/>
 						</AspectRatio>
