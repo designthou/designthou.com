@@ -247,11 +247,11 @@
 	}
 
 	::-moz-selection {
-		@apply bg-gray-300 text-gray-700;
+		@apply bg-gray-200 text-gray-700;
 	}
 
 	::selection {
-		@apply bg-gray-300 text-gray-700;
+		@apply bg-gray-200 text-gray-700;
 	}
 
 	.bg-light {
@@ -328,7 +328,7 @@
 	}
 
 	.bg-gradient-orange-50 {
-		@apply bg-radial-[at_40%_60%] from-orange-100 via-red-300 to-orange-100;
+		@apply bg-radial-[at_10%_90%] from-orange-100 via-red-300 to-orange-100;
 	}
 
 	.bg-gradient-orange-100 {
@@ -657,10 +657,6 @@
 		max-width: fit-content;
 		overflow-x: auto;
 		white-space: nowrap;
-	}
-
-	dd {
-		margin-bottom: 8px;
 	}
 
 	.title {

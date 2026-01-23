@@ -15,6 +15,7 @@ const route = {
 		TIPS: '/tips',
 		REVIEWS: '/reviews',
 		QUESTION_BOARD: '/question-board',
+		PRODUCTS: '/products',
 		ONLINE_COURSE: '/online-course',
 		SETTINGS: {
 			ROOT: '/settings',

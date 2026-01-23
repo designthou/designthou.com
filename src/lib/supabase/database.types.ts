@@ -179,6 +179,12 @@ export interface Database {
 					id: never;
 				};
 			};
+			review_count_by_product: {
+				Row: {
+					product_id: string;
+					review_count: number;
+				};
+			};
 		};
 	};
 }

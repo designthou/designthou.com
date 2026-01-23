@@ -1,8 +1,14 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { CustomMDX } from '@/components/common/';
+import Image from 'next/image';
 import { formatDate, getProductList } from '@/app//(service)/products/utils';
 import { SiteConfig } from '@/app/config';
+import { Badge, CustomMDX } from '@/components/';
+import { BLUR_DATA_URL } from '@/constants';
+import { createClient } from '@/lib/supabase/server';
+import { TABLE } from '@/lib/supabase';
+import { mapReviewCountByProductView } from '@/types';
+import { Star } from 'lucide-react';
 
 type PageProps = {
 	params: Promise<{
@@ -57,8 +63,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ProductPage({ params }: PageProps) {
 	const { slug } = await params;
 	const productList = await getProductList();
+	const supabase = await createClient();
 
 	const product = productList?.find(product => product.slug === decodeURIComponent(slug));
+
+	const { data: reviewCountByProduct } = await supabase
+		.from('review_count_by_product')
+		.select('review_count')
+		.eq('product_id', product?.metadata.productId)
+		.single();
 
 	if (!product) {
 		notFound();
@@ -88,9 +101,36 @@ export default async function ProductPage({ params }: PageProps) {
 					}),
 				}}
 			/>
-			<h1 className="title font-bold text-3xl tracking-tighter">{product.metadata.title}</h1>
-			<div className="flex justify-between items-center mt-2 mb-8 text-sm">
-				<p className="text-sm text-neutral-600 dark:text-neutral-400">{formatDate(product.metadata.publishedAt)}</p>
+			<div className="grid grid-cols-3 gap-4 max-h-[400px]">
+				<div className="ui-flex-center col-span-1">
+					<Image
+						src={product.metadata.image}
+						alt={product.metadata.title}
+						className="w-full h-full object-cover rounded-xl"
+						width={360}
+						height={360}
+						placeholder="blur"
+						blurDataURL={BLUR_DATA_URL}
+					/>
+				</div>
+
+				<div className="col-span-2 flex flex-col gap-4 py-8 px-8 w-full bg-light rounded-xl">
+					<h2 className="title font-bold text-3xl tracking-tighter">{product.metadata.title}</h2>
+					<span className="px-3 py-1 w-fit bg-gradient-orange-100 text-sm font-bold text-white rounded-full">{SiteConfig.author.name}</span>
+					<div className="flex items-center gap-4 text-sm">
+						<span>등록일</span>
+						<p className="text-sm text-neutral-600 dark:text-neutral-400">{formatDate(product.metadata.publishedAt)}</p>
+					</div>
+					<div className="flex items-center gap-2">
+						<Badge variant="secondary" className="text-muted-foreground">
+							<Star className="text-yellow-400" fill="oklch(85.2% 0.199 91.936)" />
+							<span className="inline-flex items-center gap-1">
+								{(5.0).toFixed(1)}
+								<span className="text-gray-700">({reviewCountByProduct?.review_count ?? 4})</span>
+							</span>
+						</Badge>
+					</div>
+				</div>
 			</div>
 			<article className="prose mb-16">
 				<CustomMDX source={product.content} />

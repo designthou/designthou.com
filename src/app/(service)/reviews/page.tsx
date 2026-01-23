@@ -1,19 +1,8 @@
 import { Metadata } from 'next';
-import dynamic from 'next/dynamic';
 import React from 'react';
 import { SiteConfig } from '@/app/config';
-import { Tabs, TabsContent, TabsList, TabsTrigger, Skeleton, AddReviewContext } from '@/components';
+import { Tabs, TabsContent, TabsList, TabsTrigger, Skeleton, AddReviewContext, ReviewList } from '@/components';
 import { reviewsCategoryList as tabsTrigger } from '@/constants';
-
-const ReviewList = dynamic(() => import('@/components/(service)/reviews/ReviewList'), {
-	loading: () => (
-		<div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-			{Array.from({ length: 10 }, (_, idx) => (
-				<Skeleton key={idx} className="h-120 w-full" />
-			))}
-		</div>
-	),
-});
 
 export const metadata: Metadata = {
 	title: SiteConfig.title.REVIEWS,
@@ -48,7 +37,7 @@ export default async function ReviewListPage() {
 				</TabsList>
 				<React.Suspense
 					fallback={
-						<div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+						<div className="grid grid-cols-1 gap-3 w-full sm:grid-cols-2 lg:grid-cols-3">
 							{Array.from({ length: 10 }, (_, idx) => (
 								<Skeleton key={idx} className="h-120 w-full" />
 							))}

@@ -9,10 +9,18 @@ type Metadata = {
 	publishedAt: string;
 	summary: string;
 	image: string;
+	productId: 'rhino-all-in-one' | 'sketchup-all-in-one' | 'autocad' | 'portfolio' | string;
 	tags?: string[];
 	published?: boolean;
 	category?: string;
 	template?: string;
+};
+
+export type MDXData = {
+	metadata: Metadata;
+	slug: string;
+	content: string;
+	reviewCount: number | undefined;
 };
 
 function parseFrontmatter(fileContent: string) {
@@ -23,6 +31,7 @@ function parseFrontmatter(fileContent: string) {
 		publishedAt: data.publishedAt ?? '',
 		summary: data.summary ?? '',
 		image: data.image ?? 'https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80',
+		productId: data.productId,
 		category: data.category,
 		template: data.template,
 		published: typeof data.published === 'boolean' ? data.published : data.published === 'true',
@@ -48,11 +57,15 @@ function readMDXFile(filePath: fs.PathOrFileDescriptor) {
 	return parseFrontmatter(rawContent);
 }
 
-function getMDXData(dir: fs.PathLike) {
+function getMDXData(dir: fs.PathLike): {
+	metadata: Metadata;
+	slug: string;
+	content: string;
+}[] {
 	const mdxFiles = getMDXFiles(dir);
 	return mdxFiles.map(file => {
 		const { metadata, content } = readMDXFile(path.join(dir as string, file));
-		console.log(metadata);
+
 		const slug = path.basename(file, path.extname(file));
 
 		return {
@@ -90,7 +103,7 @@ export async function formatDate(date: string, includeRelative = false) {
 		formattedDate = 'Today';
 	}
 
-	const fullDate = targetDate.toLocaleString('en-us', {
+	const fullDate = targetDate.toLocaleString('ko-kr', {
 		month: 'short',
 		day: 'numeric',
 		year: 'numeric',

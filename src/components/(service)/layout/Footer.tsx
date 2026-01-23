@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import designthouSVG from '@/public/favicon/favicon.svg';
+import { SiteConfig } from '@/app/config';
 import { route } from '@/constants';
-import { SiteConfig } from '../../../app/config';
 
 export default async function Footer() {
 	return (
@@ -63,7 +63,7 @@ export default async function Footer() {
 								<Link href={route.SERVICE.NEWS}>Architectural News</Link>
 								<Link href={route.SERVICE.COMPETITION}>Competition</Link>
 								<Link href={route.SERVICE.FREE_SOURCE}>Open Source</Link>
-								<Link href={route.SERVICE.ONLINE_COURSE}>Online Course</Link>
+								<Link href={route.SERVICE.PRODUCTS}>Product (Online-Course)</Link>
 								<Link href={route.SERVICE.TIPS}>Youtube Tips</Link>
 								<Link href={route.SERVICE.REVIEWS}>Reviews</Link>
 								<Link href={route.SERVICE.QUESTION_BOARD}>Question Board</Link>

@@ -11,7 +11,7 @@ export const SiteConfig = {
 		COMPETITION: 'Competition | Designthou',
 		OPEN_SOURCE: 'Open Source | Designthou',
 		ONLINE_COURSE: 'Online Course | Designthou',
-		PRODUCTS: 'Online Course | Products | Designthou',
+		PRODUCTS: 'Products | Designthou',
 		REVIEWS: 'Reviews | Designthou',
 		QUESTION_BOARD: 'Question Board | Designthou',
 		TIPS: 'Youtube Tips',

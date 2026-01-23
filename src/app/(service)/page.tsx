@@ -26,8 +26,8 @@ export default async function HomePage() {
 				플랫폼 내부 시스템 정비 후, 2026년 1월 중으로 재오픈 예정입니다.
 			</p>
 			<div>
-				<h2 className="mb-3 font-bold">재정비 진도율 - {70}%</h2>
-				<Progress value={70} className="w-full" />
+				<h2 className="mb-3 font-bold">재정비 진도율 - {75}%</h2>
+				<Progress value={75} className="w-full" />
 			</div>
 
 			<div>
@@ -43,10 +43,13 @@ export default async function HomePage() {
 							</div>
 						</AccordionTrigger>
 						<AccordionContent className="flex flex-col gap-4 text-balance">
-							<p>기존에 제공하던 건축 관련 뉴스, 공모전, 일러스트/캐드 소스, 다양한 팁 영상 등의 컨텐츠를 순차적으로 제공할 예정입니다.</p>
 							<p>
-								예정되어 있던 2025년중으로 작업이 마무리 될 예정이었으나, 결제 시스템 등의 정비를 위해 <strong>2026년 1월 중</strong>으로
-								완료될 예정입니다.
+								기존에 제공하던 건축 관련 뉴스, 다양한 팁 영상, 온라인 강의, 공모전, 일러스트/캐드 소스 등의 컨텐츠를 순차적으로 제공할
+								예정입니다.
+							</p>
+							<p>
+								예정되어 있던 2025년중으로 작업이 마무리 될 예정이었으나, DB, 결제 시스템 등의 정비를 위해 <strong>2026년 1월 중</strong>
+								으로 완료될 예정입니다.
 							</p>
 						</AccordionContent>
 					</AccordionItem>
@@ -59,7 +62,7 @@ export default async function HomePage() {
 						</AccordionTrigger>
 						<AccordionContent className="flex flex-col gap-4 text-balance">
 							<p className="font-medium">
-								기존 수강 등록해주신 분들을 대상으로 <b>간단한 검증(이름, 이메일 대조)</b>으로 이어서 수강가능하도록 조치할 예정입니다.
+								기존 수강 등록해주신 분들을 대상으로 <b>간단한 검증(닉네임, 이메일 대조)</b>으로 이어서 수강가능하도록 조치할 예정입니다.
 							</p>
 						</AccordionContent>
 					</AccordionItem>

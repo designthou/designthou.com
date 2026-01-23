@@ -4,6 +4,7 @@ import Image, { type ImageProps } from 'next/image';
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import { highlight } from 'sugar-high';
 import React, { type ReactNode } from 'react';
+import { Wip } from '@/components';
 
 /* -------------------- Types -------------------- */
 
@@ -175,6 +176,7 @@ const baseComponents = {
 	code: Code,
 	pre: ({ children }: { children: React.ReactNode }) => children,
 	Table,
+	Wip: ({ message }: { message: string }) => <Wip message={message} className="border border-muted bg-light" />,
 };
 
 /* -------------------- CustomMDX -------------------- */

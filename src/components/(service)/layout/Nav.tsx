@@ -24,6 +24,10 @@ const navigations = [
 		title: 'Reviews',
 		to: route.SERVICE.REVIEWS,
 	},
+	{
+		title: 'Products',
+		to: route.SERVICE.PRODUCTS,
+	},
 ] as const;
 
 export default function Nav() {

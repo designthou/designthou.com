@@ -12,5 +12,6 @@ type News = Tables['news']['Row'];
 type Review = Tables['online_course_reviews']['Row'];
 type Tip = Tables['youtube_tips']['Row'];
 type LegacyUser = Tables['legacy_users']['Row'];
+type ReviewCountByProduct = Tables['review_count_by_product']['Row'];
 
-export type { TableRowData, ServiceDataType, User, News, Review, Tip, LegacyUser };
+export type { TableRowData, ServiceDataType, User, News, Review, Tip, LegacyUser, ReviewCountByProduct };

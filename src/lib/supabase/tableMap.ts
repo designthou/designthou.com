@@ -4,4 +4,7 @@ export const TABLE = {
 	TIPS: 'youtube_tips',
 	PROFILES: 'profiles',
 	LEGACY_USERS: 'legacy_users',
+	VIEW: {
+		REVIEW_COUNT_BY_PRODUCT: 'review_count_by_product',
+	},
 } as const;
