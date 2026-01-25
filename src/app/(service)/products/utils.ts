@@ -9,6 +9,7 @@ type Metadata = {
 	publishedAt: string;
 	summary: string;
 	image: string;
+	blurDataURL: string;
 	productId: 'rhino-all-in-one' | 'sketchup-all-in-one' | 'autocad' | 'portfolio' | string;
 	tags?: string[];
 	published?: boolean;
@@ -20,7 +21,6 @@ export type MDXData = {
 	metadata: Metadata;
 	slug: string;
 	content: string;
-	reviewCount: number | undefined;
 };
 
 function parseFrontmatter(fileContent: string) {
@@ -31,6 +31,7 @@ function parseFrontmatter(fileContent: string) {
 		publishedAt: data.publishedAt ?? '',
 		summary: data.summary ?? '',
 		image: data.image ?? 'https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80',
+		blurDataURL: data.blurDataURL,
 		productId: data.productId,
 		category: data.category,
 		template: data.template,

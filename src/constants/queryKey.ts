@@ -10,6 +10,7 @@ const queryKey = {
 		REVIEW_TOTAL_COUNT: ['reviews', 'totalCount'],
 		REVIEW_LIST_PAGE_INFO: ['service', 'reviews', 'pageInfo'],
 		REVIEW_LIST_BY_PAGE: ['service', 'reviews', 'pagination'],
+		PRODUCTS: ['service', 'products'],
 	},
 	ADMIN: {
 		NEWS_LIST_PAGE_INFO: ['news', 'pageInfo'],
