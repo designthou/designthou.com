@@ -7,6 +7,7 @@ import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
+	AsciiArt,
 	AspectRatio,
 	GradientIndicator,
 	HomeNewsList,
@@ -15,11 +16,37 @@ import {
 	Progress,
 	Skeleton,
 } from '@/components';
-import { route } from '@/constants';
+import { ASCII_ART_SRC, route } from '@/constants';
 
 export default async function HomePage() {
 	return (
 		<section className="flex flex-col justify-items-center gap-12 p-4 bg-white">
+			<div className="flex items-center gap-0 h-[100px] sm:h-[200px] md:h-[250px] lg:h-[320px]">
+				<AsciiArt
+					src={ASCII_ART_SRC}
+					detail={50}
+					config={{
+						mouseRadius: 60,
+						intensity: 3,
+						contrast: 110,
+						brightness: 105,
+						saturation: 120,
+						useTransparentBackground: true,
+					}}
+				/>
+				<AsciiArt
+					src={ASCII_ART_SRC}
+					detail={50}
+					config={{
+						mouseRadius: 60,
+						intensity: 3,
+						contrast: 110,
+						brightness: 105,
+						saturation: 120,
+						useTransparentBackground: true,
+					}}
+				/>
+			</div>
 			<p className="flex items-center gap-3 py-6 px-3 bg-light text-sm text-gray-700 font-semibold rounded-lg border border-gray-100">
 				<Activity size={21} />
 				현재 디자인도우 플랫폼은 리뉴얼 중입니다. <br />

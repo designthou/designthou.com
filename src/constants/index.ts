@@ -1,3 +1,4 @@
+export * from './ascii-art';
 export * from './imageMap';
 export * from './linkWithRoutes';
 export * from './news';

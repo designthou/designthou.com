@@ -1,10 +1,8 @@
 import { Metadata } from 'next';
 import { SiteConfig } from '@/app/config';
-
-import { ProductList, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Wip } from '@/components';
+import { ProductList, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Wip, ProductCarousel } from '@/components';
 import { createClient } from '@/lib/supabase/server';
 import { TABLE } from '@/lib/supabase';
-import { ProductCarousel } from '@/components/(service)/products';
 
 export const metadata: Metadata = {
 	title: SiteConfig.title.PRODUCTS,
@@ -32,11 +30,13 @@ export default async function ProductsPage() {
 
 	return (
 		<section className="p-4 max-w-300">
-			<h2 className="page-title hidden" aria-label="Online Course Title">
-				Online Course
-			</h2>
-			<div className="flex flex-col justify-center gap-4 py-12 px-4 w-full text-center bg-light rounded-lg bg-gradient-orange-50">
-				<p className="text-center outlined-text font-bold text-2xl sm:text-3xl lg:text-4xl">Designthou Online Classes</p>
+			<div className="flex flex-col justify-center gap-4 py-8 px-4 w-full text-center bg-light rounded-lg border border-muted">
+				<h2 className="page-title" aria-label="Product Page Title">
+					Online Classes
+				</h2>
+				<p className="text-center outlined-text font-bold text-lg sm:text-xl lg:text-2xl">
+					Meet our selected high-quality Designthou classes
+				</p>
 			</div>
 			<ProductCarousel />
 
@@ -55,7 +55,7 @@ export default async function ProductsPage() {
 					</SelectContent>
 				</Select>
 			</div>
-			<ProductList data={data} />
+			<ProductList reviewCounts={data} />
 			<Wip
 				message={'플랫폼 점검으로 인해 현재 온라인 강의는 판매 중단 중 입니다.'}
 				className="mt-12 bg-white text-black border border-muted bg-light"

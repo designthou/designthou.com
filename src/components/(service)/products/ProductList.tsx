@@ -1,18 +1,24 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
+
 import { AspectRatio, Badge, Button } from '@/components';
 import { formatDate, getProductList } from '@/app/(service)/products/utils';
 import { mapReviewCountByProductView, ReviewCountByProductViewSchema } from '@/types';
 import { imageMap, BLUR_DATA_URL } from '@/constants';
+import { getLocalImage } from '@/utils/plaiceholder';
 
-export default async function ProductList({ data }: { data: ReviewCountByProductViewSchema[] }) {
+export default async function ProductList({ reviewCounts }: { reviewCounts: ReviewCountByProductViewSchema[] }) {
 	const productList = await getProductList();
 
-	const reviewCounts = data.map(mapReviewCountByProductView);
-	const allProductsWithReviewCounts = productList.map(product => ({
+	const asyncProductList = await Promise.all(
+		productList.map(async product => ({ ...product, image: await getLocalImage(`${product.metadata.image}`) })),
+	);
+
+	const reviewCountsView = reviewCounts.map(mapReviewCountByProductView);
+	const allProductsWithReviewCounts = asyncProductList.map(product => ({
 		...product,
-		reviewCount: reviewCounts.find(review => review?.productId === product?.metadata?.productId)?.reviewCount ?? 4,
+		reviewCount: reviewCountsView.find(review => review?.productId === product?.metadata?.productId)?.reviewCount ?? 4,
 	}));
 
 	return (
@@ -41,7 +47,7 @@ export default async function ProductList({ data }: { data: ReviewCountByProduct
 							/>
 						</AspectRatio>
 						<div className="flex flex-col gap-2 py-1 rounded-lg">
-							<span className="h-6 overflow-hidden break-all text-base text-ellipsis font-bold tracking-tight sm:h-12">
+							<span className="h-6 overflow-hidden break-keep text-base text-ellipsis font-bold tracking-tight sm:h-12">
 								{post.metadata.title}
 							</span>
 							<p className="text-muted-foreground text-xs whitespace-nowrap text-ellipsis overflow-hidden">

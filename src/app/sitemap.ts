@@ -41,7 +41,7 @@ export default function sitemap() {
 			priority: 0.8,
 		},
 		{
-			url: `${BASE_URL}/online-course`,
+			url: `${BASE_URL}/products`,
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
 			priority: 1,

@@ -76,7 +76,7 @@ export default async function ProductPage({ params }: PageProps) {
 	}
 
 	return (
-		<section>
+		<section className="flex flex-col gap-4">
 			<script
 				type="application/ld+json"
 				suppressHydrationWarning
@@ -99,8 +99,8 @@ export default async function ProductPage({ params }: PageProps) {
 					}),
 				}}
 			/>
-			<div className="grid grid-cols-3 gap-4 max-h-[400px]">
-				<div className="ui-flex-center col-span-1">
+			<div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:max-h-[400px]">
+				<div className="ui-flex-center row-span-1 sm:col-span-1">
 					<Image
 						src={product.metadata.image}
 						alt={product.metadata.title}
@@ -112,7 +112,7 @@ export default async function ProductPage({ params }: PageProps) {
 					/>
 				</div>
 
-				<div className="col-span-2 flex flex-col gap-4 py-8 px-8 w-full bg-light rounded-xl">
+				<div className="row-span-1 sm:col-span-2 flex flex-col gap-4 py-8 px-8 w-full bg-light border border-muted rounded-xl">
 					<h2 className="title font-bold text-3xl tracking-tighter">{product.metadata.title}</h2>
 					<span className="px-3 py-1 w-fit bg-gradient-orange-100 text-sm font-bold text-white rounded-full">{SiteConfig.author.name}</span>
 					<div className="flex items-center gap-4 text-sm">
@@ -130,6 +130,7 @@ export default async function ProductPage({ params }: PageProps) {
 					</div>
 				</div>
 			</div>
+
 			<article className="prose mb-16">
 				<CustomMDX source={product.content} />
 			</article>
