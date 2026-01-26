@@ -142,12 +142,12 @@ export default function LegacyUserTable({
 	});
 	return (
 		<>
-			<Table>
+			<Table className="w-full table-fixed border border-muted rounded-lg">
 				<TableHeader className="bg-muted sticky top-0 z-10">
 					{table.getHeaderGroups().map(headerGroup => (
 						<TableRow key={headerGroup.id}>
 							{headerGroup.headers.map(header => (
-								<TableHead key={header.id} className="font-medium sm:not-first:min-w-48">
+								<TableHead key={header.id} className="font-medium">
 									{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
 								</TableHead>
 							))}
@@ -161,7 +161,7 @@ export default function LegacyUserTable({
 							{table.getRowModel().rows.map(row => (
 								<TableRow key={row.id} className="h-4">
 									{row.getVisibleCells().map(cell => (
-										<TableCell key={cell.id} className="sm:not-first:min-w-48">
+										<TableCell key={cell.id} className="">
 											{flexRender(cell.column.columnDef.cell, cell.getContext())}
 										</TableCell>
 									))}
