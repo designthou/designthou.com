@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import React from 'react';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { SiteConfig } from '@/app/config';
 import {
@@ -38,7 +39,8 @@ export default function AsidePage() {
 				<h2 className="page-title">Aside Service</h2>
 				<p className="font-medium text-sm text-gray-700 sm:text-base lg:text-lg">Meet our offline service</p>
 			</div>
-			<div className="flex items-center gap-0 my-8 h-[100px] sm:h-[200px] md:h-[250px] lg:h-[320px]">
+
+			<div className="flex items-center gap-0 my-8 bg-amber-50 w-full h-[100px] sm:h-[200px] md:h-[250px] lg:h-[320px]">
 				<AsciiArt
 					src={ASCII_ART_SRC}
 					detail={50}
@@ -64,6 +66,7 @@ export default function AsidePage() {
 					}}
 				/>
 			</div>
+
 			<div className="flex flex-col justify-between gap-8 my-8 p-4 bg-light border border-muted sm:items-center  sm:flex-row sm:p-8">
 				<div className="flex flex-col gap-2">
 					<p className="w-fit font-semibold text-base text-gray-900 sm:text-lg">하단의 서비스를 오프라인으로 제공합니다.</p>
@@ -88,7 +91,7 @@ export default function AsidePage() {
 							<ArrowUpRight size={18} />
 						</Button>
 					</DialogTrigger>
-					<DialogContent className="flex flex-col min-w-[60dvw]">
+					<DialogContent className="flex flex-col min-w-[50dvw]">
 						<DialogHeader>
 							<DialogTitle className="text-xl text-left font-bold sm:text-2xl">관련 정보 작성하기</DialogTitle>
 							<DialogDescription className="text-left font-medium">꼭, 어떤 피드백을 원하는지 선택해주세요.</DialogDescription>

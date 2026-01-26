@@ -1,28 +1,22 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
-
 import { AspectRatio, Badge, Button } from '@/components';
 import { formatDate, getProductList } from '@/app/(service)/products/utils';
 import { mapReviewCountByProductView, ReviewCountByProductViewSchema } from '@/types';
 import { imageMap, BLUR_DATA_URL } from '@/constants';
-import { getLocalImage } from '@/utils/plaiceholder';
 
 export default async function ProductList({ reviewCounts }: { reviewCounts: ReviewCountByProductViewSchema[] }) {
 	const productList = await getProductList();
 
-	const asyncProductList = await Promise.all(
-		productList.map(async product => ({ ...product, image: await getLocalImage(`${product.metadata.image}`) })),
-	);
-
-	const reviewCountsView = reviewCounts.map(mapReviewCountByProductView);
-	const allProductsWithReviewCounts = asyncProductList.map(product => ({
+	const allProductsWithReviewCounts = productList.map(product => ({
 		...product,
-		reviewCount: reviewCountsView.find(review => review?.productId === product?.metadata?.productId)?.reviewCount ?? 4,
+		reviewCount:
+			reviewCounts.map(mapReviewCountByProductView).find(review => review?.productId === product?.metadata?.productId)?.reviewCount ?? 4,
 	}));
 
 	return (
-		<div className="grid grid-cols-1 gap-8 mt-4 sm:grid-cols-3 sm:gap-4 sm:mt-8 lg:grid-cols-4">
+		<div className="grid grid-cols-1 gap-8 mt-4 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
 			{allProductsWithReviewCounts
 				.sort((a, b) => {
 					if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {

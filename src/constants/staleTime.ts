@@ -18,6 +18,9 @@ const staleTime = {
 			TOTAL_COUNT: ONE_SECOND * 60 * 60,
 			ALL_WITH_PAGINATION: ONE_SECOND * 120,
 		},
+		PRODUCTS: {
+			LIST: ONE_SECOND * 60 * 60,
+		},
 	},
 	ADMIN: {
 		NEWS_LIST: {
