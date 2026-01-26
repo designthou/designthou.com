@@ -29,7 +29,7 @@ export default function Aside({ user }: { user: User | null }) {
 							<Search size={18} className="text-gray-900" />
 						</Button>
 					</header>
-					<nav className="flex flex-col flex-1 gap-4 sm:px-2 lg:px-0">
+					<nav className="flex flex-col flex-1 gap-4">
 						<div className="flex flex-col gap-2">
 							<h2 className="hidden text-gray-600 text-xs lg:block">Applications</h2>
 							<div className="flex flex-col flex-1 gap-2 sm:px-2 lg:px-0">
@@ -37,6 +37,7 @@ export default function Aside({ user }: { user: User | null }) {
 									<Link
 										href={to}
 										key={to}
+										prefetch={false}
 										className={`ui-flex-center gap-0 py-1.5 px-2 min-h-9 ${
 											to === route.ADMIN.ROOT + '/' + segment ? 'bg-muted' : 'bg-white'
 										} text-gray-800 font-medium rounded-md hover:bg-muted active:bg-gray-200 transition-colors lg:gap-2 lg:justify-between`}>

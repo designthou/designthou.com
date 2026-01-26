@@ -1,4 +1,4 @@
-import { LayoutDashboard, LayoutList, MonitorPlay, Newspaper, Palette, SquareChartGantt, User2, Youtube } from 'lucide-react';
+import { BookMarked, LayoutDashboard, LayoutList, MonitorPlay, Newspaper, Palette, SquareChartGantt, User2, Youtube } from 'lucide-react';
 import route from './route';
 
 const linkWithRoutes = [
@@ -41,9 +41,14 @@ const linkWithRoutes = [
 
 const linkWithManagableRoutes = [
 	{
-		title: 'User List',
+		title: 'User Table',
 		to: route.ADMIN.USERS,
 		icon: <User2 size={18} />,
+	},
+	{
+		title: 'Offline Students',
+		to: route.ADMIN.OFFLINE_STUDENTS,
+		icon: <BookMarked size={18} />,
 	},
 ];
 

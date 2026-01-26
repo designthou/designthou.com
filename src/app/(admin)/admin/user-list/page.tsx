@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableWithTriggers } from '@/components';
+import { UserListTableWithTriggers } from '@/components/(admin)/user-list';
 import { createClient } from '@/lib/supabase/server';
 import { TABLE } from '@/lib/supabase/tableMap';
 import { rpcMap } from '@/lib/supabase/rpcMap';
@@ -30,7 +30,7 @@ export default async function UserListPage() {
 				사용자 목록
 			</h2>
 
-			<TableWithTriggers registeredUsers={registeredUsers} legacyUsers={legacyUsers} />
+			<UserListTableWithTriggers registeredUsers={registeredUsers} legacyUsers={legacyUsers} />
 		</section>
 	);
 }

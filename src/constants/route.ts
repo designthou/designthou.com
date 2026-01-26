@@ -42,6 +42,7 @@ const route = {
 		REVIEWS: '/admin/reviews',
 		ONLINE_COURSE: '/admin/online-course',
 		USERS: '/admin/user-list',
+		OFFLINE_STUDENTS: '/admin/offline',
 	},
 	OUTER: {
 		GITHUB: 'https://github.com/designthou/designthou.com',

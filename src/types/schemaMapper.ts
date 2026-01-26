@@ -1,8 +1,10 @@
 import { z } from 'zod';
-import type { LegacyUser, User, ReviewCountByProduct } from '@/lib/supabase';
+import type { LegacyUser, User, ReviewCountByProduct, OfflineStudentRow } from '@/lib/supabase';
+import { OfflineStudentView, offlineStudentViewSchema } from './view';
 
 type RegisteredUserViewSchema = z.infer<typeof registeredUserViewSchema>;
 type LegacyUserViewSchema = z.infer<typeof legacyUserViewSchema>;
+
 type ReviewCountByProductViewSchema = z.infer<typeof reviewCountByProductViewSchema>;
 
 const registeredUserViewSchema = z.object({
@@ -29,6 +31,18 @@ const legacyUserViewSchema: z.ZodType<LegacyUser> = z.object({
 const reviewCountByProductViewSchema: z.ZodType<ReviewCountByProduct> = z.object({
 	product_id: z.string(),
 	review_count: z.number(),
+});
+
+const offlineStudentsRowSchema: z.ZodType<OfflineStudentRow> = z.object({
+	id: z.string(),
+	name: z.string().nullable(),
+	email: z.string().nullable(),
+	class: z.string(),
+	category: z.string(),
+	phone_encrypted: z.string().nullable(),
+	phone_mask: z.string().nullable(),
+	created_at: z.string(),
+	updated_at: z.string(),
 });
 
 const mapRegisteredUserToView = (row: User) =>
@@ -58,5 +72,21 @@ const mapReviewCountByProductView = (row: ReviewCountByProduct) => {
 	return parsed.success ? { productId: parsed.data.product_id, reviewCount: parsed.data.review_count } : null;
 };
 
+const mapOfflineStudentsRowToView = (row: OfflineStudentRow): OfflineStudentView => {
+	const r = offlineStudentsRowSchema.parse(row);
+
+	return offlineStudentViewSchema.parse({
+		id: r.id,
+		name: r.name ?? 'unknown',
+		email: r.email ?? 'unknown',
+		class: r.class,
+		category: r.category,
+		phoneEncrypted: r.phone_encrypted ?? 'unknown',
+		phoneMask: r.phone_mask ?? 'unknown',
+		createdAt: r.created_at,
+		updatedAt: r.updated_at,
+	});
+};
+
 export type { RegisteredUserViewSchema, LegacyUserViewSchema, ReviewCountByProductViewSchema };
-export { mapRegisteredUserToView, mapLegacyUserToView, mapReviewCountByProductView };
+export { mapRegisteredUserToView, mapLegacyUserToView, mapReviewCountByProductView, mapOfflineStudentsRowToView };

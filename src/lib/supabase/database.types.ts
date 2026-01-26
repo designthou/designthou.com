@@ -188,6 +188,47 @@ export interface Database {
 					review_count: number;
 				};
 			};
+			offline_students: {
+				Row: {
+					// the data expected from .select()
+					id: string;
+					name: string | null;
+					email: string | null;
+					class: string;
+					category: string;
+					phone_encrypted: string | null;
+					phone_mask: string | null;
+					created_at: string;
+					updated_at: string;
+				};
+				Insert: {
+					// the data expected from .select()
+					id?: never;
+					name: string | null;
+					email: string | null;
+					class: string;
+					category: string;
+					phone_encrypted: string | null;
+					phone_mask: string | null;
+					created_at: string;
+					updated_at: string;
+				};
+				Update: {
+					// the data expected from .select()
+					id: never;
+					name: string;
+					email: string;
+					class: string;
+					category: string;
+					phone_encrypted?: string;
+					phone_mask?: string;
+					created_at: string;
+					updated_at: string;
+				};
+				Delete: {
+					id: never;
+				};
+			};
 		};
 	};
 }
