@@ -34,7 +34,13 @@ import {
 import { convertSupabaseDateToShortHumanReadable } from '@/lib/supabase';
 import { RegisteredUserViewSchema } from '@/types';
 
-export default function RegisteredUserTable({ data }: { data: RegisteredUserViewSchema[] }) {
+function RegisteredUserTable({
+	data,
+	searchValue,
+}: {
+	data: RegisteredUserViewSchema[];
+	searchValue: { email: string; nickname: string };
+}) {
 	const [rowSelection, setRowSelection] = React.useState({});
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -44,60 +50,79 @@ export default function RegisteredUserTable({ data }: { data: RegisteredUserView
 		pageSize: 10,
 	});
 
-	const columns: ColumnDef<RegisteredUserViewSchema>[] = [
-		{
-			id: 'select',
-			header: ({ table }) => (
-				<div className="flex items-center justify-center">
-					<Checkbox
-						checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
-						onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
-						aria-label="Select all"
-					/>
-				</div>
-			),
-			cell: ({ row }) => (
-				<div className="flex items-center justify-center">
-					<Checkbox checked={row.getIsSelected()} onCheckedChange={value => row.toggleSelected(!!value)} aria-label="Select row" />
-				</div>
-			),
-		},
-		{
-			accessorKey: 'role',
-			header: () => <span>역할</span>,
-			cell: ({ row }) => (
-				<Badge variant="outline" className="text-muted-foreground px-1.5">
-					{row.original.role !== 'user' ? <BadgeCheck className="fill-green-500 dark:fill-green-400" /> : <BadgeNotCheck />}
-					{row.original.role}
-				</Badge>
-			),
-		},
-		{
-			accessorKey: 'legacy_user_id',
-			header: () => <span>기존 레거시 ID</span>,
-			cell: ({ row }) => <span>{row.original.legacy_user_id}</span>,
-		},
-		{ accessorKey: 'nickname', header: () => <span>닉네임</span>, cell: ({ row }) => <span>{row.original.nickname}</span> },
-		{
-			accessorKey: 'display_name',
-			header: () => <span>별명</span>,
-			cell: ({ row }) => <span>{row.original.display_name}</span>,
-		},
-		{
-			accessorKey: 'user_login',
-			header: () => <span>로그인 방법</span>,
-			cell: ({ row }) => <span>{row.original.user_login}</span>,
-		},
-		{
-			accessorKey: 'user_registered_at',
-			header: () => <span>등록 날짜</span>,
-			cell: ({ row }) => <span>{convertSupabaseDateToShortHumanReadable(row.original.user_registered_at)}</span>,
-		},
-	];
+	const columns: ColumnDef<RegisteredUserViewSchema>[] = React.useMemo(
+		() => [
+			{
+				id: 'select',
+				header: ({ table }) => (
+					<div className="flex items-center justify-center">
+						<Checkbox
+							checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
+							onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+							aria-label="Select all"
+						/>
+					</div>
+				),
+				cell: ({ row }) => (
+					<div className="flex items-center justify-center">
+						<Checkbox checked={row.getIsSelected()} onCheckedChange={value => row.toggleSelected(!!value)} aria-label="Select row" />
+					</div>
+				),
+			},
+			{
+				accessorKey: 'role',
+				header: () => <span>역할</span>,
+				cell: ({ row }) => (
+					<Badge variant="outline" className="text-muted-foreground px-1.5">
+						{row.original.role !== 'user' ? <BadgeCheck className="fill-green-500 dark:fill-green-400" /> : <BadgeNotCheck />}
+						{row.original.role}
+					</Badge>
+				),
+			},
+			{
+				accessorKey: 'email',
+				header: () => <span>이메일</span>,
+				cell: ({ row }) => <span>{row.original.email}</span>,
+			},
+			{ accessorKey: 'nickname', header: () => <span>닉네임</span>, cell: ({ row }) => <span>{row.original.nickname}</span> },
+			{
+				accessorKey: 'legacy_user_id',
+				header: () => <span>기존 레거시 ID</span>,
+				cell: ({ row }) => <span>{row.original.legacy_user_id}</span>,
+			},
+			{
+				accessorKey: 'user_login_type',
+				header: () => <span>로그인 방법</span>,
+				cell: ({ row }) => <span>{row.original.user_login_type}</span>,
+			},
+			{
+				accessorKey: 'user_registered_at',
+				header: () => <span>등록 날짜</span>,
+				cell: ({ row }) => <span>{convertSupabaseDateToShortHumanReadable(row.original.user_registered_at)}</span>,
+			},
+			{
+				accessorKey: 'updated_at',
+				header: () => <span>업데이트 날짜</span>,
+				cell: ({ row }) => <span>{convertSupabaseDateToShortHumanReadable(row.original.updated_at)}</span>,
+			},
+		],
+		[],
+	);
+
+	const filteredData = React.useMemo(() => {
+		const email = searchValue.email.trim().toLowerCase();
+		const nickname = searchValue.nickname.trim().toLowerCase();
+
+		return data.filter(row => {
+			if (email && !row.email?.toLowerCase().includes(email)) return false;
+			if (nickname && !row.nickname?.toLowerCase().includes(nickname)) return false;
+			return true;
+		});
+	}, [data, searchValue.email, searchValue.nickname]);
 
 	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
-		data,
+		data: filteredData,
 		columns,
 		state: {
 			sorting,
@@ -128,7 +153,7 @@ export default function RegisteredUserTable({ data }: { data: RegisteredUserView
 					{table.getHeaderGroups().map(headerGroup => (
 						<TableRow key={headerGroup.id}>
 							{headerGroup.headers.map(header => (
-								<TableHead key={header.id}>
+								<TableHead key={header.id} className="font-medium sm:not-first:min-w-48">
 									{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
 								</TableHead>
 							))}
@@ -142,7 +167,9 @@ export default function RegisteredUserTable({ data }: { data: RegisteredUserView
 							{table.getRowModel().rows.map(row => (
 								<TableRow key={row.id} className="h-4">
 									{row.getVisibleCells().map(cell => (
-										<TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+										<TableCell key={cell.id} className="sm:not-first:min-w-48">
+											{flexRender(cell.column.columnDef.cell, cell.getContext())}
+										</TableCell>
 									))}
 								</TableRow>
 							))}
@@ -222,3 +249,5 @@ export default function RegisteredUserTable({ data }: { data: RegisteredUserView
 		</>
 	);
 }
+
+export default React.memo(RegisteredUserTable);

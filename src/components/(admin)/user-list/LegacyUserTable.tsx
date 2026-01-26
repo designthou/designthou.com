@@ -34,7 +34,13 @@ import {
 import { convertSupabaseDateToShortHumanReadable } from '@/lib/supabase';
 import { LegacyUserViewSchema } from '@/types';
 
-export default function LegacyUserTable({ data }: { data: LegacyUserViewSchema[] }) {
+export default function LegacyUserTable({
+	data,
+	searchValue,
+}: {
+	data: LegacyUserViewSchema[];
+	searchValue: { email: string; nickname: string };
+}) {
 	const [rowSelection, setRowSelection] = React.useState({});
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -44,60 +50,74 @@ export default function LegacyUserTable({ data }: { data: LegacyUserViewSchema[]
 		pageSize: 20,
 	});
 
-	const columns: ColumnDef<LegacyUserViewSchema>[] = [
-		{
-			id: 'select',
-			header: ({ table }) => (
-				<div className="flex items-center justify-center">
-					<Checkbox
-						checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
-						onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
-						aria-label="Select all"
-					/>
-				</div>
-			),
-			cell: ({ row }) => (
-				<div className="flex items-center justify-center">
-					<Checkbox checked={row.getIsSelected()} onCheckedChange={value => row.toggleSelected(!!value)} aria-label="Select row" />
-				</div>
-			),
-		},
-		{
-			accessorKey: 'email',
-			header: () => <span>이메일</span>,
-			cell: ({ row }) => (
-				<Badge variant="outline" className="text-muted-foreground px-1.5">
-					<BadgeCheck className={row.original.email ? 'fill-green-500 dark:fill-green-400' : ''} />
-					{row.original.email ?? '이메일 없음'}
-				</Badge>
-			),
-		},
-		{
-			accessorKey: 'legacy_user_id',
-			header: () => <span>기존 레거시 ID</span>,
-			cell: ({ row }) => <span>{row.original.legacy_user_id}</span>,
-		},
-		{ accessorKey: 'nickname', header: () => <span>닉네임</span>, cell: ({ row }) => <span>{row.original.nickname}</span> },
-		{
-			accessorKey: 'display_name',
-			header: () => <span>별명</span>,
-			cell: ({ row }) => <span>{row.original.display_name}</span>,
-		},
-		{
-			accessorKey: 'user_login',
-			header: () => <span>로그인 방법</span>,
-			cell: ({ row }) => <span>{row.original.user_login}</span>,
-		},
-		{
-			accessorKey: 'user_registered_at',
-			header: () => <span>등록 날짜</span>,
-			cell: ({ row }) => <span>{convertSupabaseDateToShortHumanReadable(row.original.user_registered_at)}</span>,
-		},
-	];
+	const columns: ColumnDef<LegacyUserViewSchema>[] = React.useMemo(
+		() => [
+			{
+				id: 'select',
+				header: ({ table }) => (
+					<div className="flex items-center justify-center">
+						<Checkbox
+							checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
+							onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+							aria-label="Select all"
+						/>
+					</div>
+				),
+				cell: ({ row }) => (
+					<div className="flex items-center justify-center">
+						<Checkbox checked={row.getIsSelected()} onCheckedChange={value => row.toggleSelected(!!value)} aria-label="Select row" />
+					</div>
+				),
+			},
+			{
+				accessorKey: 'email',
+				header: () => <span>이메일</span>,
+				cell: ({ row }) => (
+					<Badge variant="outline" className="text-muted-foreground px-1.5">
+						<BadgeCheck className={row.original.email ? 'fill-green-500 dark:fill-green-400' : ''} />
+						{row.original.email ?? '이메일 없음'}
+					</Badge>
+				),
+			},
+			{
+				accessorKey: 'legacy_user_id',
+				header: () => <span>기존 레거시 ID</span>,
+				cell: ({ row }) => <span>{row.original.legacy_user_id}</span>,
+			},
+			{ accessorKey: 'nickname', header: () => <span>닉네임</span>, cell: ({ row }) => <span>{row.original.nickname}</span> },
+			{
+				accessorKey: 'display_name',
+				header: () => <span>별명</span>,
+				cell: ({ row }) => <span>{row.original.display_name}</span>,
+			},
+			{
+				accessorKey: 'user_login',
+				header: () => <span>로그인 방법</span>,
+				cell: ({ row }) => <span>{row.original.user_login}</span>,
+			},
+			{
+				accessorKey: 'user_registered_at',
+				header: () => <span>등록 날짜</span>,
+				cell: ({ row }) => <span>{convertSupabaseDateToShortHumanReadable(row.original.user_registered_at)}</span>,
+			},
+		],
+		[],
+	);
+
+	const filteredData = React.useMemo(() => {
+		const email = searchValue.email.trim().toLowerCase();
+		const nickname = searchValue.nickname.trim().toLowerCase();
+
+		return data.filter(row => {
+			if (email && !row.email?.toLowerCase().includes(email)) return false;
+			if (nickname && !row.nickname?.toLowerCase().includes(nickname)) return false;
+			return true;
+		});
+	}, [data, searchValue.email, searchValue.nickname]);
 
 	// eslint-disable-next-line react-hooks/incompatible-library
 	const table = useReactTable({
-		data,
+		data: filteredData,
 		columns,
 		state: {
 			sorting,
@@ -127,7 +147,7 @@ export default function LegacyUserTable({ data }: { data: LegacyUserViewSchema[]
 					{table.getHeaderGroups().map(headerGroup => (
 						<TableRow key={headerGroup.id}>
 							{headerGroup.headers.map(header => (
-								<TableHead key={header.id}>
+								<TableHead key={header.id} className="font-medium sm:not-first:min-w-48">
 									{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
 								</TableHead>
 							))}
@@ -141,7 +161,9 @@ export default function LegacyUserTable({ data }: { data: LegacyUserViewSchema[]
 							{table.getRowModel().rows.map(row => (
 								<TableRow key={row.id} className="h-4">
 									{row.getVisibleCells().map(cell => (
-										<TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+										<TableCell key={cell.id} className="sm:not-first:min-w-48">
+											{flexRender(cell.column.columnDef.cell, cell.getContext())}
+										</TableCell>
 									))}
 								</TableRow>
 							))}

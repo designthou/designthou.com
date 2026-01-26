@@ -1,13 +1,18 @@
 import React from 'react';
 import { TableWithTriggers } from '@/components';
 import { createClient } from '@/lib/supabase/server';
-import { TABLE } from '@/lib/supabase';
+import { TABLE } from '@/lib/supabase/tableMap';
+import { rpcMap } from '@/lib/supabase/rpcMap';
 
 export default async function UserListPage() {
 	const supabase = await createClient();
 
 	const [{ data: registeredUsers, error: registeredError }, { data: legacyUsers, error: legacyError }] = await Promise.all([
-		supabase.from(TABLE.PROFILES).select('*'),
+		supabase.rpc(rpcMap.ADMIN_LIST_USER, {
+			p_limit: 2000,
+			p_offset: 0,
+		}),
+
 		supabase.from(TABLE.LEGACY_USERS).select('*'),
 	]);
 

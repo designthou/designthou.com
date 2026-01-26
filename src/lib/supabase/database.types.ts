@@ -12,6 +12,7 @@ export interface Database {
 					display_name: string;
 					user_login: string;
 					user_registered_at: string;
+					updated_at: string;
 					role: string;
 				};
 				Insert: {
@@ -19,6 +20,7 @@ export interface Database {
 					nickname: string;
 					user_login?: string;
 					user_registered_at: string;
+					updated_at: string;
 					role: string;
 				};
 				Update: {
@@ -26,6 +28,7 @@ export interface Database {
 					nickname?: string;
 					user_login: string;
 					user_registered_at?: string;
+					updated_at: string;
 				};
 				Delete: {
 					id: string;

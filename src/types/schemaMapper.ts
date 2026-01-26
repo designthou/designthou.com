@@ -5,14 +5,15 @@ type RegisteredUserViewSchema = z.infer<typeof registeredUserViewSchema>;
 type LegacyUserViewSchema = z.infer<typeof legacyUserViewSchema>;
 type ReviewCountByProductViewSchema = z.infer<typeof reviewCountByProductViewSchema>;
 
-const registeredUserViewSchema: z.ZodType<User> = z.object({
+const registeredUserViewSchema = z.object({
 	id: z.string(),
-	nickname: z.string(),
-	display_name: z.string(),
-	legacy_user_id: z.number(),
-	user_login: z.string(),
-	user_registered_at: z.string(),
+	email: z.string(),
 	role: z.string(),
+	nickname: z.string(),
+	legacy_user_id: z.number(),
+	user_login_type: z.string(),
+	user_registered_at: z.string(),
+	updated_at: z.string(),
 });
 
 const legacyUserViewSchema: z.ZodType<LegacyUser> = z.object({
