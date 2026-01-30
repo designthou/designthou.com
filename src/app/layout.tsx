@@ -3,7 +3,6 @@ import './globals.css';
 import Script from 'next/script';
 import { Geist_Mono, Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
-import { Analytics } from '@vercel/analytics/next';
 import { GAProvider } from '@/lib/ga4';
 import { SiteConfig } from './config';
 
@@ -35,7 +34,7 @@ export const metadata: Metadata = {
 		url: SiteConfig.url,
 		images: [
 			{
-				url: `${SiteConfig.url}/designthou.png`,
+				url: `${SiteConfig.url}/og/designthou.png`,
 				width: 1200,
 				height: 630,
 				type: 'image/png',
@@ -106,7 +105,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				{children}
 
 				{process.env.NEXT_PUBLIC_GA4_ID ? <GAProvider gaId={process.env.NEXT_PUBLIC_GA4_ID} /> : null}
-				<Analytics />
 			</body>
 		</html>
 	);

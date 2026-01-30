@@ -28,6 +28,10 @@ const navigations = [
 		title: 'Products',
 		to: route.SERVICE.PRODUCTS,
 	},
+	{
+		title: 'Feedback',
+		to: route.SERVICE.ASIDE,
+	},
 ] as const;
 
 export default function Nav() {
@@ -37,7 +41,7 @@ export default function Nav() {
 	const segment = useSelectedLayoutSegment();
 	return (
 		<>
-			<header className="fixed top-0 mx-auto w-full h-[var(--global-layout-nav-height)] bg-white/30 backdrop-blur-sm z-40">
+			<header className="fixed top-8 mx-auto w-full h-[var(--global-layout-nav-height)] bg-white/30 backdrop-blur-sm z-40">
 				<nav
 					id="layout-nav"
 					className="flex flex-row justify-between items-center mx-auto p-3 max-w-300 w-full bg-white/30 backdrop-blur-sm">
@@ -77,7 +81,7 @@ export default function Nav() {
 
 			<div
 				id="layout-side-navigation"
-				className={`fixed top-[var(--global-layout-nav-height)] left-0 right-0 flex flex-col ${
+				className={`fixed top-[var(--global-layout-nav-height-with-notify)] left-0 right-0 flex flex-col ${
 					isSideNavOpen ? 'max-h-full' : 'max-h-0'
 				} px-3 w-full bg-white z-20 overflow-hidden transition-[max-height] duration-200 ease-[cubic-bezier(0.22, 1, 0.36, 1)] md:hidden`}>
 				{navigations.map(navigation => (

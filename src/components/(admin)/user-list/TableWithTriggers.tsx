@@ -38,55 +38,57 @@ export default function TableWithTriggers({
 				<Label htmlFor="view-selector" className="sr-only">
 					User List
 				</Label>
-				<TabsList>
-					{triggers.map(({ value, label, dataLength }) => (
-						<TabsTrigger key={label} value={value}>
-							{label} <Badge variant="default">{dataLength}</Badge>
-						</TabsTrigger>
-					))}
-				</TabsList>
-				<Popover>
-					<PopoverTrigger asChild>
-						<Button variant="outline">
-							<Funnel size={18} />
-							검색 필터
-						</Button>
-					</PopoverTrigger>
-					<PopoverContent>
-						<div className="grid gap-4">
-							<div className="space-y-2">
-								<h4 className="leading-none font-semibold">검색 필터</h4>
-								<p className="text-muted-foreground text-xs">이메일, 닉네임 등으로 검색 가능합니다.</p>
-							</div>
-							<div className="grid gap-2">
-								<div className="grid grid-cols-3 items-center gap-4">
-									<Label htmlFor="email">Email</Label>
-									<Input
-										id="email"
-										placeholder="designthou@gmail.com"
-										value={searchValue.email}
-										onChange={e => setSearchValue({ ...searchValue, email: e.target.value })}
-										className="col-span-2 h-8"
-									/>
-								</div>
-								<div className="grid grid-cols-3 items-center gap-4">
-									<Label htmlFor="nickname">Nickname</Label>
-									<Input
-										id="nickname"
-										placeholder="designthou"
-										value={searchValue.nickname}
-										onChange={e => setSearchValue({ ...searchValue, nickname: e.target.value })}
-										className="col-span-2 h-8"
-									/>
-								</div>
-							</div>
-							<Button type="button" size="sm" onClick={() => setSearchValue({ email: '', nickname: '' })}>
-								<RotateCcw />
-								초기화
+				<div className="flex flex-col gap-2 w-full sm:flex-row sm:justify-between sm:items-center">
+					<TabsList>
+						{triggers.map(({ value, label, dataLength }) => (
+							<TabsTrigger key={label} value={value}>
+								{label} <Badge variant="default">{dataLength}</Badge>
+							</TabsTrigger>
+						))}
+					</TabsList>
+					<Popover>
+						<PopoverTrigger className="w-fit" asChild>
+							<Button variant="outline">
+								<Funnel size={18} />
+								검색 필터
 							</Button>
-						</div>
-					</PopoverContent>
-				</Popover>
+						</PopoverTrigger>
+						<PopoverContent>
+							<div className="grid gap-4">
+								<div className="space-y-2">
+									<h4 className="leading-none font-semibold">검색 필터</h4>
+									<p className="text-muted-foreground text-xs">이메일, 닉네임 등으로 검색 가능합니다.</p>
+								</div>
+								<div className="grid gap-2">
+									<div className="grid grid-cols-3 items-center gap-4">
+										<Label htmlFor="email">Email</Label>
+										<Input
+											id="email"
+											placeholder="designthou@gmail.com"
+											value={searchValue.email}
+											onChange={e => setSearchValue({ ...searchValue, email: e.target.value })}
+											className="col-span-2 h-8"
+										/>
+									</div>
+									<div className="grid grid-cols-3 items-center gap-4">
+										<Label htmlFor="nickname">Nickname</Label>
+										<Input
+											id="nickname"
+											placeholder="designthou"
+											value={searchValue.nickname}
+											onChange={e => setSearchValue({ ...searchValue, nickname: e.target.value })}
+											className="col-span-2 h-8"
+										/>
+									</div>
+								</div>
+								<Button type="button" size="sm" onClick={() => setSearchValue({ email: '', nickname: '' })}>
+									<RotateCcw />
+									초기화
+								</Button>
+							</div>
+						</PopoverContent>
+					</Popover>
+				</div>
 			</div>
 			<TabsContent value="registered-users" className="relative flex flex-col gap-4 overflow-auto">
 				<RegisteredUserTable data={registeredUsers} searchValue={deferredSearchValue} />

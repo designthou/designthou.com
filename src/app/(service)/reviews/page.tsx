@@ -24,7 +24,7 @@ export default async function ReviewListPage() {
 	return (
 		<section className="p-4 bg-light rounded-lg">
 			<div className="flex justify-between">
-				<h2 className="text-lg font-bold">Reviews</h2>
+				<h2 className="text-xl font-bold">Reviews</h2>
 				<AddReviewContext />
 			</div>
 			<Tabs defaultValue="online-course" className="">

@@ -1,7 +1,7 @@
-import type { Metadata, Viewport } from 'next';
 import '../globals.css';
-import { ReactQueryProvider } from '@/providers';
+import type { Metadata, Viewport } from 'next';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ReactQueryProvider } from '@/providers';
 import { Toaster } from '@/components';
 
 export const metadata: Metadata = {

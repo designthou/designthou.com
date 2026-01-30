@@ -28,7 +28,7 @@ const route = {
 		TERMS: '/terms',
 		PRIVACY: '/privacy',
 		SUPPORT: '/support',
-		ASIDE: '/aside',
+		ASIDE: '/aside-feedback',
 		NOT_FOUND: '/*',
 	},
 	ADMIN: {

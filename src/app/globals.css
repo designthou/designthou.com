@@ -81,6 +81,7 @@
 	--sidebar-ring: oklch(0.708 0 0);
 
 	--global-layout-nav-height: 64px;
+	--global-layout-nav-height-with-notify: 96px;
 	--global-layout-padding: 12px;
 	--service-nav-height: 36px;
 	--windowOS-scrollbar-width: 6px;

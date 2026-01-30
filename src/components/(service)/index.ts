@@ -1,3 +1,4 @@
+export * from './aside';
 export * from './faq';
 export * from './home';
 export * from './layout';

@@ -1,5 +1,6 @@
 export { default as AnimateLoader } from './AnimateLoader';
 export { default as AnimateLoaderWithText } from './AnimateLoaderWithText';
+export { default as Callout } from './Callout';
 export { default as DatePicker } from './DatePicker';
 export { default as GradientCircle } from './GradientCircle';
 export { default as GradientIndicator } from './GradientIndicator';

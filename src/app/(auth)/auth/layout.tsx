@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import '../../globals.css';
 import Link from 'next/link';
 import { Toaster } from 'sonner';
+import { Analytics } from '@vercel/analytics/next';
 import { SiteConfig } from '@/app/config';
 import { ReactQueryProvider } from '@/providers';
 import { route } from '@/constants';
@@ -39,6 +40,7 @@ export default function RootLayout({
 				<section className="max-w-120 mx-auto mt-8 w-full sm:mt-16">{children}</section>
 			</div>
 			<Toaster />
+			<Analytics />
 		</ReactQueryProvider>
 	);
 }

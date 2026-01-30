@@ -1,10 +1,12 @@
 import { Metadata } from 'next';
 import React from 'react';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, BadgeAlert } from 'lucide-react';
 import { SiteConfig } from '@/app/config';
 import {
+	ApplyForm,
 	AsciiArt,
 	Button,
+	Callout,
 	Dialog,
 	DialogClose,
 	DialogContent,
@@ -36,11 +38,11 @@ export default function AsidePage() {
 	return (
 		<section className="p-4 max-w-300">
 			<div className="flex flex-col gap-4 w-full">
-				<h2 className="page-title">Aside Service</h2>
+				<h2 className="page-title">Aside Feedback Service</h2>
 				<p className="font-medium text-sm text-gray-700 sm:text-base lg:text-lg">Meet our offline service</p>
 			</div>
 
-			<div className="flex items-center gap-0 my-8 bg-amber-50 w-full h-[100px] sm:h-[200px] md:h-[250px] lg:h-[320px]">
+			<div className="flex items-center gap-0 my-8 bg-amber-50 w-full h-[100px] sm:h-[200px] md:h-[250px] lg:h-[310px]">
 				<AsciiArt
 					src={ASCII_ART_SRC}
 					detail={50}
@@ -67,26 +69,26 @@ export default function AsidePage() {
 				/>
 			</div>
 
-			<div className="flex flex-col justify-between gap-8 my-8 p-4 bg-light border border-muted sm:items-center  sm:flex-row sm:p-8">
+			<div className="flex flex-col justify-between gap-8 my-8 p-4 bg-light border border-muted rounded-2xl sm:items-center sm:flex-row sm:p-8">
 				<div className="flex flex-col gap-2">
 					<p className="w-fit font-semibold text-base text-gray-900 sm:text-lg">하단의 서비스를 오프라인으로 제공합니다.</p>
 					<ul className="flex flex-col gap-2 text-sm sm:text-base">
-						<li className="inline-flex items-center gap-2">
-							<ArrowRight size={14} className="text-gray-700" /> <span>스케치업 모델링 응용</span>
+						<li className="inline-flex items-center gap-2 text-gray-600">
+							<ArrowRight size={14} /> <span>스케치업 모델링 응용</span>
 						</li>
-						<li className="inline-flex items-center gap-2">
-							<ArrowRight size={14} className="text-gray-700" />
+						<li className="inline-flex items-center gap-2 text-gray-600">
+							<ArrowRight size={14} />
 							<span>실무에 가까운 오토캐드 도면 작성</span>
 						</li>
-						<li className="inline-flex items-center gap-2">
-							<ArrowRight size={14} className="text-gray-700" />
+						<li className="inline-flex items-center gap-2 text-gray-600">
+							<ArrowRight size={14} />
 							<span>포트폴리오 피드백</span>
 						</li>
 					</ul>
 				</div>
 				<Dialog>
 					<DialogTrigger asChild>
-						<Button type="button" size="lg" className="w-fit rounded-full">
+						<Button type="button" size="lg" className="w-full rounded-full sm:w-fit">
 							신청하러 가기
 							<ArrowUpRight size={18} />
 						</Button>
@@ -94,15 +96,20 @@ export default function AsidePage() {
 					<DialogContent className="flex flex-col min-w-[50dvw]">
 						<DialogHeader>
 							<DialogTitle className="text-xl text-left font-bold sm:text-2xl">관련 정보 작성하기</DialogTitle>
-							<DialogDescription className="text-left font-medium">꼭, 어떤 피드백을 원하는지 선택해주세요.</DialogDescription>
+							<DialogDescription asChild>
+								<Callout message={'곧 지원 예정입니다.'} icon={<BadgeAlert size={16} />} />
+							</DialogDescription>
 						</DialogHeader>
-						<DialogFooter>
+
+						<ApplyForm />
+
+						<DialogFooter className="flex flex-row justify-end items-center gap-2">
 							<DialogClose asChild>
-								<Button type="button" variant="outline" size="lg" className="rounded-full">
+								<Button type="button" variant="outline" size="lg">
 									취소하기
 								</Button>
 							</DialogClose>
-							<Button type="submit" size="lg" className="rounded-full">
+							<Button type="submit" disabled={true} size="lg" form="apply-form">
 								제출하기
 							</Button>
 						</DialogFooter>

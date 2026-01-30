@@ -1,5 +1,6 @@
 import '../globals.css';
-import { Footer, KakaoOpenChat, Main, Nav, ScrollToTopButton } from '@/components';
+import { Analytics } from '@vercel/analytics/next';
+import { Footer, KakaoOpenChat, Main, Nav, NotifySection, ScrollToTopButton } from '@/components';
 import { ReactQueryProvider } from '@/providers';
 
 export default function ServiceLayout({
@@ -8,14 +9,18 @@ export default function ServiceLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<div className="h-screen mx-auto w-full">
-			<ReactQueryProvider>
-				<Nav />
-				<Main>{children}</Main>
-				<Footer />
-				<KakaoOpenChat />
-				<ScrollToTopButton />
-			</ReactQueryProvider>
-		</div>
+		<>
+			<div className="h-screen mx-auto w-full">
+				<ReactQueryProvider>
+					<NotifySection />
+					<Nav />
+					<Main>{children}</Main>
+					<Footer />
+					<KakaoOpenChat />
+					<ScrollToTopButton />
+				</ReactQueryProvider>
+			</div>
+			<Analytics />
+		</>
 	);
 }
