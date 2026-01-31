@@ -1,3 +1,5 @@
+import { m } from 'motion/react';
+
 const route = {
 	AUTH: {
 		ROOT: '/auth',
@@ -29,6 +31,8 @@ const route = {
 		PRIVACY: '/privacy',
 		SUPPORT: '/support',
 		ASIDE: '/aside-feedback',
+		PROFILE: '/my',
+		DASHBOARD: '/my/dashboard',
 		NOT_FOUND: '/*',
 	},
 	ADMIN: {
@@ -43,6 +47,10 @@ const route = {
 		ONLINE_COURSE: '/admin/online-course',
 		USERS: '/admin/user-list',
 		OFFLINE_STUDENTS: '/admin/offline',
+	},
+	COURSE: {
+		ROOT: '/courses',
+		LECTURE: '/courses/lecture',
 	},
 	OUTER: {
 		GITHUB: 'https://github.com/designthou/designthou.com',

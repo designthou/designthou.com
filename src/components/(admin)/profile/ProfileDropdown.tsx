@@ -48,12 +48,16 @@ export default function ProfileDropdown({ user }: { user: User | null }) {
 					<DropdownMenuItem disabled>Settings</DropdownMenuItem>
 				</DropdownMenuGroup>
 
-				<DropdownMenuSeparator />
-				<DropdownMenuItem asChild>
-					<Link href={route.OUTER.GITHUB} target="_blank" rel="noopener noreferrer" className="w-full">
-						<span>Github</span>
-					</Link>
-				</DropdownMenuItem>
+				{user?.role === 'admin' && (
+					<>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem asChild>
+							<Link href={route.OUTER.GITHUB} target="_blank" rel="noopener noreferrer" className="w-full">
+								<span>Github</span>
+							</Link>
+						</DropdownMenuItem>
+					</>
+				)}
 
 				<DropdownMenuSeparator />
 				<LogoutButton />
