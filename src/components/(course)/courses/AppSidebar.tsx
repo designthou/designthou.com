@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { ChevronRight, House, LayoutDashboard } from 'lucide-react';
 import { useSelectedLayoutSegment } from 'next/navigation';
+import { ChevronRight, LayoutDashboard } from 'lucide-react';
 import {
 	Button,
 	Sidebar,

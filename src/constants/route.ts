@@ -1,5 +1,3 @@
-import { m } from 'motion/react';
-
 const route = {
 	AUTH: {
 		ROOT: '/auth',

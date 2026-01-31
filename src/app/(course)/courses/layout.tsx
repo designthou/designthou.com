@@ -22,7 +22,7 @@ export default function CourseLayout({
 						</header>
 						<Main>{children}</Main>
 					</SidebarInset>
-					<AppSidebar user={null} side="right" />
+					<AppSidebar side="right" />
 					<ScrollToTopButton />
 				</SidebarProvider>
 			</ReactQueryProvider>
