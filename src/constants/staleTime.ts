@@ -36,6 +36,18 @@ const staleTime = {
 			ALL_WITH_PAGINATION: ONE_SECOND * 120,
 		},
 	},
+
+	COURSE: {
+		ONLINE_COURSES: {
+			ALL: ONE_SECOND * 60 * 60,
+		},
+		CHAPTERS: {
+			ALL: ONE_SECOND * 60 * 60,
+		},
+		LESSONS: {
+			ALL: ONE_SECOND * 60 * 60,
+		},
+	},
 };
 
 export default staleTime;

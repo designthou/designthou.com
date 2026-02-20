@@ -20,6 +20,10 @@ const queryKey = {
 		LEGACY_USERS_LIST_PAGE_INFO: ['legacy_users', 'pageInfo'],
 		LEGACY_USERS_BY_PAGE: ['legacy_users', 'pagination'],
 	},
+	COURSE: {
+		COURSE_CURRICULUM: ['course'],
+		LESSONS: ['lessons'],
+	},
 };
 
 export default queryKey;

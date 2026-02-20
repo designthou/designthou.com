@@ -229,6 +229,139 @@ export interface Database {
 					id: never;
 				};
 			};
+
+			online_courses: {
+				Row: {
+					// the data expected from .select()
+					id: string;
+					title: string;
+					description: string;
+					price: number;
+					discount_price: number;
+					discount_rate: number;
+					status: string;
+					thumbnail_url: string;
+					created_at: string;
+					updated_at: string;
+				};
+				Insert: {
+					// the data expected from .select()
+					id?: never; // generated columns must not be supplied
+					title: string;
+					description: string;
+					price: number;
+					discount_price: number;
+					discount_rate: number;
+					status: string;
+					thumbnail_url: string;
+					created_at: string;
+					updated_at?: string;
+				};
+				Update: {
+					// the data expected from .select()
+					id: never; // generated columns must not be supplied
+					title?: string;
+					description?: string;
+					price?: number;
+					discount_price?: number;
+					discount_rate?: number;
+					status?: string;
+					thumbnail_url?: string;
+					updated_at: string;
+				};
+				Delete: {
+					id: never;
+				};
+			};
+			chapters: {
+				Row: {
+					// the data expected from .select()
+					id: string;
+					course_id: string;
+					title: string;
+					order_index: number;
+					is_welcome: boolean;
+					created_at: string;
+					updated_at: string;
+				};
+				Insert: {
+					// the data expected from .select()
+					id?: never; // generated columns must not be supplied
+					course_id: string;
+					title: string;
+					order_index: number;
+					is_welcome: boolean;
+					created_at: string;
+					updated_at?: string;
+				};
+				Update: {
+					// the data expected from .select()
+					id: never; // generated columns must not be supplied
+					course_id: string;
+					title?: string;
+					order_index?: number;
+					is_welcome?: boolean;
+					updated_at?: string;
+				};
+				Delete: {
+					id: never;
+				};
+			};
+			lessons: {
+				Row: {
+					// the data expected from .select()
+					id: string;
+					course_id: string;
+					chapter_id: string;
+					title: string;
+					video_url: string;
+					video_duration_seconds: string;
+					thumbnail_url: string;
+					attachment_url: string;
+					order_index: number;
+					is_preview: number;
+					is_published: boolean;
+					description: string;
+					created_at: string;
+					updated_at: string;
+				};
+				Insert: {
+					// the data expected from .select()
+					id?: never; // generated columns must not be supplied
+					course_id: string;
+					chapter_id: string;
+					title: string;
+					video_url: string;
+					video_duration_seconds: string;
+					thumbnail_url: string;
+					attachment_url: string;
+					order_index: number;
+					is_preview: number;
+					is_published: boolean;
+					description: string;
+					created_at: string;
+					updated_at?: string;
+				};
+				Update: {
+					// the data expected from .select()
+					id: never; // generated columns must not be supplied
+					course_id: string;
+					chapter_id: string;
+					title?: string;
+					video_url?: string;
+					video_duration_seconds?: string;
+					thumbnail_url?: string;
+					attachment_url?: string;
+					order_index?: number;
+					is_preview?: number;
+					is_published?: boolean;
+					description?: string;
+					updated_at: string;
+				};
+				Delete: {
+					id: never;
+				};
+			};
 		};
 	};
 }

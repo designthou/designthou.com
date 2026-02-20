@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import type { LegacyUser, User, ReviewCountByProduct, OfflineStudentRow } from '@/lib/supabase';
-import { OfflineStudentView, offlineStudentViewSchema } from './view';
+import type { LegacyUser, User, ReviewCountByProduct, OfflineStudentRow, OnlineCourseRow } from '@/lib/supabase';
+import { OfflineStudentView, offlineStudentViewSchema, OnlineCourseView, onlineCourseViewSchema } from './view';
 
 type RegisteredUserViewSchema = z.infer<typeof registeredUserViewSchema>;
 type LegacyUserViewSchema = z.infer<typeof legacyUserViewSchema>;
@@ -41,6 +41,19 @@ const offlineStudentsRowSchema: z.ZodType<OfflineStudentRow> = z.object({
 	category: z.string(),
 	phone_encrypted: z.string().nullable(),
 	phone_mask: z.string().nullable(),
+	created_at: z.string(),
+	updated_at: z.string(),
+});
+
+const onlineCourseRowSchema: z.ZodType<OnlineCourseRow> = z.object({
+	id: z.string(),
+	title: z.string(),
+	description: z.string(),
+	price: z.number(),
+	discount_price: z.number(),
+	discount_rate: z.number(),
+	status: z.string(),
+	thumbnail_url: z.string(),
 	created_at: z.string(),
 	updated_at: z.string(),
 });
@@ -88,5 +101,22 @@ const mapOfflineStudentsRowToView = (row: OfflineStudentRow): OfflineStudentView
 	});
 };
 
+const mapOnlineCourseRowToView = (row: OnlineCourseRow): OnlineCourseView => {
+	const r = onlineCourseRowSchema.parse(row);
+
+	return onlineCourseViewSchema.parse({
+		id: r.id,
+		title: r.title,
+		description: r.description,
+		price: r.price,
+		discountPrice: r.discount_price,
+		discountRate: r.discount_rate,
+		status: r.status,
+		thumbnailUrl: r.thumbnail_url,
+		createdAt: r.created_at,
+		updatedAt: r.updated_at,
+	});
+};
+
 export type { RegisteredUserViewSchema, LegacyUserViewSchema, ReviewCountByProductViewSchema };
-export { mapRegisteredUserToView, mapLegacyUserToView, mapReviewCountByProductView, mapOfflineStudentsRowToView };
+export { mapRegisteredUserToView, mapLegacyUserToView, mapReviewCountByProductView, mapOfflineStudentsRowToView, mapOnlineCourseRowToView };

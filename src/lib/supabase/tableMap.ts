@@ -8,4 +8,7 @@ export const TABLE = {
 	VIEW: {
 		REVIEW_COUNT_BY_PRODUCT: 'review_count_by_product',
 	},
+	ONLINE_COURSES: 'online_courses',
+	CHAPTERS: 'chapters',
+	LESSONS: 'lessons',
 } as const;

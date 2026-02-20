@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { ArrowLeft, ArrowUpRight, Download } from 'lucide-react';
 import { AnimateLoader, Button } from '@/components';
 import { createClient } from '@/lib/supabase/server';
-import { convertSupabaseDateToShortHumanReadable } from '@/lib/supabase';
+import { convertSupabaseDateToShortHumanReadable, TABLE } from '@/lib/supabase';
 import { route } from '@/constants';
 
 const YoutubeVideo = dynamic(() => import('@/components/(service)/tips/YoutubeVideo'), {
@@ -17,7 +17,7 @@ const YoutubeVideo = dynamic(() => import('@/components/(service)/tips/YoutubeVi
 export default async function TipVideoPage({ params }: { params: Promise<{ id: string }> }) {
 	const { id } = await params;
 	const supabase = await createClient();
-	const { data, error } = await supabase.from('youtube_tips').select('*').eq('id', id).single();
+	const { data, error } = await supabase.from(TABLE.TIPS).select('*').eq('id', id).single();
 
 	if (error) {
 		throw new Error(error.message);

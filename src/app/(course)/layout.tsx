@@ -2,6 +2,7 @@ import '../globals.css';
 import type { Metadata, Viewport } from 'next';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryProvider } from '@/providers';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
 	title: {
@@ -46,6 +47,7 @@ export default function CourseRootLayout({ children }: { children: React.ReactNo
 		<ReactQueryProvider>
 			{children}
 			<ReactQueryDevtools initialIsOpen={false} />
+			<Analytics />
 		</ReactQueryProvider>
 	);
 }

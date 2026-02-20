@@ -21,6 +21,7 @@ interface LegacyUserView {
 }
 
 type OfflineStudentView = z.infer<typeof offlineStudentViewSchema>;
+type OnlineCourseView = z.infer<typeof onlineCourseViewSchema>;
 
 const offlineStudentViewSchema = z.object({
 	id: z.string(),
@@ -34,5 +35,18 @@ const offlineStudentViewSchema = z.object({
 	updatedAt: z.string(),
 });
 
-export type { RegisteredUserView, LegacyUserView, OfflineStudentView };
-export { offlineStudentViewSchema };
+const onlineCourseViewSchema = z.object({
+	id: z.string(),
+	title: z.string(),
+	description: z.string(),
+	price: z.number(),
+	discountPrice: z.number(),
+	discountRate: z.number(),
+	status: z.string(),
+	thumbnailUrl: z.string(),
+	createdAt: z.string(),
+	updatedAt: z.string(),
+});
+
+export type { RegisteredUserView, LegacyUserView, OfflineStudentView, OnlineCourseView };
+export { offlineStudentViewSchema, onlineCourseViewSchema };

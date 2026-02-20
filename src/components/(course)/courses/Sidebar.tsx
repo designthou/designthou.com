@@ -22,57 +22,48 @@ import {
 	CollapsibleContent,
 } from '@/components';
 import { route } from '@/constants';
+import { useCourseCurriculum } from '@/hooks';
 
 // const tabs = [
 // 	{ title: 'Curriculum', query: 'curriculum', icon: <NotebookTabs size={18} /> },
 // 	{ title: 'Q&A', query: 'Q&A', icon: <CircleQuestionMark size={18} /> },
 // ];
 
-const curriculum = [
-	{
-		chapter: 'Welcome',
-		section: [
-			{ id: 'adjflajjdfjlsajdf', title: `1. 'studio HYK'의 건축 클래스를 소개합니다!`, videoUrl: 'https://youtube.com' },
-			{ id: 'adjflajjd23jlsajdf', title: `2. 프로그램을 왜? 어떻게 배워야할까?`, videoUrl: 'https://youtube.com' },
-		],
-	},
-	{
-		chapter: 'Chapter 01',
-		section: [
-			{ id: '23234234234', title: `1. 스케치업 소개 및 작업환경 세팅`, videoUrl: 'https://youtube.com' },
-			{ id: 'adfkljasdfj', title: `2. 인터페이스 및 기본 조작`, videoUrl: 'https://youtube.com' },
-		],
-	},
-];
-
-export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+/**
+ *
+ * 1. course -> profile dashboard 에서 확인 후, route에 전달된 slug를 활용하여 어떤 코스인지 판단
+ * 2. courseId를 기준으로 chapters 들을 가져오고, chapter 각 내부에 위치한 lessons들을 가져올 수 있도록 구현
+ */
+export default function AppSidebar({ courseId, ...props }: { courseId: string } & React.ComponentProps<typeof Sidebar>) {
 	const segment = useSelectedLayoutSegment();
-	console.log(segment);
+	const curriculums = useCourseCurriculum({ courseId });
 
 	return (
 		<Sidebar {...props}>
 			<SidebarHeader>
 				<ProfileDropdown user={null} />
 			</SidebarHeader>
-			<SidebarContent className="gap-0">
-				{curriculum.map(item => (
-					<Collapsible key={item.chapter} title={item.chapter} defaultOpen className="group/collapsible">
+			<SidebarContent className="">
+				{curriculums.map(chapter => (
+					<Collapsible key={chapter.id} title={chapter.title} defaultOpen className="group/collapsible">
 						<SidebarGroup>
 							<SidebarGroupLabel>
 								<CollapsibleTrigger className="flex justify-between items-center w-full">
-									<span className="text-sm font-semibold">{item.chapter}</span>
+									<span className="text-left text-sm font-semibold">{chapter.title}</span>
 									<ChevronRight size={16} className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
 								</CollapsibleTrigger>
 							</SidebarGroupLabel>
 							<CollapsibleContent>
-								<SidebarGroupContent key={item.chapter}>
-									<SidebarMenu>
-										{item.section.map(({ id, title }) => (
+								<SidebarGroupContent key={chapter.id}>
+									<SidebarMenu className="mt-3">
+										{chapter.lessons.map(({ id, title, order_index }) => (
 											<SidebarMenuItem key={title}>
 												<SidebarMenuButton asChild>
-													<Link href={`/courses/lecture/?courseId=${123}&unitId=${id}`}>
-														<span className="">{title}</span>
-														{id === segment && (
+													<Link href={`/courses/${courseId}/lessons/${id}`}>
+														<span className="">
+															{order_index}. {title}
+														</span>
+														{segment?.includes(id) && (
 															<div className="hidden mr-2 w-1.5 h-1.5 rounded-full bg-gradient-orange-100 lg:inline-block" />
 														)}
 													</Link>

@@ -14,5 +14,21 @@ type Tip = Tables['youtube_tips']['Row'];
 type LegacyUser = Tables['legacy_users']['Row'];
 type ReviewCountByProduct = Tables['review_count_by_product']['Row'];
 type OfflineStudentRow = Tables['offline_students']['Row'];
+type OnlineCourseRow = Tables['online_courses']['Row'];
+type ChapterRow = Tables['chapters']['Row'];
+type LessonRow = Tables['lessons']['Row'];
 
-export type { TableRowData, ServiceDataType, User, News, Review, Tip, LegacyUser, ReviewCountByProduct, OfflineStudentRow };
+export type {
+	TableRowData,
+	ServiceDataType,
+	User,
+	News,
+	Review,
+	Tip,
+	LegacyUser,
+	ReviewCountByProduct,
+	OfflineStudentRow,
+	OnlineCourseRow,
+	ChapterRow,
+	LessonRow,
+};
