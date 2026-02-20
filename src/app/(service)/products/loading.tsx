@@ -11,7 +11,7 @@ export default function ProductsLoading() {
 					Meet our selected high-quality Designthou classes
 				</p>
 			</div>
-			<Skeleton className="mt-8 w-full h-100" />
+			<Skeleton className="mt-8 w-full h-120" />
 			<LayoutContainerLoader />;
 		</section>
 	);
