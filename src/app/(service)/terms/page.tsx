@@ -38,7 +38,7 @@ export default function ServiceTermsPage() {
 							<strong>사이트</strong>란 회사가 상품을 회원에게 제공하기 위하여 컴퓨터 등 정보통신설비를 이용하여 상품 등을 거래할 수 있도록
 							설정한 가상의 영업장을 말하며, 사이버몰을 운영하는 사업자의 의미로도 사용합니다.
 							<p>
-								현재 회사가 운영하는 사이트는 <strong>${SiteConfig.url}</strong>이며, 모바일 웹 서비스를 포함합니다.
+								현재 회사가 운영하는 사이트는 <strong>{SiteConfig.url}</strong>이며, 모바일 웹 서비스를 포함합니다.
 							</p>
 						</li>
 						<li className="mt-4">

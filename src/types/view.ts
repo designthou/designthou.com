@@ -44,6 +44,7 @@ const onlineCourseViewSchema = z.object({
 	discountRate: z.number(),
 	status: z.string(),
 	thumbnailUrl: z.string(),
+	totalVideoDuration: z.string(),
 	createdAt: z.string(),
 	updatedAt: z.string(),
 });

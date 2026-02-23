@@ -8,7 +8,7 @@ export default async function LessonPage({
 	const { courseId, lessonId } = await params;
 
 	return (
-		<div>
+		<div className="rounded-lg">
 			<VideoPlayer courseId={courseId} lessonId={lessonId} />
 		</div>
 	);

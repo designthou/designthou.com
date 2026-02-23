@@ -20,9 +20,10 @@ import {
 	CollapsibleTrigger,
 	Collapsible,
 	CollapsibleContent,
+	useSidebar,
 } from '@/components';
 import { route } from '@/constants';
-import { useCourseCurriculum } from '@/hooks';
+import { useCourseCurriculum, useIsMobile } from '@/hooks';
 
 // const tabs = [
 // 	{ title: 'Curriculum', query: 'curriculum', icon: <NotebookTabs size={18} /> },
@@ -37,6 +38,9 @@ import { useCourseCurriculum } from '@/hooks';
 export default function AppSidebar({ courseId, ...props }: { courseId: string } & React.ComponentProps<typeof Sidebar>) {
 	const segment = useSelectedLayoutSegment();
 	const curriculums = useCourseCurriculum({ courseId });
+
+	const { toggleSidebar } = useSidebar();
+	const isMobile = useIsMobile();
 
 	return (
 		<Sidebar {...props}>
@@ -59,7 +63,13 @@ export default function AppSidebar({ courseId, ...props }: { courseId: string } 
 										{chapter.lessons.map(({ id, title, order_index }) => (
 											<SidebarMenuItem key={title}>
 												<SidebarMenuButton asChild>
-													<Link href={`/courses/${courseId}/lessons/${id}`}>
+													<Link
+														href={`/courses/${courseId}/lessons/${id}`}
+														onClick={() => {
+															if (!isMobile) return;
+
+															toggleSidebar();
+														}}>
 														<span className="">
 															{order_index}. {title}
 														</span>
@@ -83,7 +93,7 @@ export default function AppSidebar({ courseId, ...props }: { courseId: string } 
 					<Button type="button" variant="default" className="w-full font-bold" asChild>
 						<Link href={route.SERVICE.DASHBOARD} target="_blank" className="text-sm">
 							<LayoutDashboard size={16} />
-							<span className="hidden lg:inline">대시보드로 가기</span>
+							<span className="">My Dashboard</span>
 						</Link>
 					</Button>
 				</div>

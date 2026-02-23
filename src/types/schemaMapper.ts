@@ -54,6 +54,7 @@ const onlineCourseRowSchema: z.ZodType<OnlineCourseRow> = z.object({
 	discount_rate: z.number(),
 	status: z.string(),
 	thumbnail_url: z.string(),
+	total_video_duration: z.string(),
 	created_at: z.string(),
 	updated_at: z.string(),
 });
@@ -113,6 +114,7 @@ const mapOnlineCourseRowToView = (row: OnlineCourseRow): OnlineCourseView => {
 		discountRate: r.discount_rate,
 		status: r.status,
 		thumbnailUrl: r.thumbnail_url,
+		totalVideoDuration: r.total_video_duration,
 		createdAt: r.created_at,
 		updatedAt: r.updated_at,
 	});

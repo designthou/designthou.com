@@ -241,6 +241,7 @@ export interface Database {
 					discount_rate: number;
 					status: string;
 					thumbnail_url: string;
+					total_video_duration: string;
 					created_at: string;
 					updated_at: string;
 				};
@@ -254,6 +255,7 @@ export interface Database {
 					discount_rate: number;
 					status: string;
 					thumbnail_url: string;
+					total_video_duration: string;
 					created_at: string;
 					updated_at?: string;
 				};
@@ -267,6 +269,7 @@ export interface Database {
 					discount_rate?: number;
 					status?: string;
 					thumbnail_url?: string;
+					total_video_duration?: string;
 					updated_at: string;
 				};
 				Delete: {
