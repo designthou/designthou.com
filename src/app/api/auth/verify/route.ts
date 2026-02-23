@@ -26,8 +26,12 @@ export async function POST() {
 			);
 		}
 
-		if (!user.email_confirmed_at) {
-			return NextResponse.json<ApiResponse>({ ok: false, error: '이메일 인증이 완료되지 않았습니다.' }, { status: 400 });
+		const provider = user?.app_metadata?.provider;
+
+		if (provider === 'email') {
+			if (!user.email_confirmed_at) {
+				return NextResponse.json({ ok: false, error: '이메일 인증이 완료되지 않았습니다.' }, { status: 400 });
+			}
 		}
 
 		const { data: existingUser } = await supabaseServer.from(TABLE.PROFILES).select('id').eq('id', user.id).maybeSingle();
@@ -41,9 +45,9 @@ export async function POST() {
 
 		const { error: createUserError } = await supabaseServer.from(TABLE.PROFILES).insert({
 			id: user.id,
-			nickname: user.user_metadata?.nickname,
-			display_name: user.user_metadata?.nickname,
-			user_login: 'email',
+			nickname: provider === 'google' ? user.user_metadata?.name : user.user_metadata?.nickname,
+			display_name: provider === 'google' ? user.user_metadata?.name : user.user_metadata?.nickname,
+			user_login: provider,
 			user_registered_at: new Date().toISOString(),
 			role: 'user',
 		});

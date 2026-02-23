@@ -4,6 +4,7 @@ export * from './home';
 export * from './layout';
 export * from './news';
 export * from './products';
+export * from './profile';
 export * from './reviews';
 export * from './support';
 export * from './tips';

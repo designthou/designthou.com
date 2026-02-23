@@ -92,7 +92,7 @@ export default function Aside({ user }: { user: User | null }) {
 				</div>
 
 				<small className="text-default mx-3 mb-2 mt-1 hidden text-[0.5rem] opacity-50 lg:block">
-					© 2025{' '}
+					© 2026{' '}
 					<Link href={route.SERVICE.ROOT} className="hover:underline" target="_blank">
 						DESIGNTHOU
 					</Link>

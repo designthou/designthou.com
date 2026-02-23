@@ -33,7 +33,7 @@ export default function RootLayout({
 				<h1 className="mx-auto mt-4 w-fit">
 					<Link
 						href={route.SERVICE.ROOT}
-						className="px-4 py-2 w-full h-full text-2xl text-white font-black font-mono text-center bg-gradient-orange-100 rounded-lg cursor-pointer">
+						className="px-4 py-2 w-full h-full text-xl text-white font-black font-mono text-center bg-gradient-orange-100 rounded-lg cursor-pointer">
 						Designthou
 					</Link>
 				</h1>

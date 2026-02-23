@@ -1,8 +1,10 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import googleIcon from '@/public/google.svg';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import {
@@ -21,8 +23,11 @@ import {
 } from '@/components';
 import { useSignup } from '@/hooks';
 import { route } from '@/constants';
+import { SiteConfig } from '@/app/config';
+import { createClient } from '@/lib/supabase/client';
 
 export default function SignupForm() {
+	const supabase = createClient();
 	const form = useForm<SignUpSchema>({
 		resolver: zodResolver(signUpSchema),
 		defaultValues: {
@@ -36,6 +41,15 @@ export default function SignupForm() {
 	const router = useRouter();
 
 	const { mutate: signup, isPending } = useSignup();
+
+	const signUpWithGoogle = async () => {
+		await supabase.auth.signInWithOAuth({
+			provider: 'google',
+			options: {
+				redirectTo: `${SiteConfig.url}/api/auth/callback`,
+			},
+		});
+	};
 
 	const onSubmit = async (values: SignUpSchema) => {
 		const { email, password, nickname } = values;
@@ -66,8 +80,19 @@ export default function SignupForm() {
 
 	return (
 		<div className="flex flex-col gap-4 mt-4 p-4 bg-white rounded-lg">
+			<Button type="button" variant="default" onClick={signUpWithGoogle}>
+				<Image src={googleIcon} alt="Continue with Google Icon" className="mr-2 w-4 h-4 text-subtle" />
+				Continue with Google
+			</Button>
+			<div className="my-4">
+				<div className="flex relative items-center">
+					<div className="border-t border-subtle grow"></div>
+					<span className="mx-2 text-sm font-normal leading-none text-gray-500 shrink">or</span>
+					<div className="border-t border-subtle grow"></div>
+				</div>
+			</div>
 			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8 mt-8">
+				<form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8">
 					<FormField
 						control={form.control}
 						name="email"
@@ -120,7 +145,7 @@ export default function SignupForm() {
 							</FormItem>
 						)}
 					/>
-					<Button type="submit" variant="default" size="lg">
+					<Button type="submit" variant="secondary" size="lg">
 						{isPending ? <AnimateLoader /> : 'Sign Up'}
 					</Button>
 				</form>

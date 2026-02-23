@@ -27,6 +27,7 @@ export const SiteConfig = {
 		LOGIN: 'Login | Designthou',
 		SIGN_UP: 'Sign Up | Designthou',
 		FORGOT_PASSWORD: 'Forgot Password | Designthou',
+		DASHBOARD: 'My Dashboard | Designthou',
 	},
 	subtitle:
 		'건축, 공간 디자이너를 위한 오픈 플랫폼! 디자인도우입니다. 이곳은 건축 디자인을 위한 열린 공간으로, 건축 공모전 소식, 무료 캐드 & 일러스트 오픈소스, 유용한 작업 팁을 자유롭게 얻어갈 수 있습니다.',
@@ -51,6 +52,7 @@ export const SiteConfig = {
 		LOGIN: "Spatial Open Content Platform | This is Designthou's Login Page",
 		SIGN_UP: "Spatial Open Content Platform | This is Designthou's Sign Up Page",
 		FORGOT_PASSWORD: 'Spatial Open Content Platform | This is Designthou’s Forgot Password Page',
+		DASHBOARD: 'Spatial Open Content Platform | This is Designthou’s My Dashboard Page',
 	},
 	copyright: '© Designthou. ALL RIGHTS RESERVED',
 	author: {

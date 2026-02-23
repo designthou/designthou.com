@@ -1,9 +1,11 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import googleIcon from '@/public/google.svg';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLogin } from '@/hooks';
 import {
@@ -21,8 +23,11 @@ import {
 	PasswordInput,
 } from '@/components';
 import { route } from '@/constants';
+import { SiteConfig } from '@/app/config';
+import { createClient } from '@/lib/supabase/client';
 
 export default function LoginForm() {
+	const supabase = createClient();
 	const form = useForm<LoginSchema>({
 		resolver: zodResolver(loginSchema),
 		defaultValues: {
@@ -32,12 +37,21 @@ export default function LoginForm() {
 	});
 
 	const router = useRouter();
-	const { mutate: signup, isPending } = useLogin();
+	const { mutate: signIn, isPending } = useLogin();
+
+	const loginWithGoogle = async () => {
+		await supabase.auth.signInWithOAuth({
+			provider: 'google',
+			options: {
+				redirectTo: `${SiteConfig.url}/api/auth/callback`,
+			},
+		});
+	};
 
 	const onSubmit = async (values: LoginSchema) => {
 		const { email, password } = values;
 
-		signup(
+		signIn(
 			{ email, password },
 			{
 				onSuccess() {
@@ -57,8 +71,19 @@ export default function LoginForm() {
 
 	return (
 		<div className="flex flex-col gap-4 mt-8 p-4 bg-white rounded-lg">
+			<Button type="button" variant="default" onClick={loginWithGoogle}>
+				<Image src={googleIcon} alt="Continue with Google Icon" className="mr-2 w-4 h-4 text-subtle" />
+				Sign in with Google
+			</Button>
+			<div className="my-4">
+				<div className="flex relative items-center">
+					<div className="border-t border-subtle grow"></div>
+					<span className="mx-2 text-sm font-normal leading-none text-gray-500 shrink">or</span>
+					<div className="border-t border-subtle grow"></div>
+				</div>
+			</div>
 			<Form {...form}>
-				<form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 mt-8">
+				<form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
 					<FormField
 						control={form.control}
 						name="email"
@@ -90,7 +115,7 @@ export default function LoginForm() {
 							</FormItem>
 						)}
 					/>
-					<Button type="submit" variant="default" size="lg">
+					<Button type="submit" variant="secondary" size="lg">
 						{isPending ? <AnimateLoader /> : 'Login'}
 					</Button>
 				</form>
