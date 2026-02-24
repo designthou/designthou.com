@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import { Hash } from 'lucide-react';
+import { ArrowUpRight, Hash } from 'lucide-react';
 import { SiteConfig } from '@/app/config';
-import { LogoutButton, ProfileAvatar } from '@/components';
+import { Button, LogoutButton, ProfileAvatar } from '@/components';
 import { createClient } from '@/lib/supabase/server';
 import { mapOnlineCourseRowToView } from '@/types';
 import { OnlineCourseRow, TABLE } from '@/lib/supabase';
@@ -82,6 +82,10 @@ export default async function MyDashboardPage() {
 							</div>
 							<div className="ui-flex-center-between">
 								<span className="p-1 text-xs font-medium text-gray-500 bg-muted rounded-md">총 {course.totalVideoDuration}</span>
+								<Button type="button" variant="outline" className="w-fit ml-auto">
+									Learn
+									<ArrowUpRight />
+								</Button>
 								{/*<Button key={course.id} variant="outline" asChild className="w-fit ml-auto">
 									<Link href={`${route.COURSE.ROOT}/${course.id}`}>
 										Learn
