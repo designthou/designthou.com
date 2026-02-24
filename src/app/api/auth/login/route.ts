@@ -12,7 +12,7 @@ export async function POST(request: Request) {
 		});
 
 		if (error) {
-			return NextResponse.json({ error: error.message || '유효하지 않은 로그인 정보입니다.' }, { status: 401 });
+			return NextResponse.json({ error: '유효하지 않은 로그인 정보입니다.' }, { status: 401 });
 		}
 
 		if (!data?.user || !data?.session) {
