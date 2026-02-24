@@ -1,9 +1,8 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { ArrowUpRight, Hash } from 'lucide-react';
+import { Hash } from 'lucide-react';
 import { SiteConfig } from '@/app/config';
-import { Button, LogoutButton, ProfileAvatar } from '@/components';
+import { LogoutButton, ProfileAvatar } from '@/components';
 import { createClient } from '@/lib/supabase/server';
 import { mapOnlineCourseRowToView } from '@/types';
 import { OnlineCourseRow, TABLE } from '@/lib/supabase';
@@ -53,7 +52,7 @@ export default async function MyDashboardPage() {
 					<dl className="flex flex-col gap-2">
 						<div className="flex items-center gap-2">
 							<dt className="min-w-14 px-1 py-0.5 bg-gray-100 text-gray-500 rounded-md text-center">이 름</dt>
-							<dd className="px-2 py-0.5">{user?.user_metadata?.name}</dd>
+							<dd className="px-2 py-0.5">{user?.user_metadata?.name ?? user?.user_metadata?.display_name}</dd>
 						</div>
 						<div className="flex items-center gap-2">
 							<dt className="min-w-14 px-1 py-0.5 bg-gray-100 text-gray-500 rounded-md text-center">이메일</dt>
@@ -83,12 +82,12 @@ export default async function MyDashboardPage() {
 							</div>
 							<div className="ui-flex-center-between">
 								<span className="p-1 text-xs font-medium text-gray-500 bg-muted rounded-md">총 {course.totalVideoDuration}</span>
-								<Button key={course.id} variant="outline" asChild className="w-fit ml-auto">
+								{/*<Button key={course.id} variant="outline" asChild className="w-fit ml-auto">
 									<Link href={`${route.COURSE.ROOT}/${course.id}`}>
 										Learn
 										<ArrowUpRight />
 									</Link>
-								</Button>
+								</Button>*/}
 							</div>
 						</div>
 					))}
