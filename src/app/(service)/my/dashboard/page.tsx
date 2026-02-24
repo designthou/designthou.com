@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
-// import Link from 'next/link';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
-// import { ArrowUpRight, Hash } from 'lucide-react';
+import { ArrowUpRight, Hash } from 'lucide-react';
 import { SiteConfig } from '@/app/config';
-import { LogoutButton, ProfileAvatar } from '@/components';
+import { Button, LogoutButton, ProfileAvatar } from '@/components';
 import { createClient } from '@/lib/supabase/server';
-// import { mapOnlineCourseRowToView } from '@/types';
-// import { OnlineCourseRow, TABLE } from '@/lib/supabase';
+import { mapOnlineCourseRowToView } from '@/types';
+import { OnlineCourseRow, TABLE } from '@/lib/supabase';
 import { route } from '@/constants';
 
 export const metadata: Metadata = {
@@ -36,18 +36,18 @@ export default async function MyDashboardPage() {
 		redirect(route.AUTH.LOGIN);
 	}
 
-	// const { data, error } = await supabaseServerClient.from(TABLE.ONLINE_COURSES).select('*').returns<OnlineCourseRow[]>();
+	const { data, error } = await supabaseServerClient.from(TABLE.ONLINE_COURSES).select('*').returns<OnlineCourseRow[]>();
 
-	// if (error) {
-	// 	throw error;
-	// }
+	if (error) {
+		throw error;
+	}
 
-	// const onlineCourseLinks = data?.map(mapOnlineCourseRowToView);
+	const onlineCourseLinks = data?.map(mapOnlineCourseRowToView);
 
 	return (
 		<section className="p-4 max-w-300">
 			<h2 className="page-subtitle">My Dashboard</h2>
-			<div className="flex justify-between gap-4 mt-4 p-4 w-full bg-gray-50 rounded-lg">
+			<div className="flex flex-col justify-between gap-4 mt-4 p-4 w-full bg-gray-50 rounded-lg sm:flex-row">
 				<div className="ui-flex-center gap-8">
 					<ProfileAvatar user={user} size={64} />
 					<dl className="flex flex-col gap-2">
@@ -65,14 +65,14 @@ export default async function MyDashboardPage() {
 						</div>
 					</dl>
 				</div>
-				<LogoutButton className="w-fit" />
+				<LogoutButton className="w-fit ml-auto" />
 			</div>
 			<div className="mt-4 p-4 bg-gray-50 rounded-md">
 				<div className="ui-flex-center-between">
 					<h3 className="font-semibold text-lg text-gray-500">All my courses</h3>
-					{/*<span className="font-bold text-4xl">{onlineCourseLinks?.length}</span>*/}
+					<span className="font-bold text-4xl">{onlineCourseLinks?.length}</span>
 				</div>
-				{/*<div className="flex flex-col gap-4 mx-auto mt-4">
+				<div className="flex flex-col gap-4 mx-auto mt-4">
 					{onlineCourseLinks.map(course => (
 						<div key={course.id} className="flex flex-col gap-2 p-3 bg-white rounded-lg border border-gray-100">
 							<div className="flex items-center gap-2">
@@ -92,7 +92,7 @@ export default async function MyDashboardPage() {
 							</div>
 						</div>
 					))}
-				</div>*/}
+				</div>
 			</div>
 		</section>
 	);

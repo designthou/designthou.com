@@ -21,7 +21,7 @@ export default function ProfileDropdown({ user }: { user: User | null }) {
 		<DropdownMenu>
 			{
 				<DropdownMenuTrigger asChild>
-					<Button variant="default" className="py-1">
+					<Button variant="default" size="lg" className="px-2 rounded-lg">
 						<ProfileAvatar user={user} />
 						<span className="hidden font-semibold lg:inline-block">{user?.user_metadata?.name ?? user?.user_metadata?.nickname}</span>
 					</Button>

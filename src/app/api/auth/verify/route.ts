@@ -26,6 +26,10 @@ export async function POST() {
 			);
 		}
 
+		if (!user.email) {
+			return NextResponse.json({ ok: false, error: '이메일 정보가 없습니다.' }, { status: 400 });
+		}
+
 		const provider = user?.app_metadata?.provider;
 
 		if (provider === 'email') {
@@ -34,34 +38,36 @@ export async function POST() {
 			}
 		}
 
-		const { data: existingUser } = await supabaseServer.from(TABLE.PROFILES).select('id').eq('id', user.id).maybeSingle();
+		const { data: legacyUsers, error: getLegacyUserError } = await supabaseServer
+			.from(TABLE.LEGACY_USERS)
+			.select('legacy_user_id')
+			.eq('email', user?.email)
+			.limit(1);
 
-		if (existingUser) {
-			return NextResponse.json<ApiResponse>({
-				ok: false,
-				message: '이미 등록된 사용자입니다.',
-			});
+		if (getLegacyUserError) {
+			console.error('Get Legacy User Error', getLegacyUserError);
 		}
 
-		const { error: createUserError } = await supabaseServer.from(TABLE.PROFILES).insert({
-			id: user.id,
-			nickname: provider === 'google' ? user.user_metadata?.name : user.user_metadata?.nickname,
-			display_name: provider === 'google' ? user.user_metadata?.name : user.user_metadata?.nickname,
-			user_login: provider,
-			user_registered_at: new Date().toISOString(),
-			role: 'user',
-		});
+		const legacyUser = legacyUsers?.[0] ?? null;
+
+		const displayName = provider === 'google' ? user.user_metadata?.name : user.user_metadata?.nickname;
+		const finalDisplayName = displayName ?? user.email.split('@')[0];
+
+		const { error: createUserError } = await supabaseServer.from(TABLE.PROFILES).upsert(
+			{
+				id: user.id,
+				nickname: finalDisplayName,
+				display_name: finalDisplayName,
+				user_login: provider,
+				user_registered_at: new Date().toISOString(),
+				role: 'user',
+				legacy_user_id: legacyUser ? legacyUser?.legacy_user_id : null,
+			},
+			{ onConflict: 'id' },
+		);
 
 		if (createUserError) {
 			console.error('Create user error:', createUserError);
-
-			// 중복 키 에러 처리
-			if (createUserError.code === '23505') {
-				return NextResponse.json<ApiResponse>({
-					ok: false,
-					message: '이미 등록된 사용자입니다.',
-				});
-			}
 
 			return NextResponse.json<ApiResponse>({ ok: false, error: `사용자 등록 실패: ${createUserError.message}` }, { status: 500 });
 		}

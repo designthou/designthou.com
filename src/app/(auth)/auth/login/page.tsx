@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
+import { BadgeInfo } from 'lucide-react';
 import { SiteConfig } from '@/app/config';
 import { Callout, LoginForm } from '@/components';
-import { AlertTriangle } from 'lucide-react';
 
 export const metadata: Metadata = {
 	title: SiteConfig.title.LOGIN,
@@ -23,7 +23,11 @@ export default async function LoginPage() {
 	return (
 		<>
 			<h2 className="auth-page-title">Join Designthou</h2>
-			<Callout icon={<AlertTriangle />} message="이전 사용자 정보를 복구 중이며, 대조하여 기존 데이터를 연결할 예정입니다" />
+			<Callout
+				icon={<BadgeInfo size={16} />}
+				message="기존 사용자의 경우, 새로 가입 시 이전 사용자 정보와 대조하여 데이터를 연결할 예정입니다"
+				className="justify-center mt-4 mx-auto text-xs"
+			/>
 			<LoginForm />
 		</>
 	);

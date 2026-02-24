@@ -41,7 +41,7 @@ export default function Nav({ user }: { user: User | null }) {
 	const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
 
 	const toggle = () => setIsSideNavOpen(isSideNavOpen => !isSideNavOpen);
-	console.log(user);
+
 	return (
 		<>
 			<header className="fixed top-8 mx-auto w-full h-[var(--global-layout-nav-height)] bg-white/30 backdrop-blur-sm z-40">
@@ -57,40 +57,42 @@ export default function Nav({ user }: { user: User | null }) {
 							Designthou
 						</Link>
 					</h1>
-					<div className="ui-flex-center gap-2">
-						<div className="ui-flex-center-between gap-2">
-							{navigations.map(({ title, to }) => (
-								<Link
-									key={title}
-									href={to}
-									className={cn(
-										'hidden px-4 py-2 font-medium text-gray-700 rounded-full transition-all hover:opacity-90 active:bg-muted sm:inline-block',
-										route.SERVICE.ROOT + segment === to ? 'bg-primary font-semibold text-white' : 'bg-white hover:bg-muted',
-									)}>
-									{title}
-								</Link>
-							))}
+					<div className="flex items-center gap-4">
+						<div className="ui-flex-center gap-4">
+							<div className="ui-flex-center-between gap-2">
+								{navigations.map(({ title, to }) => (
+									<Link
+										key={title}
+										href={to}
+										className={cn(
+											'hidden px-2 md:px-4 py-2 font-medium text-gray-700 text-sm md:text-base rounded-full transition-all hover:opacity-90 active:bg-muted sm:inline-block',
+											route.SERVICE.ROOT + segment === to ? 'bg-primary font-semibold text-white' : 'bg-white hover:bg-muted',
+										)}>
+										{title}
+									</Link>
+								))}
+							</div>
+							{user ? (
+								<ServiceProfileDropdown user={user} />
+							) : (
+								<Button type="button" asChild className="rounded-lg">
+									<Link href={route.AUTH.LOGIN}>
+										Get Started
+										<ArrowRight />
+									</Link>
+								</Button>
+							)}
 						</div>
-						{user ? (
-							<ServiceProfileDropdown user={user} />
-						) : (
-							<Button type="button" asChild className="rounded-lg">
-								<Link href={route.AUTH.LOGIN}>
-									Get Started
-									<ArrowRight />
-								</Link>
-							</Button>
-						)}
+						<Button
+							type="button"
+							size="icon-lg"
+							variant="ghost"
+							className={`${isSideNavOpen ? 'bg-light' : 'bg-none'} rounded-full sm:hidden`}
+							onClick={toggle}>
+							{isSideNavOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+							<span className="sr-only">Toggle Menu</span>
+						</Button>
 					</div>
-					<Button
-						type="button"
-						size="icon-lg"
-						variant="ghost"
-						className={`${isSideNavOpen ? 'bg-light' : 'bg-none'} rounded-full sm:hidden`}
-						onClick={toggle}>
-						{isSideNavOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-						<span className="sr-only">Toggle Menu</span>
-					</Button>
 				</nav>
 			</header>
 
