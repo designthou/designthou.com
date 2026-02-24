@@ -39,8 +39,10 @@ export default function VerifyPage() {
 	return (
 		<div className="w-full h-full">
 			<div className="ui-flex-center flex-col gap-4 p-8 rounded-lg">
-				<p className="text-center text-gray-700 w-full">Verifying ...</p>
-				<AnimateLoader />
+				<div className="flex items-center gap-2">
+					<AnimateLoader />
+					<p className="text-center text-gray-700 w-full">Verifying ...</p>
+				</div>
 			</div>
 		</div>
 	);

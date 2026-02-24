@@ -7,6 +7,7 @@ import { route } from '@/constants';
 import { useLogout } from '@/hooks';
 import { useAuthStore } from '@/stores';
 import { cn } from '@/lib/utils';
+import { LogOut } from 'lucide-react';
 
 export default function LogoutButton({ className }: { className?: string }) {
 	const router = useRouter();
@@ -27,11 +28,13 @@ export default function LogoutButton({ className }: { className?: string }) {
 					resetUser();
 
 					router.push(route.AUTH.LOGIN);
+					router.refresh();
 				} catch {
 					toast.error('로그아웃에 문제가 발생하였습니다.');
 				}
 			}}>
-			{isPending ? <AnimateLoader /> : 'Log Out'}
+			{isPending ? <AnimateLoader /> : <LogOut size={18} />}
+			Log Out
 		</Button>
 	);
 }

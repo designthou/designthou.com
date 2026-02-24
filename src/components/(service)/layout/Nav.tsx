@@ -41,7 +41,7 @@ export default function Nav({ user }: { user: User | null }) {
 	const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
 
 	const toggle = () => setIsSideNavOpen(isSideNavOpen => !isSideNavOpen);
-
+	console.log(user);
 	return (
 		<>
 			<header className="fixed top-8 mx-auto w-full h-[var(--global-layout-nav-height)] bg-white/30 backdrop-blur-sm z-40">
