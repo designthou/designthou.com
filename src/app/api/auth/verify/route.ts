@@ -60,7 +60,7 @@ export async function POST() {
 				display_name: finalDisplayName,
 				user_login: provider,
 				user_registered_at: new Date().toISOString(),
-				role: 'user',
+				role: user?.user_metadata?.role ?? 'user',
 				legacy_user_id: legacyUser ? legacyUser?.legacy_user_id : null,
 			},
 			{ onConflict: 'id' },

@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/server';
 import { mapOnlineCourseRowToView } from '@/types';
 import { OnlineCourseRow, TABLE } from '@/lib/supabase';
 import { route } from '@/constants';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
 	title: SiteConfig.title.DASHBOARD,
@@ -64,7 +65,14 @@ export default async function MyDashboardPage() {
 						</div>
 					</dl>
 				</div>
-				<LogoutButton className="w-fit ml-auto" />
+				<div className="flex flex-col justify-between">
+					{user?.user_metadata?.role === 'admin' && (
+						<Button type="button" asChild variant="default">
+							<Link href={route.ADMIN.ROOT}>관리자 페이지</Link>
+						</Button>
+					)}
+					<LogoutButton className="w-fit ml-auto" />
+				</div>
 			</div>
 			<div className="mt-4 p-4 bg-gray-50 rounded-md">
 				<div className="ui-flex-center-between">
@@ -82,16 +90,16 @@ export default async function MyDashboardPage() {
 							</div>
 							<div className="ui-flex-center-between">
 								<span className="p-1 text-xs font-medium text-gray-500 bg-muted rounded-md">총 {course.totalVideoDuration}</span>
-								<Button type="button" variant="outline" className="w-fit ml-auto">
+								{/*<Button type="button" variant="outline" className="w-fit ml-auto">
 									Learn
 									<ArrowUpRight />
-								</Button>
-								{/*<Button key={course.id} variant="outline" asChild className="w-fit ml-auto">
+								</Button>*/}
+								<Button key={course.id} variant="outline" asChild className="w-fit ml-auto">
 									<Link href={`${route.COURSE.ROOT}/${course.id}`}>
 										Learn
 										<ArrowUpRight />
 									</Link>
-								</Button>*/}
+								</Button>
 							</div>
 						</div>
 					))}

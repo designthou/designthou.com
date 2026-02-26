@@ -19,7 +19,7 @@ import { route } from '@/constants';
 export default async function HomePage() {
 	return (
 		<section className="flex flex-col justify-items-center gap-12 p-4 bg-white">
-			<div className="flex items-center p-8 w-full bg-[url(/home/gradient-liquid.png)] bg-center bg-no-repeat bg-cover text-white font-bold font-mono text-2xl rounded-2xl h-[150px] sm:h-[240px] lg:h-[320px] sm:text-3xl lg:text-4xl">
+			<div className="flex items-center p-8 w-full bg-[url(/home/gradient-liquid.webp)] bg-center bg-no-repeat bg-cover text-white font-bold font-mono text-2xl rounded-2xl h-[150px] sm:h-[240px] lg:h-[320px] sm:text-3xl lg:text-4xl">
 				Welcome to Spatial Content Platform
 			</div>
 
