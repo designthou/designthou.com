@@ -4,10 +4,16 @@ import { convertSupabaseDateToShortHumanReadable, TABLE } from '@/lib/supabase';
 import { createStaticClient } from '@/lib/supabase/static';
 import { generateGradient } from '@/utils/seedGradient';
 
-export const revalidate = 3600;
-
 async function getRecentNewsList() {
-	const supabase = createStaticClient();
+	const supabase = createStaticClient({
+		global: {
+			fetch: (url, options) =>
+				fetch(url, {
+					...options,
+					next: { revalidate: 3600 },
+				}),
+		},
+	});
 
 	const { data, error } = await supabase.from(TABLE.NEWS).select('*').order('created_at', { ascending: false }).range(0, 5);
 

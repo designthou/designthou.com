@@ -4,7 +4,15 @@ import sanitizeHtmlServer from '@/utils/sanitizeHtml';
 import { generateGradient } from '@/utils/seedGradient';
 
 async function getRecentReviewList() {
-	const supabase = createStaticClient();
+	const supabase = createStaticClient({
+		global: {
+			fetch: (url, options) =>
+				fetch(url, {
+					...options,
+					next: { revalidate: 3600 },
+				}),
+		},
+	});
 
 	const { data, error } = await supabase
 		.from(TABLE.ONLINE_COURSE_REVIEWS)
