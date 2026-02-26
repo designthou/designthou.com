@@ -24,7 +24,7 @@ export default function VideoPlayer({ courseId, lessonId }: { courseId: string; 
 	}
 
 	return (
-		<div className="flex flex-col gap-4">
+		<div className="flex flex-col gap-2">
 			<div className="flex items-center gap-2">
 				<h2 className="font-semibold">
 					{lesson.order_index} - {lesson?.title}

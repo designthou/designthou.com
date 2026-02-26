@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import React from 'react';
 
 const ASCII_CHARS = ' .:-=designthou';
 
@@ -57,22 +57,22 @@ const DEFAULT_CONFIG: Config = {
 };
 
 export default function AsciiArt({ src, detail, config: configOverride, className }: Props) {
-	const wrapperRef = useRef<HTMLDivElement>(null);
-	const canvasRef = useRef<HTMLCanvasElement>(null);
-	const imageRef = useRef<HTMLImageElement>(null);
+	const wrapperRef = React.useRef<HTMLDivElement>(null);
+	const canvasRef = React.useRef<HTMLCanvasElement>(null);
+	const imageRef = React.useRef<HTMLImageElement>(null);
 
-	const particles = useRef<{ x: number; y: number }[]>([]);
-	const velocities = useRef<{ x: number; y: number }[]>([]);
-	const original = useRef<{ x: number; y: number }[]>([]);
-	const chars = useRef<{ char: string; color: string }[]>([]);
+	const particles = React.useRef<{ x: number; y: number }[]>([]);
+	const velocities = React.useRef<{ x: number; y: number }[]>([]);
+	const original = React.useRef<{ x: number; y: number }[]>([]);
+	const chars = React.useRef<{ char: string; color: string }[]>([]);
 
-	const mouse = useRef({ x: -1000, y: -1000 });
-	const lastMouseMoveTime = useRef(0);
+	const mouse = React.useRef({ x: -1000, y: -1000 });
+	const lastMouseMoveTime = React.useRef(0);
 
-	const rafRef = useRef<number>(0);
-	const resizeObserverRef = useRef<ResizeObserver | null>(null);
+	const rafRef = React.useRef<number>(0);
+	const resizeObserverRef = React.useRef<ResizeObserver | null>(null);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		const wrapper = wrapperRef.current;
 		const canvas = canvasRef.current;
 		const img = imageRef.current;
@@ -89,7 +89,6 @@ export default function AsciiArt({ src, detail, config: configOverride, classNam
 
 		let isAnimating = false;
 
-		// promptcache의 "container에 맞춰 media 비율로 캔버스 사이즈 결정" 로직
 		const updateCanvasSize = () => {
 			const containerW = wrapper.clientWidth || 300;
 			const containerH = wrapper.clientHeight || 150;
@@ -207,7 +206,6 @@ export default function AsciiArt({ src, detail, config: configOverride, classNam
 			const fontSizeX = width / columns;
 			const fontSizeY = fontSizeX * cfg.lineHeight;
 
-			// promptcache: 최초 한 번만 배열 만들고, 이후엔 char/색만 갱신
 			if (chars.current.length === 0) {
 				chars.current = [];
 				particles.current = [];
@@ -257,12 +255,10 @@ export default function AsciiArt({ src, detail, config: configOverride, classNam
 					chars.current[idx].char = char;
 					chars.current[idx].color = color;
 
-					// 원래 위치도 현재 columns/rows에 맞춰 갱신(리사이즈 대응)
 					const posX = x * fontSizeX;
 					const posY = y * fontSizeY;
 					original.current[idx].x = posX;
 					original.current[idx].y = posY;
-					// particles는 “현재 흐트러진 상태” 유지하고 싶으면 여기서 덮어쓰지 않는게 더 자연스러움
 				}
 			}
 		};
@@ -339,7 +335,6 @@ export default function AsciiArt({ src, detail, config: configOverride, classNam
 		};
 
 		const init = () => {
-			// 리사이즈 시 재생성하도록 초기화
 			chars.current = [];
 			particles.current = [];
 			velocities.current = [];
@@ -354,7 +349,6 @@ export default function AsciiArt({ src, detail, config: configOverride, classNam
 		else img.onload = init;
 
 		resizeObserverRef.current = new ResizeObserver(() => {
-			// columns/rows 바뀔 수 있으니 전체 재생성
 			chars.current = [];
 			particles.current = [];
 			velocities.current = [];

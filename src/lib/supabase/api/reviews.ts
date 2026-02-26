@@ -1,9 +1,6 @@
-import sanitizeHtmlServer from '@/utils/sanitizeHtml';
-import { createClient } from '../client';
-import { type Review } from '../tableSchema';
 import { v4 as uuid } from 'uuid';
-import { TABLE } from '../tableMap';
-import { STORAGE_BUCKETS } from '../storageBuckets';
+import { createClient } from '../client';
+import { type ReviewRow, TABLE, STORAGE_BUCKETS } from '@/lib/supabase';
 
 const REVIEW_LIST_PAGE_SIZE = 20;
 
@@ -29,26 +26,7 @@ const getReviewsTotalCount = async () => {
 	return data.length;
 };
 
-const getPortfolioReviewList = async () => {
-	const supabase = createClient();
-	const { data, error } = await supabase
-		.from(TABLE.ONLINE_COURSE_REVIEWS)
-		.select('*')
-		.order('created_at', { ascending: false })
-		.eq('category', 'portfolio')
-		.limit(6);
-
-	if (error) {
-		throw new Error(error.message);
-	}
-
-	return data?.map(review => ({
-		...review,
-		content: sanitizeHtmlServer(review.content),
-	}));
-};
-
-const getReviewListByPage = async (pageParam: number, pageSize: number, category: string): Promise<Review[]> => {
+const getReviewListByPage = async (pageParam: number, pageSize: number, category: string): Promise<ReviewRow[]> => {
 	const supabase = createClient();
 
 	const { data, error } = await supabase
@@ -66,7 +44,7 @@ const getReviewListByPage = async (pageParam: number, pageSize: number, category
 	return data;
 };
 
-const getNoticeReview = async () => {
+const getNoticeReview = async (): Promise<ReviewRow> => {
 	const supabase = createClient();
 	const { data, error } = await supabase.from(TABLE.ONLINE_COURSE_REVIEWS).select().eq('notice', true).single();
 
@@ -98,7 +76,7 @@ const uploadImageInTextEditor = async ({ imageFile }: { imageFile: File }) => {
 	return uploadImage.fullPath;
 };
 
-const addReview = async ({ data }: { data: Review }) => {
+const addReview = async ({ data }: { data: ReviewRow }) => {
 	const supabase = createClient();
 
 	const { error: addReviewError } = await supabase.from(TABLE.ONLINE_COURSE_REVIEWS).insert(data).select();
@@ -112,7 +90,6 @@ export {
 	REVIEW_LIST_PAGE_SIZE,
 	getReviewListPageInfo,
 	getReviewsTotalCount,
-	getPortfolioReviewList,
 	getReviewListByPage,
 	getNoticeReview,
 	uploadImageInTextEditor,

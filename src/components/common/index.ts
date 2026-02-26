@@ -15,3 +15,4 @@ export { default as ScrollToTopButton } from './ScrollToTopButton';
 export { default as TipTapEditor } from './TipTapEditor';
 export { default as TipTapMenubar } from './TipTapMenubar';
 export { default as Wip } from './Wip';
+export { default as WorkProgress } from './WorkProgress';

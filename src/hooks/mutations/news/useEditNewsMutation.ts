@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { type News, updateNews } from '@/lib/supabase';
+import { type NewsRow, updateNews } from '@/lib/supabase';
 import { queryKey } from '@/constants';
 import { OldData } from '@/types';
 
-type Variables = News;
+type Variables = NewsRow;
 
 const edit =
 	({ id, title, url, category, updated_at }: Variables) =>
-	(oldData: OldData<News>) => {
+	(oldData: OldData<NewsRow>) => {
 		return {
 			...oldData,
 			pages: oldData.pages.map(page => page.map(item => (item.id === id ? { ...item, title, url, category, updated_at } : item))),

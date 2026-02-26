@@ -1,4 +1,3 @@
-export { default as HomeNewsList } from './NewsList';
-export { default as HomeReviewList } from './ReviewList';
+export { default as HomeNewsSection } from './NewsSection';
+export { default as HomeReviewSection } from './ReviewSection';
 export { default as AsciiArt } from './ascii-art';
-export { default as WorkProgress } from './WorkProgress';

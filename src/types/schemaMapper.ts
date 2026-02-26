@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { LegacyUser, User, ReviewCountByProduct, OfflineStudentRow, OnlineCourseRow, EnrollmentRow } from '@/lib/supabase';
+import type { LegacyUserRow, UserRow, ReviewCountByProductRow, OfflineStudentRow, OnlineCourseRow, EnrollmentRow } from '@/lib/supabase';
 import {
 	type EnrollmentView,
 	type OfflineStudentView,
@@ -25,7 +25,7 @@ const registeredUserViewSchema = z.object({
 	updated_at: z.string(),
 });
 
-const legacyUserViewSchema: z.ZodType<LegacyUser> = z.object({
+const legacyUserViewSchema: z.ZodType<LegacyUserRow> = z.object({
 	id: z.string(),
 	email: z.string(),
 	nickname: z.string(),
@@ -35,7 +35,7 @@ const legacyUserViewSchema: z.ZodType<LegacyUser> = z.object({
 	user_registered_at: z.string(),
 });
 
-const reviewCountByProductViewSchema: z.ZodType<ReviewCountByProduct> = z.object({
+const reviewCountByProductViewSchema: z.ZodType<ReviewCountByProductRow> = z.object({
 	product_id: z.string(),
 	review_count: z.number(),
 });
@@ -78,7 +78,7 @@ const enrollmentRowSchema: z.ZodType<EnrollmentRow> = z.object({
 	enrolled_at: z.string(),
 });
 
-const mapRegisteredUserToView = (row: User) =>
+const mapRegisteredUserToView = (row: UserRow) =>
 	registeredUserViewSchema.parse({
 		id: row.id,
 		nickname: row.nickname,
@@ -89,7 +89,7 @@ const mapRegisteredUserToView = (row: User) =>
 		role: row.role,
 	});
 
-const mapLegacyUserToView = (row: LegacyUser) =>
+const mapLegacyUserToView = (row: LegacyUserRow) =>
 	legacyUserViewSchema.parse({
 		id: row.id,
 		email: row.email,
@@ -100,7 +100,7 @@ const mapLegacyUserToView = (row: LegacyUser) =>
 		registeredAt: row.user_registered_at,
 	});
 
-const mapReviewCountByProductView = (row: ReviewCountByProduct) => {
+const mapReviewCountByProductView = (row: ReviewCountByProductRow) => {
 	const parsed = reviewCountByProductViewSchema.safeParse(row);
 	return parsed.success ? { productId: parsed.data.product_id, reviewCount: parsed.data.review_count } : null;
 };

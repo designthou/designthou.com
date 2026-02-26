@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useSelectedLayoutSegment } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { User } from '@supabase/supabase-js';
 import { ChevronRight, LayoutDashboard } from 'lucide-react';
 import {
 	Button,
@@ -13,7 +14,6 @@ import {
 	SidebarGroupLabel,
 	SidebarHeader,
 	SidebarMenu,
-	ProfileDropdown,
 	SidebarMenuItem,
 	SidebarMenuButton,
 	SidebarRail,
@@ -21,9 +21,11 @@ import {
 	Collapsible,
 	CollapsibleContent,
 	useSidebar,
+	ServiceProfileDropdown,
 } from '@/components';
 import { route } from '@/constants';
 import { useCourseCurriculum, useIsMobile } from '@/hooks';
+import { cn } from '@/lib/utils';
 
 // const tabs = [
 // 	{ title: 'Curriculum', query: 'curriculum', icon: <NotebookTabs size={18} /> },
@@ -35,8 +37,12 @@ import { useCourseCurriculum, useIsMobile } from '@/hooks';
  * 1. course -> profile dashboard 에서 확인 후, route에 전달된 slug를 활용하여 어떤 코스인지 판단
  * 2. courseId를 기준으로 chapters 들을 가져오고, chapter 각 내부에 위치한 lessons들을 가져올 수 있도록 구현
  */
-export default function AppSidebar({ courseId, ...props }: { courseId: string } & React.ComponentProps<typeof Sidebar>) {
-	const segment = useSelectedLayoutSegment();
+export default function AppSidebar({
+	courseId,
+	user,
+	...props
+}: { courseId: string; user: User | null } & React.ComponentProps<typeof Sidebar>) {
+	const pathname = usePathname();
 	const curriculums = useCourseCurriculum({ courseId });
 
 	const { toggleSidebar } = useSidebar();
@@ -45,9 +51,9 @@ export default function AppSidebar({ courseId, ...props }: { courseId: string } 
 	return (
 		<Sidebar {...props}>
 			<SidebarHeader>
-				<ProfileDropdown user={null} />
+				<ServiceProfileDropdown user={user} triggerVariant={'outline'} menuContentMargin="ml-0" />
 			</SidebarHeader>
-			<SidebarContent className="">
+			<SidebarContent>
 				{curriculums.map(chapter => (
 					<Collapsible key={chapter.id} title={chapter.title} defaultOpen className="group/collapsible">
 						<SidebarGroup>
@@ -60,26 +66,31 @@ export default function AppSidebar({ courseId, ...props }: { courseId: string } 
 							<CollapsibleContent>
 								<SidebarGroupContent key={chapter.id}>
 									<SidebarMenu className="mt-3">
-										{chapter.lessons.map(({ id, title, order_index }) => (
-											<SidebarMenuItem key={title}>
-												<SidebarMenuButton asChild>
-													<Link
-														href={`/courses/${courseId}/lessons/${id}`}
-														onClick={() => {
-															if (!isMobile) return;
+										{chapter.lessons.map(({ id, title, order_index }) => {
+											return (
+												<SidebarMenuItem key={title}>
+													<SidebarMenuButton
+														asChild
+														variant={pathname.includes(id) ? 'outline' : 'default'}
+														className={cn('relative', pathname.includes(id) ? 'font-bold' : '')}>
+														<Link
+															href={`/courses/${courseId}/lessons/${id}`}
+															onClick={() => {
+																if (!isMobile) return;
 
-															toggleSidebar();
-														}}>
-														<span className="">
-															{order_index}. {title}
-														</span>
-														{segment?.includes(id) && (
-															<div className="hidden mr-2 w-1.5 h-1.5 rounded-full bg-gradient-orange-100 lg:inline-block" />
-														)}
-													</Link>
-												</SidebarMenuButton>
-											</SidebarMenuItem>
-										))}
+																toggleSidebar();
+															}}>
+															<span className="truncate">
+																{order_index}. {title}
+															</span>
+															{pathname?.includes(id) && (
+																<div className="absolute top-1 right-1 hidden mr-2 w-1.5 h-1.5 rounded-full bg-gradient-orange-100 sm:inline-block" />
+															)}
+														</Link>
+													</SidebarMenuButton>
+												</SidebarMenuItem>
+											);
+										})}
 									</SidebarMenu>
 								</SidebarGroupContent>
 							</CollapsibleContent>

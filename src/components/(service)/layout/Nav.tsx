@@ -37,7 +37,6 @@ const navigations = [
 
 export default function Nav({ user }: { user: User | null }) {
 	const segment = useSelectedLayoutSegment();
-
 	const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
 
 	const toggle = () => setIsSideNavOpen(isSideNavOpen => !isSideNavOpen);
@@ -47,7 +46,7 @@ export default function Nav({ user }: { user: User | null }) {
 			<header className="fixed top-8 mx-auto w-full h-[var(--global-layout-nav-height)] bg-white/30 backdrop-blur-sm z-40">
 				<nav
 					id="layout-nav"
-					className="flex flex-row justify-between items-center mx-auto p-3 max-w-300 w-full bg-white/30 backdrop-blur-sm">
+					className="flex flex-row justify-between items-center gap-4 mx-auto p-3 max-w-300 w-full bg-white/30 backdrop-blur-sm">
 					<h1 className="ui-flex-center text-white bg-gradient-orange-100 rounded-lg">
 						<Link
 							href={route.SERVICE.ROOT}
@@ -57,8 +56,8 @@ export default function Nav({ user }: { user: User | null }) {
 							Designthou
 						</Link>
 					</h1>
-					<div className="flex items-center gap-4">
-						<div className="ui-flex-center gap-4">
+					<div className="flex items-center gap-3">
+						<div className="ui-flex-center gap-0 sm:gap-4">
 							<div className="ui-flex-center-between gap-2">
 								{navigations.map(({ title, to }) => (
 									<Link

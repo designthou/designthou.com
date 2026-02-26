@@ -1,6 +1,6 @@
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { queryKey, staleTime } from '@/constants';
-import { type Review, getNoticeReview, getReviewListByPage, getReviewsTotalCount, REVIEW_LIST_PAGE_SIZE } from '@/lib/supabase';
+import { type ReviewRow, getNoticeReview, getReviewListByPage, getReviewsTotalCount, REVIEW_LIST_PAGE_SIZE } from '@/lib/supabase';
 
 export default function useReviewList({ category }: { category: string }) {
 	const { data: totalCount } = useSuspenseQuery({
@@ -23,7 +23,7 @@ export default function useReviewList({ category }: { category: string }) {
 			const isLastPage = lastPage.length < REVIEW_LIST_PAGE_SIZE;
 			return isLastPage ? undefined : allPages.length + 1;
 		},
-		select: (data): Review[] => data.pages.flat()?.filter(review => !review.title.includes('Re') && !review.notice),
+		select: (data): ReviewRow[] => data.pages.flat()?.filter(review => !review.title.includes('Re') && !review.notice),
 		staleTime: staleTime.SERVICE.REVIEW_LIST.ALL_WITH_PAGINATION,
 	});
 

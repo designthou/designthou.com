@@ -1,6 +1,6 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { queryKey, staleTime } from '@/constants';
-import { type Tip, getTipListByPage, TIP_LIST_PAGE_SIZE } from '@/lib/supabase';
+import { type TipRow, getTipListByPage, TIP_LIST_PAGE_SIZE } from '@/lib/supabase';
 
 export default function useTipList() {
 	const { data, hasNextPage, fetchNextPage, isLoading } = useSuspenseInfiniteQuery({
@@ -11,7 +11,7 @@ export default function useTipList() {
 			const isLastPage = lastPage.length < TIP_LIST_PAGE_SIZE;
 			return isLastPage ? undefined : allPages.length + 1;
 		},
-		select: (data): Tip[] => data.pages.flat(),
+		select: (data): TipRow[] => data.pages.flat(),
 		staleTime: staleTime.SERVICE.TIP_LIST.ALL_WITH_PAGINATION,
 	});
 

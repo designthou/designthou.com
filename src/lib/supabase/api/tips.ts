@@ -1,6 +1,5 @@
+import { type TipRow, TABLE } from '@/lib/supabase';
 import { createClient } from '../client';
-import { Tip } from '../tableSchema';
-import { TABLE } from '../tableMap';
 
 const TIP_LIST_PAGE_SIZE = 9;
 
@@ -15,7 +14,7 @@ const getTipListPageInfo = async () => {
 	return data;
 };
 
-const getTipListByPage = async (pageParam: number, pageSize: number): Promise<Tip[]> => {
+const getTipListByPage = async (pageParam: number, pageSize: number): Promise<TipRow[]> => {
 	const supabase = createClient();
 
 	const { data, error } = await supabase

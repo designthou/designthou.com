@@ -20,6 +20,8 @@ export default function LogoutButton({ className }: { className?: string }) {
 			type="button"
 			variant="outline"
 			className={cn('w-full', className)}
+			disabled={isPending}
+			aria-disabled={isPending}
 			onClick={async () => {
 				try {
 					await logout();

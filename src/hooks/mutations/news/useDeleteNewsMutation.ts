@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { type News, deleteNews } from '@/lib/supabase';
+import { type NewsRow, deleteNews } from '@/lib/supabase';
 
 import { queryKey } from '@/constants';
 import { OldData } from '@/types';
 
-type Variables = Pick<News, 'id'>;
+type Variables = Pick<NewsRow, 'id'>;
 
 const remove =
 	({ id }: Variables) =>
-	(oldData: OldData<News>) => {
+	(oldData: OldData<NewsRow>) => {
 		return {
 			...oldData,
 			pages: oldData.pages.map(page => page.filter(item => item.id !== id)),

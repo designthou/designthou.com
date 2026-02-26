@@ -1,4 +1,5 @@
 export * from './chapters';
+export * from './course';
 export * from './legacyUsers';
 export * from './lessons';
 export * from './news';

@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { type News, addNews } from '@/lib/supabase';
+import { type NewsRow, addNews } from '@/lib/supabase';
 import { queryKey } from '@/constants';
 import { OldData } from '@/types';
 
-type Variables = Omit<News, 'id'>;
+type Variables = Omit<NewsRow, 'id'>;
 
-const add = (data: Variables) => (oldData: OldData<News>) => {
+const add = (data: Variables) => (oldData: OldData<NewsRow>) => {
 	if (oldData.pages.length === 0) {
 		return {
 			...oldData,

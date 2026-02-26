@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowUpRight, Hash } from 'lucide-react';
+import { ArrowUpRight, Hash, SquareArrowOutUpRight } from 'lucide-react';
 import { SiteConfig } from '@/app/config';
-import { Button, LogoutButton, ProfileAvatar } from '@/components';
+import { Button, LogoutButton, ProfileAvatar, Progress } from '@/components';
 import { createClient } from '@/lib/supabase/server';
 import { mapOnlineCourseRowToView } from '@/types';
 import { OnlineCourseRow, TABLE } from '@/lib/supabase';
@@ -43,7 +43,7 @@ export default async function MyDashboardPage() {
 
 	const { data: enrollments, error: getEnrollmentsError } = await supabaseServerClient
 		.from(TABLE.ENROLLMENTS)
-		.select('course_id, legacy_user_id')
+		.select('course_id, legacy_user_id, progress, status')
 		.eq('legacy_user_id', profile?.legacy_user_id);
 
 	if (getOnlineCoursesError) {
@@ -58,17 +58,26 @@ export default async function MyDashboardPage() {
 		throw getEnrollmentsError;
 	}
 
+	const enrollmentMap = new Map(enrollments.map(enrollment => [enrollment.course_id, enrollment]));
 	const onlineCourseLinks = onlineCourses
-		?.filter(course => enrollments.some(enrollment => enrollment.course_id === course.id))
-		.map(mapOnlineCourseRowToView);
+		?.filter(course => enrollmentMap.has(course.id))
+		.map(course => {
+			const enrollment = enrollmentMap.get(course.id);
+
+			return {
+				...mapOnlineCourseRowToView(course),
+				progress: enrollment?.progress,
+				status: enrollment?.status,
+			};
+		});
 
 	return (
 		<section className="p-4 max-w-300">
 			<h2 className="page-subtitle">My Dashboard</h2>
 			<div className="flex flex-col justify-between gap-4 mt-4 p-4 w-full bg-gray-50 rounded-lg sm:flex-row">
-				<div className="ui-flex-center gap-8">
+				<div className="ui-flex-center gap-4 sm:gap-8">
 					<ProfileAvatar user={user} size={64} />
-					<dl className="flex flex-col gap-2">
+					<dl className="flex flex-col gap-3 text-sm sm:text-base">
 						<div className="flex items-center gap-2">
 							<dt className="min-w-14 px-1 py-0.5 bg-gray-100 text-gray-500 rounded-md text-center">이 름</dt>
 							<dd className="px-2 py-0.5">{user?.user_metadata?.name ?? user?.user_metadata?.display_name}</dd>
@@ -79,17 +88,26 @@ export default async function MyDashboardPage() {
 						</div>
 						<div className="flex items-center gap-2">
 							<dt className="min-w-14 px-1 py-0.5 bg-gray-100 text-gray-500 rounded-md text-center">로그인</dt>
-							<dd className="px-2 py-0.5">{user?.app_metadata.provider}</dd>
+							<dd className="flex items-center gap-2 px-2 py-0.5">
+								{user?.app_metadata?.providers?.map(provider => (
+									<li key={provider} className="py-1 px-2 bg-white text-sm text-gray-600 rounded-full">
+										{provider}
+									</li>
+								))}
+							</dd>
 						</div>
 					</dl>
 				</div>
-				<div className="flex flex-col justify-between">
+				<div className="flex flex-col justify-between gap-2">
 					{user?.user_metadata?.role === 'admin' && (
 						<Button type="button" asChild variant="default">
-							<Link href={route.ADMIN.ROOT}>관리자 페이지</Link>
+							<Link href={route.ADMIN.ROOT} target="_blank" rel="noopenner noreferrer">
+								<SquareArrowOutUpRight />
+								관리자 페이지
+							</Link>
 						</Button>
 					)}
-					<LogoutButton className="w-fit ml-auto" />
+					<LogoutButton className="ml-auto" />
 				</div>
 			</div>
 			<div className="mt-4 p-4 bg-gray-50 rounded-md">
@@ -99,12 +117,19 @@ export default async function MyDashboardPage() {
 				</div>
 				<div className="flex flex-col gap-4 mx-auto mt-4">
 					{onlineCourseLinks.map(course => (
-						<div key={course.id} className="flex flex-col gap-2 p-3 bg-white rounded-lg border border-gray-100">
+						<div key={course.id} className="flex flex-col gap-3 p-3 bg-white rounded-lg border border-gray-100">
 							<div className="flex items-center gap-2">
 								<span className="inline-flex justify-center items-center p-1.5 w-fit bg-black text-white rounded-full">
 									<Hash size={12} />
 								</span>
 								<p className="font-semibold">{course.title}</p>
+							</div>
+							<div className="flex flex-col gap-2 p-3 bg-light rounded-lg">
+								<div className="flex justify-between items-center text-xs text-gray-500">
+									<span>진도율</span>
+									<span>{course.progress}/100 (%)</span>
+								</div>
+								<Progress value={course.progress} />
 							</div>
 							<div className="ui-flex-center-between">
 								<span className="p-1 text-xs font-medium text-gray-500 bg-muted rounded-md">총 {course.totalVideoDuration}</span>

@@ -15,19 +15,27 @@ import {
 	ProfileAvatar,
 } from '@/components';
 import { route } from '@/constants';
+import { cn } from '@/lib/utils';
 
-export default function ProfileDropdown({ user }: { user: User | null }) {
+export default function ProfileDropdown({
+	user,
+	triggerVariant = 'default',
+	menuContentMargin = '-ml-1',
+}: {
+	user: User | null;
+	triggerVariant?: 'default' | 'secondary' | 'outline' | 'destructive' | 'ghost' | 'link';
+	menuContentMargin?: string;
+}) {
 	return (
 		<DropdownMenu>
-			{
-				<DropdownMenuTrigger asChild>
-					<Button variant="default" size="lg" className="px-2 rounded-lg">
-						<ProfileAvatar user={user} />
-						<span className="hidden font-semibold lg:inline-block">{user?.user_metadata?.name ?? user?.user_metadata?.nickname}</span>
-					</Button>
-				</DropdownMenuTrigger>
-			}
-			<DropdownMenuContent className="my-2 -ml-1 p-2 w-54 bg-gray-50" align="start">
+			<DropdownMenuTrigger asChild>
+				<Button variant={triggerVariant} size="lg" className="px-2 rounded-lg">
+					<ProfileAvatar user={user} />
+					<span className="hidden font-semibold lg:inline-block">{user?.user_metadata?.name ?? user?.user_metadata?.nickname}</span>
+				</Button>
+			</DropdownMenuTrigger>
+
+			<DropdownMenuContent className={cn('my-2 p-2 w-54 bg-gray-50', menuContentMargin)} align="start">
 				<DropdownMenuLabel className="flex items-center gap-2">
 					<ProfileAvatar user={user} />
 					<div className="flex flex-col gap-2">
@@ -39,7 +47,7 @@ export default function ProfileDropdown({ user }: { user: User | null }) {
 				<DropdownMenuGroup className="mb-1">
 					<DropdownMenuItem asChild>
 						<Link href={route.SERVICE.DASHBOARD} className="w-full">
-							<span>MyPage</span>
+							<span>My Dashboard</span>
 						</Link>
 					</DropdownMenuItem>
 				</DropdownMenuGroup>

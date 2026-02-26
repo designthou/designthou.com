@@ -116,7 +116,7 @@ export default function LoginForm() {
 							</FormItem>
 						)}
 					/>
-					<Button type="submit" variant="secondary" size="lg">
+					<Button type="submit" variant="secondary" size="lg" disabled={isPending} aria-disabled={isPending}>
 						{isPending ? <AnimateLoader /> : 'Login'}
 					</Button>
 				</form>

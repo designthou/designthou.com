@@ -1,10 +1,9 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { Button, CourseSidebar, ScrollToTopButton, Separator, SidebarInset, SidebarProvider, SidebarTrigger } from '@/components';
-import { route } from '@/constants';
-import { TABLE } from '@/lib/supabase';
 import { createClient } from '@/lib/supabase/server';
-import { mapOnlineCourseRowToView } from '@/types';
+import { getCourse } from '@/lib/supabase';
+import { route } from '@/constants';
 
 export default async function CourseDetailLayout({
 	children,
@@ -16,11 +15,12 @@ export default async function CourseDetailLayout({
 	const { courseId } = await params;
 
 	const supabaseServerClient = await createClient();
-	const { data, error } = await supabaseServerClient.from(TABLE.ONLINE_COURSES).select('*').eq('id', courseId);
 
-	if (error) {
-		throw error;
-	}
+	const {
+		data: { user },
+	} = await supabaseServerClient.auth.getUser();
+
+	const course = await getCourse(courseId);
 
 	return (
 		<SidebarProvider>
@@ -33,7 +33,7 @@ export default async function CourseDetailLayout({
 							</Link>
 						</Button>
 						<h1 className="text-sm font-bold text-primary w-60 truncate sm:text-base sm:w-auto" aria-label="Online Class Title">
-							{data?.map(mapOnlineCourseRowToView)[0]?.title}
+							{course?.title}
 						</h1>
 					</div>
 					<div className="ui-flex-center gap-2">
@@ -41,9 +41,9 @@ export default async function CourseDetailLayout({
 						<SidebarTrigger className="" />
 					</div>
 				</header>
-				<main className="p-4">{children}</main>
+				<main className="px-4 py-3">{children}</main>
 			</SidebarInset>
-			<CourseSidebar side="right" courseId={courseId} />
+			<CourseSidebar side="right" courseId={courseId} user={user} />
 			<ScrollToTopButton />
 		</SidebarProvider>
 	);

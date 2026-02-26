@@ -1,21 +1,29 @@
-'use client';
-
 import Link from 'next/link';
-import { useSuspenseQuery } from '@tanstack/react-query';
 import { MotionBlock } from '@/components';
-import { convertSupabaseDateToShortHumanReadable, getRecentNewsList } from '@/lib/supabase';
+import { convertSupabaseDateToShortHumanReadable, TABLE } from '@/lib/supabase';
+import { createStaticClient } from '@/lib/supabase/static';
 import { generateGradient } from '@/utils/seedGradient';
-import { queryKey, staleTime } from '@/constants';
 
-export default function HomeNewsList() {
-	const { data: newsList } = useSuspenseQuery({
-		queryKey: queryKey.SERVICE.RECENT_NEWS,
-		queryFn: getRecentNewsList,
-		staleTime: staleTime.SERVICE.NEWS_LIST.RECENT,
-	});
+export const revalidate = 3600;
+
+async function getRecentNewsList() {
+	const supabase = createStaticClient();
+
+	const { data, error } = await supabase.from(TABLE.NEWS).select('*').order('created_at', { ascending: false }).range(0, 5);
+
+	if (error) {
+		throw new Error(error.message);
+	}
+
+	return data;
+}
+
+export default async function NewsSection() {
+	const recentNewsList = await getRecentNewsList();
+
 	return (
 		<div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-			{newsList?.map(({ id, title, url, category, created_at }) => (
+			{recentNewsList?.map(({ id, title, url, category, created_at }) => (
 				<MotionBlock key={id}>
 					<Link
 						href={url}

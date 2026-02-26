@@ -1,7 +1,5 @@
+import { type NewsRow, TABLE } from '@/lib/supabase';
 import { createClient } from '../client';
-
-import { TABLE } from '../tableMap';
-import { News } from '../tableSchema';
 
 const NEWS_LIST_PAGE_SIZE = 12;
 
@@ -16,7 +14,15 @@ const getNewsListPageInfo = async () => {
 	return data;
 };
 
-const getNewsListByPage = async ({ pageParam, pageSize, year }: { pageParam: number; pageSize: number; year: string }): Promise<News[]> => {
+const getNewsListByPage = async ({
+	pageParam,
+	pageSize,
+	year,
+}: {
+	pageParam: number;
+	pageSize: number;
+	year: string;
+}): Promise<NewsRow[]> => {
 	const supabase = createClient();
 
 	const start = `${year}-01-01T00:00:00.000Z`;
@@ -36,24 +42,12 @@ const getNewsListByPage = async ({ pageParam, pageSize, year }: { pageParam: num
 	return data;
 };
 
-const getRecentNewsList = async () => {
-	const supabase = createClient();
-
-	const { data, error } = await supabase.from(TABLE.NEWS).select('*').order('created_at', { ascending: false }).range(0, 5);
-
-	if (error) {
-		throw new Error(error.message);
-	}
-
-	return data;
-};
-
-const addNews = async (data: Omit<News, 'id'>) => {
+const addNews = async (data: Omit<NewsRow, 'id'>) => {
 	const supabase = createClient();
 	return await supabase.from(TABLE.NEWS).insert(data).select();
 };
 
-const updateNews = async ({ data }: { data: News }) => {
+const updateNews = async ({ data }: { data: NewsRow }) => {
 	const supabase = createClient();
 	return await supabase.from(TABLE.NEWS).update(data).eq('id', data.id).select();
 };
@@ -63,4 +57,4 @@ const deleteNews = async ({ id }: { id: string }) => {
 	return await supabase.from(TABLE.NEWS).delete().eq('id', id);
 };
 
-export { NEWS_LIST_PAGE_SIZE, getNewsListPageInfo, getNewsListByPage, getRecentNewsList, addNews, updateNews, deleteNews };
+export { NEWS_LIST_PAGE_SIZE, getNewsListPageInfo, getNewsListByPage, addNews, updateNews, deleteNews };

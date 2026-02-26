@@ -1,6 +1,5 @@
+import { type LegacyUserRow, TABLE } from '@/lib/supabase';
 import { createClient } from '../client';
-import { TABLE } from '../tableMap';
-import { LegacyUser } from '../tableSchema';
 
 const getLegacyUserListByPage = async ({
 	pageParam,
@@ -9,7 +8,7 @@ const getLegacyUserListByPage = async ({
 	pageParam: number;
 	pageSize: number;
 	year: string;
-}): Promise<LegacyUser[]> => {
+}): Promise<LegacyUserRow[]> => {
 	const supabase = createClient();
 
 	const { data, error } = await supabase
