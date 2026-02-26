@@ -1,6 +1,13 @@
 import { z } from 'zod';
-import type { LegacyUser, User, ReviewCountByProduct, OfflineStudentRow, OnlineCourseRow } from '@/lib/supabase';
-import { OfflineStudentView, offlineStudentViewSchema, OnlineCourseView, onlineCourseViewSchema } from './view';
+import type { LegacyUser, User, ReviewCountByProduct, OfflineStudentRow, OnlineCourseRow, EnrollmentRow } from '@/lib/supabase';
+import {
+	type EnrollmentView,
+	type OfflineStudentView,
+	type OnlineCourseView,
+	enrollmentViewSchema,
+	offlineStudentViewSchema,
+	onlineCourseViewSchema,
+} from './view';
 
 type RegisteredUserViewSchema = z.infer<typeof registeredUserViewSchema>;
 type LegacyUserViewSchema = z.infer<typeof legacyUserViewSchema>;
@@ -57,6 +64,18 @@ const onlineCourseRowSchema: z.ZodType<OnlineCourseRow> = z.object({
 	total_video_duration: z.string(),
 	created_at: z.string(),
 	updated_at: z.string(),
+});
+
+const enrollmentRowSchema: z.ZodType<EnrollmentRow> = z.object({
+	id: z.string(),
+	user_id: z.string().nullable(),
+	course_id: z.string(),
+	legacy_user_id: z.number().nullable(),
+	order_id: z.string().nullable(),
+	progress: z.number(),
+	status: z.string(),
+	access_expires_at: z.string().nullable(),
+	enrolled_at: z.string(),
 });
 
 const mapRegisteredUserToView = (row: User) =>
@@ -120,5 +139,28 @@ const mapOnlineCourseRowToView = (row: OnlineCourseRow): OnlineCourseView => {
 	});
 };
 
+const mapEnrollmentRowToView = (row: EnrollmentRow): EnrollmentView => {
+	const r = enrollmentRowSchema.parse(row);
+
+	return enrollmentViewSchema.parse({
+		id: r.id,
+		userId: r.user_id,
+		courseId: r.course_id,
+		legacyUserId: r.legacy_user_id,
+		orderId: r.order_id,
+		progress: r.progress,
+		status: r.status,
+		accessExpiresAt: r.access_expires_at,
+		enrolledAt: r.enrolled_at,
+	});
+};
+
 export type { RegisteredUserViewSchema, LegacyUserViewSchema, ReviewCountByProductViewSchema };
-export { mapRegisteredUserToView, mapLegacyUserToView, mapReviewCountByProductView, mapOfflineStudentsRowToView, mapOnlineCourseRowToView };
+export {
+	mapRegisteredUserToView,
+	mapLegacyUserToView,
+	mapReviewCountByProductView,
+	mapOfflineStudentsRowToView,
+	mapOnlineCourseRowToView,
+	mapEnrollmentRowToView,
+};

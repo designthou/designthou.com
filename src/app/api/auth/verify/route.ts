@@ -50,8 +50,8 @@ export async function POST() {
 
 		const legacyUser = legacyUsers?.[0] ?? null;
 
-		const displayName = provider === 'google' ? user.user_metadata?.name : user.user_metadata?.nickname;
-		const finalDisplayName = displayName ?? user.email.split('@')[0];
+		const displayName = provider === 'google' ? user?.user_metadata?.name : user?.user_metadata?.nickname;
+		const finalDisplayName = displayName ?? user?.email.split('@')[0];
 
 		const { error: createUserError } = await supabaseServer.from(TABLE.PROFILES).upsert(
 			{
@@ -62,6 +62,7 @@ export async function POST() {
 				user_registered_at: new Date().toISOString(),
 				role: user?.user_metadata?.role ?? 'user',
 				legacy_user_id: legacyUser ? legacyUser?.legacy_user_id : null,
+				avatar_url: user?.user_metadata?.avatar_url ?? user?.user_metadata?.picture ?? null,
 			},
 			{ onConflict: 'id' },
 		);

@@ -11,4 +11,5 @@ export const TABLE = {
 	ONLINE_COURSES: 'online_courses',
 	CHAPTERS: 'chapters',
 	LESSONS: 'lessons',
+	ENROLLMENTS: 'enrollments',
 } as const;

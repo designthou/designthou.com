@@ -365,6 +365,47 @@ export interface Database {
 					id: never;
 				};
 			};
+			enrollments: {
+				Row: {
+					// the data expected from .select()
+					id: string;
+					user_id: string | null;
+					course_id: string;
+					legacy_user_id: number | null;
+					order_id: string | null;
+					progress: number;
+					status: string;
+					access_expires_at: string | null;
+					enrolled_at: string;
+				};
+				Insert: {
+					// the data expected from .select()
+					id?: never;
+					user_id: string | null;
+					course_id: string;
+					legacy_user_id: number | null;
+					order_id: string | null;
+					progress: number;
+					status: string;
+					access_expires_at: string | null;
+					enrolled_at: string;
+				};
+				Update: {
+					// the data expected from .select()
+					id: never;
+					user_id: string | null;
+					course_id: string;
+					legacy_user_id: number | null;
+					order_id?: string | null;
+					progress?: number;
+					status?: string;
+					access_expires_at?: string | null;
+					enrolled_at?: string;
+				};
+				Delete: {
+					id: never;
+				};
+			};
 		};
 	};
 }

@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import { ArrowUpRight, Hash } from 'lucide-react';
 import { SiteConfig } from '@/app/config';
 import { Button, LogoutButton, ProfileAvatar } from '@/components';
@@ -7,7 +8,6 @@ import { createClient } from '@/lib/supabase/server';
 import { mapOnlineCourseRowToView } from '@/types';
 import { OnlineCourseRow, TABLE } from '@/lib/supabase';
 import { route } from '@/constants';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
 	title: SiteConfig.title.DASHBOARD,
@@ -32,17 +32,35 @@ export default async function MyDashboardPage() {
 		data: { user },
 	} = await supabaseServerClient.auth.getUser();
 
-	if (!user) {
+	if (!user || user?.is_anonymous) {
 		redirect(route.AUTH.LOGIN);
 	}
 
-	const { data, error } = await supabaseServerClient.from(TABLE.ONLINE_COURSES).select('*').returns<OnlineCourseRow[]>();
+	const [{ data: onlineCourses, error: getOnlineCoursesError }, { data: profile, error: getProfileError }] = await Promise.all([
+		supabaseServerClient.from(TABLE.ONLINE_COURSES).select('*').returns<OnlineCourseRow[]>(),
+		supabaseServerClient.from(TABLE.PROFILES).select('legacy_user_id').eq('id', user?.id).maybeSingle(),
+	]);
 
-	if (error) {
-		throw error;
+	const { data: enrollments, error: getEnrollmentsError } = await supabaseServerClient
+		.from(TABLE.ENROLLMENTS)
+		.select('course_id, legacy_user_id')
+		.eq('legacy_user_id', profile?.legacy_user_id);
+
+	if (getOnlineCoursesError) {
+		throw getOnlineCoursesError;
 	}
 
-	const onlineCourseLinks = data?.map(mapOnlineCourseRowToView);
+	if (getProfileError) {
+		throw getProfileError;
+	}
+
+	if (getEnrollmentsError) {
+		throw getEnrollmentsError;
+	}
+
+	const onlineCourseLinks = onlineCourses
+		?.filter(course => enrollments.some(enrollment => enrollment.course_id === course.id))
+		.map(mapOnlineCourseRowToView);
 
 	return (
 		<section className="p-4 max-w-300">
@@ -90,10 +108,7 @@ export default async function MyDashboardPage() {
 							</div>
 							<div className="ui-flex-center-between">
 								<span className="p-1 text-xs font-medium text-gray-500 bg-muted rounded-md">총 {course.totalVideoDuration}</span>
-								{/*<Button type="button" variant="outline" className="w-fit ml-auto">
-									Learn
-									<ArrowUpRight />
-								</Button>*/}
+
 								<Button key={course.id} variant="outline" asChild className="w-fit ml-auto">
 									<Link href={`${route.COURSE.ROOT}/${course.id}`}>
 										Learn
