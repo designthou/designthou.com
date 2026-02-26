@@ -9,8 +9,8 @@ import {
 	AccordionTrigger,
 	AspectRatio,
 	GradientIndicator,
-	HomeNewsList,
-	HomeReviewList,
+	HomeNewsSection,
+	HomeReviewSection,
 	LinkifyButton,
 	Skeleton,
 } from '@/components';
@@ -39,7 +39,7 @@ export default async function HomePage() {
 							))}
 						</div>
 					}>
-					<HomeNewsList />
+					<HomeNewsSection />
 				</React.Suspense>
 			</div>
 			<div className="flex flex-col gap-4">
@@ -52,13 +52,13 @@ export default async function HomePage() {
 				</div>
 				<React.Suspense
 					fallback={
-						<div className="grid grid-cols-1 gap-4 w-full sm:grid-cols-2 md:grid-cols-4">
+						<div className="flex gap-4 w-full overflow-x-hidden">
 							{Array.from({ length: 4 }, (_, idx) => (
-								<Skeleton key={idx} className="w-full min-h-91" />
+								<Skeleton key={idx} className="min-w-[300px] min-h-90 sm:min-w-[350px]" />
 							))}
 						</div>
 					}>
-					<HomeReviewList />
+					<HomeReviewSection />
 				</React.Suspense>
 			</div>
 			<AspectRatio ratio={16 / 9} className="bg-muted rounded-lg">
