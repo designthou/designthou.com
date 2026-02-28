@@ -19,7 +19,7 @@ import { cn } from '@/lib/utils';
 
 export default function ProfileDropdown({
 	user,
-	triggerVariant = 'default',
+	triggerVariant = 'secondary',
 	menuContentMargin = '-ml-1',
 }: {
 	user: User | null;

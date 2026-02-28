@@ -5,15 +5,7 @@ import { createStaticClient } from '@/lib/supabase/static';
 import { generateGradient } from '@/utils/seedGradient';
 
 async function getRecentNewsList() {
-	const supabase = createStaticClient({
-		global: {
-			fetch: (url, options) =>
-				fetch(url, {
-					...options,
-					next: { revalidate: 3600 },
-				}),
-		},
-	});
+	const supabase = createStaticClient();
 
 	const { data, error } = await supabase.from(TABLE.NEWS).select('*').order('created_at', { ascending: false }).range(0, 5);
 

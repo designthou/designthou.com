@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { User } from "@supabase/supabase-js";
+import { create } from 'zustand';
+import { User } from '@supabase/supabase-js';
 
 /**
  * Session {
@@ -13,13 +13,13 @@ import { User } from "@supabase/supabase-js";
  */
 
 type AuthState = {
-  user: User | null;
-  setUser: (user: User | null) => void;
-  resetUser: () => void;
+	user: User | null;
+	setUser: (user: User | null) => void;
+	resetUser: () => void;
 };
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
-  resetUser: () => set({ user: null }),
+export const useAuthStore = create<AuthState>(set => ({
+	user: null,
+	setUser: user => set({ user }),
+	resetUser: () => set({ user: null }),
 }));

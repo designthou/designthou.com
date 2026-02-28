@@ -17,8 +17,6 @@ import {
 } from '@/components';
 import { route } from '@/constants';
 
-export const revalidate = 3600;
-
 export default async function HomePage() {
 	return (
 		<section className="flex flex-col justify-items-center gap-12 p-4 bg-white">

@@ -61,7 +61,7 @@ export default async function MyDashboardPage() {
 	const enrollmentMap = new Map(enrollments.map(enrollment => [enrollment.course_id, enrollment]));
 	const onlineCourseLinks = onlineCourses
 		?.filter(course => enrollmentMap.has(course.id))
-		.map(course => {
+		?.map(course => {
 			const enrollment = enrollmentMap.get(course.id);
 
 			return {
