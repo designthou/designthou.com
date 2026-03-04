@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils';
-import { Atom } from 'lucide-react';
 import React from 'react';
+import { Atom } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export default function Wip({
 	message,
