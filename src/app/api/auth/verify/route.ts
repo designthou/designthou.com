@@ -45,7 +45,7 @@ export async function POST() {
 			.limit(1);
 
 		if (getLegacyUserError) {
-			console.error('Get Legacy User Error', getLegacyUserError);
+			console.error('[Get Legacy User] Error', getLegacyUserError);
 		}
 
 		const legacyUser = legacyUsers?.[0] ?? null;
@@ -68,7 +68,7 @@ export async function POST() {
 		);
 
 		if (createUserError) {
-			console.error('Create user error:', createUserError);
+			console.error('[Create User] error:', createUserError);
 
 			return NextResponse.json<ApiResponse>({ ok: false, error: `사용자 등록 실패: ${createUserError.message}` }, { status: 500 });
 		}

@@ -85,6 +85,16 @@ const getNextMonthFormatDate = (usageDate: Date | string) => {
 	return `${((month + 2 > 12 ? month + 2 - 12 : month + 2) + '').padStart(2, '0')}/${(date + '').padStart(2, '0')}`;
 };
 
+const getMonthGap = (expiresAt: string) => {
+	const now = new Date();
+	const expires = new Date(expiresAt);
+
+	const yearDiff = now.getFullYear() - expires.getFullYear();
+	const monthDiff = now.getMonth() - expires.getMonth();
+
+	return yearDiff * 12 + monthDiff;
+};
+
 type TimePeriod = 'Morning' | 'Afternoon' | 'Evening' | 'Late Night';
 
 const greetingMap: Record<TimePeriod, string> = {
@@ -131,6 +141,7 @@ export {
 	getDateFromString,
 	getNextDay,
 	getNextMonthFormatDate,
+	getMonthGap,
 	greetingMap,
 	getTimePeriodByTimezone,
 };

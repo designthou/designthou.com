@@ -17,6 +17,7 @@ const route = {
 		QUESTION_BOARD: '/question-board',
 		PRODUCTS: '/products',
 		ONLINE_COURSE: '/online-course',
+		OPEN_SOURCE: '/open-source',
 		SETTINGS: {
 			ROOT: '/settings',
 			MYACCOUNT_PROFILE: '/settings/myaccount/profile',

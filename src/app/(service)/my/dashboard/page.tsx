@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { ArrowUpRight, Hash, SquareArrowOutUpRight } from 'lucide-react';
 import { SiteConfig } from '@/app/config';
 import { Button, LogoutButton, ProfileAvatar, Progress } from '@/components';
-import { createClient } from '@/lib/supabase/server';
 import { mapOnlineCourseRowToView } from '@/types';
+import { createClient } from '@/lib/supabase/server';
 import { OnlineCourseRow, TABLE } from '@/lib/supabase';
+import { getMonthGap } from '@/utils/date';
 import { route } from '@/constants';
 
 export const metadata: Metadata = {
@@ -43,7 +44,7 @@ export default async function MyDashboardPage() {
 
 	const { data: enrollments, error: getEnrollmentsError } = await supabaseServerClient
 		.from(TABLE.ENROLLMENTS)
-		.select('course_id, legacy_user_id, progress, status')
+		.select('course_id, legacy_user_id, access_expires_at, progress, status')
 		.eq('legacy_user_id', profile?.legacy_user_id);
 
 	if (getOnlineCoursesError) {
@@ -58,6 +59,8 @@ export default async function MyDashboardPage() {
 		throw getEnrollmentsError;
 	}
 
+	const checkExpired = (expiresAt: string) => getMonthGap(expiresAt) > 6;
+
 	const enrollmentMap = new Map(enrollments.map(enrollment => [enrollment.course_id, enrollment]));
 	const onlineCourseLinks = onlineCourses
 		?.filter(course => enrollmentMap.has(course.id))
@@ -68,6 +71,7 @@ export default async function MyDashboardPage() {
 				...mapOnlineCourseRowToView(course),
 				progress: enrollment?.progress,
 				status: enrollment?.status,
+				expiredAt: enrollment?.access_expires_at,
 			};
 		});
 
@@ -134,11 +138,20 @@ export default async function MyDashboardPage() {
 							<div className="ui-flex-center-between">
 								<span className="p-1 text-xs font-medium text-gray-500 bg-muted rounded-md">총 {course.totalVideoDuration}</span>
 
-								<Button key={course.id} variant="outline" asChild className="w-fit ml-auto">
-									<Link href={`${route.COURSE.ROOT}/${course.id}`}>
-										Learn
-										<ArrowUpRight />
-									</Link>
+								<Button
+									key={course.id}
+									variant={checkExpired(course?.expiredAt) ? 'secondary' : 'outline'}
+									asChild
+									disabled={checkExpired(course?.expiredAt) ? true : false}
+									className="w-fit ml-auto">
+									{checkExpired(course.expiredAt) ? (
+										<span>수강 만료</span>
+									) : (
+										<Link href={`${route.COURSE.ROOT}/${course.id}`}>
+											Learn
+											<ArrowUpRight />
+										</Link>
+									)}
 								</Button>
 							</div>
 						</div>
