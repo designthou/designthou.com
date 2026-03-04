@@ -6,7 +6,7 @@ import { SiteConfig } from '@/app/config';
 import { Button, LogoutButton, ProfileAvatar, Progress } from '@/components';
 import { mapOnlineCourseRowToView } from '@/types';
 import { createClient } from '@/lib/supabase/server';
-import { OnlineCourseRow, TABLE } from '@/lib/supabase';
+import { convertSupabaseDateToShortHumanReadable, OnlineCourseRow, TABLE } from '@/lib/supabase';
 import { getMonthGap } from '@/utils/date';
 import { route } from '@/constants';
 
@@ -59,7 +59,11 @@ export default async function MyDashboardPage() {
 		throw getEnrollmentsError;
 	}
 
-	const checkExpired = (expiresAt: string) => getMonthGap(expiresAt) > 6;
+	const checkExpired = (expiresAt: string | null) => {
+		if (!expiresAt) return false;
+
+		return getMonthGap(expiresAt) > 6;
+	};
 
 	const enrollmentMap = new Map(enrollments.map(enrollment => [enrollment.course_id, enrollment]));
 	const onlineCourseLinks = onlineCourses
@@ -120,42 +124,50 @@ export default async function MyDashboardPage() {
 					<span className="font-bold text-4xl">{onlineCourseLinks?.length}</span>
 				</div>
 				<div className="flex flex-col gap-4 mx-auto mt-4">
-					{onlineCourseLinks.map(course => (
-						<div key={course.id} className="flex flex-col gap-3 p-3 bg-white rounded-lg border border-gray-100">
-							<div className="flex items-center gap-2">
-								<span className="inline-flex justify-center items-center p-1.5 w-fit bg-black text-white rounded-full">
-									<Hash size={12} />
-								</span>
-								<p className="font-semibold">{course.title}</p>
-							</div>
-							<div className="flex flex-col gap-2 p-3 bg-light rounded-lg">
-								<div className="flex justify-between items-center text-xs text-gray-500">
-									<span>진도율</span>
-									<span>{course.progress}/100 (%)</span>
-								</div>
-								<Progress value={course.progress} />
-							</div>
-							<div className="ui-flex-center-between">
-								<span className="p-1 text-xs font-medium text-gray-500 bg-muted rounded-md">총 {course.totalVideoDuration}</span>
+					{onlineCourseLinks.map(course => {
+						const isExpired = checkExpired(course?.expiredAt);
 
-								<Button
-									key={course.id}
-									variant={checkExpired(course?.expiredAt) ? 'secondary' : 'outline'}
-									asChild
-									disabled={checkExpired(course?.expiredAt) ? true : false}
-									className="w-fit ml-auto">
-									{checkExpired(course.expiredAt) ? (
-										<span>수강 만료</span>
-									) : (
-										<Link href={`${route.COURSE.ROOT}/${course.id}`}>
-											Learn
-											<ArrowUpRight />
-										</Link>
-									)}
-								</Button>
+						return (
+							<div key={course.id} className="flex flex-col gap-3 p-3 bg-white rounded-lg border border-gray-100">
+								<div className="flex items-center gap-2">
+									<span className="inline-flex justify-center items-center p-1.5 w-fit bg-black text-white rounded-full">
+										<Hash size={12} />
+									</span>
+									<p className="font-semibold">{course.title}</p>
+								</div>
+								<div className="flex flex-col gap-2 p-3 bg-light rounded-lg">
+									<div className="flex justify-between items-center text-xs text-gray-500">
+										<span>진도율</span>
+										<span>{course.progress}/100 (%)</span>
+									</div>
+									<Progress value={course.progress} />
+								</div>
+								<div className="ui-flex-center-between gap-2">
+									<span className="p-1 text-xs font-medium text-gray-500 bg-muted rounded-md">총 {course.totalVideoDuration}</span>
+									{course.expiredAt ? (
+										<span className="p-1 text-xs font-medium text-gray-500 bg-white border border-muted rounded-md">
+											{convertSupabaseDateToShortHumanReadable(course.expiredAt)}까지
+										</span>
+									) : null}
+									<Button
+										key={course.id}
+										variant={isExpired ? 'secondary' : 'outline'}
+										asChild
+										disabled={isExpired ? true : false}
+										className="w-fit ml-auto">
+										{isExpired ? (
+											<span>수강 만료</span>
+										) : (
+											<Link href={`${route.COURSE.ROOT}/${course.id}`}>
+												Learn
+												<ArrowUpRight />
+											</Link>
+										)}
+									</Button>
+								</div>
 							</div>
-						</div>
-					))}
+						);
+					})}
 				</div>
 			</div>
 		</section>
