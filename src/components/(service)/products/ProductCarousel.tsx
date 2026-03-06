@@ -4,8 +4,8 @@ import Image from 'next/image';
 import React from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import RhinoClassImage from '/public/rhino-class.webp';
-import sectionAutocad from '/public/online-course/placeholder/autocad/section.png';
-import isometricSketchup from '/public/online-course/placeholder/sketchup/7-4.png';
+import sectionAutocad from '/public/online-course/placeholder/autocad/section.webp';
+import isometricSketchup from '/public/online-course/placeholder/sketchup/isometric.webp';
 import { Card, CardContent, Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components';
 
 export default function ProductCarousel() {

@@ -17,7 +17,7 @@ export default async function ServiceLayout({
 
 	return (
 		<>
-			<div className="h-screen mx-auto w-full">
+			<div className="min-h-screen mx-auto w-full">
 				<ReactQueryProvider>
 					<AuthProvider>
 						<NotifySection />

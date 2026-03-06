@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from 'next/link';
 import Image, { type ImageProps } from 'next/image';
+import { Star } from 'lucide-react';
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
 import { highlight } from 'sugar-high';
 import React, { type ReactNode } from 'react';
-import { Wip } from '@/components';
+import { Callout, Wip, Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components';
 
 /* -------------------- Types -------------------- */
 
@@ -85,13 +86,10 @@ function CustomLink(props: CustomLinkProps) {
  * - 우선 MDX가 주는 src (string) 을 next/image에 넣기 적합한 타입으로 변환해서 넘긴다.
  * - className, alt 등 나머지 props는 안전하게 스프레드.
  */
-function RoundedImage(props: RoundedImageMDXProps) {
-	const { src, alt = '', ...rest } = props;
-	const { src: _, alt: __, ...imageProps } = rest as ImageProps;
+function RoundedImage({ src, alt = '', ...rest }: RoundedImageMDXProps) {
+	if (!src) return null;
 
-	// next/image의 src 타입을 만족시키기 위해 as Parameters hack 사용
-	// src가 문자열이면 그대로 넣어도 되므로 캐스트로 처리
-	return <Image src={src as ImageProps['src']} alt={alt} className="rounded-lg" {...imageProps} />;
+	return <Image src={src as ImageProps['src']} alt={alt} className="rounded-lg" {...rest} />;
 }
 
 type CodeProps = React.HTMLAttributes<HTMLElement> & {
@@ -162,6 +160,208 @@ function createHeading(level: 1 | 2 | 3 | 4 | 5 | 6) {
 	return Heading;
 }
 
+function Description({ children }: { children: React.ReactNode }) {
+	return <p className="my-0 px-4 py-2 w-fit text-gray-600 bg-gray-100 rounded-lg">{children}</p>;
+}
+
+function TagList({ data }: { data?: string | string[] }) {
+	if (!data) return null;
+
+	const items = Array.isArray(data) ? data : data?.split(',').map(s => s.trim());
+
+	return (
+		<ul className="flex items-center gap-2 list-none pl-0">
+			{items.map(item => (
+				<li key={item} className="list-none px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full">
+					{item}
+				</li>
+			))}
+		</ul>
+	);
+}
+
+function RhinoClassCurriculumAccordion() {
+	return (
+		<Accordion type="multiple" className="w-full" defaultValue={['item-1', 'item-2', 'item-3', 'item-4', 'item-5', 'item-6']}>
+			<AccordionItem value="item-1">
+				<AccordionTrigger className="font-bold text-lg">Chapter 1 라이노 모델링 기초</AccordionTrigger>
+				<AccordionContent className="flex flex-col gap-4 text-balance">
+					<ul>
+						<li className="list-none">1. 라이노 기본설명 및 세팅</li>
+						<li className="list-none">2. 인터페이스와 기본조작법</li>
+						<li className="list-none">3. 라이노의 개체유형</li>
+						<li className="list-none">4. 기본 2D 명령어</li>
+						<li className="list-none">5. 기본 3D 명령어</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value="item-2">
+				<AccordionTrigger className="font-bold text-lg">Chapter 2 라이노 모델링 심화</AccordionTrigger>
+				<AccordionContent className="flex flex-col gap-4 text-balance">
+					<ul>
+						<li className="list-none">1. 실전 모델링의 기초, Box&Box</li>
+						<li className="list-none">2. 실전 모델링의 정수, The House -1</li>
+						<li className="list-none">3. 실전 모델링의 정수, The House -2</li>
+						<li className="list-none">4. 디자인 프로세스, 모델링에서 평면으로!</li>
+						<li className="list-none">5. 그래스호퍼를 활용한, 랜드스케이프 생성하기</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value="item-3">
+				<AccordionTrigger className="font-bold text-lg">Chapter 3 브이레이 렌더링</AccordionTrigger>
+				<AccordionContent className="flex flex-col gap-4 text-balance">
+					<ul>
+						<li className="list-none">1. 재질생성 원리 배우기 -1</li>
+						<li className="list-none">2. 재질생성 원리 배우기 -2</li>
+						<li className="list-none">3. 재질 적용방법</li>
+						<li className="list-none">4. 카메라 구도 조작법</li>
+						<li className="list-none">5. 빛 조절하는 방법</li>
+						<li className="list-none">6. 건축물 재질 맵핑</li>
+						<li className="list-none">7. 가구 배치하기</li>
+						<li className="list-none">8. 주간 최종 렌더링</li>
+						<li className="list-none">9. 야간 최종 렌더링</li>
+						<li className="list-none">10. 실내 투시도 렌더링</li>
+						<li className="list-none">11. 툰 렌더링</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value="item-4">
+				<AccordionTrigger className="font-bold text-lg">Chapter 4 트윈모션 렌더링</AccordionTrigger>
+				<AccordionContent className="flex flex-col gap-4 text-balance">
+					<ul>
+						<li className="list-none">1. 모델링을 트윈모션으로 가져오기</li>
+						<li className="list-none">2. 트윈모션 기본 조작법</li>
+						<li className="list-none">3. 재질 입히기</li>
+						<li className="list-none">4. 지형, 나무, 잔디 조성하기 (library)</li>
+						<li className="list-none">5. 가구, 사람, 조명 배치하기 (library)</li>
+						<li className="list-none">6. 시간, 위치, 날씨, 조명, 카메라 설정하기 -1 (envrionment)</li>
+						<li className="list-none">7. 시간, 위치, 날씨, 조명, 카메라 설정하기 -2 (environment)</li>
+						<li className="list-none">8. 영상 촬영하기 (video)</li>
+						<li className="list-none">9. 이미지와 비디오 렌더링하기 (rendering)</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value="item-5">
+				<AccordionTrigger className="font-bold text-lg">Chapter 5 포토샵 다이어그램</AccordionTrigger>
+				<AccordionContent className="flex flex-col gap-4 text-balance">
+					<ul>
+						<li className="list-none">1. 포토샵 기본조작 배우기</li>
+						<li className="list-none">2. 포토샵 합성기초 배우기</li>
+						<li className="list-none">3. 사이트 다이어그램 (site diagram)</li>
+						<li className="list-none">4. 프로세스 다이어그램 (process diagram)</li>
+						<li className="list-none">5. 평면 리터칭 (retouching)</li>
+						<li className="list-none">6. 아이소메트릭 다이어그램 (isometric diagram)</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value="item-6">
+				<AccordionTrigger className="font-bold text-lg">Chapter 6 포토샵 리터칭 & 패널 레이아웃</AccordionTrigger>
+				<AccordionContent className="flex flex-col gap-4 text-balance">
+					<ul>
+						<li className="list-none">1. 조감도 리터칭</li>
+						<li className="list-none">2. 실외 투시도 리터칭</li>
+						<li className="list-none">3. 실내 투시도 리터칭</li>
+						<li className="list-none">4. 패널 만들기</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+		</Accordion>
+	);
+}
+
+function SketchupClassCurriculumAccordion() {
+	return (
+		<Accordion type="multiple" className="w-full" defaultValue={['item-1', 'item-2', 'item-3', 'item-4', 'item-5', 'item-6']}>
+			<AccordionItem value="item-1">
+				<AccordionTrigger className="font-bold text-lg">Chapter 1 스케치업 모델링 기초</AccordionTrigger>
+				<AccordionContent className="flex flex-col gap-4 text-balance">
+					<ul>
+						<li className="list-none">1. 스케치업 소개 및 작업환경 세팅</li>
+						<li className="list-none">2. 인터페이스 및 기본 조작</li>
+						<li className="list-none">3. 2D 그리기 도구</li>
+						<li className="list-none">4. 2D & 3D 편집 도구</li>
+						<li className="list-none">5. 2D & 3D 제어 도구</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value="item-2">
+				<AccordionTrigger className="font-bold text-lg">Chapter 2 스케치업 모델링 응용</AccordionTrigger>
+				<AccordionContent className="flex flex-col gap-4 text-balance">
+					<ul>
+						<li className="list-none">1. 그룹 & 컴포넌트</li>
+						<li className="list-none">2. 재질(Paint Bucket)</li>
+						<li className="list-none">3. 고체도구 & 단면</li>
+						<li className="list-none">4. 루비 배우기 Part 1</li>
+						<li className="list-none">5. 루비 배우기 Part 2</li>
+						<li className="list-none">6. 가구 모델링</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value="item-3">
+				<AccordionTrigger className="font-bold text-lg">Chapter 3 스케치업 모델링 실전</AccordionTrigger>
+				<AccordionContent className="flex flex-col gap-4 text-balance">
+					<ul className="list-none">
+						<li className="list-none">1. 모델링 프로세스</li>
+						<li className="list-none">2. [주택 모델링 Part 1] 1층 벽체, 슬라브 만들기</li>
+						<li className="list-none">3. [주택 모델링 Part 2] 2층 벽체, 슬라브 만들기</li>
+						<li className="list-none">4. [주택 모델링 Part 3] 천장 및 부가요소 만들기</li>
+						<li className="list-none">5. [주택 모델링 Part 4] 창, 문, 계단 만들기</li>
+						<li className="list-none">6. [주택 모델링 Part 5] 공간 가구 배치 및 디테일</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value="item-4">
+				<AccordionTrigger className="font-bold text-lg">Chapter 4 렌더링의 정석, 브이레이</AccordionTrigger>
+				<AccordionContent className="flex flex-col gap-4 text-balance">
+					<ul>
+						<li className="list-none">1. [렌더링의 기본 원리] 장면, 음영, 재질, 최종</li>
+						<li className="list-none">2. [장면] 렌더 뷰 설정하기</li>
+						<li className="list-none">3. [음영] 빛과 그림자 조절하기</li>
+						<li className="list-none">4. [재질] 고퀄리티 재질 생성원리1</li>
+						<li className="list-none">5. [재질] 고퀄리티 재질 생성원리2</li>
+						<li className="list-none">6. [재질] 고효율 재질 적용하기</li>
+						<li className="list-none">7. [재질] 내/외부 가구소스 배치하고 재질 적용하기</li>
+						<li className="list-none">8. [재질] 재질확인용 렌더링 & 재질 수정하기</li>
+						<li className="list-none">9. [실습] 최종 렌더링1_주간샷</li>
+						<li className="list-none">10. [실습] 최종 렌더링2_야간샷</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value="item-5">
+				<AccordionTrigger className="font-bold text-lg">Chapter 5 실시간 렌더링 프로그램, 엔스케이프</AccordionTrigger>
+				<AccordionContent className="flex flex-col gap-4 text-balance">
+					<ul>
+						<li className="list-none">1. 엔스케이프란 어떤 프로그램일까?</li>
+						<li className="list-none">2. 인터페이스</li>
+						<li className="list-none">3. 맵핑 기본 개념</li>
+						<li className="list-none">4. 맵핑 재질 생성</li>
+						<li className="list-none">5. 맵핑 실전 적용</li>
+						<li className="list-none">6. 라이브러리 배치(실내)</li>
+						<li className="list-none">7. 라이브러리 배치(실외)</li>
+						<li className="list-none">8. 조명 설정(야경)</li>
+						<li className="list-none"> 9. 비주얼 세팅</li>
+						<li className="list-none">10. 렌더링(이미지/영상/VR)</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value="item-6">
+				<AccordionTrigger className="font-bold text-lg">Chapter 6 이미지를 바꾸는 마법, 포토샵</AccordionTrigger>
+				<AccordionContent className="flex flex-col gap-4 text-balance">
+					<ul>
+						<li className="list-none">1. 포토샵의 인터페이스와 기본 개념</li>
+						<li className="list-none">2. 합성과 기초원리</li>
+						<li className="list-none">3. 프로세스 다이어그램</li>
+						<li className="list-none">4. 아이소매트릭 다이어그램</li>
+						<li className="list-none">5. 투시도 리터칭</li>
+						<li className="list-none">6. 조감도 리터칭</li>
+						<li className="list-none">7. 목업 파일 만들기</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+		</Accordion>
+	);
+}
+
 /* -------------------- MDX Components Map -------------------- */
 
 const baseComponents = {
@@ -172,11 +372,24 @@ const baseComponents = {
 	h5: createHeading(5),
 	h6: createHeading(6),
 	Image: RoundedImage,
+	Description,
 	a: CustomLink,
 	code: Code,
 	pre: ({ children }: { children: React.ReactNode }) => children,
 	Table,
 	Wip: ({ message }: { message: string }) => <Wip message={message} className="border border-muted bg-light" />,
+	Callout: ({
+		message,
+		icon = <Star size={16} className="fill-orange-300 text-orange-300" />,
+		className,
+	}: {
+		message: React.ReactNode;
+		icon?: React.ReactNode;
+		className: string;
+	}) => <Callout message={message} icon={icon} className={className} />,
+	TagList,
+	RhinoClassCurriculumAccordion,
+	SketchupClassCurriculumAccordion,
 };
 
 /* -------------------- CustomMDX -------------------- */

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Star } from 'lucide-react';
 import { formatDate, getProductList } from '@/app//(service)/products/utils';
 import { SiteConfig } from '@/app/config';
-import { Badge, CustomMDX } from '@/components/';
+import { Badge, CustomMDX, NavigationList } from '@/components/';
 import { BLUR_DATA_URL } from '@/constants';
 import { createClient } from '@/lib/supabase/server';
 
@@ -61,10 +61,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ProductPage({ params }: PageProps) {
 	const { slug } = await params;
 	const productList = await getProductList();
-	const supabase = await createClient();
 
 	const product = productList?.find(product => product.slug === decodeURIComponent(slug));
 
+	const supabase = await createClient();
 	const { data: reviewCountByProduct } = await supabase
 		.from('review_count_by_product')
 		.select('review_count')
@@ -131,6 +131,7 @@ export default async function ProductPage({ params }: PageProps) {
 				</div>
 			</div>
 
+			<NavigationList />
 			<article className="prose mb-16">
 				<CustomMDX source={product.content} />
 			</article>
