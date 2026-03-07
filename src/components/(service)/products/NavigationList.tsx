@@ -8,6 +8,8 @@ const navItems = [
 	{ href: '#notice', label: '안내사항' },
 	{ href: '#introduction', label: '소 개' },
 	{ href: '#curriculum', label: '커리큘럼' },
+	{ href: '#faq', label: 'FAQ' },
+	{ href: '#review', label: '리 뷰' },
 ];
 
 export default function NavigationList() {

@@ -337,6 +337,10 @@
 		@apply bg-radial-[at_20%_80%] from-orange-200 via-red-400 to-orange-50;
 	}
 
+	.bg-gradient-green-100 {
+		@apply bg-radial-[at_25%_90%] from-green-200 via-green-500 to-green-50;
+	}
+
 	.bg-gradient-blue-100 {
 		@apply bg-radial-[at_25%_90%] from-sky-200 via-blue-400 to-sky-50;
 	}
@@ -570,11 +574,11 @@
 	}
 
 	.prose h1 {
-		@apply text-2xl font-black tracking-tight mt-6 mb-2 md:text-4xl;
+		@apply text-3xl font-black tracking-tight mt-6 mb-2 md:text-4xl;
 	}
 
 	.prose h2 {
-		@apply text-xl font-bold tracking-tight mt-20 mb-2 md:text-2xl;
+		@apply text-2xl font-bold tracking-tight mt-20 mb-2 md:text-3xl;
 	}
 
 	.prose h3 {
@@ -618,6 +622,11 @@
 
 	.prose p {
 		color: #000;
+	}
+
+	.prose div[data-slot='accordion-item'] > h3 {
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 
 	.prose > blockquote {
