@@ -26,8 +26,8 @@ export default function LogoutButton({ className }: { className?: string }) {
 				try {
 					await logout();
 
-					toast.success('로그아웃 성공');
 					resetUser();
+					toast.success('로그아웃 성공');
 
 					router.push(route.AUTH.LOGIN);
 					router.refresh();

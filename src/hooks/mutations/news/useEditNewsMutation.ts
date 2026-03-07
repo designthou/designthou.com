@@ -15,7 +15,7 @@ const edit =
 		};
 	};
 
-export default function useEditNewsMutation(handler?: () => void) {
+export default function useEditNewsMutation(handler?: { [key: string]: () => void }) {
 	const queryClient = useQueryClient();
 	const PAGINATION_QUERY_KEY = queryKey.ADMIN.NEWS_LIST_BY_PAGE;
 
@@ -41,13 +41,15 @@ export default function useEditNewsMutation(handler?: () => void) {
 				queryClient.setQueryData(queryKey.ADMIN.NEWS_LIST_BY_PAGE, context?.previousData);
 			}
 		},
-		onSuccess() {
-			handler?.();
+		async onSuccess() {
+			handler?.closeForm();
+			handler?.revalidateNewsAction();
 
 			toast.success('뉴스를 성공적으로 업데이트 했습니다.');
 		},
 		onSettled() {
-			handler?.();
+			handler?.closeForm();
+
 			return Promise.all([
 				queryClient.invalidateQueries({ queryKey: PAGINATION_QUERY_KEY }),
 				queryClient.invalidateQueries({

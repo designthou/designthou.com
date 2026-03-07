@@ -35,7 +35,7 @@ export default function ProfileDropdown({
 				</Button>
 			</DropdownMenuTrigger>
 
-			<DropdownMenuContent className={cn('my-2 p-2 w-54 bg-gray-50', menuContentMargin)} align="start">
+			<DropdownMenuContent className={cn('mr-1 my-1 p-2 w-54 bg-gray-50', menuContentMargin)} align="start">
 				<DropdownMenuLabel className="flex items-center gap-2">
 					<ProfileAvatar user={user} />
 					<div className="flex flex-col gap-2">

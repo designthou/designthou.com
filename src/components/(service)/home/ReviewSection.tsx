@@ -1,27 +1,32 @@
+import { unstable_cache } from 'next/cache';
 import { convertSupabaseDateToShortHumanReadable, TABLE } from '@/lib/supabase';
 import { createStaticClient } from '@/lib/supabase/static';
 import sanitizeHtmlServer from '@/utils/sanitizeHtml';
 import { generateGradient } from '@/utils/seedGradient';
 
-async function getRecentReviewList() {
-	const supabase = createStaticClient();
+export const getRecentReviewList = unstable_cache(
+	async () => {
+		const supabase = createStaticClient();
 
-	const { data, error } = await supabase
-		.from(TABLE.ONLINE_COURSE_REVIEWS)
-		.select('*')
-		.order('created_at', { ascending: false })
-		.eq('category', 'portfolio')
-		.limit(6);
+		const { data, error } = await supabase
+			.from(TABLE.ONLINE_COURSE_REVIEWS)
+			.select('*')
+			.order('created_at', { ascending: false })
+			.eq('category', 'portfolio')
+			.limit(6);
 
-	if (error) {
-		throw new Error(error.message);
-	}
+		if (error) {
+			throw new Error(error.message);
+		}
 
-	return data?.map(review => ({
-		...review,
-		content: sanitizeHtmlServer(review.content),
-	}));
-}
+		return data?.map(review => ({
+			...review,
+			content: sanitizeHtmlServer(review.content),
+		}));
+	},
+	['portfolio-reviews'], // cache key
+	{ tags: ['reviews'] }, // revalidate tag
+);
 
 export default async function ReviewSection() {
 	const recentReviewList = await getRecentReviewList();

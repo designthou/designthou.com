@@ -16,6 +16,7 @@ const YoutubeVideo = dynamic(() => import('@/components/(service)/tips/YoutubeVi
 
 export default async function TipVideoPage({ params }: { params: Promise<{ id: string }> }) {
 	const { id } = await params;
+
 	const supabase = await createClient();
 	const { data, error } = await supabase.from(TABLE.TIPS).select('*').eq('id', id).single();
 

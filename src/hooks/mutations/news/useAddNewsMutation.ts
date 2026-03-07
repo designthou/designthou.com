@@ -21,7 +21,7 @@ const add = (data: Variables) => (oldData: OldData<NewsRow>) => {
 	};
 };
 
-export default function useAddNewsMutation(handler?: () => void) {
+export default function useAddNewsMutation(handler?: { [key: string]: () => void }) {
 	const queryClient = useQueryClient();
 	const PAGINATION_QUERY_KEY = queryKey.ADMIN.NEWS_LIST_BY_PAGE;
 
@@ -47,13 +47,14 @@ export default function useAddNewsMutation(handler?: () => void) {
 				queryClient.setQueryData(queryKey.ADMIN.NEWS_LIST_BY_PAGE, context?.previousData);
 			}
 		},
-		onSuccess() {
-			handler?.();
+		async onSuccess() {
+			handler?.closeForm();
 
+			handler?.revalidateNewsAction();
 			toast.success('뉴스를 성공적으로 추가했습니다.');
 		},
 		onSettled() {
-			handler?.();
+			handler?.closeForm();
 			return Promise.all([
 				queryClient.invalidateQueries({ queryKey: PAGINATION_QUERY_KEY }),
 				queryClient.invalidateQueries({

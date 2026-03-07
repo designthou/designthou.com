@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import Image from 'next/image';
 import React from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { ArrowRight, ArrowRightIcon, X } from 'lucide-react';
 import designthouSVG from '@/public/favicon/favicon.svg';
 import { Button, Menu, MotionBlock, ServiceProfileDropdown } from '@/components';
@@ -29,14 +30,10 @@ const navigations = [
 		title: 'Products',
 		to: route.SERVICE.PRODUCTS,
 	},
-	{
-		title: 'Feedback',
-		to: route.SERVICE.ASIDE,
-	},
 ] as const;
 
 export default function Nav() {
-	const { user, isLoading } = useAuthStore();
+	const { user, isLoading } = useAuthStore(useShallow(({ user, isLoading }) => ({ user, isLoading })));
 
 	const segment = useSelectedLayoutSegment();
 	const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
@@ -75,9 +72,9 @@ export default function Nav() {
 							</div>
 
 							{isLoading ? (
-								<Button variant="secondary" size="lg" className="px-3 rounded-lg">
-									<span className="ui-flex-center w-6 h-6 bg-gray-300 rounded-full" />
-									<span className={cn('hidden text-gray-600 font-semibold lg:inline-block')}>Loading...</span>
+								<Button variant="secondary" size="lg" className="inline-flex items-center px-2 rounded-lg lg:gap-2">
+									<span className="ui-flex-center w-6 h-6 bg-gray-200 rounded-full" />
+									<span className="hidden min-w-20 h-6 bg-gray-200 rounded-lg lg:inline-block" />
 								</Button>
 							) : user ? (
 								<ServiceProfileDropdown user={user} />

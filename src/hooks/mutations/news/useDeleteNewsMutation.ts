@@ -16,7 +16,7 @@ const remove =
 		};
 	};
 
-export default function useDeleteNewsMutation(handler?: () => void) {
+export default function useDeleteNewsMutation(handler?: { [key: string]: () => void }) {
 	const queryClient = useQueryClient();
 	const PAGINATION_QUERY_KEY = queryKey.ADMIN.NEWS_LIST_BY_PAGE;
 
@@ -43,12 +43,13 @@ export default function useDeleteNewsMutation(handler?: () => void) {
 			}
 		},
 		onSuccess() {
-			handler?.();
+			handler?.revalidateNewsAction();
 
 			toast.success('뉴스를 성공적으로 삭제했습니다.');
 		},
 		onSettled() {
-			handler?.();
+			handler?.closeForm();
+
 			return Promise.all([
 				queryClient.invalidateQueries({ queryKey: PAGINATION_QUERY_KEY }),
 				queryClient.invalidateQueries({

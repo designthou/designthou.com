@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
-import { formatDate, getProductList } from '@/app//(service)/products/utils';
+import { formatDate, getProductList } from '@/app/(service)/products/utils';
 import { SiteConfig } from '@/app/config';
 import { Badge, CustomMDX, NavigationList } from '@/components/';
 import { BLUR_DATA_URL } from '@/constants';

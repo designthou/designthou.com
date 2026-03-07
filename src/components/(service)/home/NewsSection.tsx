@@ -1,20 +1,21 @@
 import Link from 'next/link';
+import { unstable_cache } from 'next/cache';
 import { MotionBlock } from '@/components';
 import { convertSupabaseDateToShortHumanReadable, TABLE } from '@/lib/supabase';
 import { createStaticClient } from '@/lib/supabase/static';
 import { generateGradient } from '@/utils/seedGradient';
 
-async function getRecentNewsList() {
-	const supabase = createStaticClient();
+export const getRecentNewsList = unstable_cache(
+	async () => {
+		const supabase = createStaticClient();
+		const { data, error } = await supabase.from(TABLE.NEWS).select('*').order('created_at', { ascending: false }).range(0, 5);
 
-	const { data, error } = await supabase.from(TABLE.NEWS).select('*').order('created_at', { ascending: false }).range(0, 5);
-
-	if (error) {
-		throw new Error(error.message);
-	}
-
-	return data;
-}
+		if (error) throw new Error(error.message);
+		return data;
+	},
+	['recent-news'], // cache key
+	{ tags: ['news'] }, // revalidate tag
+);
 
 export default async function NewsSection() {
 	const recentNewsList = await getRecentNewsList();

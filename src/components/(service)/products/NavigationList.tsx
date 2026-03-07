@@ -10,13 +10,13 @@ const navItems = [
 	{ href: '#curriculum', label: '커리큘럼' },
 	{ href: '#faq', label: 'FAQ' },
 	{ href: '#review', label: '리 뷰' },
-];
+] as const;
 
 export default function NavigationList() {
 	const [activeId, setActiveId] = React.useState('notice');
 
 	return (
-		<ul className="sticky top-[var(--global-layout-nav-height-with-notify)] flex items-center gap-4 my-2 py-3 px-1.5 border-b border-muted bg-white/30 backdrop-blur-sm z-40">
+		<ul className="sticky top-[var(--global-layout-nav-height-with-notify)] flex items-center gap-4 my-2 py-3 px-1.5 border-b border-muted bg-white/30 backdrop-blur-sm overflow-x-scroll scrollbar-thin z-40">
 			{navItems.map(({ href, label }) => {
 				const id = href.replace('#', '');
 
