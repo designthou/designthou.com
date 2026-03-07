@@ -4,15 +4,26 @@ import React from 'react';
 import { useAuthStore } from '@/stores';
 import { createClient } from '@/lib/supabase/client';
 
-type Props = {
+interface AuthProviderProps {
 	children: React.ReactNode;
-};
+}
 
-export default function AuthProvider({ children }: Props) {
-	const setUser = useAuthStore(({ setUser }) => setUser);
+export default function AuthProvider({ children }: AuthProviderProps) {
 	const supabase = createClient();
 
+	const setUser = useAuthStore(({ setUser }) => setUser);
+	const setIsLoading = useAuthStore(({ setIsLoading }) => setIsLoading);
+
 	React.useEffect(() => {
+		const initialize = async () => {
+			const { data } = await supabase.auth.getUser();
+
+			setUser(data.user);
+			setIsLoading(false);
+		};
+
+		initialize();
+
 		const {
 			data: { subscription },
 		} = supabase.auth.onAuthStateChange((_event, session) => {

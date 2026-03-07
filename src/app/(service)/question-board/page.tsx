@@ -19,6 +19,8 @@ export const metadata: Metadata = {
 	},
 };
 
+export const revalidate = 3600;
+
 export default async function QuestionBoardPage() {
 	return (
 		<section className="p-4 bg-light rounded-lg">

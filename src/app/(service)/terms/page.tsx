@@ -17,6 +17,8 @@ export const metadata: Metadata = {
 	},
 };
 
+export const revalidate = 3600;
+
 export default function ServiceTermsPage() {
 	return (
 		<section id="" className="mx-auto p-4 max-w-200 border-gray-200 border-dashed border-l border-r">

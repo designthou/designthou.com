@@ -5,9 +5,9 @@ import { useSelectedLayoutSegment } from 'next/navigation';
 import Image from 'next/image';
 import React from 'react';
 import { ArrowRight, ArrowRightIcon, X } from 'lucide-react';
-import { User } from '@supabase/supabase-js';
 import designthouSVG from '@/public/favicon/favicon.svg';
 import { Button, Menu, MotionBlock, ServiceProfileDropdown } from '@/components';
+import { useAuthStore } from '@/stores';
 import { route } from '@/constants';
 import { cn } from '@/lib/utils';
 
@@ -35,7 +35,9 @@ const navigations = [
 	},
 ] as const;
 
-export default function Nav({ user }: { user: User | null }) {
+export default function Nav() {
+	const { user, isLoading } = useAuthStore();
+
 	const segment = useSelectedLayoutSegment();
 	const [isSideNavOpen, setIsSideNavOpen] = React.useState(false);
 
@@ -71,7 +73,13 @@ export default function Nav({ user }: { user: User | null }) {
 									</Link>
 								))}
 							</div>
-							{user ? (
+
+							{isLoading ? (
+								<Button variant="secondary" size="lg" className="px-3 rounded-lg">
+									<span className="ui-flex-center w-6 h-6 bg-gray-300 rounded-full" />
+									<span className={cn('hidden text-gray-600 font-semibold lg:inline-block')}>Loading...</span>
+								</Button>
+							) : user ? (
 								<ServiceProfileDropdown user={user} />
 							) : (
 								<Button type="button" asChild className="rounded-lg">

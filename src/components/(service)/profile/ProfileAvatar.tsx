@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { User } from '@supabase/supabase-js';
 import { GradientCircle } from '@/components';
 
-export default function ProfileAvatar({ user, size = 24 }: { user: User | null; size?: number }) {
+export default function ProfileAvatar({ user, size = 24 }: { user: User | null; isLoading?: boolean; size?: number }) {
 	return (
 		<>
 			{user?.user_metadata?.avatar_url ? (
