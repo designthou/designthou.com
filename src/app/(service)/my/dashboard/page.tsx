@@ -65,7 +65,7 @@ export default async function MyDashboardPage() {
 		return getMonthGap(expiresAt) > 6;
 	};
 
-	const enrollmentMap = new Map(enrollments.map(enrollment => [enrollment.course_id, enrollment]));
+	const enrollmentMap = new Map((enrollments ?? []).map(enrollment => [enrollment.course_id, enrollment]));
 	const onlineCourseLinks = onlineCourses
 		?.filter(course => enrollmentMap.has(course.id))
 		?.map(course => {
@@ -88,7 +88,9 @@ export default async function MyDashboardPage() {
 					<dl className="flex flex-col gap-3 text-sm sm:text-base">
 						<div className="flex items-center gap-2">
 							<dt className="min-w-14 px-1 py-0.5 bg-gray-100 text-gray-500 rounded-md text-center">이 름</dt>
-							<dd className="px-2 py-0.5">{user?.user_metadata?.name ?? user?.user_metadata?.display_name}</dd>
+							<dd className="px-2 py-0.5">
+								{user?.user_metadata?.full_name ?? user?.user_metadata?.name ?? user?.user_metadata?.display_name ?? '이름 없음'}
+							</dd>
 						</div>
 						<div className="flex items-center gap-2">
 							<dt className="min-w-14 px-1 py-0.5 bg-gray-100 text-gray-500 rounded-md text-center">이메일</dt>
@@ -97,7 +99,7 @@ export default async function MyDashboardPage() {
 						<div className="flex items-center gap-2">
 							<dt className="min-w-14 px-1 py-0.5 bg-gray-100 text-gray-500 rounded-md text-center">로그인</dt>
 							<dd className="flex items-center gap-2 px-2 py-0.5">
-								{user?.app_metadata?.providers?.map(provider => (
+								{(user?.app_metadata?.providers ?? [])?.map(provider => (
 									<li key={provider} className="py-1 px-2 bg-white text-sm text-gray-600 rounded-full">
 										{provider}
 									</li>
