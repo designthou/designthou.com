@@ -1,15 +1,27 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { Star } from 'lucide-react';
+import { ArrowLeft, Star } from 'lucide-react';
 import { formatDate, getProductList } from '@/app/(service)/products/utils';
 import { SiteConfig } from '@/app/config';
-import { Badge, Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CustomMDX, NavigationList } from '@/components/';
-import { BLUR_DATA_URL } from '@/constants';
+import {
+	Badge,
+	Button,
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+	CustomMDX,
+	NavigationList,
+} from '@/components/';
+import { BLUR_DATA_URL, route } from '@/constants';
 import { createClient } from '@/lib/supabase/server';
 import { convertSupabaseDateToShortHumanReadable, TABLE } from '@/lib/supabase';
 import sanitizeHtmlServer from '@/utils/sanitizeHtml';
 import { generateGradient } from '@/utils/seedGradient';
+import Link from 'next/link';
+import ApplyCouresContext from '@/components/(service)/products/ApplyCourseContext';
 
 type PageProps = {
 	params: Promise<{
@@ -64,8 +76,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ProductPage({ params }: PageProps) {
 	const { slug } = await params;
 
+	const decodedSlug = decodeURIComponent(slug);
+
 	const productList = await getProductList();
-	const product = productList?.find(product => product.slug === decodeURIComponent(slug));
+	const product = productList?.find(product => product.slug === decodedSlug);
+	if (!product) notFound();
 
 	const supabase = await createClient();
 	const [{ data: reviews, error: getReviewsError }, { data: reviewCountByProduct }] = await Promise.all([
@@ -75,7 +90,7 @@ export default async function ProductPage({ params }: PageProps) {
 			.order('created_at', { ascending: false })
 			.eq('product_id', product?.metadata.productId),
 		supabase
-			.from('review_count_by_product')
+			.from(TABLE.VIEW.REVIEW_COUNT_BY_PRODUCT)
 			.select('review_count')
 			.eq('product_id', product?.metadata.productId)
 			.eq('category', product?.metadata.category)
@@ -84,10 +99,6 @@ export default async function ProductPage({ params }: PageProps) {
 
 	if (getReviewsError) {
 		throw new Error(getReviewsError.message);
-	}
-
-	if (!product) {
-		notFound();
 	}
 
 	const sanitizedReviews = reviews?.map(review => ({
@@ -121,6 +132,13 @@ export default async function ProductPage({ params }: PageProps) {
 					}),
 				}}
 			/>
+
+			<Button type="button" variant="secondary" asChild>
+				<Link href={route.SERVICE.PRODUCTS} className="w-fit">
+					<ArrowLeft />
+					Go Back
+				</Link>
+			</Button>
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:max-h-[400px]">
 				<div className="ui-flex-center row-span-1 sm:col-span-1">
 					<Image
@@ -134,22 +152,29 @@ export default async function ProductPage({ params }: PageProps) {
 					/>
 				</div>
 
-				<div className="row-span-1 sm:col-span-2 flex flex-col gap-4 py-8 px-8 w-full bg-light border border-muted rounded-xl">
+				<div className="row-span-1 sm:col-span-2 flex flex-col justify-between gap-8 p-6 md:p-8 w-full bg-light border border-muted rounded-xl">
 					<h2 className="title font-bold text-3xl tracking-tighter">{product.metadata.title}</h2>
-					<span className="px-3 py-1 w-fit bg-gradient-orange-100 text-sm font-bold text-white rounded-full">{SiteConfig.author.name}</span>
-					<div className="flex items-center gap-4 text-sm">
-						<span>등록일</span>
-						<p className="text-sm text-neutral-600 dark:text-neutral-400">{formatDate(product.metadata.publishedAt)}</p>
+					<div className="flex flex-col gap-4">
+						<span className="px-3 py-1 w-fit bg-gradient-orange-100 text-sm font-bold text-white rounded-full">
+							{SiteConfig.author.name}
+						</span>
+						<div className="flex items-center gap-4">
+							<span className="inline-block min-w-10 text-sm">등록일</span>
+							<p className="text-sm text-neutral-600 dark:text-neutral-400">{formatDate(product.metadata.publishedAt)}</p>
+						</div>
+						<div className="flex items-center gap-2">
+							<span className="inline-block min-w-10 text-sm">리 뷰</span>
+							<Badge variant="secondary" className="text-muted-foreground">
+								<Star className="text-yellow-400" fill="oklch(85.2% 0.199 91.936)" />
+								<span className="inline-flex items-center gap-1">
+									{(5.0).toFixed(1)}
+									<span className="text-gray-700">({reviewCount})</span>
+								</span>
+							</Badge>
+						</div>
 					</div>
-					<div className="flex items-center gap-2">
-						<Badge variant="secondary" className="text-muted-foreground">
-							<Star className="text-yellow-400" fill="oklch(85.2% 0.199 91.936)" />
-							<span className="inline-flex items-center gap-1">
-								{(5.0).toFixed(1)}
-								<span className="text-gray-700">({reviewCount})</span>
-							</span>
-						</Badge>
-					</div>
+
+					<ApplyCouresContext />
 				</div>
 			</div>
 

@@ -381,7 +381,7 @@ const baseComponents = {
 	Wip: ({ message }: { message: string }) => <Wip message={message} className="border border-muted bg-light" />,
 	Callout: ({
 		message,
-		icon = <Star size={18} className="fill-orange-300 text-orange-300" />,
+		icon = <Star className="text-sm fill-orange-300 text-orange-300 md:text-lg" />,
 		className,
 	}: {
 		message: React.ReactNode;

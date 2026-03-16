@@ -30,7 +30,6 @@ const route = {
 		PRIVACY: '/privacy',
 		REFUND: '/refund',
 		SUPPORT: '/support',
-		ASIDE: '/aside-feedback',
 		PROFILE: '/my',
 		DASHBOARD: '/my/dashboard',
 		NOT_FOUND: '/*',

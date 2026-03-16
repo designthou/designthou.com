@@ -63,11 +63,10 @@ export default async function Footer() {
 								<Link href={route.SERVICE.NEWS}>Architectural News</Link>
 								<Link href={route.SERVICE.COMPETITION}>Competition</Link>
 								<Link href={route.SERVICE.FREE_SOURCE}>Open Source</Link>
-								<Link href={route.SERVICE.PRODUCTS}>Product (Online-Course)</Link>
+								<Link href={route.SERVICE.PRODUCTS}>Product (Online/Offline-Course)</Link>
 								<Link href={route.SERVICE.TIPS}>Youtube Tips</Link>
 								<Link href={route.SERVICE.REVIEWS}>Reviews</Link>
 								<Link href={route.SERVICE.QUESTION_BOARD}>Question Board</Link>
-								<Link href={route.SERVICE.ASIDE}>Aside Feedback</Link>
 							</div>
 							<div className="flex flex-col gap-4">
 								<div className="text-base font-bold">Company</div>

@@ -15,7 +15,7 @@ export default function NavigationList() {
 	const [activeId, setActiveId] = React.useState('notice');
 
 	return (
-		<ul className="sticky top-[var(--global-layout-nav-height-with-notify)] flex items-center gap-4 my-4 py-3 px-1.5 border-b border-muted bg-white/30 backdrop-blur-sm overflow-x-scroll scrollbar-thin z-40">
+		<ul className="sticky top-[var(--global-layout-nav-height-with-notify)] flex items-center gap-4 my-4 py-3 px-1.5 border-b border-muted bg-white/30 backdrop-blur-sm overflow-x-scroll scrollbar-thin z-10">
 			{navItems.map(({ href, label }) => {
 				const id = href.replace('#', '');
 
