@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, Star } from 'lucide-react';
 import { formatDate, getProductList } from '@/app/(service)/products/utils';
@@ -14,14 +15,13 @@ import {
 	CarouselPrevious,
 	CustomMDX,
 	NavigationList,
+	ApplyCourseContext,
 } from '@/components/';
 import { BLUR_DATA_URL, route } from '@/constants';
 import { createClient } from '@/lib/supabase/server';
 import { convertSupabaseDateToShortHumanReadable, TABLE } from '@/lib/supabase';
 import sanitizeHtmlServer from '@/utils/sanitizeHtml';
 import { generateGradient } from '@/utils/seedGradient';
-import Link from 'next/link';
-import ApplyCouresContext from '@/components/(service)/products/ApplyCourseContext';
 
 type PageProps = {
 	params: Promise<{
@@ -174,7 +174,7 @@ export default async function ProductPage({ params }: PageProps) {
 						</div>
 					</div>
 
-					<ApplyCouresContext />
+					<ApplyCourseContext />
 				</div>
 			</div>
 
