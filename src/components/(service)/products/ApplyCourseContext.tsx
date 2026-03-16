@@ -48,7 +48,7 @@ export default function ApplyCouresContext() {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button type="button" size="lg" className="w-full rounded-lg font-bold">
+				<Button type="button" size="lg" className="w-full rounded-lg font-bold" disabled={true}>
 					신청하러 가기
 					<ArrowUpRight size={18} />
 				</Button>
