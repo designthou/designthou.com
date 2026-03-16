@@ -38,9 +38,10 @@ export default async function ProductsPage() {
 					Meet our selected high-quality Designthou online / offline classes
 				</p>
 			</div>
+
 			<ProductCarousel />
 
-			<div className="ui-flex-center-between mt-4">
+			<div id="portfolio-review-section" className="ui-flex-center-between mt-4">
 				<h3 className="page-subtitle">전체 클래스</h3>
 				<Select value={'최신 순'}>
 					<SelectTrigger size="sm" className="w-24" id="order-trigger">
@@ -55,7 +56,9 @@ export default async function ProductsPage() {
 					</SelectContent>
 				</Select>
 			</div>
+
 			<ProductList reviewCounts={data} />
+
 			<Wip
 				message={'플랫폼 점검으로 인해 현재 온라인 강의는 판매 중단 중 입니다.'}
 				className="mt-12 bg-white text-black border border-muted bg-light"

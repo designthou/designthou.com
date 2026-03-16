@@ -4,9 +4,12 @@ import Image from 'next/image';
 import { Star } from 'lucide-react';
 import { formatDate, getProductList } from '@/app/(service)/products/utils';
 import { SiteConfig } from '@/app/config';
-import { Badge, CustomMDX, NavigationList } from '@/components/';
+import { Badge, Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CustomMDX, NavigationList } from '@/components/';
 import { BLUR_DATA_URL } from '@/constants';
 import { createClient } from '@/lib/supabase/server';
+import { convertSupabaseDateToShortHumanReadable, TABLE } from '@/lib/supabase';
+import sanitizeHtmlServer from '@/utils/sanitizeHtml';
+import { generateGradient } from '@/utils/seedGradient';
 
 type PageProps = {
 	params: Promise<{
@@ -60,20 +63,39 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProductPage({ params }: PageProps) {
 	const { slug } = await params;
-	const productList = await getProductList();
 
+	const productList = await getProductList();
 	const product = productList?.find(product => product.slug === decodeURIComponent(slug));
 
 	const supabase = await createClient();
-	const { data: reviewCountByProduct } = await supabase
-		.from('review_count_by_product')
-		.select('review_count')
-		.eq('product_id', product?.metadata.productId)
-		.single();
+	const [{ data: reviews, error: getReviewsError }, { data: reviewCountByProduct }] = await Promise.all([
+		supabase
+			.from(TABLE.ONLINE_COURSE_REVIEWS)
+			.select('*')
+			.order('created_at', { ascending: false })
+			.eq('product_id', product?.metadata.productId),
+		supabase
+			.from('review_count_by_product')
+			.select('review_count')
+			.eq('product_id', product?.metadata.productId)
+			.eq('category', product?.metadata.category)
+			.maybeSingle(),
+	]);
+
+	if (getReviewsError) {
+		throw new Error(getReviewsError.message);
+	}
 
 	if (!product) {
 		notFound();
 	}
+
+	const sanitizedReviews = reviews?.map(review => ({
+		...review,
+		content: sanitizeHtmlServer(review.content),
+	}));
+
+	const reviewCount = reviewCountByProduct?.review_count ?? 0;
 
 	return (
 		<section className="flex flex-col gap-4">
@@ -124,14 +146,53 @@ export default async function ProductPage({ params }: PageProps) {
 							<Star className="text-yellow-400" fill="oklch(85.2% 0.199 91.936)" />
 							<span className="inline-flex items-center gap-1">
 								{(5.0).toFixed(1)}
-								<span className="text-gray-700">({reviewCountByProduct?.review_count ?? 4})</span>
+								<span className="text-gray-700">({reviewCount})</span>
 							</span>
 						</Badge>
 					</div>
 				</div>
 			</div>
 
+			<div className="flex flex-col gap-2 my-8 md:my-12">
+				<h3 className="flex items-center gap-2 text-2xl font-bold tracking-tight md:text-3xl">
+					<span className="font-bold">리 뷰</span>
+					<span>･</span>
+					<span className="font-semibold">{reviewCount}개</span>
+				</h3>
+				<Carousel
+					opts={{
+						align: 'start',
+						loop: true,
+					}}
+					className="w-full">
+					<div className="flex justify-end gap-2 mb-2">
+						<CarouselPrevious className="static translate-y-0" />
+						<CarouselNext className="static translate-y-0" />
+					</div>
+					<CarouselContent className="-ml-2">
+						{sanitizedReviews.map(({ title, content, username, created_at }, index) => (
+							<CarouselItem key={index} className="pl-2 basis-full md:basis-1/2 lg:basis-1/3">
+								<div className="flex flex-col justify-between gap-4 p-3 border border-muted rounded-lg h-full">
+									<div className="text-base font-bold">{title}</div>
+									<p className="max-w-[300px] line-clamp-8 text-sm" dangerouslySetInnerHTML={{ __html: content }} />
+									<div className="flex gap-4">
+										<div className="w-12 h-12 rounded-full" style={{ background: generateGradient(content) }} />
+										<div className="flex flex-col gap-1">
+											<span className="py-1.5 px-3 bg-gray-100 text-sm text-center text-gray-600 font-semibold rounded-lg">{username}</span>
+											<span className="inline-block p-1.5 text-xs text-gray-500 rounded-lg">
+												{convertSupabaseDateToShortHumanReadable(created_at)}
+											</span>
+										</div>
+									</div>
+								</div>
+							</CarouselItem>
+						))}
+					</CarouselContent>
+				</Carousel>
+			</div>
+
 			<NavigationList />
+
 			<article className="prose mb-16">
 				<CustomMDX source={product.content} />
 			</article>
