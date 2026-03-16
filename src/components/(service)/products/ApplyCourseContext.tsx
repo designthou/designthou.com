@@ -3,7 +3,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowLeft, ArrowUpRight, BadgeAlert } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, BadgeAlert, Eye, EyeOff } from 'lucide-react';
 import {
 	Callout,
 	ApplyForm,
@@ -21,9 +21,12 @@ import {
 	formatPhoneNumber,
 } from '@/components';
 import { courseOptions, fieldName } from '@/constants';
+import { maskAccountNumber } from '@/utils/bank';
+import { cn } from '@/lib/utils';
 
 export default function ApplyCouresContext() {
 	const [step, setStep] = React.useState<'info' | 'confirm'>('info');
+	const [isAccountNumberVisible, setIsAccountNumberVisible] = React.useState(false);
 
 	const defaultValues = {
 		option: courseOptions[0],
@@ -76,10 +79,24 @@ export default function ApplyCouresContext() {
 								return (
 									<li key={name} className="flex flex-col gap-1">
 										<span className="text-sm font-bold">{fieldName[name as keyof typeof defaultValues]}</span>
-										<span className="p-2 text-sm bg-muted rounded-lg">
-											{name === 'phoneNumber'
-												? formatPhoneNumber(form.getValues()[name as keyof typeof defaultValues]!)
-												: form.getValues()[name as keyof typeof defaultValues] || '해당 없음'}
+										<span
+											className={cn(
+												'p-2 text-sm bg-muted rounded-lg',
+												name === 'accountNumber' ? 'inline-flex justify-between items-center' : '',
+											)}>
+											{name === 'accountNumber'
+												? isAccountNumberVisible
+													? form.getValues()[name as keyof typeof defaultValues]
+													: maskAccountNumber(form.getValues()[name] || '')
+												: name === 'phoneNumber'
+													? formatPhoneNumber(form.getValues()[name]!)
+													: form.getValues()[name as keyof typeof defaultValues] || '해당 없음'}
+
+											{name === 'accountNumber' && (
+												<Button type="button" variant="outline" size="icon-sm" onClick={() => setIsAccountNumberVisible(prev => !prev)}>
+													{isAccountNumberVisible ? <EyeOff size={16} /> : <Eye size={16} />}
+												</Button>
+											)}
 										</span>
 									</li>
 								);
