@@ -188,7 +188,7 @@ export interface Database {
 					review_count: number;
 				};
 			};
-			offline_students: {
+			wcomp_art_students: {
 				Row: {
 					// the data expected from .select()
 					id: string;

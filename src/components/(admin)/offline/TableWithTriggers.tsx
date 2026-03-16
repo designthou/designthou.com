@@ -16,10 +16,10 @@ import {
 	TabsTrigger,
 	OfflineStudentsTable,
 } from '@/components';
-import { OfflineStudentView } from '@/types';
+import { WCompArtStudentView } from '@/types';
 
-export default function TableWithTriggers({ offlineStudents }: { offlineStudents: OfflineStudentView[] }) {
-	const triggers = [{ value: 'offline-students', label: 'Offline Students', dataLength: offlineStudents?.length }];
+export default function TableWithTriggers({ wcompArtStudents }: { wcompArtStudents: WCompArtStudentView[] }) {
+	const triggers = [{ value: 'offline-students', label: 'Offline Students', dataLength: wcompArtStudents?.length }];
 	const [searchValue, setSearchValue] = React.useState({ email: '', name: '' });
 	const deferredSearchValue = React.useDeferredValue(searchValue);
 
@@ -81,7 +81,7 @@ export default function TableWithTriggers({ offlineStudents }: { offlineStudents
 			</div>
 
 			<TabsContent value="offline-students" className="relative flex flex-col gap-4 overflow-auto">
-				<OfflineStudentsTable data={offlineStudents} searchValue={deferredSearchValue} />
+				<OfflineStudentsTable data={wcompArtStudents} searchValue={deferredSearchValue} />
 			</TabsContent>
 		</Tabs>
 	);

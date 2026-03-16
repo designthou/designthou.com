@@ -46,8 +46,8 @@ const linkWithManagableRoutes = [
 		icon: <User2 size={18} />,
 	},
 	{
-		title: 'Offline Students',
-		to: route.ADMIN.OFFLINE_STUDENTS,
+		title: 'WComp-Art',
+		to: route.ADMIN.WCOMP_ART_STUDENTS,
 		icon: <BookMarked size={18} />,
 	},
 ];

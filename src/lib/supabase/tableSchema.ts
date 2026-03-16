@@ -13,7 +13,7 @@ type ReviewRow = Tables['online_course_reviews']['Row'];
 type TipRow = Tables['youtube_tips']['Row'];
 type LegacyUserRow = Tables['legacy_users']['Row'];
 type ReviewCountByProductRow = Tables['review_count_by_product']['Row'];
-type OfflineStudentRow = Tables['offline_students']['Row'];
+type WCompArtStudentRow = Tables['wcomp_art_students']['Row'];
 type OnlineCourseRow = Tables['online_courses']['Row'];
 type ChapterRow = Tables['chapters']['Row'];
 type LessonRow = Tables['lessons']['Row'];
@@ -28,7 +28,7 @@ export type {
 	TipRow,
 	LegacyUserRow,
 	ReviewCountByProductRow,
-	OfflineStudentRow,
+	WCompArtStudentRow,
 	OnlineCourseRow,
 	ChapterRow,
 	LessonRow,

@@ -46,7 +46,7 @@ const route = {
 		REVIEWS: '/admin/reviews',
 		ONLINE_COURSE: '/admin/online-course',
 		USERS: '/admin/user-list',
-		OFFLINE_STUDENTS: '/admin/offline',
+		WCOMP_ART_STUDENTS: '/admin/wcompart-students',
 	},
 	COURSE: {
 		ROOT: '/courses',

@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import type { LegacyUserRow, UserRow, ReviewCountByProductRow, OfflineStudentRow, OnlineCourseRow, EnrollmentRow } from '@/lib/supabase';
+import type { LegacyUserRow, UserRow, ReviewCountByProductRow, WCompArtStudentRow, OnlineCourseRow, EnrollmentRow } from '@/lib/supabase';
 import {
 	type EnrollmentView,
-	type OfflineStudentView,
+	type WCompArtStudentView,
 	type OnlineCourseView,
 	enrollmentViewSchema,
-	offlineStudentViewSchema,
+	wcompArtStudentViewSchema,
 	onlineCourseViewSchema,
 } from './view';
 
@@ -40,7 +40,7 @@ const reviewCountByProductViewSchema: z.ZodType<ReviewCountByProductRow> = z.obj
 	review_count: z.number(),
 });
 
-const offlineStudentsRowSchema: z.ZodType<OfflineStudentRow> = z.object({
+const wcompArtStudentRowSchema: z.ZodType<WCompArtStudentRow> = z.object({
 	id: z.string(),
 	name: z.string().nullable(),
 	email: z.string().nullable(),
@@ -105,10 +105,10 @@ const mapReviewCountByProductView = (row: ReviewCountByProductRow) => {
 	return parsed.success ? { productId: parsed.data.product_id, reviewCount: parsed.data.review_count } : null;
 };
 
-const mapOfflineStudentsRowToView = (row: OfflineStudentRow): OfflineStudentView => {
-	const r = offlineStudentsRowSchema.parse(row);
+const mapOfflineStudentsRowToView = (row: WCompArtStudentRow): WCompArtStudentView => {
+	const r = wcompArtStudentRowSchema.parse(row);
 
-	return offlineStudentViewSchema.parse({
+	return wcompArtStudentViewSchema.parse({
 		id: r.id,
 		name: r.name ?? 'unknown',
 		email: r.email ?? 'unknown',

@@ -20,11 +20,11 @@ interface LegacyUserView {
 	loginType: string;
 }
 
-type OfflineStudentView = z.infer<typeof offlineStudentViewSchema>;
+type WCompArtStudentView = z.infer<typeof wcompArtStudentViewSchema>;
 type OnlineCourseView = z.infer<typeof onlineCourseViewSchema>;
 type EnrollmentView = z.infer<typeof enrollmentViewSchema>;
 
-const offlineStudentViewSchema = z.object({
+const wcompArtStudentViewSchema = z.object({
 	id: z.string(),
 	name: z.string(),
 	email: z.string().nullable(),
@@ -62,5 +62,5 @@ const enrollmentViewSchema = z.object({
 	enrolledAt: z.string(),
 });
 
-export type { RegisteredUserView, LegacyUserView, OfflineStudentView, OnlineCourseView, EnrollmentView };
-export { offlineStudentViewSchema, onlineCourseViewSchema, enrollmentViewSchema };
+export type { RegisteredUserView, LegacyUserView, WCompArtStudentView, OnlineCourseView, EnrollmentView };
+export { wcompArtStudentViewSchema, onlineCourseViewSchema, enrollmentViewSchema };

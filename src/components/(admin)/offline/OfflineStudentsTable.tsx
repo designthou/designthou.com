@@ -32,14 +32,14 @@ import {
 	TableRow,
 } from '@/components';
 import { convertSupabaseDateToShortHumanReadable } from '@/lib/supabase';
-import { OfflineStudentView } from '@/types';
+import { WCompArtStudentView } from '@/types';
 import { cn } from '@/lib/utils';
 
-export default function OfflineStudentsTable({
+export default function WCompArtStudentsTable({
 	data,
 	searchValue,
 }: {
-	data: OfflineStudentView[];
+	data: WCompArtStudentView[];
 	searchValue: { email: string; name: string };
 }) {
 	const [rowSelection, setRowSelection] = React.useState({});
@@ -51,7 +51,7 @@ export default function OfflineStudentsTable({
 		pageSize: 20,
 	});
 
-	const columns: ColumnDef<OfflineStudentView>[] = React.useMemo(
+	const columns: ColumnDef<WCompArtStudentView>[] = React.useMemo(
 		() => [
 			{
 				id: 'select',
