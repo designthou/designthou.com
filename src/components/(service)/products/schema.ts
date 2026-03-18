@@ -16,10 +16,10 @@ const applyFormSchema = z
 		email: z.email({
 			message: '이메일 형식이 올바르지 않습니다.',
 		}),
-		phoneNumber: z.string().regex(phoneRegex, '휴대폰 번호 형식이 올바르지 않습니다.'),
+		phone_number: z.string().regex(phoneRegex, '휴대폰 번호 형식이 올바르지 않습니다.'),
 		description: z.string().optional(),
 		bank: z.string(),
-		accountNumber: z.string().regex(bankAccountRegex, '계좌번호 형식이 올바르지 않습니다(10 ~ 14개의 숫자)'),
+		account_number: z.string().regex(bankAccountRegex, '계좌번호 형식이 올바르지 않습니다(10 ~ 14개의 숫자)'),
 	})
 	.superRefine((data, ctx) => {
 		const requiresProgram = data.option !== courseOptions[2];

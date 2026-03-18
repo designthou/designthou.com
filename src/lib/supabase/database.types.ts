@@ -185,6 +185,7 @@ export interface Database {
 			review_count_by_product: {
 				Row: {
 					product_id: string;
+					category: string;
 					review_count: number;
 				};
 			};
@@ -401,6 +402,56 @@ export interface Database {
 					status?: string;
 					access_expires_at?: string | null;
 					enrolled_at?: string;
+				};
+				Delete: {
+					id: never;
+				};
+			};
+			offline_course_students: {
+				Row: {
+					// the data expected from .select()
+					id: string;
+					user_id: string | null;
+					option: string;
+					program?: string;
+					name: string;
+					email: string;
+					phone_number: string;
+					description?: string;
+					bank: string;
+					account_number: string;
+					created_at: string;
+					updated_at: string;
+				};
+				Insert: {
+					// the data expected from .select()
+					id?: never;
+					user_id: string | null;
+					option: string;
+					program: string | null;
+					name: string;
+					email: string;
+					phone_number: string;
+					description: string | null;
+					bank: string;
+					account_number: string;
+					created_at: string;
+					updated_at: string;
+				};
+				Update: {
+					// the data expected from .select()
+					id: never;
+					user_id: string | null;
+					option: string;
+					program: string | null;
+					name: string;
+					email: string;
+					phone_number: string;
+					description?: string | null;
+					bank?: string;
+					account_number?: string;
+					created_at?: string;
+					updated_at?: string;
 				};
 				Delete: {
 					id: never;

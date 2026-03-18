@@ -88,7 +88,8 @@ export default async function ProductPage({ params }: PageProps) {
 			.from(TABLE.ONLINE_COURSE_REVIEWS)
 			.select('*')
 			.order('created_at', { ascending: false })
-			.eq('product_id', product?.metadata.productId),
+			.eq('product_id', product?.metadata.productId)
+			.eq('category', product?.metadata.category),
 		supabase
 			.from(TABLE.VIEW.REVIEW_COUNT_BY_PRODUCT)
 			.select('review_count')
@@ -154,23 +155,34 @@ export default async function ProductPage({ params }: PageProps) {
 
 				<div className="row-span-1 sm:col-span-2 flex flex-col justify-between gap-8 p-6 md:p-8 w-full bg-light border border-muted rounded-xl">
 					<h2 className="title font-bold text-3xl tracking-tighter">{product.metadata.title}</h2>
-					<div className="flex flex-col gap-4">
-						<span className="px-3 py-1 w-fit bg-gradient-orange-100 text-sm font-bold text-white rounded-full">
-							{SiteConfig.author.name}
-						</span>
-						<div className="flex items-center gap-4">
-							<span className="inline-block min-w-10 text-sm">등록일</span>
-							<p className="text-sm text-neutral-600 dark:text-neutral-400">{formatDate(product.metadata.publishedAt)}</p>
+					<div className="flex flex-col gap-8">
+						<div className="flex flex-col gap-2">
+							<span className="px-3 py-1 w-fit bg-gradient-orange-100 text-sm font-bold text-white rounded-sm">
+								{SiteConfig.author.name}
+							</span>
+							<div className="">
+								{product.metadata.tags?.map(tag => (
+									<span key={tag} className="px-3 py-1 w-fit bg-white border border-muted text-xs font-bold text-gray-600 rounded-full">
+										{tag}
+									</span>
+								))}
+							</div>
 						</div>
-						<div className="flex items-center gap-2">
-							<span className="inline-block min-w-10 text-sm">리 뷰</span>
-							<Badge variant="secondary" className="text-muted-foreground">
-								<Star className="text-yellow-400" fill="oklch(85.2% 0.199 91.936)" />
-								<span className="inline-flex items-center gap-1">
-									{(5.0).toFixed(1)}
-									<span className="text-gray-700">({reviewCount})</span>
-								</span>
-							</Badge>
+						<div className="flex flex-col gap-2">
+							<div className="flex items-center gap-4">
+								<span className="inline-block min-w-10 text-sm">등록일</span>
+								<p className="text-sm text-neutral-600 dark:text-neutral-400">{formatDate(product.metadata.publishedAt)}</p>
+							</div>
+							<div className="flex items-center gap-2">
+								<span className="inline-block min-w-10 text-sm">리 뷰</span>
+								<Badge variant="secondary" className="text-muted-foreground">
+									<Star className="text-yellow-400" fill="oklch(85.2% 0.199 91.936)" />
+									<span className="inline-flex items-center gap-1">
+										{(5.0).toFixed(1)}
+										<span className="text-gray-700">({reviewCount})</span>
+									</span>
+								</Badge>
+							</div>
 						</div>
 					</div>
 

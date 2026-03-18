@@ -3,9 +3,9 @@ const fieldName = {
 	program: '프로그램',
 	name: '이 름',
 	email: '이메일',
-	phoneNumber: '전화번호',
+	phone_number: '전화번호',
 	bank: '은 행',
-	accountNumber: '계좌번호',
+	account_number: '계좌번호',
 	description: '추가 정보',
 } as const;
 

@@ -12,7 +12,10 @@ export default async function ProductList({ reviewCounts }: { reviewCounts: Revi
 	const allProductsWithReviewCounts = productList.map(product => ({
 		...product,
 		reviewCount:
-			reviewCounts.map(mapReviewCountByProductView).find(review => review?.productId === product?.metadata?.productId)?.reviewCount ?? 4,
+			reviewCounts
+				.map(mapReviewCountByProductView)
+				.find(review => review?.productId === product?.metadata?.productId && review.category === product?.metadata?.category)
+				?.reviewCount ?? 1,
 	}));
 
 	return (

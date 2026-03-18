@@ -3,5 +3,6 @@ export * from './course';
 export * from './legacyUsers';
 export * from './lessons';
 export * from './news';
+export * from './offlineCourseStudents';
 export * from './reviews';
 export * from './tips';

@@ -22,15 +22,15 @@ import {
 	Textarea,
 } from '@/components';
 import { banks, courseOptions, programs } from '@/constants';
+import React from 'react';
+import { maskAccountNumber } from '@/utils/bank';
 
 export default function ApplyForm({ form }: { form: UseFormReturn<ApplyFormSchema> }) {
-	const onSubmit = async (values: ApplyFormSchema) => {
-		console.log(values);
-	};
+	const [isFocused, setIsFocused] = React.useState(false);
 
 	return (
 		<Form {...form}>
-			<form id="apply-form" onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8 p-1 h-full overflow-y-auto">
+			<form id="apply-form" className="flex flex-col gap-8 p-1 h-full overflow-y-auto scrollbar-thin">
 				<FormField
 					control={form.control}
 					name="option"
@@ -78,7 +78,7 @@ export default function ApplyForm({ form }: { form: UseFormReturn<ApplyFormSchem
 										field.onChange(value);
 										form.trigger('program');
 									}}
-									defaultValue={field.value}>
+									defaultValue={field.value!}>
 									<FormControl>
 										<SelectTrigger className="w-full cursor-pointer">
 											<SelectValue placeholder="프로그램 선택" />
@@ -132,7 +132,7 @@ export default function ApplyForm({ form }: { form: UseFormReturn<ApplyFormSchem
 
 				<FormField
 					control={form.control}
-					name="phoneNumber"
+					name="phone_number"
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel className="font-semibold">전화번호</FormLabel>
@@ -140,8 +140,9 @@ export default function ApplyForm({ form }: { form: UseFormReturn<ApplyFormSchem
 								<Input
 									value={formatPhoneNumber(field.value)}
 									onChange={e => {
-										const raw = e.target.value.replace(/\D/g, '').slice(0, 11);
-										field.onChange(raw);
+										const value = e.target.value.replace(/\D/g, '').slice(0, 11);
+										field.onChange(value);
+										form.trigger();
 									}}
 									inputMode="numeric"
 									maxLength={13}
@@ -186,15 +187,21 @@ export default function ApplyForm({ form }: { form: UseFormReturn<ApplyFormSchem
 						/>
 						<FormField
 							control={form.control}
-							name="accountNumber"
+							name="account_number"
 							render={({ field }) => (
 								<FormItem className="col-span-3">
 									<FormLabel className="font-semibold">계좌번호</FormLabel>
 									<FormControl>
 										<Input
-											value={field.value}
+											value={isFocused ? field.value : maskAccountNumber(field.value)}
 											onChange={e => {
 												field.onChange(e.target.value.replace(/\D/g, '').slice(0, 14));
+												form.trigger();
+											}}
+											onFocus={() => setIsFocused(true)}
+											onBlur={() => {
+												setIsFocused(false);
+												field.onBlur();
 											}}
 											inputMode="numeric"
 											placeholder="계좌번호를 입력하세요"

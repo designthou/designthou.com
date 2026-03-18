@@ -28,7 +28,7 @@ export default function AddReviewContext() {
 					리뷰 작성하기
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="flex flex-col min-w-[60dvw]">
+			<DialogContent className="flex flex-col min-w-[60dvw] h-[90dvh] overflow-y-auto scrollbar-thin">
 				<DialogHeader>
 					<DialogTitle className="text-xl text-left font-bold">리뷰 작성</DialogTitle>
 					<DialogDescription asChild>

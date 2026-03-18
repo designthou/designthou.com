@@ -21,6 +21,10 @@ const staleTime = {
 		PRODUCTS: {
 			LIST: ONE_SECOND * 60 * 60,
 		},
+		OFFLINE_COURSE_STUDENT_LIST: {
+			PAGE_INFO: ONE_SECOND * 60 * 60,
+			ALL_WITH_PAGINATION: ONE_SECOND * 120,
+		},
 	},
 	ADMIN: {
 		NEWS_LIST: {

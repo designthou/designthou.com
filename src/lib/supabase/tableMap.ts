@@ -12,4 +12,5 @@ export const TABLE = {
 	CHAPTERS: 'chapters',
 	LESSONS: 'lessons',
 	ENROLLMENTS: 'enrollments',
+	OFFLINE_COURSE_STUDENTS: 'offline_course_students',
 } as const;

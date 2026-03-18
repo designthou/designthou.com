@@ -11,6 +11,7 @@ const queryKey = {
 		REVIEW_LIST_PAGE_INFO: ['service', 'reviews', 'pageInfo'],
 		REVIEW_LIST_BY_PAGE: ['service', 'reviews', 'pagination'],
 		PRODUCTS: ['service', 'products'],
+		OFFLINE_COURSE_STUDENTS_BY_PAGE: ['service', 'offlineCourseStudent'],
 	},
 	ADMIN: {
 		NEWS_LIST_PAGE_INFO: ['news', 'pageInfo'],

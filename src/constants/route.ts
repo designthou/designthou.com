@@ -32,6 +32,7 @@ const route = {
 		SUPPORT: '/support',
 		PROFILE: '/my',
 		DASHBOARD: '/my/dashboard',
+		APPLY_COMPLETE: '/apply/complete',
 		NOT_FOUND: '/*',
 	},
 	ADMIN: {

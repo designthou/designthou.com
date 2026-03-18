@@ -1,3 +1,4 @@
+export * from './email';
 export * from './faq';
 export * from './home';
 export * from './layout';

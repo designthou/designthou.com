@@ -18,6 +18,7 @@ type OnlineCourseRow = Tables['online_courses']['Row'];
 type ChapterRow = Tables['chapters']['Row'];
 type LessonRow = Tables['lessons']['Row'];
 type EnrollmentRow = Tables['enrollments']['Row'];
+type OfflineCourseStudentRow = Tables['offline_course_students']['Row'];
 
 export type {
 	TableRowData,
@@ -33,4 +34,5 @@ export type {
 	ChapterRow,
 	LessonRow,
 	EnrollmentRow,
+	OfflineCourseStudentRow,
 };

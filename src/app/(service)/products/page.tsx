@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { SiteConfig } from '@/app/config';
-import { ProductList, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Wip, ProductCarousel } from '@/components';
+import { ProductList, Wip, ProductCarousel } from '@/components';
 import { createClient } from '@/lib/supabase/server';
 import { TABLE } from '@/lib/supabase';
 
@@ -43,18 +43,6 @@ export default async function ProductsPage() {
 
 			<div id="portfolio-review-section" className="ui-flex-center-between mt-4">
 				<h3 className="page-subtitle">전체 클래스</h3>
-				<Select value={'최신 순'}>
-					<SelectTrigger size="sm" className="w-24" id="order-trigger">
-						<SelectValue placeholder={'업로드 날짜'} />
-					</SelectTrigger>
-					<SelectContent side="top">
-						{['최신 순', '오래된 순'].map(trigger => (
-							<SelectItem key={trigger} value={`${trigger}`}>
-								{trigger}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
 			</div>
 
 			<ProductList reviewCounts={data} />

@@ -1,5 +1,13 @@
 import { z } from 'zod';
-import type { LegacyUserRow, UserRow, ReviewCountByProductRow, WCompArtStudentRow, OnlineCourseRow, EnrollmentRow } from '@/lib/supabase';
+import type {
+	LegacyUserRow,
+	UserRow,
+	ReviewCountByProductRow,
+	WCompArtStudentRow,
+	OnlineCourseRow,
+	EnrollmentRow,
+	OfflineCourseStudentRow,
+} from '@/lib/supabase';
 import {
 	type EnrollmentView,
 	type WCompArtStudentView,
@@ -11,7 +19,6 @@ import {
 
 type RegisteredUserViewSchema = z.infer<typeof registeredUserViewSchema>;
 type LegacyUserViewSchema = z.infer<typeof legacyUserViewSchema>;
-
 type ReviewCountByProductViewSchema = z.infer<typeof reviewCountByProductViewSchema>;
 
 const registeredUserViewSchema = z.object({
@@ -37,6 +44,7 @@ const legacyUserViewSchema: z.ZodType<LegacyUserRow> = z.object({
 
 const reviewCountByProductViewSchema: z.ZodType<ReviewCountByProductRow> = z.object({
 	product_id: z.string(),
+	category: z.string(),
 	review_count: z.number(),
 });
 
@@ -78,6 +86,21 @@ const enrollmentRowSchema: z.ZodType<EnrollmentRow> = z.object({
 	enrolled_at: z.string(),
 });
 
+const offlineCourseStudentRowSchema: z.ZodType<OfflineCourseStudentRow> = z.object({
+	id: z.string(),
+	user_id: z.string().nullable(),
+	option: z.string(),
+	program: z.string().optional(),
+	name: z.string(),
+	email: z.string(),
+	phone_number: z.string(),
+	description: z.string().optional(),
+	bank: z.string(),
+	account_number: z.string(),
+	created_at: z.string(),
+	updated_at: z.string(),
+});
+
 const mapRegisteredUserToView = (row: UserRow) =>
 	registeredUserViewSchema.parse({
 		id: row.id,
@@ -102,7 +125,9 @@ const mapLegacyUserToView = (row: LegacyUserRow) =>
 
 const mapReviewCountByProductView = (row: ReviewCountByProductRow) => {
 	const parsed = reviewCountByProductViewSchema.safeParse(row);
-	return parsed.success ? { productId: parsed.data.product_id, reviewCount: parsed.data.review_count } : null;
+	return parsed.success
+		? { productId: parsed.data.product_id, category: parsed.data.category, reviewCount: parsed.data.review_count }
+		: null;
 };
 
 const mapOfflineStudentsRowToView = (row: WCompArtStudentRow): WCompArtStudentView => {
@@ -155,6 +180,25 @@ const mapEnrollmentRowToView = (row: EnrollmentRow): EnrollmentView => {
 	});
 };
 
+const mapOfflineCourseStudentRowToView = (row: EnrollmentRow): EnrollmentView => {
+	const r = offlineCourseStudentRowSchema.parse(row);
+
+	return enrollmentViewSchema.parse({
+		id: r.id,
+		userId: r.user_id,
+		option: r.option,
+		program: r.program,
+		name: r.name,
+		email: r.email,
+		phoneNumber: r.phone_number,
+		description: r.description,
+		bank: r.bank,
+		accountNumber: r.account_number,
+		createdAt: r.created_at,
+		updated_at: r.updated_at,
+	});
+};
+
 export type { RegisteredUserViewSchema, LegacyUserViewSchema, ReviewCountByProductViewSchema };
 export {
 	mapRegisteredUserToView,
@@ -163,4 +207,5 @@ export {
 	mapOfflineStudentsRowToView,
 	mapOnlineCourseRowToView,
 	mapEnrollmentRowToView,
+	mapOfflineCourseStudentRowToView,
 };

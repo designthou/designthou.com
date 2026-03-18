@@ -23,6 +23,7 @@ interface LegacyUserView {
 type WCompArtStudentView = z.infer<typeof wcompArtStudentViewSchema>;
 type OnlineCourseView = z.infer<typeof onlineCourseViewSchema>;
 type EnrollmentView = z.infer<typeof enrollmentViewSchema>;
+type OfflineCourseStudentRow = z.infer<typeof offlineCourseStudentSchema>;
 
 const wcompArtStudentViewSchema = z.object({
 	id: z.string(),
@@ -62,5 +63,20 @@ const enrollmentViewSchema = z.object({
 	enrolledAt: z.string(),
 });
 
-export type { RegisteredUserView, LegacyUserView, WCompArtStudentView, OnlineCourseView, EnrollmentView };
-export { wcompArtStudentViewSchema, onlineCourseViewSchema, enrollmentViewSchema };
+const offlineCourseStudentSchema = z.object({
+	id: z.string(),
+	userId: z.string().nullable(),
+	option: z.string(),
+	program: z.string().nullable(),
+	name: z.string(),
+	email: z.string(),
+	phoneNumber: z.string(),
+	description: z.string().nullable(),
+	bank: z.string(),
+	accountNumber: z.string(),
+	createdAt: z.string(),
+	updatedAt: z.string(),
+});
+
+export type { RegisteredUserView, LegacyUserView, WCompArtStudentView, OnlineCourseView, EnrollmentView, OfflineCourseStudentRow };
+export { wcompArtStudentViewSchema, onlineCourseViewSchema, enrollmentViewSchema, offlineCourseStudentSchema };
