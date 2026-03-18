@@ -4,6 +4,7 @@ export * from './linkWithRoutes';
 export * from './news';
 export * from './reviews';
 export * from './products';
+export * from './outerLink';
 
 export { default as banks } from './banks';
 export { default as queryKey } from './queryKey';

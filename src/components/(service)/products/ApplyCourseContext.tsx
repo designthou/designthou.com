@@ -22,7 +22,7 @@ import {
 	formatPhoneNumber,
 	AnimateLoader,
 } from '@/components';
-import { courseOptions, fieldName, route } from '@/constants';
+import { courseOptions, fieldName, outerLink, route } from '@/constants';
 import { maskAccountNumber } from '@/utils/bank';
 import { cn } from '@/lib/utils';
 import { useAddOfflineCourseStudentMutation } from '@/hooks';
@@ -91,7 +91,7 @@ export default function ApplyCouresContext() {
 
 							<div className="flex flex-col gap-4 mt-4 mb-8 p-4 bg-muted rounded-lg">
 								<Button asChild size="lg" className="w-full bg-black cursor-pointer">
-									<Link href="https://open.kakao.com/o/gzL5v2Hd" target="_blank">
+									<Link href={outerLink.CONSULTING} target="_blank">
 										<Link2 size={18} />
 										오픈 채팅방에서 상담하기
 									</Link>

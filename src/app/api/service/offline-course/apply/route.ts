@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
 				name: data?.name,
 				title: `${data?.option} - ${data?.program ?? ''}`,
 				option: data?.option,
-				program: data?.program || '선택사항 없음',
+				program: data?.program || '[프로그램] 선택사항 없음',
 			}),
 		});
 

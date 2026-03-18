@@ -30,7 +30,7 @@ export default function ApplyCompleteEmail({ name, title, program, option }: App
 
 					<Section>
 						<Heading as="h2">입금 계좌 안내</Heading>
-						<Text>신한은행 000-000-000000 (예금주: 홍길동)</Text>
+						<Text>국민은행 03870104547862 [ 예금주: 이영재(디자인도우) ]</Text>
 						<Text>입금 확인 후 최종 등록이 완료됩니다.</Text>
 					</Section>
 

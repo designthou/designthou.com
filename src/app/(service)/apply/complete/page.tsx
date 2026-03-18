@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import React from 'react';
 import { ArrowLeft, Mail, Building2, MessageCircle, Info } from 'lucide-react';
 import { Button } from '@/components';
 import { route } from '@/constants';
