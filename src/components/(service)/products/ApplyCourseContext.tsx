@@ -85,6 +85,7 @@ export default function ApplyCouresContext() {
 									<Callout
 										message={'수업 신청 전 하단의 카카오톡 오픈 채팅방에서 상담 후, 클래스를 신청해 주세요'}
 										icon={<BadgeAlert size={16} />}
+										className="text-start"
 									/>
 								</DialogDescription>
 							</DialogHeader>

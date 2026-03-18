@@ -160,7 +160,7 @@ export default async function ProductPage({ params }: PageProps) {
 							<span className="px-3 py-1 w-fit bg-gradient-orange-100 text-sm font-bold text-white rounded-sm">
 								{SiteConfig.author.name}
 							</span>
-							<div className="">
+							<div className="flex flex-wrap items-center gap-2">
 								{product.metadata.tags?.map(tag => (
 									<span key={tag} className="px-3 py-1 w-fit bg-white border border-muted text-xs font-bold text-gray-600 rounded-full">
 										{tag}
