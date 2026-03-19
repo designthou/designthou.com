@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import type {
 	LegacyUserRow,
-	UserRow,
 	ReviewCountByProductRow,
 	WCompArtStudentRow,
 	OnlineCourseRow,

@@ -60,7 +60,11 @@ export default function OfflineClassTable({
 		setVisiblePhoneNumbers(prev => {
 			const next = new Set(prev);
 
-			next.has(id) ? next.delete(id) : next.add(id);
+			if (next.has(id)) {
+				next.delete(id);
+			} else {
+				next.add(id);
+			}
 
 			return next;
 		});
@@ -70,7 +74,11 @@ export default function OfflineClassTable({
 		setVisibleAccountNumbers(prev => {
 			const next = new Set(prev);
 
-			next.has(id) ? next.delete(id) : next.add(id);
+			if (next.has(id)) {
+				next.delete(id);
+			} else {
+				next.add(id);
+			}
 
 			return next;
 		});
@@ -179,7 +187,7 @@ export default function OfflineClassTable({
 			{
 				accessorKey: 'updatedAt',
 				header: () => <span>업데이트 날짜</span>,
-				cell: ({ row }) => <span>{convertSupabaseDateToShortHumanReadable(row?.original?.updatedAt!)}</span>,
+				cell: ({ row }) => <span>{convertSupabaseDateToShortHumanReadable(row?.original?.updatedAt)}</span>,
 			},
 			{
 				accessorKey: 'description',

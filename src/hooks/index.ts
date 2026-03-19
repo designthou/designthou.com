@@ -11,6 +11,5 @@ export { default as useLoading } from './useLoading';
 export { default as useMediaQuery } from './useMediaQuery';
 export { default as useNewsList } from './useNewsList';
 export { default as useReviewList } from './useReviewList';
-export { default as useOfflineCourseStudentList } from './useOfflineCourseStudentList';
 export { default as useScroll } from './useScroll';
 export { default as useTipList } from './useTipList';
