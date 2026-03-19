@@ -23,7 +23,8 @@ interface LegacyUserView {
 type WCompArtStudentView = z.infer<typeof wcompArtStudentViewSchema>;
 type OnlineCourseView = z.infer<typeof onlineCourseViewSchema>;
 type EnrollmentView = z.infer<typeof enrollmentViewSchema>;
-type OfflineCourseStudentRow = z.infer<typeof offlineCourseStudentSchema>;
+type OfflineCourseStudentView = z.infer<typeof offlineCourseStudentViewSchema>;
+type OfflineCourseStudentSummaryView = z.infer<typeof offlineCourseStudentSummaryViewSchema>;
 
 const wcompArtStudentViewSchema = z.object({
 	id: z.string(),
@@ -63,20 +64,45 @@ const enrollmentViewSchema = z.object({
 	enrolledAt: z.string(),
 });
 
-const offlineCourseStudentSchema = z.object({
+const offlineCourseStudentViewSchema = z.object({
 	id: z.string(),
-	userId: z.string().nullable(),
+	userId: z.string().nullable().optional(),
 	option: z.string(),
-	program: z.string().nullable(),
+	program: z.string().optional(),
 	name: z.string(),
 	email: z.string(),
-	phoneNumber: z.string(),
-	description: z.string().nullable(),
+	phoneNumber: z.string().optional(),
+	description: z.string().optional(),
 	bank: z.string(),
-	accountNumber: z.string(),
+	accountNumber: z.string().optional(),
 	createdAt: z.string(),
-	updatedAt: z.string(),
+	updatedAt: z.string().optional(),
 });
 
-export type { RegisteredUserView, LegacyUserView, WCompArtStudentView, OnlineCourseView, EnrollmentView, OfflineCourseStudentRow };
-export { wcompArtStudentViewSchema, onlineCourseViewSchema, enrollmentViewSchema, offlineCourseStudentSchema };
+const offlineCourseStudentSummaryViewSchema = z.object({
+	id: z.string(),
+	option: z.string(),
+	program: z.string().optional(),
+	name: z.string(),
+	description: z.string().optional(),
+	bank: z.string(),
+	createdAt: z.string(),
+});
+
+export type {
+	RegisteredUserView,
+	LegacyUserView,
+	WCompArtStudentView,
+	OnlineCourseView,
+	EnrollmentView,
+	OfflineCourseStudentView,
+	OfflineCourseStudentSummaryView,
+};
+
+export {
+	wcompArtStudentViewSchema,
+	onlineCourseViewSchema,
+	enrollmentViewSchema,
+	offlineCourseStudentViewSchema,
+	offlineCourseStudentSummaryViewSchema,
+};

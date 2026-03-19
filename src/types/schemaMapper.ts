@@ -12,16 +12,20 @@ import {
 	type EnrollmentView,
 	type WCompArtStudentView,
 	type OnlineCourseView,
+	type OfflineCourseStudentView,
+	type OfflineCourseStudentSummaryView,
 	enrollmentViewSchema,
 	wcompArtStudentViewSchema,
 	onlineCourseViewSchema,
+	offlineCourseStudentViewSchema,
+	offlineCourseStudentSummaryViewSchema,
 } from './view';
 
-type RegisteredUserViewSchema = z.infer<typeof registeredUserViewSchema>;
-type LegacyUserViewSchema = z.infer<typeof legacyUserViewSchema>;
-type ReviewCountByProductViewSchema = z.infer<typeof reviewCountByProductViewSchema>;
+type RegisteredUserViewSchema = z.infer<typeof registeredUserRowSchema>;
+type LegacyUserViewSchema = z.infer<typeof legacyUserRowSchema>;
+type ReviewCountByProductViewSchema = z.infer<typeof reviewCountByProductRowSchema>;
 
-const registeredUserViewSchema = z.object({
+const registeredUserRowSchema = z.object({
 	id: z.string(),
 	email: z.string(),
 	role: z.string(),
@@ -32,7 +36,7 @@ const registeredUserViewSchema = z.object({
 	updated_at: z.string(),
 });
 
-const legacyUserViewSchema: z.ZodType<LegacyUserRow> = z.object({
+const legacyUserRowSchema: z.ZodType<LegacyUserRow> = z.object({
 	id: z.string(),
 	email: z.string(),
 	nickname: z.string(),
@@ -42,7 +46,7 @@ const legacyUserViewSchema: z.ZodType<LegacyUserRow> = z.object({
 	user_registered_at: z.string(),
 });
 
-const reviewCountByProductViewSchema: z.ZodType<ReviewCountByProductRow> = z.object({
+const reviewCountByProductRowSchema: z.ZodType<ReviewCountByProductRow> = z.object({
 	product_id: z.string(),
 	category: z.string(),
 	review_count: z.number(),
@@ -101,8 +105,18 @@ const offlineCourseStudentRowSchema: z.ZodType<OfflineCourseStudentRow> = z.obje
 	updated_at: z.string(),
 });
 
+const offlineCourseStudentRowSummarySchema: z.ZodType<Partial<OfflineCourseStudentRow>> = z.object({
+	id: z.string(),
+	option: z.string(),
+	program: z.string().optional(),
+	name: z.string(),
+	description: z.string().optional(),
+	bank: z.string(),
+	created_at: z.string(),
+});
+
 const mapRegisteredUserToView = (row: UserRow) =>
-	registeredUserViewSchema.parse({
+	registeredUserRowSchema.parse({
 		id: row.id,
 		nickname: row.nickname,
 		displayName: row.display_name,
@@ -113,7 +127,7 @@ const mapRegisteredUserToView = (row: UserRow) =>
 	});
 
 const mapLegacyUserToView = (row: LegacyUserRow) =>
-	legacyUserViewSchema.parse({
+	legacyUserRowSchema.parse({
 		id: row.id,
 		email: row.email,
 		nickname: row.nickname,
@@ -124,7 +138,7 @@ const mapLegacyUserToView = (row: LegacyUserRow) =>
 	});
 
 const mapReviewCountByProductView = (row: ReviewCountByProductRow) => {
-	const parsed = reviewCountByProductViewSchema.safeParse(row);
+	const parsed = reviewCountByProductRowSchema.safeParse(row);
 	return parsed.success
 		? { productId: parsed.data.product_id, category: parsed.data.category, reviewCount: parsed.data.review_count }
 		: null;
@@ -180,10 +194,10 @@ const mapEnrollmentRowToView = (row: EnrollmentRow): EnrollmentView => {
 	});
 };
 
-const mapOfflineCourseStudentRowToView = (row: EnrollmentRow): EnrollmentView => {
+const mapOfflineCourseStudentRowToView = (row: OfflineCourseStudentRow): OfflineCourseStudentView => {
 	const r = offlineCourseStudentRowSchema.parse(row);
 
-	return enrollmentViewSchema.parse({
+	return offlineCourseStudentViewSchema.parse({
 		id: r.id,
 		userId: r.user_id,
 		option: r.option,
@@ -199,6 +213,20 @@ const mapOfflineCourseStudentRowToView = (row: EnrollmentRow): EnrollmentView =>
 	});
 };
 
+const mapOfflineCourseStudentRowToSummaryView = (row: Partial<OfflineCourseStudentRow>): OfflineCourseStudentSummaryView => {
+	const r = offlineCourseStudentRowSummarySchema.parse(row);
+
+	return offlineCourseStudentSummaryViewSchema.parse({
+		id: r.id,
+		option: r.option,
+		program: r.program,
+		name: r.name,
+		description: r.description,
+		bank: r.bank,
+		createdAt: r.created_at,
+	});
+};
+
 export type { RegisteredUserViewSchema, LegacyUserViewSchema, ReviewCountByProductViewSchema };
 export {
 	mapRegisteredUserToView,
@@ -208,4 +236,5 @@ export {
 	mapOnlineCourseRowToView,
 	mapEnrollmentRowToView,
 	mapOfflineCourseStudentRowToView,
+	mapOfflineCourseStudentRowToSummaryView,
 };

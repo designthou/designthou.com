@@ -30,7 +30,7 @@ export default async function ProductList({ reviewCounts }: { reviewCounts: Revi
 				.map(post => (
 					<Link
 						key={post.slug}
-						href={`/products/${post.slug}?reviewCount=${post?.reviewCount}`}
+						href={`/products/${post.slug}`}
 						className="flex flex-col gap-2 p-1 rounded-lg hover:bg-gray-50 transition-colors">
 						<AspectRatio ratio={1 / 1}>
 							<Image
