@@ -47,6 +47,12 @@ export default function sitemap() {
 			priority: 1,
 		},
 		{
+			url: `${BASE_URL}/open-source`,
+			lastModified: new Date(),
+			changeFrequency: 'monthly',
+			priority: 1,
+		},
+		{
 			url: `${BASE_URL}/faq`,
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
@@ -54,6 +60,18 @@ export default function sitemap() {
 		},
 		{
 			url: `${BASE_URL}/notice`,
+			lastModified: new Date(),
+			changeFrequency: 'monthly',
+			priority: 0.5,
+		},
+		{
+			url: `${BASE_URL}/refund`,
+			lastModified: new Date(),
+			changeFrequency: 'monthly',
+			priority: 0.5,
+		},
+		{
+			url: `${BASE_URL}/about`,
 			lastModified: new Date(),
 			changeFrequency: 'monthly',
 			priority: 0.5,
