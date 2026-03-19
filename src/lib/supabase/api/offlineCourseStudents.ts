@@ -14,7 +14,7 @@ const getOfflineCourseStudentByPage = async ({
 	const supabase = createClient();
 
 	const { data, error } = await supabase
-		.from(TABLE.NEWS)
+		.from(TABLE.OFFLINE_COURSE_STUDENTS)
 		.select('*')
 		.order('created_at', { ascending: false })
 		.range((pageParam - 1) * pageSize, pageParam * pageSize - 1);

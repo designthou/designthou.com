@@ -1,4 +1,15 @@
-import { BookMarked, LayoutDashboard, LayoutList, MonitorPlay, Newspaper, Palette, SquareChartGantt, User2, Youtube } from 'lucide-react';
+import {
+	BookMarked,
+	BookUser,
+	LayoutDashboard,
+	LayoutList,
+	MonitorPlay,
+	Newspaper,
+	Palette,
+	SquareChartGantt,
+	User2,
+	Youtube,
+} from 'lucide-react';
 import route from './route';
 
 const linkWithRoutes = [
@@ -49,6 +60,11 @@ const linkWithManagableRoutes = [
 		title: 'WComp-Art',
 		to: route.ADMIN.WCOMP_ART_STUDENTS,
 		icon: <BookMarked size={18} />,
+	},
+	{
+		title: 'Offline Class',
+		to: route.ADMIN.OFFLINE_CLASS,
+		icon: <BookUser size={18} />,
 	},
 ];
 

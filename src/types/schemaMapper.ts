@@ -115,28 +115,6 @@ const offlineCourseStudentRowSummarySchema: z.ZodType<Partial<OfflineCourseStude
 	created_at: z.string(),
 });
 
-const mapRegisteredUserToView = (row: UserRow) =>
-	registeredUserRowSchema.parse({
-		id: row.id,
-		nickname: row.nickname,
-		displayName: row.display_name,
-		legacyUserId: row.legacy_user_id,
-		loginType: row.user_login,
-		registeredAt: row.user_registered_at,
-		role: row.role,
-	});
-
-const mapLegacyUserToView = (row: LegacyUserRow) =>
-	legacyUserRowSchema.parse({
-		id: row.id,
-		email: row.email,
-		nickname: row.nickname,
-		displayName: row.display_name,
-		legacyUserId: row.legacy_user_id,
-		loginType: row.user_login,
-		registeredAt: row.user_registered_at,
-	});
-
 const mapReviewCountByProductView = (row: ReviewCountByProductRow) => {
 	const parsed = reviewCountByProductRowSchema.safeParse(row);
 	return parsed.success
@@ -209,7 +187,7 @@ const mapOfflineCourseStudentRowToView = (row: OfflineCourseStudentRow): Offline
 		bank: r.bank,
 		accountNumber: r.account_number,
 		createdAt: r.created_at,
-		updated_at: r.updated_at,
+		updatedAt: r.updated_at,
 	});
 };
 
@@ -229,8 +207,6 @@ const mapOfflineCourseStudentRowToSummaryView = (row: Partial<OfflineCourseStude
 
 export type { RegisteredUserViewSchema, LegacyUserViewSchema, ReviewCountByProductViewSchema };
 export {
-	mapRegisteredUserToView,
-	mapLegacyUserToView,
 	mapReviewCountByProductView,
 	mapOfflineStudentsRowToView,
 	mapOnlineCourseRowToView,

@@ -11,7 +11,7 @@ const queryKey = {
 		REVIEW_LIST_PAGE_INFO: ['service', 'reviews', 'pageInfo'],
 		REVIEW_LIST_BY_PAGE: ['service', 'reviews', 'pagination'],
 		PRODUCTS: ['service', 'products'],
-		OFFLINE_COURSE_STUDENTS_BY_PAGE: ['service', 'offlineCourseStudent'],
+		OFFLINE_COURSE_STUDENTS: ['offlineCourseStudents'],
 	},
 	ADMIN: {
 		NEWS_LIST_PAGE_INFO: ['news', 'pageInfo'],
@@ -20,6 +20,7 @@ const queryKey = {
 		REGISTERED_USERS_BY_PAGE: ['registered_users', 'pagination'],
 		LEGACY_USERS_LIST_PAGE_INFO: ['legacy_users', 'pageInfo'],
 		LEGACY_USERS_BY_PAGE: ['legacy_users', 'pagination'],
+		OFFLINE_COURSE_STUDENTS: ['offlineCourseStudents'],
 	},
 	COURSE: {
 		COURSE_CURRICULUM: ['course'],

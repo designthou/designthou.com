@@ -14,7 +14,7 @@ import {
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-	OfflineStudentsTable,
+	WCompArtStudentsTable,
 } from '@/components';
 import { WCompArtStudentView } from '@/types';
 
@@ -27,7 +27,7 @@ export default function TableWithTriggers({ wcompArtStudents }: { wcompArtStuden
 		<Tabs defaultValue="offline-students" className="py-4 w-full flex-col justify-start gap-4">
 			<div className="flex items-center justify-between">
 				<Label htmlFor="view-selector" className="sr-only">
-					Offline Students List
+					WComputer Art Student List
 				</Label>
 				<TabsList>
 					{triggers.map(({ value, label, dataLength }) => (
@@ -81,7 +81,7 @@ export default function TableWithTriggers({ wcompArtStudents }: { wcompArtStuden
 			</div>
 
 			<TabsContent value="offline-students" className="relative flex flex-col gap-4 overflow-auto">
-				<OfflineStudentsTable data={wcompArtStudents} searchValue={deferredSearchValue} />
+				<WCompArtStudentsTable data={wcompArtStudents} searchValue={deferredSearchValue} />
 			</TabsContent>
 		</Tabs>
 	);

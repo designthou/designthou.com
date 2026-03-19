@@ -24,7 +24,7 @@ const add = (data: Variables) => (oldData: OldData<OfflineCourseStudentRow>) => 
 
 export default function useAddOfflineCourseStudentMutation(handler?: { [key: string]: () => void }) {
 	const queryClient = useQueryClient();
-	const QUERY_KEY = queryKey.SERVICE.OFFLINE_COURSE_STUDENTS_BY_PAGE;
+	const QUERY_KEY = queryKey.SERVICE.OFFLINE_COURSE_STUDENTS;
 
 	return useMutation({
 		async mutationFn(variables: Variables) {

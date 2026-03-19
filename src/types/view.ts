@@ -71,12 +71,12 @@ const offlineCourseStudentViewSchema = z.object({
 	program: z.string().optional(),
 	name: z.string(),
 	email: z.string(),
-	phoneNumber: z.string().optional(),
+	phoneNumber: z.string(),
 	description: z.string().optional(),
 	bank: z.string(),
-	accountNumber: z.string().optional(),
+	accountNumber: z.string(),
 	createdAt: z.string(),
-	updatedAt: z.string().optional(),
+	updatedAt: z.string(),
 });
 
 const offlineCourseStudentSummaryViewSchema = z.object({

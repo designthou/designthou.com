@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import { OfflineStudentsTableWithTriggers } from '@/components';
+import { WCompArtStudentsTableWithTriggers } from '@/components';
 import { WCompArtStudentRow, TABLE } from '@/lib/supabase';
 import { mapOfflineStudentsRowToView } from '@/types';
 
@@ -23,7 +23,7 @@ export default async function WCompArtStudentsPage() {
 			<h2 className="font-black font-mono text-xl" aria-label="User List Page Title">
 				WComputer-Art 수강생 목록
 			</h2>
-			<OfflineStudentsTableWithTriggers wcompArtStudents={wcompArtStudents} />
+			<WCompArtStudentsTableWithTriggers wcompArtStudents={wcompArtStudents} />
 		</section>
 	);
 }

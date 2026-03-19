@@ -421,7 +421,7 @@ export interface Database {
 					bank: string;
 					account_number: string;
 					created_at: string;
-					updated_at: string;
+					updated_at?: string;
 				};
 				Insert: {
 					// the data expected from .select()
