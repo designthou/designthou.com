@@ -80,6 +80,7 @@ export default async function ProductPage({ params }: PageProps) {
 
 	const productList = await getProductList();
 	const product = productList?.find(product => product.slug === decodedSlug);
+
 	if (!product) notFound();
 
 	const supabase = await createClient();
@@ -156,11 +157,11 @@ export default async function ProductPage({ params }: PageProps) {
 				<div className="row-span-1 sm:col-span-2 flex flex-col justify-between gap-8 p-6 md:p-8 w-full bg-light border border-muted rounded-xl">
 					<h2 className="title font-bold text-3xl tracking-tighter">{product.metadata.title}</h2>
 					<div className="flex flex-col gap-8">
-						<div className="flex flex-col gap-2">
+						<div className="flex flex-col gap-4">
 							<span className="px-3 py-1 w-fit bg-gradient-orange-100 text-sm font-bold text-white rounded-sm">
 								{SiteConfig.author.name}
 							</span>
-							<div className="flex flex-wrap items-center gap-2">
+							<div className="flex flex-wrap items-center gap-1">
 								{product.metadata.tags?.map(tag => (
 									<span key={tag} className="px-3 py-1 w-fit bg-white border border-muted text-xs font-bold text-gray-600 rounded-full">
 										{tag}
