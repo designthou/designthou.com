@@ -1,14 +1,17 @@
-'use client';
-
 import Link from 'next/link';
 import React from 'react';
 import { ArrowLeft, Mail, Building2, MessageCircle, Info } from 'lucide-react';
 import { Button } from '@/components';
+import { createClient } from '@/lib/supabase/server';
 import { route } from '@/constants';
-import { useAuthStore } from '@/stores';
+import { redirect } from 'next/navigation';
 
-export default function ApplyCompletePage() {
-	const user = useAuthStore(({ user }) => user);
+export default async function ApplyCompletePage({ searchParams }: { searchParams: Promise<{ from?: string }> }) {
+	const { from } = await searchParams;
+	if (from !== 'apply') redirect(route.SERVICE.PRODUCTS);
+
+	const supabaseServerClient = await createClient();
+	const { data } = await supabaseServerClient.auth.getUser();
 
 	return (
 		<main className="max-w-xl mx-auto px-4 py-16 flex flex-col gap-8">
@@ -24,7 +27,7 @@ export default function ApplyCompletePage() {
 						이메일 확인
 					</div>
 					<p className="text-sm text-muted-foreground">입력하신 이메일로 신청 확인 메일이 발송됩니다. 스팸함도 함께 확인해 주세요.</p>
-					{user && (
+					{data?.user && (
 						<div className="flex flex-col gap-4 p-4 bg-muted rounded-lg">
 							<Button asChild className="w-fit">
 								<Link href={route.SERVICE.DASHBOARD}>My Page</Link>
