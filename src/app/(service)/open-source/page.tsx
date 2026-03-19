@@ -31,13 +31,18 @@ export default async function ServiceOpenSourcePage() {
 
 	if (error || !files) throw error;
 
-	const previewSet = new Set(previewFiles?.map(file => file.name.replace(/\.[^.]+$/, '')));
+	const previewMap = new Map(
+		previewFiles?.map(file => {
+			const baseName = file.name.replace(/\.[^.]+$/, '');
+			return [baseName, file.name]; // { 'image': 'image.jpg' }
+		}),
+	);
 
 	const fileList = files?.map(file => {
 		const baseName = file.name.replace(/\.[^.]+$/, '');
-		const hasPreview = previewSet.has(baseName);
+		const previewFileName = previewMap.get(baseName);
 
-		return { name: file.name, baseName, hasPreview };
+		return { name: file.name, baseName, previewFileName };
 	});
 
 	return (
@@ -49,11 +54,11 @@ export default async function ServiceOpenSourcePage() {
 				className="mt-8 bg-none border border-muted text-primary"
 			/>
 			<div className="grid grid-cols-5 gap-4 mt-8">
-				{fileList?.map(({ name, baseName, hasPreview }) => (
+				{fileList?.map(({ name, baseName, previewFileName }) => (
 					<div key={name} className="ui-flex-center border border-gray-100 bg-white rounded-lg hover:bg-light">
-						{hasPreview ? (
+						{previewFileName ? (
 							<Image
-								src={supabase.storage.from(STORAGE_BUCKETS.OPEN_SOURCE_AI_PREVIEW).getPublicUrl(`${baseName}.png`).data.publicUrl}
+								src={supabase.storage.from(STORAGE_BUCKETS.OPEN_SOURCE_AI_PREVIEW).getPublicUrl(previewFileName).data.publicUrl}
 								alt={baseName}
 								width={300}
 								height={300}
