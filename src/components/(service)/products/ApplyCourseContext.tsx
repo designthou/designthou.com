@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -26,13 +27,12 @@ import { courseOptions, fieldName, outerLink, route } from '@/constants';
 import { maskAccountNumber } from '@/utils/bank';
 import { cn } from '@/lib/utils';
 import { useAddOfflineCourseStudentMutation } from '@/hooks';
-import Link from 'next/link';
 
 export default function ApplyCouresContext() {
 	const router = useRouter();
+
 	const [step, setStep] = React.useState<'intro' | 'info' | 'confirm'>('intro');
 	const [isAccountNumberVisible, setIsAccountNumberVisible] = React.useState(false);
-
 	const [isContextOpen, setIsContextOpen] = React.useState(false);
 
 	const defaultValues = {
@@ -63,6 +63,7 @@ export default function ApplyCouresContext() {
 			setStep('info');
 
 			form.reset();
+
 			router.push(`${route.SERVICE.APPLY_COMPLETE}?from=apply`);
 		},
 	});
