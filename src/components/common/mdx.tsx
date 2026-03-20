@@ -362,6 +362,45 @@ function SketchupClassCurriculumAccordion() {
 	);
 }
 
+function FaqAccordion() {
+	return (
+		<Accordion type="multiple" className="w-full" defaultValue={['item-1', 'item-2']}>
+			<AccordionItem value="item-1">
+				<AccordionTrigger className="font-bold text-lg">1. 수업은 온라인으로 진행되나요?</AccordionTrigger>
+				<AccordionContent>이 수업은 오프라인 수업으로 주 1회, 2-3명을 그룹으로 진행됩니다.</AccordionContent>
+			</AccordionItem>
+			<AccordionItem value="item-2">
+				<AccordionTrigger className="font-bold text-lg">2. 수업의 신청 과정은 어떻게 되나요?</AccordionTrigger>
+				<AccordionContent>
+					<ul className="flex flex-col gap-4">
+						<li className="list-decimal">
+							이 페이지 상단의 <strong>[ 신청하기 ] </strong> 버튼을 클릭합니다.
+						</li>
+						<li className="list-decimal">
+							신청하기 Form 안에 보이는 <strong> [오픈 채팅방에서 상담하기] </strong>를 클릭합니다.
+						</li>
+						<li className="list-decimal">
+							오픈 채팅방 개인 상담 후, 다시 이 화면으로 돌아와 <strong> [ 상담 완료 ]</strong> 버튼을 누릅니다.
+						</li>
+						<li className="list-decimal">
+							수업 옵션 / 프로그램 / 이름 / 이메일 / 전화번호 / 은행 / 계좌번호 / 추가정보 등을 입력합니다.
+							<ul>
+								<li>
+									<strong> [옵션 3]</strong>을 선택할 경우, 포트폴리오만을 위한 수업으로, 프로그램은 선택하지 않습니다.
+								</li>
+								<li>전화번호, 계좌번호는 암호화되어 저장됩니다.</li>
+							</ul>
+						</li>
+						<li className="list-decimal">
+							입력한 정보를 확인하고 <strong>[ 제출하기 ]</strong>를 누릅니다.
+						</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+		</Accordion>
+	);
+}
+
 /* -------------------- MDX Components Map -------------------- */
 
 const baseComponents = {
@@ -379,18 +418,13 @@ const baseComponents = {
 	Table,
 	Link,
 	Wip: ({ message }: { message: string }) => <Wip message={message} className="border border-muted bg-light" />,
-	Callout: ({
-		message,
-		icon = <Star className="text-sm fill-orange-300 text-orange-300 md:text-lg" />,
-		className,
-	}: {
-		message: React.ReactNode;
-		icon?: React.ReactNode;
-		className: string;
-	}) => <Callout message={message} icon={icon} className={className} />,
+	Callout: ({ message, icon, className }: { message: React.ReactNode; icon?: React.ReactNode; className: string }) => (
+		<Callout message={message} icon={icon} className={className} />
+	),
 	TagList,
 	RhinoClassCurriculumAccordion,
 	SketchupClassCurriculumAccordion,
+	FaqAccordion,
 };
 
 /* -------------------- CustomMDX -------------------- */

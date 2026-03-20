@@ -214,7 +214,7 @@ export default function ApplyForm({ form }: { form: UseFormReturn<ApplyFormSchem
 						/>
 					</div>
 
-					<Callout message="입급 확인 및 환불을 위한 계좌번호를 입력해 주세요." className="w-full" />
+					<Callout message="입금 확인 및 추후 환불을 위한 계좌번호를 입력해 주세요." className="w-full" />
 				</div>
 
 				<FormField
