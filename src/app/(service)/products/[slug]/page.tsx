@@ -187,7 +187,13 @@ export default async function ProductPage({ params }: PageProps) {
 						</div>
 					</div>
 
-					<ApplyCourseContext />
+					{slug === 'offline-portfolio-class' ? (
+						<ApplyCourseContext />
+					) : (
+						<Button type="button" disabled={true}>
+							온라인 강의는 곧 판매 예정입니다
+						</Button>
+					)}
 				</div>
 			</div>
 
