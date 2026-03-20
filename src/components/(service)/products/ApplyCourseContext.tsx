@@ -77,7 +77,11 @@ export default function ApplyCouresContext() {
 				</Button>
 			</DialogTrigger>
 			{isContextOpen && (
-				<DialogContent className={cn('flex flex-col min-w-[40dvw]', step !== 'intro' ? 'h-[90dvh] overflow-y-auto scrollbar-thin' : '')}>
+				<DialogContent
+					className={cn(
+						'flex flex-col min-w-[40dvw] md:min-w-[600px]',
+						step !== 'intro' ? 'h-[90dvh] overflow-y-auto sm:h-auto scrollbar-thin' : '',
+					)}>
 					{step === 'intro' && (
 						<>
 							<DialogHeader>
@@ -168,7 +172,7 @@ export default function ApplyCouresContext() {
 						</>
 					)}
 
-					<DialogFooter className="flex flex-row justify-end items-center gap-2">
+					<DialogFooter className="flex flex-row justify-end items-center gap-2 mt-auto">
 						<DialogClose asChild>
 							<Button type="button" variant="ghost" size="lg">
 								취소하기

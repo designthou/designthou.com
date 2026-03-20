@@ -7,6 +7,8 @@ interface ApplyCompleteEmailProps {
 	option: string;
 }
 
+const BANK_RELATED_INFO = `${process.env.INCOME_BANK!}은행 ${process.env.BANK_ACCOUNT_NUMBER} [ 예금주 : ${process.env.BANK_ACCOUNT_OWNER} ]`;
+
 export default function ApplyCompleteEmail({ name, title, program, option }: ApplyCompleteEmailProps) {
 	return (
 		<Html lang="ko">
@@ -30,7 +32,9 @@ export default function ApplyCompleteEmail({ name, title, program, option }: App
 
 					<Section>
 						<Heading as="h2">입금 계좌 안내</Heading>
-						<Text>국민은행 03870104547862 [ 예금주: 이영재(디자인도우) ]</Text>
+						<Text style={{ padding: '4px 8px', fontSize: '16px', fontWeight: 'bold', backgroundColor: '#d3e3fd' }}>
+							{BANK_RELATED_INFO}
+						</Text>
 						<Text>입금 확인 후 최종 등록이 완료됩니다.</Text>
 					</Section>
 

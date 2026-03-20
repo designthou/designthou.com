@@ -29,7 +29,7 @@ export default async function ApplyCompletePage({ searchParams }: { searchParams
 					<p className="text-sm text-muted-foreground">입력하신 이메일로 신청 확인 메일이 발송됩니다. 스팸함도 함께 확인해 주세요.</p>
 					{data?.user && (
 						<div className="flex flex-col gap-4 p-4 bg-muted rounded-lg">
-							<Button asChild className="w-fit">
+							<Button asChild size="sm" className="w-fit">
 								<Link href={route.SERVICE.DASHBOARD}>My Page</Link>
 							</Button>
 							<p className="text-sm text-gray-600">☑️ 로그인한 사용자는 [My Page]에서 신청한 수업이 확인됩니다.</p>

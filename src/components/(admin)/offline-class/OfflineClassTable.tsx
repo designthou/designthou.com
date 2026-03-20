@@ -13,12 +13,17 @@ import {
 	useReactTable,
 	VisibilityState,
 } from '@tanstack/react-table';
-import { BadgeCheck, ChevronLeft, ChevronRight, Clipboard, Eye, EyeClosed } from 'lucide-react';
+import { ArrowUpRight, BadgeCheck, ChevronLeft, ChevronRight, Clipboard, Eye, EyeClosed } from 'lucide-react';
 import { toast } from 'sonner';
 import {
 	Badge,
 	Button,
 	Checkbox,
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
 	formatPhoneNumber,
 	Label,
 	Select,
@@ -44,6 +49,8 @@ export default function OfflineClassTable({
 	data: OfflineCourseStudentView[];
 	searchValue: { email: string; name: string };
 }) {
+	const [selectedRow, setSelectedRow] = React.useState<OfflineCourseStudentView | null>(null);
+
 	const [rowSelection, setRowSelection] = React.useState({});
 	const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
 	const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -104,8 +111,23 @@ export default function OfflineClassTable({
 				),
 			},
 			{
+				accessorKey: 'detail',
+				header: () => <span className="inline-block ml-2">상세</span>,
+				cell: ({ row }) => (
+					<Button
+						type="button"
+						variant="outline"
+						size="sm"
+						className="w-full rounded-sm font-bold"
+						onClick={() => setSelectedRow(row?.original)}>
+						상세보기
+						<ArrowUpRight size={18} />
+					</Button>
+				),
+			},
+			{
 				accessorKey: 'name',
-				header: () => <span>이 름</span>,
+				header: () => <span className="inline-block ml-2">이 름</span>,
 				cell: ({ row }) => (
 					<span
 						className={cn(
@@ -191,8 +213,8 @@ export default function OfflineClassTable({
 			},
 			{
 				accessorKey: 'description',
-				header: () => <span className="truncate w-200">기타 / 추가정보</span>,
-				cell: ({ row }) => <span className="truncate w-200">{row?.original?.description}</span>,
+				header: () => <span className="">기타 / 추가정보</span>,
+				cell: ({ row }) => <div className="block truncate min-w-50 max-w-200">{row?.original?.description}</div>,
 			},
 		],
 		[visiblePhoneNumbers, visibleAccountNumbers],
@@ -237,6 +259,48 @@ export default function OfflineClassTable({
 
 	return (
 		<>
+			<Dialog open={!!selectedRow} onOpenChange={open => !open && setSelectedRow(null)}>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle className="text-xl text-left font-bold sm:text-2xl">상세보기</DialogTitle>
+					</DialogHeader>
+					{selectedRow && (
+						<ul className="flex flex-col gap-8 my-4">
+							<li className="flex items-center gap-4">
+								<span className="inline-block min-w-14 font-semibold">이 름</span>
+								<span className="text-gray-600">{selectedRow.name}</span>
+							</li>
+							<li className="flex items-center gap-4">
+								<span className="inline-block min-w-14 font-semibold">이메일</span>
+								<span className="text-gray-600">{selectedRow.email}</span>
+							</li>
+							<li className="flex items-center gap-4">
+								<span className="inline-block min-w-14 font-semibold">전화번호</span>
+								<span className="text-gray-600">{formatPhoneNumber(selectedRow.phoneNumber)}</span>
+							</li>
+							<li className="grid grid-cols-2 gap-4">
+								<div className="flex items-center gap-4">
+									<span className="inline-block min-w-14 font-semibold">은행</span>
+									<span className="text-gray-600">{selectedRow.bank}</span>
+								</div>
+								<div className="flex items-center gap-4">
+									<span className="inline-block min-w-14 font-semibold">계좌번호</span>
+									<span className="text-gray-600">{selectedRow.accountNumber}</span>
+								</div>
+							</li>
+
+							<li className="flex items-center gap-4">
+								<span className="inline-block min-w-14 font-semibold">신청날짜</span>
+								<span className="text-gray-600">{convertSupabaseDateToShortHumanReadable(selectedRow.createdAt)}</span>
+							</li>
+							<li className="flex flex-col gap-4">
+								<span className="inline-block min-w-14 font-semibold">기타 / 추가정보</span>
+								<span className="text-gray-600">{selectedRow.description}</span>
+							</li>
+						</ul>
+					)}
+				</DialogContent>
+			</Dialog>
 			<Table className="border border-muted rounded-lg">
 				<TableHeader className="sticky top-0 w-full bg-muted z-10">
 					{table.getHeaderGroups().map(headerGroup => (

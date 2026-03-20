@@ -160,7 +160,7 @@ export default async function MyDashboardPage() {
 									</div>
 									<div className="flex items-center gap-4">
 										<span className="inline-block min-w-20 text-gray-700 font-semibold">신청 프로그램</span>
-										<span className="inline-block p-1.5  text-gray-700 bg-muted rounded-lg">{course?.program}</span>
+										<span className="inline-block p-1.5  text-gray-700 bg-muted rounded-lg">{course?.program || '해당 없음'}</span>
 									</div>
 									<div className="flex items-center gap-4">
 										<span className="inline-block min-w-20 text-gray-700 font-semibold">신청일 </span>

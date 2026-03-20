@@ -30,6 +30,10 @@ const navigations = [
 		title: 'Products',
 		to: route.SERVICE.PRODUCTS,
 	},
+	{
+		title: 'Source',
+		to: route.SERVICE.OPEN_SOURCE,
+	},
 ] as const;
 
 export default function Nav() {
