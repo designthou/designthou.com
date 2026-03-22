@@ -19,14 +19,14 @@ const linkWithRoutes = [
 		icon: <LayoutDashboard size={18} />,
 	},
 	{
-		title: 'Reviews',
-		to: route.ADMIN.REVIEWS,
-		icon: <SquareChartGantt size={18} />,
-	},
-	{
 		title: 'News',
 		to: route.ADMIN.NEWS,
 		icon: <Newspaper size={18} />,
+	},
+	{
+		title: 'Reviews',
+		to: route.ADMIN.REVIEWS,
+		icon: <SquareChartGantt size={18} />,
 	},
 	{
 		title: 'Youtube Tips',

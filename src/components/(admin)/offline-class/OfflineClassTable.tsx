@@ -20,7 +20,9 @@ import {
 	Button,
 	Checkbox,
 	Dialog,
+	DialogClose,
 	DialogContent,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
@@ -268,38 +270,45 @@ export default function OfflineClassTable({
 						<ul className="flex flex-col gap-8 my-4">
 							<li className="flex items-center gap-4">
 								<span className="inline-block min-w-14 font-semibold">이 름</span>
-								<span className="text-gray-600">{selectedRow.name}</span>
+								<span className="px-2 py-1 text-gray-600 bg-gray-100 rounded-lg">{selectedRow.name}</span>
 							</li>
 							<li className="flex items-center gap-4">
 								<span className="inline-block min-w-14 font-semibold">이메일</span>
-								<span className="text-gray-600">{selectedRow.email}</span>
+								<span className="px-2 py-1 text-gray-600 bg-gray-100 rounded-lg">{selectedRow.email}</span>
 							</li>
 							<li className="flex items-center gap-4">
 								<span className="inline-block min-w-14 font-semibold">전화번호</span>
-								<span className="text-gray-600">{formatPhoneNumber(selectedRow.phoneNumber)}</span>
+								<span className="px-2 py-1 text-gray-600 bg-gray-100 rounded-lg">{formatPhoneNumber(selectedRow.phoneNumber)}</span>
 							</li>
-							<li className="grid grid-cols-2 gap-4">
-								<div className="flex items-center gap-4">
+							<li className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+								<div className="sm:col-span-1 flex items-center gap-4">
 									<span className="inline-block min-w-14 font-semibold">은행</span>
-									<span className="text-gray-600">{selectedRow.bank}</span>
+									<span className="px-2 py-1 text-gray-600 bg-gray-100 rounded-lg">{selectedRow.bank}</span>
 								</div>
-								<div className="flex items-center gap-4">
+								<div className="sm:col-span-2 flex items-center gap-4">
 									<span className="inline-block min-w-14 font-semibold">계좌번호</span>
-									<span className="text-gray-600">{selectedRow.accountNumber}</span>
+									<span className="px-2 py-1 text-gray-600 bg-gray-100 rounded-lg">{selectedRow.accountNumber}</span>
 								</div>
 							</li>
 
 							<li className="flex items-center gap-4">
 								<span className="inline-block min-w-14 font-semibold">신청날짜</span>
-								<span className="text-gray-600">{convertSupabaseDateToShortHumanReadable(selectedRow.createdAt)}</span>
+								<span className="px-2 py-1 text-gray-600 bg-gray-100 rounded-lg">
+									{convertSupabaseDateToShortHumanReadable(selectedRow.createdAt)}
+								</span>
 							</li>
-							<li className="flex flex-col gap-4">
-								<span className="inline-block min-w-14 font-semibold">기타 / 추가정보</span>
-								<span className="text-gray-600">{selectedRow.description}</span>
-							</li>
+							{selectedRow.description && (
+								<li className="flex flex-col gap-4">
+									<span className="inline-block min-w-14 font-semibold">기타 / 추가정보</span>
+									<span className="px-2 py-1 text-gray-600 bg-gray-100 rounded-lg">{selectedRow.description}</span>
+								</li>
+							)}
 						</ul>
 					)}
 				</DialogContent>
+				<DialogFooter>
+					<DialogClose />
+				</DialogFooter>
 			</Dialog>
 			<Table className="border border-muted rounded-lg">
 				<TableHeader className="sticky top-0 w-full bg-muted z-10">

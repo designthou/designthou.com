@@ -29,7 +29,7 @@ export default async function OfflineClassPage() {
 			<h2 className="font-black font-mono text-xl" aria-label="User List Page Title">
 				Offline Class Students
 			</h2>
-			<React.Suspense fallback={<div>Loading...</div>}>
+			<React.Suspense fallback={<div className="mt-4">Loading...</div>}>
 				<OfflineClassTableWithTriggers initialData={initialData} />
 			</React.Suspense>
 		</section>
