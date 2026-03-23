@@ -59,7 +59,7 @@ export default async function AdobeIllustratorOpenSourceListPage() {
 						) : (
 							<div className="p-4">🎨 {name}</div>
 						)}
-						<Badge className="absolute top-2 right-2 max-w-6 max-h-6 aspect-square rounded-full">{idx + 1}</Badge>
+						<Badge className="absolute top-2 right-2 p-1 max-w-6 max-h-6 aspect-square rounded-full">{idx + 1}</Badge>
 					</Link>
 				))}
 			</div>
