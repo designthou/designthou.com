@@ -2,6 +2,7 @@ import '../globals.css';
 import { Analytics } from '@vercel/analytics/next';
 import { Footer, KakaoOpenChat, Main, Nav, NotifySection, ScrollToTopButton } from '@/components';
 import { AuthProvider, ReactQueryProvider } from '@/providers';
+import { Toaster } from 'sonner';
 
 export default async function ServiceLayout({
 	children,
@@ -21,6 +22,7 @@ export default async function ServiceLayout({
 				</AuthProvider>
 			</ReactQueryProvider>
 			<Analytics />
+			<Toaster />
 		</div>
 	);
 }

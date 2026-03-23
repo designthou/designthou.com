@@ -18,6 +18,8 @@ const route = {
 		PRODUCTS: '/products',
 		ONLINE_COURSE: '/online-course',
 		OPEN_SOURCE: '/open-source',
+		OPEN_SOURCE_AI: '/open-source/ai',
+		OPEN_SOURCE_CAD: '/open-source/autocad',
 		SETTINGS: {
 			ROOT: '/settings',
 			MYACCOUNT_PROFILE: '/settings/myaccount/profile',

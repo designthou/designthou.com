@@ -3,6 +3,7 @@ export * from './faq';
 export * from './home';
 export * from './layout';
 export * from './news';
+export * from './open-source';
 export * from './products';
 export * from './profile';
 export * from './reviews';

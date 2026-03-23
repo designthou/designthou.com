@@ -29,7 +29,6 @@ const getOfflineCourseStudentByPage = async ({
 const addOfflineCourseStudent = async (data: Omit<OfflineCourseStudentRow, 'id' | 'user_id'>) => {
 	const supabase = createClient();
 
-	console.log(data);
 	return await supabase
 		.from(TABLE.OFFLINE_COURSE_STUDENTS)
 		.insert({ ...data, user_id: null })

@@ -1,11 +1,7 @@
-import Image from 'next/image';
 import { Metadata } from 'next';
-import { Sparkle } from 'lucide-react';
-import { Wip } from '@/components';
+import Link from 'next/link';
 import { SiteConfig } from '@/app/config';
-import { BLUR_DATA_URL } from '@/constants';
-import { STORAGE_BUCKETS } from '@/lib/supabase';
-import { createStaticClient } from '@/lib/supabase/static';
+import { route } from '@/constants';
 
 export const metadata: Metadata = {
 	title: SiteConfig.title.OPEN_SOURCE,
@@ -24,53 +20,20 @@ export const metadata: Metadata = {
 };
 
 export default async function ServiceOpenSourcePage() {
-	const supabase = createStaticClient();
-
-	const { data: files, error } = await supabase.storage.from(STORAGE_BUCKETS.OPEN_SOURCE_AI).list('');
-	const { data: previewFiles } = await supabase.storage.from(STORAGE_BUCKETS.OPEN_SOURCE_AI_PREVIEW).list('');
-
-	if (error || !files) throw error;
-
-	const previewMap = new Map(
-		previewFiles?.map(file => {
-			const baseName = file.name.replace(/\.[^.]+$/, '');
-			return [baseName, file.name]; // { 'image': 'image.jpg' }
-		}),
-	);
-
-	const fileList = files?.map(file => {
-		const baseName = file.name.replace(/\.[^.]+$/, '');
-		const previewFileName = previewMap.get(baseName);
-
-		return { name: file.name, baseName, previewFileName };
-	});
-
 	return (
-		<section className="p-4 max-w-300">
+		<section className="p-4 mx-auto max-w-200">
 			<h2 className="page-title">Open Source</h2>
-			<Wip
-				icon={<Sparkle size={20} />}
-				message="Open Source Download feature will activate soon!"
-				className="mt-8 bg-none border border-muted text-primary"
-			/>
-			<div className="grid grid-cols-5 gap-4 mt-8">
-				{fileList?.map(({ name, baseName, previewFileName }) => (
-					<div key={name} className="ui-flex-center border border-gray-100 bg-white rounded-lg hover:bg-light">
-						{previewFileName ? (
-							<Image
-								src={supabase.storage.from(STORAGE_BUCKETS.OPEN_SOURCE_AI_PREVIEW).getPublicUrl(previewFileName).data.publicUrl}
-								alt={baseName}
-								width={300}
-								height={300}
-								placeholder="blur"
-								blurDataURL={BLUR_DATA_URL}
-								className="rounded-lg"
-							/>
-						) : (
-							<div className="p-4">🎨 {name}</div>
-						)}
-					</div>
-				))}
+			<div className="flex flex-col gap-4 mt-8 md:flex-row">
+				<Link
+					href={route.SERVICE.OPEN_SOURCE_AI}
+					className="ui-flex-center aspect-square md:w-100 md:h-100 bg-light font-bold rounded-lg text-gray-600 hover:ring-2 ring-gray-200 transition-all">
+					Adobe Illustrator (.ai)
+				</Link>
+				<Link
+					href={route.SERVICE.OPEN_SOURCE_CAD}
+					className="ui-flex-center aspect-square md:w-100 md:h-100 bg-light font-bold rounded-lg text-gray-600 hover:ring-2 ring-gray-200 transition-all">
+					AutoCAD (.cad)
+				</Link>
 			</div>
 		</section>
 	);
