@@ -25,7 +25,6 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
 	formatPhoneNumber,
 	Label,
 	Select,
