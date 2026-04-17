@@ -48,30 +48,22 @@ export default async function MyDashboardPage() {
 		redirect(route.AUTH.LOGIN);
 	}
 
-	const [
-		{ data: onlineCourses, error: getOnlineCoursesError },
-		{ data: profile, error: getProfileError },
-		{ data: offlineCourses, error: getOfflineCoursesError },
-	] = await Promise.all([
-		supabaseServerClient.from(TABLE.ONLINE_COURSES).select('*').returns<OnlineCourseRow[]>(),
-		supabaseServerClient.from(TABLE.PROFILES).select('legacy_user_id').eq('id', user?.id).maybeSingle(),
-		supabaseServerClient
-			.from(TABLE.OFFLINE_COURSE_STUDENTS)
-			.select('id, name, program, option, description, bank, created_at')
-			.eq('email', user?.email),
-	]);
+	const [{ data: onlineCourses, error: getOnlineCoursesError }, { data: offlineCourses, error: getOfflineCoursesError }] =
+		await Promise.all([
+			supabaseServerClient.from(TABLE.ONLINE_COURSES).select('*').returns<OnlineCourseRow[]>(),
+			supabaseServerClient
+				.from(TABLE.OFFLINE_COURSE_STUDENTS)
+				.select('id, name, program, option, description, bank, created_at')
+				.eq('email', user?.email),
+		]);
 
 	const { data: enrollments, error: getEnrollmentsError } = await supabaseServerClient
 		.from(TABLE.ENROLLMENTS)
 		.select('course_id, legacy_user_id, access_expires_at, progress, status')
-		.eq('legacy_user_id', profile?.legacy_user_id);
+		.eq('user_id', user?.id);
 
 	if (getOnlineCoursesError) {
 		throw getOnlineCoursesError;
-	}
-
-	if (getProfileError) {
-		throw getProfileError;
 	}
 
 	if (getOfflineCoursesError) {

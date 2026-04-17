@@ -168,7 +168,11 @@ export default function OfflineClassTable({
 					);
 				},
 			},
-
+			{
+				accessorKey: 'option',
+				header: () => <span>옵션</span>,
+				cell: ({ row }) => <span>{row?.original?.option}</span>,
+			},
 			{
 				accessorKey: 'bank',
 				header: () => <span>은행</span>,
@@ -278,6 +282,10 @@ export default function OfflineClassTable({
 							<li className="flex items-center gap-4">
 								<span className="inline-block min-w-14 font-semibold">전화번호</span>
 								<span className="px-2 py-1 text-gray-600 bg-gray-100 rounded-lg">{formatPhoneNumber(selectedRow.phoneNumber)}</span>
+							</li>
+							<li className="flex items-center gap-4">
+								<span className="inline-block min-w-14 font-semibold">선택한 옵션</span>
+								<span className="px-2 py-1 text-gray-600 bg-gray-100 rounded-lg">{selectedRow.option}</span>
 							</li>
 							<li className="grid grid-cols-1 gap-4 sm:grid-cols-3">
 								<div className="sm:col-span-1 flex items-center gap-4">
