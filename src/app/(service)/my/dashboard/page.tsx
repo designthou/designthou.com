@@ -176,7 +176,7 @@ export default async function MyDashboardPage() {
 					<div className="flex flex-col gap-4 mx-auto mt-4">
 						{onlineCourseLinks.length > 0 ? (
 							onlineCourseLinks.map(course => {
-								const isExpired = checkExpired(course?.expiredAt);
+								const isExpiredNow = course?.expiredAt && new Date(course?.expiredAt) < new Date();
 
 								return (
 									<div key={course.id} className="flex flex-col gap-3 p-3 bg-white rounded-lg border border-gray-100">
@@ -204,11 +204,11 @@ export default async function MyDashboardPage() {
 											</div>
 											<Button
 												key={course.id}
-												variant={isExpired ? 'secondary' : 'outline'}
+												variant={isExpiredNow ? 'secondary' : 'outline'}
 												asChild
-												disabled={isExpired ? true : false}
+												disabled={isExpiredNow ? true : false}
 												className="w-fit ml-auto">
-												{isExpired ? (
+												{isExpiredNow ? (
 													<span>수강 만료</span>
 												) : (
 													<Link href={`${route.COURSE.ROOT}/${course.id}`}>
