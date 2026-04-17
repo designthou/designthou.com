@@ -7,7 +7,6 @@ import { Button, LogoutButton, ProfileAvatar, Progress } from '@/components';
 import { mapOfflineCourseStudentRowToSummaryView, mapOnlineCourseRowToView } from '@/types';
 import { createClient } from '@/lib/supabase/server';
 import { convertSupabaseDateToShortHumanReadable, OnlineCourseRow, TABLE } from '@/lib/supabase';
-import { getMonthGap } from '@/utils/date';
 import { route } from '@/constants';
 
 export const metadata: Metadata = {
@@ -73,12 +72,6 @@ export default async function MyDashboardPage() {
 	if (getEnrollmentsError) {
 		throw getEnrollmentsError;
 	}
-
-	const checkExpired = (expiresAt: string | null) => {
-		if (!expiresAt) return false;
-
-		return getMonthGap(expiresAt) > 6;
-	};
 
 	const offlineCourseSummaryList = offlineCourses.map(course => mapOfflineCourseStudentRowToSummaryView(course));
 	const enrollmentMap = new Map((enrollments ?? []).map(enrollment => [enrollment.course_id, enrollment]));
@@ -176,7 +169,7 @@ export default async function MyDashboardPage() {
 					<div className="flex flex-col gap-4 mx-auto mt-4">
 						{onlineCourseLinks.length > 0 ? (
 							onlineCourseLinks.map(course => {
-								const isExpiredNow = course?.expiredAt && new Date(course?.expiredAt) < new Date();
+								const isExpiredNow = course?.expiredAt || new Date(course?.expiredAt) < new Date();
 
 								return (
 									<div key={course.id} className="flex flex-col gap-3 p-3 bg-white rounded-lg border border-gray-100">
