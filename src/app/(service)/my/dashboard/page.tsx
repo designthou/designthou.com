@@ -169,7 +169,7 @@ export default async function MyDashboardPage() {
 					<div className="flex flex-col gap-4 mx-auto mt-4">
 						{onlineCourseLinks.length > 0 ? (
 							onlineCourseLinks.map(course => {
-								const isExpiredNow = course?.expiredAt || new Date(course?.expiredAt) < new Date();
+								const isExpiredNow = !course?.expiredAt || new Date(course?.expiredAt) < new Date();
 
 								return (
 									<div key={course.id} className="flex flex-col gap-3 p-3 bg-white rounded-lg border border-gray-100">
