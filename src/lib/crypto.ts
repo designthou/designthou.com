@@ -1,6 +1,6 @@
 // lib/crypto.ts
 
-const SECRET = process.env.ENCRYPTION_SECRET!; // 아무 문자열
+const SECRET = process.env.KY_ENCRYPTION_SECRET!; // 아무 문자열
 
 function getKey(): Uint8Array {
 	return new TextEncoder().encode(SECRET);

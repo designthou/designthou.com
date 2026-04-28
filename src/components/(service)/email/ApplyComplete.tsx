@@ -7,7 +7,7 @@ interface ApplyCompleteEmailProps {
 	option: string;
 }
 
-const BANK_RELATED_INFO = `${process.env.INCOME_BANK!}은행 ${process.env.BANK_ACCOUNT_NUMBER} [ 예금주 : ${process.env.BANK_ACCOUNT_OWNER} ]`;
+const BANK_RELATED_INFO = `${process.env.ADMIN_INCOME_BANK!}은행 ${process.env.ADMIN_BANK_ACCOUNT_NUMBER} [ 예금주 : ${process.env.ADMIN_BANK_ACCOUNT_OWNER} ]`;
 
 export default function ApplyCompleteEmail({ name, title, program, option }: ApplyCompleteEmailProps) {
 	return (
