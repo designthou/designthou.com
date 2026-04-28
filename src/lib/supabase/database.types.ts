@@ -95,22 +95,22 @@ export interface Database {
 					id: never;
 				};
 			};
-			online_course_reviews: {
+			course_reviews: {
 				Row: {
 					// the data expected from .select()
 					id: string;
 					user_id: string;
-					user_uid: number;
-					legacy_id: number;
+					user_uid: number | null;
+					legacy_id: number | null;
 					username: string;
 					title: string;
 					content: string;
 					category: string;
 					view_count: number;
-					comment_id: string[];
+					comment_id: string[] | null;
 					is_secret: boolean;
 					notice: boolean;
-					password: string;
+					password: string | null;
 					created_at: string;
 					updated_at: string;
 				};
@@ -121,11 +121,9 @@ export interface Database {
 					title: string;
 					content: string;
 					category: string;
-					view_count: number;
-					comment_id: string[];
 					is_secret: boolean;
 					notice: boolean;
-					password: string;
+					password: string | null;
 					created_at: string;
 					updated_at: string;
 				};

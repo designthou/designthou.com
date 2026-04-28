@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/incompatible-library */
 'use client';
 
+import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import {
 	ApplyFormSchema,
@@ -22,7 +23,6 @@ import {
 	Textarea,
 } from '@/components';
 import { banks, courseOptions, programs } from '@/constants';
-import React from 'react';
 import { maskAccountNumber } from '@/utils/bank';
 
 export default function ApplyForm({ form }: { form: UseFormReturn<ApplyFormSchema> }) {

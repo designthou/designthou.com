@@ -86,7 +86,7 @@ export default async function ProductPage({ params }: PageProps) {
 	const supabase = await createClient();
 	const [{ data: reviews, error: getReviewsError }, { data: reviewCountByProduct }] = await Promise.all([
 		supabase
-			.from(TABLE.ONLINE_COURSE_REVIEWS)
+			.from(TABLE.COURSE_REVIEWS)
 			.select('*')
 			.order('created_at', { ascending: false })
 			.eq('product_id', product?.metadata.productId)

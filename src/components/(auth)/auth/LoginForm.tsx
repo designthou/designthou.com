@@ -23,8 +23,8 @@ import {
 	PasswordInput,
 } from '@/components';
 import { route } from '@/constants';
-import { SiteConfig } from '@/app/config';
 import { createClient } from '@/lib/supabase/client';
+import { SiteConfig } from '@/app/config';
 
 export default function LoginForm() {
 	const supabase = createClient();

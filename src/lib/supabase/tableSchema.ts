@@ -9,7 +9,7 @@ type Tables = Database['public']['Tables'];
 
 type UserRow = Tables['profiles']['Row'];
 type NewsRow = Tables['news']['Row'];
-type ReviewRow = Tables['online_course_reviews']['Row'];
+type ReviewRow = Tables['course_reviews']['Row'];
 type TipRow = Tables['youtube_tips']['Row'];
 type LegacyUserRow = Tables['legacy_users']['Row'];
 type ReviewCountByProductRow = Tables['review_count_by_product']['Row'];

@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import React from 'react';
 import { SiteConfig } from '@/app/config';
 import { Tabs, TabsContent, TabsList, TabsTrigger, Skeleton, AddReviewContext, ReviewList } from '@/components';
-import { reviewsCategoryList as tabsTrigger } from '@/constants';
+import { reviewsCategoryList, reviewsCategoryList as tabsTrigger } from '@/constants';
 
 export const metadata: Metadata = {
 	title: SiteConfig.title.REVIEWS,
@@ -23,11 +23,11 @@ export const metadata: Metadata = {
 export default async function ReviewListPage() {
 	return (
 		<section className="p-4 bg-light rounded-lg">
-			<div className="flex justify-between">
+			<div className="flex justify-between mb-4">
 				<h2 className="text-xl font-bold">Reviews</h2>
 				<AddReviewContext />
 			</div>
-			<Tabs defaultValue="online-course" className="">
+			<Tabs defaultValue={reviewsCategoryList[0]}>
 				<TabsList>
 					{tabsTrigger.map(tabTrigger => (
 						<TabsTrigger key={tabTrigger} value={tabTrigger}>

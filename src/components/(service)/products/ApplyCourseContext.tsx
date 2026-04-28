@@ -80,7 +80,7 @@ export default function ApplyCouresContext() {
 				<DialogContent
 					className={cn(
 						'flex flex-col min-w-[40dvw] md:min-w-[600px]',
-						step !== 'intro' ? 'h-[90dvh] overflow-y-auto sm:h-auto scrollbar-thin' : '',
+						step !== 'intro' ? 'h-[90dvh] overflow-y-auto scrollbar-thin' : '',
 					)}>
 					{step === 'intro' && (
 						<>

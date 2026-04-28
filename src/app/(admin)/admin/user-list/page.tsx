@@ -8,10 +8,12 @@ export default async function UserListPage() {
 	const supabase = await createClient();
 
 	const [{ data: registeredUsers, error: registeredError }, { data: legacyUsers, error: legacyError }] = await Promise.all([
-		supabase.rpc(rpcMap.ADMIN_LIST_USER, {
-			p_limit: 2000,
-			p_offset: 0,
-		}),
+		supabase
+			.rpc(rpcMap.ADMIN_LIST_USER, {
+				p_limit: 2000,
+				p_offset: 0,
+			})
+			.order('updated_at', { ascending: false }),
 
 		supabase.from(TABLE.LEGACY_USERS).select('*'),
 	]);

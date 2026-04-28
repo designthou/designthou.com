@@ -9,7 +9,7 @@ export const getRecentReviewList = unstable_cache(
 		const supabase = createStaticClient();
 
 		const { data, error } = await supabase
-			.from(TABLE.ONLINE_COURSE_REVIEWS)
+			.from(TABLE.COURSE_REVIEWS)
 			.select('*')
 			.order('created_at', { ascending: false })
 			.eq('category', 'portfolio')

@@ -59,7 +59,7 @@ export async function POST() {
 				nickname: finalDisplayName,
 				display_name: finalDisplayName,
 				user_login: provider,
-				user_registered_at: new Date().toISOString(),
+				user_registered_at: user?.created_at ?? new Date().toISOString(),
 				role: user?.user_metadata?.role ?? 'user',
 				legacy_user_id: legacyUser ? legacyUser?.legacy_user_id : null,
 				avatar_url: user?.user_metadata?.avatar_url ?? user?.user_metadata?.picture ?? null,

@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { UseFormReturn } from 'react-hook-form';
 import {
 	Form,
 	FormControl,
@@ -19,26 +18,13 @@ import {
 	SelectValue,
 	TipTapEditor,
 } from '@/components';
-import { reviewFormSchema, ReviewFormSchema } from './schema';
+import { ReviewFormSchema } from './schema';
 import { reviewsCategoryList } from '@/constants';
 
-export default function AddReviewForm({ footer }: { footer: React.ReactNode }) {
-	const form = useForm<ReviewFormSchema>({
-		resolver: zodResolver(reviewFormSchema),
-		defaultValues: {
-			title: '생생한 포트폴리오 후기입니다.',
-			content: '후기를 작성해 주세요.',
-			category: 'online-course',
-		},
-	});
-
-	const onSubmit = async (values: ReviewFormSchema) => {
-		console.log(values);
-	};
-
+export default function AddReviewForm({ form }: { form: UseFormReturn<ReviewFormSchema> }) {
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8">
+			<form id="review-apply-form" className="flex flex-col gap-8">
 				<FormField
 					control={form.control}
 					name="title"
@@ -59,7 +45,7 @@ export default function AddReviewForm({ footer }: { footer: React.ReactNode }) {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel className="font-semibold">카테고리</FormLabel>
-							<Select onValueChange={field.onChange} defaultValue={field.value}>
+							<Select onValueChange={field.onChange}>
 								<FormControl>
 									<SelectTrigger className="w-full cursor-pointer">
 										<SelectValue placeholder="카테고리 선택" />
@@ -93,8 +79,6 @@ export default function AddReviewForm({ footer }: { footer: React.ReactNode }) {
 						</FormItem>
 					)}
 				/>
-
-				{footer}
 			</form>
 		</Form>
 	);

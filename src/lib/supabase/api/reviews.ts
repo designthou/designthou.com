@@ -6,7 +6,7 @@ const REVIEW_LIST_PAGE_SIZE = 20;
 
 const getReviewListPageInfo = async () => {
 	const supabase = createClient();
-	const { data, error } = await supabase.from(TABLE.ONLINE_COURSE_REVIEWS).select('*').explain({ format: 'json', analyze: true });
+	const { data, error } = await supabase.from(TABLE.COURSE_REVIEWS).select('*').explain({ format: 'json', analyze: true });
 
 	if (error) {
 		throw new Error(error.message);
@@ -17,7 +17,7 @@ const getReviewListPageInfo = async () => {
 
 const getReviewsTotalCount = async () => {
 	const supabase = createClient();
-	const { data, error } = await supabase.from(TABLE.ONLINE_COURSE_REVIEWS).select('*');
+	const { data, error } = await supabase.from(TABLE.COURSE_REVIEWS).select('*');
 
 	if (error) {
 		throw new Error(error.message);
@@ -29,11 +29,11 @@ const getReviewsTotalCount = async () => {
 const getReviewListByPage = async (pageParam: number, pageSize: number, category: string): Promise<ReviewRow[]> => {
 	const supabase = createClient();
 
+	// TODO: View count 에 따라
 	const { data, error } = await supabase
-		.from(TABLE.ONLINE_COURSE_REVIEWS)
+		.from(TABLE.COURSE_REVIEWS)
 		.select('*')
 		.eq('category', category)
-		.order('view_count', { ascending: false })
 		.order('created_at', { ascending: false })
 		.range((pageParam - 1) * pageSize, pageParam * pageSize - 1);
 
@@ -46,7 +46,7 @@ const getReviewListByPage = async (pageParam: number, pageSize: number, category
 
 const getNoticeReview = async (): Promise<ReviewRow> => {
 	const supabase = createClient();
-	const { data, error } = await supabase.from(TABLE.ONLINE_COURSE_REVIEWS).select().eq('notice', true).single();
+	const { data, error } = await supabase.from(TABLE.COURSE_REVIEWS).select().eq('notice', true).single();
 
 	if (error) {
 		throw new Error(error.message);
@@ -79,7 +79,7 @@ const uploadImageInTextEditor = async ({ imageFile }: { imageFile: File }) => {
 const addReview = async ({ data }: { data: ReviewRow }) => {
 	const supabase = createClient();
 
-	const { error: addReviewError } = await supabase.from(TABLE.ONLINE_COURSE_REVIEWS).insert(data).select();
+	const { error: addReviewError } = await supabase.from(TABLE.COURSE_REVIEWS).insert(data).select();
 
 	if (addReviewError) {
 		throw { error: addReviewError, message: 'Error to add review happens' };
