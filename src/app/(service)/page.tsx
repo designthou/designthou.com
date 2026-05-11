@@ -114,12 +114,11 @@ export default async function HomePage() {
 						</AccordionTrigger>
 						<AccordionContent className="flex flex-col gap-4 text-balance">
 							<p>
-								기존에 제공하던 건축 관련 뉴스, 다양한 팁 영상, 온라인 강의, 공모전, 일러스트/캐드 소스 등의 컨텐츠를 순차적으로 제공할
-								예정입니다.
+								기존에 제공하던 건축 관련 뉴스, 다양한 팁 영상, 일러스트/캐드 소스, 온라인 강의 등의 컨텐츠를 순차적으로 제공할 예정입니다.
 							</p>
 							<p>
-								DB, 결제 시스템 등의 정비를 위해 <strong>2026년 1분기 중</strong>
-								으로 완료될 예정입니다.
+								현재 건축 관련 뉴스, 다양한 팁 영상, 일러스트/캐드 소스 등은 정상적으로 제공 중입니다. 온라인 강의는 현재 유지보수 중으로
+								구매가 불가능합니다.
 							</p>
 						</AccordionContent>
 					</AccordionItem>
@@ -138,6 +137,7 @@ export default async function HomePage() {
 								기존과 같이 구매 / 신청한 기간으로부터 최대 6개월 간 수강가능합니다. 12월 중순부터 2월말까지 온라인 강의 수강 불가 문제로,
 								기존 2025년 7월 이후로 구매하신 분들 대상으로 약 3개월 연장조치 해드렸습니다.
 							</p>
+							<p>현재는 온라인 강의는 판매 중단 중입니다.</p>
 						</AccordionContent>
 					</AccordionItem>
 					<AccordionItem value="item-3">
