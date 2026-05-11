@@ -6,9 +6,10 @@ import { useInfiniteScroll, useReviewList } from '@/hooks';
 import { convertSupabaseDateToShortHumanReadable } from '@/lib/supabase';
 import { cn } from '@/lib/utils';
 import sanitizeHtml from '@/utils/sanitizeHtml';
+import { ReviewsCategoryList } from '@/constants';
 
 interface ReviewListProps {
-	category: 'offline(실전 프로그램 + 포트폴리오)' | 'online-course';
+	category: ReviewsCategoryList;
 }
 
 export default function ReviewList({ category }: ReviewListProps) {

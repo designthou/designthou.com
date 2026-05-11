@@ -11,7 +11,7 @@ export default async function OpenSourceItemPage({ params }: { params: Promise<{
 
 	const supabaseServerClient = await createClient();
 	const { data: user } = await supabaseServerClient.auth.getUser();
-	console.log(user);
+
 	const { data: currentFiles } = await supabaseServerClient.storage
 		.from(STORAGE_BUCKETS.OPEN_SOURCE_AI_PREVIEW)
 		.list('', { search: previewFileName, limit: 1 });

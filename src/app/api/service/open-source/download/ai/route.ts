@@ -16,7 +16,7 @@ export async function GET(request: Request) {
 	if (!user) return new Response('Unauthorized', { status: 401 });
 
 	const { data, error } = await supabaseServerClient.storage.from(STORAGE_BUCKETS.OPEN_SOURCE_AI).download(`${filename}`);
-	console.log(data);
+
 	if (error || !data) {
 		return Response.json({ error: 'Not found' }, { status: 404 });
 	}

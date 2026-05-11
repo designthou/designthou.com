@@ -3,6 +3,7 @@ import { convertSupabaseDateToShortHumanReadable, TABLE } from '@/lib/supabase';
 import { createStaticClient } from '@/lib/supabase/static';
 import sanitizeHtmlServer from '@/utils/sanitizeHtml';
 import { generateGradient } from '@/utils/seedGradient';
+import { reviewsCategoryList } from '@/constants';
 
 export const getRecentReviewList = unstable_cache(
 	async () => {
@@ -12,7 +13,7 @@ export const getRecentReviewList = unstable_cache(
 			.from(TABLE.COURSE_REVIEWS)
 			.select('*')
 			.order('created_at', { ascending: false })
-			.eq('category', 'portfolio')
+			.eq('category', reviewsCategoryList[0])
 			.limit(6);
 
 		if (error) {
