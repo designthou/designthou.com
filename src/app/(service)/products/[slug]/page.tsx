@@ -16,6 +16,7 @@ import {
 	CustomMDX,
 	NavigationList,
 	ApplyCourseContext,
+	ApplyOnlineCourseContext,
 } from '@/components/';
 import { BLUR_DATA_URL, route } from '@/constants';
 import { createClient } from '@/lib/supabase/server';
@@ -189,6 +190,8 @@ export default async function ProductPage({ params }: PageProps) {
 
 					{slug === 'offline-portfolio-class' ? (
 						<ApplyCourseContext />
+					) : slug === 'autocad-online-class' || 'sketchup-all-in-one-class' || 'rhino-all-in-one-class' ? (
+						<ApplyOnlineCourseContext />
 					) : (
 						<Button type="button" disabled={true}>
 							온라인 강의는 곧 판매 예정입니다

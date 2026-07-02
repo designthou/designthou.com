@@ -362,6 +362,138 @@ function SketchupClassCurriculumAccordion() {
 	);
 }
 
+function AutocadClassCurriculumAccordion() {
+	return (
+		<Accordion type="multiple" className="w-full" defaultValue={['item-1']}>
+			<AccordionItem value="item-1">
+				<AccordionTrigger className="font-bold text-lg">WELCOME _ 클래스를 시작하며</AccordionTrigger>
+				<AccordionContent>
+					<ul className="flex flex-col gap-4 text-balance">
+						<li className="list-decimal">디자인을 위한 첫걸음 AutoCAD! 클래스를 소개합니다</li>
+						<li className="list-decimal">SNL STUDIO를 소개합니다</li>
+						<li className="list-decimal">프로그램 설치 방법</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+
+			<AccordionItem value="item-2">
+				<AccordionTrigger className="font-bold text-lg">Chapter 1 _ 캐드 기초다지기</AccordionTrigger>
+				<AccordionContent>
+					<ul className="flex flex-col gap-4 text-balance">
+						<li className="list-decimal">AutoCAD 작업환경 세팅하기</li>
+						<li className="list-decimal">AutoCAD 인터페이스</li>
+						<li className="list-decimal">그리기 명령어</li>
+						<li className="list-decimal">편집 명령어</li>
+						<li className="list-decimal">기타 명령어</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+
+			<AccordionItem value="item-3">
+				<AccordionTrigger className="font-bold text-lg">Chapter 2 _ 도면 기초다지기</AccordionTrigger>
+				<AccordionContent>
+					<ul className="flex flex-col gap-4 text-balance">
+						<li className="list-decimal">투상도와 도면</li>
+						<li className="list-decimal">삼각투상도와 등각투상도</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+
+			<AccordionItem value="item-4">
+				<AccordionTrigger className="font-bold text-lg">Chapter 3 _ 오브젝트 그리기</AccordionTrigger>
+				<AccordionContent>
+					<ul className="flex flex-col gap-4 text-balance">
+						<li className="list-decimal">휴먼스케일</li>
+						<li className="list-decimal">책상과 의자그리기</li>
+						<li className="list-decimal">라이노를 이용한 1분 가구소스 완성</li>
+						<li className="list-decimal">라인드로잉, 가구그리기</li>
+						<li className="list-decimal">라인드로잉, 사람그리기</li>
+						<li className="list-decimal">캐드블록소스 만들기</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+
+			<AccordionItem value="item-5">
+				<AccordionTrigger className="font-bold text-lg">Chapter 4 _ 건축의 기본요소 배우기</AccordionTrigger>
+				<AccordionContent>
+					<ul className="flex flex-col gap-4 text-balance">
+						<li className="list-decimal">문의 평면과 입면 그리기</li>
+						<li className="list-decimal">창문의 평면과 입면 그리기</li>
+						<li className="list-decimal">계단의 평면과 단면 그리기</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+
+			<AccordionItem value="item-6">
+				<AccordionTrigger className="font-bold text-lg">Chapter 5 _ 건축 도면 그리기 Part1 (1층 평면도 그리기)</AccordionTrigger>
+				<AccordionContent>
+					<ul className="flex flex-col gap-4 text-balance">
+						<li className="list-decimal">건축도면 이해하기</li>
+						<li className="list-decimal">1층 평면도 그리기 part1 (중심선과 외부 벽체 그리기)</li>
+						<li className="list-decimal">1층 평면도 그리기 part2 (내부 중심선과 내부 벽체 그리기)</li>
+						<li className="list-decimal">1층 평면도 그리기 part3 (창문과 문 배치하기)</li>
+						<li className="list-decimal">1층 평면도 그리기 part4 (각종 도면 표현 완성하기)</li>
+						<li className="list-decimal">1층 평면도 그리기 part5 (가구소스와 해치 적용하기)</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+
+			<AccordionItem value="item-7">
+				<AccordionTrigger className="font-bold text-lg">Chapter 6 _ 건축 도면 그리기 Part2 (2층 평면도 그리기)</AccordionTrigger>
+				<AccordionContent>
+					<ul className="flex flex-col gap-4 text-balance">
+						<li className="list-decimal">2층 평면도 그리기 part1 (중심선과 벽체 그리기)</li>
+						<li className="list-decimal">2층 평면도 그리기 part2 (창문과 문 배치하기)</li>
+						<li className="list-decimal">2층 평면도 그리기 part3 (도면 마무리 하기)</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+
+			<AccordionItem value="item-8">
+				<AccordionTrigger className="font-bold text-lg">Chapter 7 _ 건축 도면 그리기 Part3 (입면도, 단면도 그리기)</AccordionTrigger>
+				<AccordionContent>
+					<ul className="flex flex-col gap-4 text-balance">
+						<li className="list-decimal">입면도 그리기 part1_ 정면도 그리기1</li>
+						<li className="list-decimal">입면도 그리기 part2_ 정면도 그리기2</li>
+						<li className="list-decimal">입면도 그리기 part3_ 우측면도 그리기</li>
+						<li className="list-decimal">단면도 그리기 part1</li>
+						<li className="list-decimal">단면도 그리기 part2</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+
+			<AccordionItem value="item-9">
+				<AccordionTrigger className="font-bold text-lg">Chapter 8 _ 캐드도면 출력하기</AccordionTrigger>
+				<AccordionContent>
+					<ul className="flex flex-col gap-4 text-balance">
+						<li className="list-decimal">캐드 출력 설정값 배우기</li>
+						<li className="list-decimal">고퀄리티 도면을 위한 CTB 만들기 &amp; 배치탭 이용하기</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+
+			<AccordionItem value="item-10">
+				<AccordionTrigger className="font-bold text-lg">Chapter 9 _ 도면집 &amp; 포트폴리오 제작하기</AccordionTrigger>
+				<AccordionContent>
+					<ul className="flex flex-col gap-4 text-balance">
+						<li className="list-decimal">포토샵을 통해 목업파일 제작하기</li>
+						<li className="list-decimal">도면집 제본하기</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+
+			<AccordionItem value="item-11">
+				<AccordionTrigger className="font-bold text-lg">OUTRO _ 클래스 이후, 작업을 이어나가는 방법!</AccordionTrigger>
+				<AccordionContent>
+					<ul className="flex flex-col gap-4 text-balance">
+						<li className="list-decimal">2D(AutoCAD) 이후, 어떻게 3D로 작업해야 할까?</li>
+					</ul>
+				</AccordionContent>
+			</AccordionItem>
+		</Accordion>
+	);
+}
+
 function FaqAccordion() {
 	return (
 		<Accordion type="multiple" className="w-full" defaultValue={['item-1', 'item-2']}>
@@ -424,6 +556,7 @@ const baseComponents = {
 	TagList,
 	RhinoClassCurriculumAccordion,
 	SketchupClassCurriculumAccordion,
+	AutocadClassCurriculumAccordion,
 	FaqAccordion,
 };
 

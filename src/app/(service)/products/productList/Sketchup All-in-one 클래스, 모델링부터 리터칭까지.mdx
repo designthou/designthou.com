@@ -15,4 +15,149 @@ category: online-course
 template: post
 ---
 
-<Wip message="스케치업 클래스는 곧 다시 오픈됩니다" />
+<div className="flex flex-col gap-32">
+	<div id="notice" className="scroll-mt-[160px]">
+		<h2 className="mt-8"># 안내사항 ･ 필독 ⭐️</h2>
+		<div className="p-3 bg-light rounded-lg">
+			<Callout message="본 수업은 상단의 신청하기 버튼 클릭하여, 별도 상담 후 신청 가능합니다" className="p-3 bg-white md:text-base" />
+		</div>
+	</div>
+
+<div id="introduction" className="flex flex-col gap-8 scroll-mt-[160px]">
+    <h2 className='my-0'># 소 개</h2>
+    
+    <div className='flex flex-col gap-32'>
+
+      {/* Sketcup */}
+      <div className="flex flex-col gap-4">
+        <div className="ui-flex-center-between">
+          <h3 className="my-auto font-bold">스케치업 과정</h3>
+          <Description>총 9개의 작품 만들기</Description>
+        </div>
+
+        <TagList data="스케치업, 브이레이, 엔스케이프, 포토샵"/>
+
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/sketchup/chapter-2-2.webp" alt={"sketchup-1"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">Sketchup 가구 모델링</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/sketchup/chapter-3-4.webp" alt={"sketchup-2"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">Sketchup 주택 모델링</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/sketchup/chapter-4-1.webp" alt={"sketchup-3"} width="1600" height="900" />
+            <p className="my-0 text-gray-700">V-ray 주간 렌더링</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/sketchup/chapter-4-2.webp" alt={"sketchup-4"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">V-ray 야간 렌더링</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/sketchup/chapter-5-1.webp" alt={"sketchup-5"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">엔스케이프 이미지 렌더링</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/sketchup/chapter-5-3.webp" alt={"sketchup-6"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">엔스케이프 영상 렌더링</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/sketchup/chapter-6-2.webp" alt={"sketchup-7"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">포토샵 프로세스 다이어그램</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/placeholder/sketchup/isometric.webp" alt={"sketchup-8"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">포토샵 아이소메트릭 다이어그램</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/sketchup/chapter-6-5.webp" alt={"sketchup-9"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">포토샵 - 포트폴리오 목업</p>
+          </div>
+        </div>
+
+      </div>
+      <div className="flex flex-col gap-4">
+          <Callout message="스케치업 수업은 크게 모델링(Rhino), 렌더링(V-Ray & Enscape), 리터칭(Photoshop), 3가지 과정으로 이루어져 있습니다!" className="my-3 p-3 w-full text-sm bg-black text-white sm:text-base lg:text-lg"/>
+
+          <div className="grid grid-cols-1 gap-4 p-6 bg-light rounded-lg">
+            <div className="">
+              <h4 className='my-0'>1. Sketchup Modeling</h4>
+              <p className='font-semibold'>"공간 디자인의 기본이자 출발점! 스케치업 모델링!"</p>
+              <p> ☝️ 모델링 기초 : 기초가 되는 2D & 3D 그리기, 편집, 제어 도구를 활용하는 기초 모델링을 배우는 단계</p>
+              <p> ✌️ 모델링 응용 : 스케치업 모델링의 핵심이 되는 그룹&구성요소의 이해부터 3D 모델링을 손에 익히는 '가구 모델링'을 배우는 단계</p>
+              <p> 🤞 모델링 실전 : 2D 도면을 활용해 2층 주택의 건축 모델링 하는 방법을 익히는 단계</p>
+            </div>
+            <div className="flex justify-between items-center gap-2 overflow-x-scroll scrollbar-thin">
+              <Image src="/online-course/curriculum/sketchup/chapter-2-1.webp" alt={"sketchup-chapter-2-1"} width="800" height="450"/>
+              <Image src="/online-course/curriculum/sketchup/chapter-2-2.webp" alt={"sketchup-chapter-2-2"} width="800" height="450"/>
+              <Image src="/online-course/curriculum/sketchup/chapter-3-4.webp" alt={"sketchup-chapter-3-4"} width="800" height="450"/>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 p-6 bg-light rounded-lg">
+            <div className="">
+              <h4 className='my-0'>2. V-ray Rendering</h4>
+              <p className='font-semibold'>고퀄리티 렌더링의 정석, 브이레이 렌더링!</p>
+              <p> ☝️ 렌더링 기초부터 실전까지!</p>
+              <p> ✌️ 렌더링 기초 : 뷰를 잡는 방법부터 브이레이 재질 생성 원리까지!</p>
+              <p> 🤞 렌더링 실전 : 낮 & 밤샷 실전 예제를 통해 브이레이 조명 활용방법과 고퀄리티 렌더를 위한 설정값까지!</p>
+            </div>
+            <div className="flex justify-between items-center gap-2 overflow-x-scroll scrollbar-thin">
+              <Image src="/online-course/curriculum/sketchup/chapter-4-1.webp" alt={"sketchup-chapter-4-1"} width="800" height="450" />
+              <Image src="/online-course/curriculum/sketchup/chapter-4-2.webp" alt={"sketchup-chapter-4-2"} width="800" height="450" />
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-6 p-6 bg-light rounded-lg">
+            <div>
+              <h4 className='my-0'>3. Enscape Rendering</h4>
+              <p className='font-semibold'>떠오르는 실시간 렌더링의 강자, 엔스케이프!</p>
+              <p> ☝️ 맵핑 및 라이브러리 배치 : 스케치업 모델링에서 재질을 입히고 가구 라이브러리를 배치하는 단계</p>
+              <p> ☝️ 이미지 렌더링 : 완성된 모델링에서 환경과 카메라를 조절해서 고화질 이미지로 변환하는 단계</p>
+              <Link href="https://api2.enscape3d.com/v3/view/035c5765-2b1c-43c4-9cf4-cf1487979492" target="_blank" className="px-3 py-2 font-semibold bg-gradient-orange-100 text-white rounded-lg">🖥️ 파노라마 렌더링 확인하기 (클릭!)</Link>
+            </div>
+            <div className="flex justify-between items-center gap-2 overflow-x-scroll scrollbar-thin">
+              <Image src="/online-course/curriculum/sketchup/chapter-5-1.webp" alt={"sketchup-chapter-5-1"} width="800" height="450" />
+              <Image src="/online-course/curriculum/sketchup/chapter-5-2.webp" alt={"sketchup-chapter-5-2"} width="800" height="450" />
+              <Image src="/online-course/curriculum/sketchup/chapter-5-4.webp" alt={"sketchup-chapter-5-3"} width="800" height="450" />
+            </div>
+        </div>
+
+        <div className="flex flex-col gap-4 p-6 bg-light rounded-lg">
+            <div>
+              <h4 className='my-0'>4. Photoshop Diagram&Retouching & Mock-Up</h4>
+              <p className='font-semibold'>이미지를 업그레이드시킬 종착역, 포토샵!</p>
+              <p> ☝️ 프로세스&아이소매트릭 다이어그램 : 아이디어를 효과적으로 전달하기 위한 다이어그램을 제작하는 단계</p>
+              <p> ☝️ 리터칭 & 포트폴리오 목업 : 렌더링 이미지를 배경과 합성하고, 실제 포트폴리오를 제작하듯 레이아웃을 배치하고 목업 하는 단계</p>
+            </div>
+            <div className="flex justify-between items-center gap-2 overflow-x-scroll scrollbar-thin">
+              <Image src="/online-course/curriculum/sketchup/chapter-6-1.webp" alt={"sketchup-chapter-6-1"} width="800" height="450" />
+              <Image src="/online-course/curriculum/sketchup/chapter-6-2.webp" alt={"sketchup-chapter-6-2"} width="800" height="450" />
+              <Image src="/online-course/curriculum/sketchup/chapter-6-3.webp" alt={"sketchup-chapter-6-3"} width="800" height="450" />
+              <Image src="/online-course/curriculum/sketchup/chapter-6-4.webp" alt={"sketchup-chapter-6-4"} width="800" height="450" />
+              <Image src="/online-course/curriculum/sketchup/chapter-6-5.webp" alt={"sketchup-chapter-6-5"} width="800" height="450" />
+            </div>
+        </div>
+
+
+      </div>
+      </div>
+
+  </div>
+
+<div id="curriculum" className="flex flex-col gap-8 scroll-mt-[160px]">
+	<h2 className="my-0"># 커리큘럼</h2>
+	<div className="flex flex-col">
+		<h3 className="ui-flex-center-between gap-3 my-0 p-3 bg-muted rounded-lg">
+			<div className="ui-flex-center gap-2">
+				<span className="ui-flex-center w-6 h-6 bg-black text-white text-center text-sm rounded-full"></span>
+				<span>스케치업 과정</span>
+			</div>
+			<span className="text-sm font-normal text-gray-600">6개 챕터</span>
+		</h3>
+		<SketchupClassCurriculumAccordion />
+	</div>
+</div>
+
+</div>

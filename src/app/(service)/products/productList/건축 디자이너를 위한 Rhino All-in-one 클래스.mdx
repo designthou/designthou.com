@@ -15,24 +15,156 @@ category: online-course
 template: post
 ---
 
-<div className='flex flex-col gap-32'>
-  <Callout
-    message="현재 AutoCAD 클래스를 재정비중입니다. 4월 중으로 오픈 예정입니다."
-    className="mt-4 mb-8 p-6 w-full text-sm bg-gradient-gray-100 text-gray-600 sm:text-base lg:text-lg"
-  />
+  <div className='flex flex-col gap-32'>
+    <div id="notice" className="scroll-mt-[160px]">
+      <h2 className="mt-8"># 안내사항 ･ 필독 ⭐️</h2>
+      <div className='p-3 bg-light rounded-lg'>
+        <Callout
+          message="본 수업은 상단의 신청하기 버튼 클릭하여, 별도 상담 후 신청 가능합니다"
+          className="p-3 bg-white md:text-base"
+        />
+        
+    </div>
+  </div>
 
-  <div id="curriculum" className="flex flex-col gap-8 scroll-mt-[160px]">
-    <h2 className="my-0"># 커리큘럼</h2>
-    <div className="flex flex-col">
-      <h3 className="ui-flex-center-between gap-3 my-0 p-3 bg-muted rounded-lg">
-        <div className="ui-flex-center gap-2">
-          <span className="ui-flex-center w-6 h-6 bg-black text-white text-center text-sm rounded-full">1</span>
-          <span>라이노 과정</span>
+  <div id="introduction" className="flex flex-col gap-8 scroll-mt-[160px]">
+    <h2 className='my-0'># 소 개</h2>
+    
+    <div className='flex flex-col gap-32'>
+      {/* Rhino */}
+      <div className="flex flex-col gap-4">
+        <div className="ui-flex-center-between">
+          <h3 className="my-auto font-bold">라이노 과정</h3>
+          <Description>총 8개의 작품 만들기</Description>
         </div>
-        <span className="text-sm font-normal text-gray-600">6개 챕터</span>
-      </h3>
-      <RhinoClassCurriculumAccordion />
+        <TagList data="라이노, 브이레이, 트윈모션, 포토샵, 일러스트"/>
+
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/rhino/chapter-2-2.webp" alt={"rhino-1"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">챕터1 _ 라이노 기본 모델링</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/rhino/chapter-2-1.webp" alt={"rhino-2"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">챕터2 _ 라이노 고급 모델링(그래스호퍼 포함)</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/rhino/chapter-3-6.webp" alt={"rhino-3"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">챕터3 _ 트윈모션 렌더링(영상 제작까지)</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/rhino/chapter-4-2.webp" alt={"rhino-4"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">챕터4 _ 브이레이 렌더링(주간, 야간)</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/rhino/chapter-5-1.webp" alt={"rhino-5"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">챕터5 _ 다이어그램(사이트, 프로세스 다이어그램)</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/rhino/chapter-5-4.webp" alt={"rhino-6"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">챕터5 _ 다이어그램(평면 리터칭, 아이소메트릭 다이어그램)</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/rhino/chapter-6-1.webp" alt={"rhino-7"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">챕터6 _ 투시도 리터칭(조감도, 실외, 실내)</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Image src="/online-course/curriculum/rhino/chapter-6-3.webp" alt={"rhino-8"} width="1600" height="900"/>
+            <p className="my-0 text-gray-700">챕터6 _ 최종패널 만들기</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div className="flex flex-col gap-4">
+          <Callout message="라이노 수업은 크게 모델링(Rhino), 렌더링(V-Ray & Twinmotion), 리터칭(Photoshop), 3가지 과정으로 이루어져 있습니다!" className="my-3 p-3 w-full text-sm bg-black text-white sm:text-base lg:text-lg"/>
+
+          <div className="grid grid-cols-1 gap-4 p-6 bg-light rounded-lg md:grid-cols-3">
+            <div className="col-span-2">
+              <h4 className='my-0'>1. Rhinoceros Modeling</h4>
+              <p>"탄탄한 기초부터, 핵심 노하우까지! 라이노 모델링!"</p>
+              <p> ☝️ 모델링 기초: 라이노 모델링 초급자를 위해서, 튜터들이 고심 끝에 선별한 기초 명령어를 배우는 단계</p>
+              <p> ✌️ 모델링 심화: 두 가지 심화 예제를 통해서, 정형적인 건축 모델링의 핵심 노하우를 배우는 단계</p>
+            </div>
+            <Image src="/online-course/curriculum/rhino/chapter-2-1.webp" alt={"rhino-chapter-1"} width="1600" height="900" className="col-span-1"/>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 p-6 bg-light rounded-lg md:grid-cols-3">
+            <div className="col-span-2">
+              <h4 className='my-0'>2. Grasshopper</h4>
+              <p> ☝️ 그래스호퍼 스크립트 : '창문, 난간 자동 생성' 및 '용적률&건폐율 자동 검토' 그래스호퍼 스크립트를 사용 방법을 배우는 단계</p>
+            </div>
+            <Image src="/online-course/curriculum/rhino/chapter-2-3.webp" alt={"rhino-chapter-2"} width="1600" height="900" className="col-span-1"/>
+          </div>
+
+          <div className="flex flex-col gap-4 p-6 bg-light rounded-lg">
+            <div>
+              <h4 className='my-0'>3. Rhino V-ray Rendering</h4>
+              <p> ☝️ 4단계 패스트트랙으로, 단숨에 배우는 브이레이</p>
+            </div>
+            <div className="flex justify-between items-center gap-2 overflow-x-scroll scrollbar-thin">
+              <Image src="/online-course/curriculum/rhino/chapter-4-2.webp" alt={"rhino-chapter-3-1"} width="800" height="450" />
+              <Image src="/online-course/curriculum/rhino/chapter-4-1.webp" alt={"rhino-chapter-3-2"} width="800" height="450" />
+            </div>
+        </div>
+
+        <div className="flex flex-col gap-4 p-6 bg-light rounded-lg">
+            <div>
+              <h4 className='my-0'>4. Twinmotion</h4>
+              <p> ☝️ 실시간 렌더링의 떠오르는 샛별 트윈모션!</p>
+            </div>
+            <div className="flex justify-between items-center gap-2 overflow-x-scroll scrollbar-thin">
+              <Image src="/online-course/curriculum/rhino/chapter-3-1.webp" alt={"rhino-chapter-4-1"} width="800" height="450" />
+              <Image src="/online-course/curriculum/rhino/chapter-3-4.webp" alt={"rhino-chapter-4-2"} width="800" height="450" />
+              <Image src="/online-course/curriculum/rhino/chapter-3-9.webp" alt={"rhino-chapter-4-3"} width="800" height="450" />
+            </div>
+        </div>
+        <div className="flex flex-col gap-4 p-6 bg-light rounded-lg">
+          <div className="">
+            <h4 className='my-0'>5. Photoshop & illustrator Diagram</h4>
+            <p> ☝️ BIG(Bjarke Ingels Group) 다이어그램 : 라이노, 일러스트, 포토샵을 연계해 라인으로 이루어진 다이어그램</p>
+            <p> ✌️ Site & Plan 다이어그램 : 포토샵의 기본 원리를 통해서, 사이트의 컨텍스트와 평면의 디테일을 표현하는 다이어그램</p>
+            <p> 🤞 Isometric 다이어그램 : 라이노에서 Toon Rendering을 통해 생성한 등각투상도 이미지에 재질을 입히고 가구소스를 배치하는 다이어그램</p>
+          </div>
+          <div className="flex items-center gap-4 col-span-1 overflow-x-scroll scrollbar-thin">
+            <Image src="/online-course/curriculum/rhino/chapter-5-3.webp" alt={"rhino-chapter-5-1"} width="800" height="450" />
+            <Image src="/online-course/curriculum/rhino/chapter-5-1.webp" alt={"rhino-chapter-5-2"} width="800" height="450" />
+            <Image src="/online-course/curriculum/rhino/chapter-5-2.webp" alt={"rhino-chapter-5-3"} width="800" height="450" />
+            <Image src="/online-course/curriculum/rhino/chapter-5-4.webp" alt={"rhino-chapter-5-4"} width="800" height="450" />
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 p-6 bg-light rounded-lg">
+          <div className="">
+            <h4 className='my-0'>6. Photoshop Retouching & Panel Layout</h4>
+            <p> ☝️ 리터칭 : 렌더링 결과물들을 포토샵과 일러스트를 활용하여 리터칭하는 단계</p>
+            <p> ✌️ 패널 레이아웃 : 수업시간 동안 직접 하나하나 만들어낸 이미지들로, 공모전 스타일의 패널의 레이아웃을 짜는 방식을 학습하는 단계</p>
+          </div>
+          <div className="flex items-center gap-4 col-span-1 overflow-x-scroll scrollbar-thin">
+            <Image src="/online-course/curriculum/rhino/chapter-6-1.webp" alt={"rhino-chapter-6-1"} width="800" height="450" />
+            <Image src="/online-course/curriculum/rhino/chapter-6-2.webp" alt={"rhino-chapter-6-2"} width="800" height="450" />
+            <Image src="/online-course/curriculum/rhino/chapter-6-3.webp" alt={"rhino-chapter-6-3"} width="800" height="450" />
+            <Image src="/online-course/curriculum/rhino/chapter-6-4.webp" alt={"rhino-chapter-6-4"} width="800" height="450" />
+          </div>
+        </div>
+
+      </div>
     </div>
 
-  </div>  
+  </div>
+
+<div id="curriculum" className="flex flex-col gap-8 scroll-mt-[160px]">
+	<h2 className="my-0"># 커리큘럼</h2>
+	<div className="flex flex-col">
+		<h3 className="ui-flex-center-between gap-3 my-0 p-3 bg-muted rounded-lg">
+			<div className="ui-flex-center gap-2">
+				<span className="ui-flex-center w-6 h-6 bg-black text-white text-center text-sm rounded-full"></span>
+				<span>라이노 과정</span>
+			</div>
+			<span className="text-sm font-normal text-gray-600">6개 챕터</span>
+		</h3>
+		<RhinoClassCurriculumAccordion />
+	</div>
+</div>
+
 </div>
