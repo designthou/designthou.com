@@ -46,7 +46,7 @@ export default function Nav() {
 
 	return (
 		<>
-			<header className="fixed top-8 mx-auto w-full h-[var(--global-layout-nav-height)] bg-white/30 backdrop-blur-sm z-40">
+			<header className="fixed mx-auto w-full h-[var(--global-layout-nav-height)] bg-white/30 backdrop-blur-sm z-40">
 				<nav
 					id="layout-nav"
 					className="flex flex-row justify-between items-center gap-4 mx-auto p-3 max-w-300 w-full bg-white/30 backdrop-blur-sm">

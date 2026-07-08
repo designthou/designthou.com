@@ -1,8 +1,8 @@
 import '../globals.css';
 import { Analytics } from '@vercel/analytics/next';
-import { Footer, KakaoOpenChat, Main, Nav, NotifySection, ScrollToTopButton } from '@/components';
-import { AuthProvider, ReactQueryProvider } from '@/providers';
 import { Toaster } from 'sonner';
+import { Footer, KakaoOpenChat, Main, Nav, ScrollToTopButton } from '@/components';
+import { AuthProvider, ReactQueryProvider } from '@/providers';
 
 export default async function ServiceLayout({
 	children,
@@ -13,7 +13,7 @@ export default async function ServiceLayout({
 		<div className="min-h-screen mx-auto w-full">
 			<ReactQueryProvider>
 				<AuthProvider>
-					<NotifySection />
+					{/* <NotifySection /> */}
 					<Nav />
 					<Main>{children}</Main>
 					<Footer />
