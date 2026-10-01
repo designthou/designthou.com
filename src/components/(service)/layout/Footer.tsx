@@ -18,32 +18,7 @@ export default async function Footer() {
 								<Image src={designthouSVG} alt="Designthou" width={28} height={28} priority />
 								Designthou
 							</Link>
-							<dl className="grid grid-cols-1">
-								<div className="flex items-center gap-2">
-									<dt className="min-w-32">상호명</dt>
-									<dd>디자인도우</dd>
-								</div>
-								<div className="flex items-center gap-2">
-									<dt className="min-w-32">대표자</dt>
-									<dd>이영재</dd>
-								</div>
-								<div className="flex items-center gap-2">
-									<dt className="min-w-32">주소</dt>
-									<dd> 경기도 화성시 동탄중심상가2길 8, 401호</dd>
-								</div>
-								<div className="flex items-center gap-2">
-									<dt className="min-w-32">사업자번호</dt>
-									<dd>625-50-00764</dd>
-								</div>
-								<div className="flex items-center gap-2">
-									<dt className="min-w-32">통신판매업신고번호</dt>
-									<dd>2022-화성동탄-0795</dd>
-								</div>
-								<div className="flex items-center gap-2">
-									<dt className="min-w-32">개인정보보호책임자</dt>
-									<dd>권혁민</dd>
-								</div>
-							</dl>
+							
 						</div>
 						<div className="">
 							<div className="font-semibold">Need Help?</div>

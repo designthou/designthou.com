@@ -47,10 +47,10 @@ export default async function ProductsPage() {
 
 			<ProductList reviewCounts={data} />
 
-			<Wip
+			{/* <Wip
 				message={'플랫폼 점검으로 인해 현재 온라인 강의는 판매 중단 중 입니다.'}
 				className="mt-12 bg-white text-black border border-muted bg-light"
-			/>
+			/> */}
 		</section>
 	);
 }
